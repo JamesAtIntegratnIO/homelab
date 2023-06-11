@@ -18,7 +18,7 @@ resource "proxmox_vm_qemu" "virtual_machines" {
   disk {
     storage = each.value.storage_dev
     type    = each.value.disk_type
-    size    = each.value.storage
+    size    = "${each.value.storage}G"
   }
 
   network {

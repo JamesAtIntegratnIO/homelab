@@ -1,49 +1,26 @@
 variable "virtual_machines" {
   type = list(object({
     name                = string
-    qemu_os             = string
-    description         = string
     target_node         = string
-    os_type             = string
-    agent               = number
-    full_clone          = bool
     template            = string
-    cores               = number
-    socket              = number
-    memory              = number
-    storage             = string
     ip_address          = string
-    disk_type           = string
-    storage_dev         = string
-    network_bridge_type = string
-    network_model       = string
-    automatic_reboot    = bool
-    network_firewall    = bool
+    qemu_os             = optional(string, "other")
+    description         = optional(string, "")
+    os_type             = optional(string, "cloud-init")
+    agent               = optional(number, 1)
+    full_clone          = optional(bool, true)
+    cores               = optional(number, 1)
+    socket              = optional(number, 1)
+    memory              = optional(number, 2048)
+    storage             = optional(number, 10)
+    disk_type           = optional(string, "virtio")
+    storage_dev         = optional(string, "local-lvm")
+    network_bridge_type = optional(string, "vmbr0")
+    network_model       = optional(string, "virtio")
+    automatic_reboot    = optional(bool, true)
+    network_firewall    = optional(bool, false)
   }))
   description = "Identifies the object of virtual machines."
-  default = [
-    {
-      name                = "i should have changed this"
-      ip_address          = "127.0.0.1"
-      target_node         = "set_me"
-      template            = "set_me"
-      qemu_os             = "other"
-      os_type             = "cloud-init"
-      agent               = 1
-      full_clone          = true
-      cores               = 1
-      socket              = 1
-      memory              = 2048
-      storage             = "20G"
-      description         = ""
-      disk_type           = "virtio"
-      storage_dev         = "local-lvm"
-      network_bridge_type = "vmbr0"
-      network_model       = "virtio"
-      automatic_reboot    = true
-      network_firewall    = false
-    }
-  ]
 }
 
 variable "API_TOKEN_ID" {
@@ -61,11 +38,6 @@ variable "ssh_username" {
   description = "the user in cloud-init"
 }
 
-variable "name_servers" {
-  type        = list(string)
-  description = "list of dns servers for cloud-init"
-}
-
 variable "ssh_keys" {
   type        = string
   description = "public ssh keys allowed for ssh for the user configured by cloud-init"
@@ -75,6 +47,12 @@ variable "ssh_private_key" {
   type        = string
   description = "the private ssh key that will be used to connect to the host"
 }
+
+variable "name_servers" {
+  type        = list(string)
+  description = "list of dns servers for cloud-init"
+}
+
 variable "gateway_ip" {
   type        = string
   description = "the gateway that the hosts will connect to"
