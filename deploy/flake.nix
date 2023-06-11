@@ -20,7 +20,7 @@
           buildInputs = with pkgs; [terraform tflint terraform-docs k3sup curl kubectl];
           shellHook = ''
             set -a
-            source ${./key.env}
+            source ./key.env
             set +a
           '';
         };

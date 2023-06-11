@@ -41,11 +41,11 @@ resource "proxmox_vm_qemu" "virtual_machines" {
 
 resource "null_resource" "update" {
   depends_on = [proxmox_vm_qemu.virtual_machines]
-  for_each = { for machine in var.virtual_machines : machine.name => machine }
+  for_each   = { for machine in var.virtual_machines : machine.name => machine }
   connection {
-    type     = "ssh"
-    host     = each.value.ip_address
-    user     = var.ssh_username
+    type        = "ssh"
+    host        = each.value.ip_address
+    user        = var.ssh_username
     private_key = file(var.ssh_private_key)
   }
   provisioner "remote-exec" {
@@ -62,13 +62,12 @@ resource "null_resource" "update" {
 resource "null_resource" "k3s-installation" {
   # This resource will only be executed after the K3s virtual machine is up and running
   depends_on = [null_resource.update]
-  for_each = { 
+  for_each = {
     for machine in var.virtual_machines : machine.name => machine
-    if machine.k3s_master
+    if machine.k3s_master_primary
   }
 
   provisioner "local-exec" {
-    # working_dir = var.kubeconfig_location
     command = <<EOT
       k3sup install \
       --ip ${each.value.ip_address} \
@@ -76,16 +75,16 @@ resource "null_resource" "k3s-installation" {
       --user ${var.ssh_username} \
       --cluster \
       --k3s-version ${var.kubernetes_version} \
-      --k3s-extra-args '--disable=traefik,servicelb --node-external-ip=${var.external_ip} --advertise-address=${each.value.ip_address} --node-ip=${each.value.ip_address}' && break
+      --no-extras
     EOT
   }
 }
 
 resource "null_resource" "wait_for_k3s_api" {
-    depends_on = [null_resource.k3s-installation]
-    
-    provisioner "local-exec" {
-        command = <<-EOT
+  depends_on = [null_resource.k3s-installation]
+
+  provisioner "local-exec" {
+    command = <<-EOT
         until kubectl --kubeconfig=./kubeconfig get nodes; do
             echo "Waiting for Kubernetes API..."
             sleep 5
@@ -97,6 +96,50 @@ resource "null_resource" "wait_for_k3s_api" {
             sleep 5
         done
         echo "Metrics API is ready."
+        sleep 30
         EOT
-    }
+  }
+}
+
+
+resource "null_resource" "k3s-join-master" {
+  for_each = {
+    for machine in var.virtual_machines : machine.name => machine
+    if machine.k3s_master
+  }
+  depends_on = [null_resource.k3s-installation, null_resource.wait_for_k3s_api]
+  provisioner "local-exec" {
+    command = <<-EOT
+        for i in {1..3}
+        do
+            k3sup join \
+            --server \
+            --host ${each.value.ip_address} \
+            --ssh-key ~/.ssh/id_ed25519 \
+            --user ${var.ssh_username} \
+            --server-ip ${var.virtual_machines[0].ip_address} \
+            --k3s-version ${var.kubernetes_version} \
+            echo "Command failed, retrying in 10 seconds..."
+            sleep 10
+        done
+        EOT
+  }
+}
+
+resource "null_resource" "k3s-join-worker" {
+  for_each = {
+    for machine in var.virtual_machines : machine.name => machine
+    if machine.k3s_worker
+  }
+  depends_on = [null_resource.k3s-join-master]
+  provisioner "local-exec" {
+    command = <<-EOT
+        k3sup join \
+        --ip ${each.value.ip_address} \
+        --ssh-key ~/.ssh/id_ed25519 \
+        --user ${var.ssh_username} \
+        --server-ip ${var.virtual_machines[0].ip_address} \
+        --k3s-version ${var.kubernetes_version} \
+        EOT
+  }
 }

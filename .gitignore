@@ -39,5 +39,5 @@ terraform.rc
 # Ignore direnv dir
 .direnv/
 
-# Ignore flake.lock
-flake.lock
+# Ignore kube config stuff
+kubeconfig
