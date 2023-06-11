@@ -68,7 +68,7 @@ resource "null_resource" "k3s-installation" {
   }
 
   provisioner "local-exec" {
-    working_dir = var.kubeconfig_location
+    # working_dir = var.kubeconfig_location
     command = <<EOT
       k3sup install \
       --ip ${each.value.ip_address} \
@@ -79,4 +79,24 @@ resource "null_resource" "k3s-installation" {
       --k3s-extra-args '--disable=traefik,servicelb --node-external-ip=${var.external_ip} --advertise-address=${each.value.ip_address} --node-ip=${each.value.ip_address}' && break
     EOT
   }
+}
+
+resource "null_resource" "wait_for_k3s_api" {
+    depends_on = [null_resource.k3s-installation]
+    
+    provisioner "local-exec" {
+        command = <<-EOT
+        until kubectl --kubeconfig=./kubeconfig get nodes; do
+            echo "Waiting for Kubernetes API..."
+            sleep 5
+        done
+        echo "Kubernetes API is ready."
+        
+        until [ "$(kubectl --kubeconfig=./kubeconfig get apiservice v1beta1.metrics.k8s.io -o jsonpath='{.status.conditions[?(@.type=="Available")].status}')" == "True" ]; do
+            echo "Waiting for Metrics API..."
+            sleep 5
+        done
+        echo "Metrics API is ready."
+        EOT
+    }
 }
