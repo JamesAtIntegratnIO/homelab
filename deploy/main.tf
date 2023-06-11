@@ -21,9 +21,6 @@ module "machines" {
       network_model       = "virtio"
       automatic_reboot    = true
       network_firewall    = false #defaults to false
-      k3s_master_primary  = true
-      k3s_master          = false
-      k3s_worker          = false
     },
     {
       name                = "k3s-2"
@@ -45,9 +42,6 @@ module "machines" {
       network_model       = "virtio"
       automatic_reboot    = true
       network_firewall    = false #defaults to false
-      k3s_master_primary  = false
-      k3s_master          = false
-      k3s_worker          = true
     },
     {
       name                = "k3s-3"
@@ -69,9 +63,6 @@ module "machines" {
       network_model       = "virtio"
       automatic_reboot    = true
       network_firewall    = false #defaults to false
-      k3s_master_primary  = false
-      k3s_master          = false
-      k3s_worker          = true
     }
   ]
   gateway_ip = "10.0.0.1"
@@ -86,5 +77,35 @@ module "machines" {
 
   ssh_username    = "boboysdadda"
   ssh_private_key = "~/.ssh/id_ed25519"
-  external_ip     = "10.0.1.105"
+}
+
+module "k3s_cluster" {
+  depends_on = [
+    module.machines
+  ]
+  source = "./modules/k3s-cluster"
+  nodes = [
+    {
+      ip_address         = "10.0.1.105"
+      k3s_master_primary = true
+      k3s_master         = false
+      k3s_worker         = false
+
+    },
+    {
+      ip_address         = "10.0.1.106"
+      k3s_master_primary = false
+      k3s_master         = false
+      k3s_worker         = true
+    },
+    {
+      ip_address         = "10.0.1.107"
+      k3s_master_primary = false
+      k3s_master         = false
+      k3s_worker         = true
+
+    }
+  ]
+  ssh_username    = "boboysdadda"
+  ssh_private_key = "~/.ssh/id_ed25519"
 }

@@ -19,9 +19,6 @@ variable "virtual_machines" {
     network_model       = string
     automatic_reboot    = bool
     network_firewall    = bool
-    k3s_master_primary  = bool
-    k3s_master          = bool
-    k3s_worker          = bool
   }))
   description = "Identifies the object of virtual machines."
   default = [
@@ -45,9 +42,6 @@ variable "virtual_machines" {
       network_model       = "virtio"
       automatic_reboot    = true
       network_firewall    = false
-      k3s_master_primary  = false
-      k3s_master          = false
-      k3s_worker          = false
     }
   ]
 }
@@ -85,18 +79,4 @@ variable "gateway_ip" {
   type        = string
   description = "the gateway that the hosts will connect to"
 }
-variable "kubeconfig_location" {
-  type        = string
-  default     = "/tmp/"
-  description = "the location of the kubeconfig, can be overwriten to be used with minikube"
-}
-variable "kubernetes_version" {
-  type        = string
-  default     = "v1.26.4+k3s1"
-  description = "which version of k3s to install, usually 1 versions behind the latest"
-}
-variable "external_ip" {
-  type        = string
-  default     = "1.2.3.4"
-  description = "sets the external ip address, a script to update ips and restart k3s is also uploaded to the vm"
-}
+
