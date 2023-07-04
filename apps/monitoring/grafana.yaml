@@ -19,6 +19,10 @@ spec:
         operator: "Equal"
         value: "hello"
         effect: "NoSchedule"
+      sidecar:
+        datasources:
+          enabled: true
+          label: grafana_datasource
       containers:
       - name: grafana
         image: grafana/grafana:latest
