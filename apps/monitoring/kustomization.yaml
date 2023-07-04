@@ -3,3 +3,4 @@ bases:
 namespace: monitoring
 resources:
   - namespace.yaml
+  - grafana.yaml
