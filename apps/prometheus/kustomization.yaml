@@ -1,0 +1,5 @@
+bases:
+  - https://github.com/prometheus-operator/prometheus-operator/
+namespace: monitoring
+resources:
+  - namespace.yaml
