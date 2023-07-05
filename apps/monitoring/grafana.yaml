@@ -6,4 +6,4 @@ helmCharts:
       datasources:
         enabled: true
         label: grafana_datasource
-  repo: stable/grafana
+  repo: https://grafana.github.io/helm-charts
