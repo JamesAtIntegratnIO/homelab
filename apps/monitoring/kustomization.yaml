@@ -1,8 +1,6 @@
 namespace: monitoring
 resources:
 - namespace.yaml
-- grafana
-- prometheus_grafana_configmap.yaml
 - https://github.com/prometheus-operator/kube-prometheus
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
