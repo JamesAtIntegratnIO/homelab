@@ -1,9 +1,18 @@
-helmCharts:
-- name: grafana.yaml
-  includeCRDs: true
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: grafana.
+  namespace: monitoring
+spec:
+  project: default
+  source:
+    chart: grafana
+    repoURL: https://grafana.github.io/helm-charts
+    targetRevision: 6.57.4
+    helm:
+      releaseName: grafana
   valuesInLine:
     sidecar:
       datasources:
         enabled: true
         label: grafana_datasource
-  repo: https://grafana.github.io/helm-charts
