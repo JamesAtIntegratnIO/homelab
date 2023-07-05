@@ -4,6 +4,7 @@ variable "virtual_machines" {
     target_node         = string
     template            = string
     ip_address          = string
+    second_ip_address   = string
     qemu_os             = optional(string, "other")
     description         = optional(string, "")
     os_type             = optional(string, "cloud-init")
@@ -15,10 +16,13 @@ variable "virtual_machines" {
     storage             = optional(number, 10)
     disk_type           = optional(string, "virtio")
     storage_dev         = optional(string, "local-lvm")
-    network_bridge_type = optional(string, "vmbr0")
-    network_model       = optional(string, "virtio")
     automatic_reboot    = optional(bool, true)
-    network_firewall    = optional(bool, false)
+
+    networks = list(object({
+      network_bridge_type = optional(string, "vmbr0")
+      network_model       = optional(string, "virtio")
+      network_firewall    = optional(bool, false)
+    }))
   }))
   description = "Identifies the object of virtual machines."
 }

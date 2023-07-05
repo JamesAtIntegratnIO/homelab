@@ -14,7 +14,15 @@ resource "null_resource" "k3s_installation" {
       --user ${var.ssh_username} \
       --cluster \
       --k3s-version ${var.kubernetes_version} \
-
+      --k3s-extra-args '
+      --advertise-address=${each.value.ip_address}
+      --node-ip=${each.value.ip_address}
+      --cluster-cidr=${var.cluster_cidr}
+      --service-cidr=${var.service_cidr}
+      --cluster-dns=${var.cluster_dns}
+      --cluster-domain=${var.cluster_domain}
+      --disable=traefik
+      --disable=servicelb'
     EOT
   }
 }
@@ -57,7 +65,14 @@ resource "null_resource" "k3s_join_master" {
             --user ${var.ssh_username} \
             --server-ip ${var.nodes[0].ip_address} \
             --k3s-version ${var.kubernetes_version} \
-            echo "Command failed, retrying in 10 seconds..."
+            --k3s-extra-args '
+            --advertise-address=${each.value.ip_address}
+            --node-ip=${each.value.ip_address}
+            --cluster-cidr=${var.cluster_cidr}
+            --service-cidr=${var.service_cidr}
+            --cluster-dns=${var.cluster_dns}
+            --cluster-domain=${var.cluster_domain}' \
+            echo "Command failed, retrying in 10 seconds..." \
             sleep 10
         done
         EOT
@@ -78,6 +93,7 @@ resource "null_resource" "k3s_join_worker" {
         --user ${var.ssh_username} \
         --server-ip ${var.nodes[0].ip_address} \
         --k3s-version ${var.kubernetes_version} \
+        --k3s-extra-args '--node-ip=${each.value.ip_address}'
         EOT
   }
 }

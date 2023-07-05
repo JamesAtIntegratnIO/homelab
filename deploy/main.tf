@@ -10,7 +10,16 @@ module "machines" {
       memory      = 6144
       storage     = 20 # Size of Secondary hard drive assiged as bootable
       ip_address  = "10.0.1.105"
+      second_ip_address  = "10.130.0.1"
       description = "k3s master"
+
+      networks = [{
+        network_bridge_type = "vmbr0"
+      },
+      {
+        network_bridge_type = "vmbr1"
+      }
+      ]
     },
     {
       name        = "k3s-2"
@@ -21,8 +30,16 @@ module "machines" {
       memory      = 6144
       storage     = 20 # Size of Secondary hard drive assiged as bootable
       ip_address  = "10.0.1.106"
+      second_ip_address = "10.130.0.2"
       description = "k3s worker"
 
+      networks = [{
+        network_bridge_type = "vmbr0"
+      },
+      {
+        network_bridge_type = "vmbr1"
+      }
+      ]
     },
     {
       name        = "k3s-3"
@@ -33,8 +50,16 @@ module "machines" {
       memory      = 6144
       storage     = 20 # Size of Secondary hard drive assiged as bootable
       ip_address  = "10.0.1.107"
+      second_ip_address = "10.130.0.3"
       description = "k3s worker"
 
+      networks = [{
+        network_bridge_type = "vmbr0"
+      },
+      {
+        network_bridge_type = "vmbr1"
+      }
+      ]
     }
   ]
   gateway_ip = "10.0.0.1"
@@ -58,26 +83,92 @@ module "k3s_cluster" {
   source = "./modules/k3s-cluster"
   nodes = [
     {
-      ip_address         = "10.0.1.105"
+      ip_address         = "10.130.0.1"
       k3s_master_primary = true
-      k3s_master         = false
-      k3s_worker         = false
-
     },
     {
-      ip_address         = "10.0.1.106"
-      k3s_master_primary = false
-      k3s_master         = false
+      ip_address         = "10.130.0.2"
       k3s_worker         = true
     },
     {
-      ip_address         = "10.0.1.107"
-      k3s_master_primary = false
-      k3s_master         = false
+      ip_address         = "10.130.0.3"
       k3s_worker         = true
-
     }
   ]
+
+  cluster_cidr   = "10.128.0.0/16"
+  service_cidr   = "10.129.0.0/16"
+  cluster_dns    = "10.129.0.53"
+  cluster_domain = "cluster.arpa"
+
   ssh_username    = "boboysdadda"
   ssh_private_key = "~/.ssh/id_ed25519"
+}
+
+provider "helm" {
+  kubernetes {
+    config_path = "./kubeconfig"
+  }
+}
+
+resource "helm_release" "metallb" {
+  depends_on = [
+    module.k3s_cluster
+  ]
+  name = "metallb"
+  repository = "https://metallb.github.io/metallb"
+  chart = "metallb"
+  namespace = "metallb-system"
+  create_namespace = true
+
+}
+
+resource "helm_release" "metallb_address_pools" {
+  depends_on = [
+    helm_release.metallb
+  ]
+  name  = "metallb-address-pools"
+  chart = "helm/metallb"
+  namespace = "metallb-system"
+
+}
+
+
+resource "helm_release" "nginx_ingress" {
+  depends_on = [
+    module.k3s_cluster,
+    helm_release.metallb_address_pools
+  ]
+  name = "ingress-nginx"
+  repository = "https://kubernetes.github.io/ingress-nginx"
+  chart = "ingress-nginx"
+  namespace = "ingress-nginx"
+  create_namespace = true
+
+}
+
+resource "helm_release" "argocd" {
+  depends_on = [
+    module.k3s_cluster
+  ]
+  name             = "argocd"
+  repository       = "https://argoproj.github.io/argo-helm"
+  chart            = "argo-cd"
+  create_namespace = true
+  namespace        = "argocd"
+  version          = "5.35.0"
+
+  # values = [
+  #   "${file("argocd-values.yaml")}"
+  # ]
+}
+
+resource "helm_release" "argocd_ingress" {
+  depends_on = [
+    helm_release.argocd
+  ]
+  name  = "argocd-ingress"
+  chart = "helm/argocd"
+  namespace = "argocd"
+
 }

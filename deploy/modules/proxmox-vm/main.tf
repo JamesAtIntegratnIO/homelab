@@ -11,7 +11,8 @@ resource "proxmox_vm_qemu" "virtual_machines" {
   sockets          = each.value.socket
   cores            = each.value.cores
   sshkeys          = var.ssh_keys
-  ipconfig0        = "ip=${each.value.ip_address}/32,gw=${var.gateway_ip}"
+  ipconfig0        = "ip=${each.value.ip_address}/9,gw=${var.gateway_ip}"
+  ipconfig1        = "ip=${each.value.second_ip_address}/16"
   automatic_reboot = each.value.automatic_reboot
   nameserver       = join(" ", var.name_servers)
 
@@ -21,14 +22,18 @@ resource "proxmox_vm_qemu" "virtual_machines" {
     size    = "${each.value.storage}G"
   }
 
-  network {
-    bridge = each.value.network_bridge_type
-    model  = each.value.network_model
-    mtu    = 0
-    # macaddr  = each.value.mac_address
-    queues   = 0
-    rate     = 0
-    firewall = each.value.network_firewall
+  dynamic network {
+    for_each = each.value.networks
+    content {
+      bridge = network.value.network_bridge_type
+      model  = network.value.network_model
+      mtu    = 0
+      # macaddr  = each.value.mac_address
+      queues   = 0
+      rate     = 0
+      firewall = network.value.network_firewall
+    }
+    
   }
   lifecycle {
     ignore_changes = [
