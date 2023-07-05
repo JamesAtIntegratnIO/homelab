@@ -1,6 +1,6 @@
 namespace: monitoring
 resources:
 - namespace.yaml
-- https://github.com/prometheus-operator/kube-prometheus/
+- https://github.com/prometheus-operator/kube-prometheus//kustoization.yaml
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
