@@ -13,4 +13,4 @@ data:
       type: prometheus
       access: proxy
       orgId: 1
-      url: http://prometheus-operator.monitoring.svc.cluster.local:8080
+      url: http://prometheus-operator.monitoring.svc.cluster.arpa:8080
