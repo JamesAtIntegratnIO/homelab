@@ -8,5 +8,7 @@ helmCharts:
       datasources:
         enabled: true
         label: grafana_datasource
+    service:
+      type: LoadBlancer
   repo: https://grafana.github.io/helm-charts
   version: 6.57.4
