@@ -8,6 +8,8 @@ helmCharts:
       datasources:
         enabled: true
         label: grafana_datasource
+      dashboards:
+        enabled: true
     service:
       type: LoadBalancer
   repo: https://grafana.github.io/helm-charts
