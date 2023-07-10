@@ -1,5 +1,4 @@
 namespace: ingress-nginx
-bases:
-  - https://github.com/kubernetes/ingress-nginx//deploy/static/provider/baremetal
 resources:
+  - https://github.com/kubernetes/ingress-nginx//deploy/static/provider/baremetal
   - namespace.yaml
