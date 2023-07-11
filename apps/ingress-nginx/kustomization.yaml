@@ -1,5 +1,5 @@
 namespace: ingress-nginx
 resources:
   - https://github.com/kubernetes/ingress-nginx//deploy/static/provider/baremetal
-patchesStrategicMerge:
+patches:
   - service-ingress-nginx-controller-patch.yaml
