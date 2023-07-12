@@ -1,5 +1,5 @@
-namespace: ingress-nginx
+namespace: external-dns
 resources:
-- https://github.com/kubernetes/ingress-nginx//deploy/static/provider/baremetal
-patchesStrategicMerge:
-- service_ingress_nginx_controller_patch.yaml
+- https://github.com/kubernetes-sigs/exteral-dns//kustomize
+patches:
+- deployment_patch.yaml
