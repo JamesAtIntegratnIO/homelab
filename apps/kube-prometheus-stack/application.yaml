@@ -12,9 +12,10 @@ spec:
   project: homelab
   source:
     chart: kube-prometheus-stack
+    path: apps/kube-prometheus-stack
     helm:
       valueFiles:
-      - app/kube-prometheus-stack/values.yaml
+      - values.yaml
     repoURL: https://prometheus-community.github.io/helm-charts
     targetRevision: 42.0.3
   syncPolicy:
