@@ -1,6 +1,6 @@
 namespace: external-dns
 resources:
-- https://github.com/kubernetes-sigs/exteral-dns//kustomize
+- https://github.com/kubernetes-sigs/external-dns.git//kustomize
 patches:
 - target: 
     group: apps
