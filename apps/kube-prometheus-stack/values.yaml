@@ -1,0 +1,53 @@
+kubeApiServer:
+  enabled: true
+kubeControllerManager:
+  enabled: true
+  endpoints:
+  - 10.0.1.101
+kubeScheduler:
+  enabled: true
+  endpoints:
+  - 10.0.1.101
+kubeProxy:
+  enabled: true
+  endpoints:
+  - 10.0.1.101
+kubeEtcd:
+  enabled: true
+  endpoints:
+  - 10.0.1.101
+  service:
+    enabled: true
+    port: 2381
+    targetPort: 2381
+alertmanager:
+  service:
+    type: ClusterIP
+prometheus:
+  service:
+    type: ClusterIP
+grafana:
+  service:
+    type: ClusterIP
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      # cert-manager.io/issuer: prod-issuer
+      # cert-manager.io/issuer-kind: OriginIssuer
+      # cert-manager.io/issuer-group: cert-manager.k8s.cloudflare.com
+    hosts:
+    - grafana.cluster.arpa
+    # tls:
+    # # specifying a host in the TLS section will tell cert-manager what
+    # # DNS SANs should be on the created certificate.
+    # - hosts:
+    #     - grafana.integratn.tech
+    #   # cert-manager will create this secret
+    #   secretName: grafana-integratn-tech-tls
+prometheus-node-exporter:
+  hostRootFsMount:
+    enabled: false
+prometheusOperator:
+  admissionWebhooks:
+    failurePolicy: Ignore
