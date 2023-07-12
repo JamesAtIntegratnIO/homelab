@@ -1,7 +1,7 @@
 - op: replace
   path: /spec/template/spec/containers/name/external-dns/
   value:
-   envFrom:
+    envFrom:
     - secretRef:
       name: pihole-password
     args:
