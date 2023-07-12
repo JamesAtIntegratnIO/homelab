@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: homelab
+  namespace: argocd
+spec:
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  description: This is just an example.
+  destinations:
+  - name: "*"
+    namespace: "*"
+    server: 'https://kubernetes.default.svc'
+  namespaceResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  sourceRepos:
+  - https://github.com/JamesAtIntegratnIO/homelab.git
+  - https://charts.jetstack.io
+  - https://prometheus-community.github.io/helm-charts
+status: {}
