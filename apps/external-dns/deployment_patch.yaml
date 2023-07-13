@@ -31,21 +31,16 @@ spec:
         - --provider=pihole
         # Change this to the actual address of your Pi-hole web server
         - --pihole-server=http://192.168.16.53
-      - name: external-dns-cloudflare
-        image: registry.k8s.io/external-dns/external-dns:v0.13.5
-        args:
-        - --source=service # ingress is also possible
-        - --domain-filter=integratn.tech # (optional) limit to only example.com domains; change to match the zone created above.
-        - --provider=cloudflare
-        - --cloudflare-proxied # (optional) enable the proxy feature of Cloudflare (DDOS protection, CDN...)
-        - --cloudflare-dns-records-per-page=5000 # (optional) configure how many DNS records to fetch per request
-        envFrom:
-        - secretRef:
-            name: cloudflare-api-key
-        - secretRef:
-            name: cloudflare-email
-        env:
-        - name: CF_API_KEY
-          value: "YOUR_CLOUDFLARE_API_KEY"
-        - name: CF_API_EMAIL
-          value: "YOUR_CLOUDFLARE_EMAIL"
+      # - name: external-dns-cloudflare
+      #   image: registry.k8s.io/external-dns/external-dns:v0.13.5
+      #   args:
+      #   - --source=service # ingress is also possible
+      #   - --domain-filter=integratn.tech # (optional) limit to only example.com domains; change to match the zone created above.
+      #   - --provider=cloudflare
+      #   - --cloudflare-proxied # (optional) enable the proxy feature of Cloudflare (DDOS protection, CDN...)
+      #   - --cloudflare-dns-records-per-page=5000 # (optional) configure how many DNS records to fetch per request
+      #   envFrom:
+      #   - secretRef:
+      #       name: cloudflare-api-key
+      #   - secretRef:
+      #       name: cloudflare-email
