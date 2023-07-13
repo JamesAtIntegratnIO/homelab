@@ -2,10 +2,15 @@ namespace: external-dns
 resources:
 - https://github.com/kubernetes-sigs/external-dns.git//kustomize
 - namespace.yaml
-- cloudflare_deployment.yaml
 patches:
 - path: deployment_patch.yaml
   target: 
+    group: apps
+    version: v1
+    kind: Deployment
+    name: external-dns
+- path: cloudflare_patch.yaml
+  target:
     group: apps
     version: v1
     kind: Deployment
