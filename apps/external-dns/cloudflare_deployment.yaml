@@ -24,6 +24,6 @@ spec:
         - --cloudflare-dns-records-per-page=5000 # (optional) configure how many DNS records to fetch per request
         envFrom:
         - secretRef:
-            name: cloudflare-api-key
+            name: cloudflare-api-token
         - secretRef:
             name: cloudflare-email
