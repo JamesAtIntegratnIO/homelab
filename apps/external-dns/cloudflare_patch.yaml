@@ -13,7 +13,6 @@ spec:
         - --source=ingress
         - --domain-filter=integratn.tech # (optional) limit to only example.com domains; change to match the zone created above.
         - --provider=cloudflare
-        - --cloudflare-proxied # (optional) enable the proxy feature of Cloudflare (DDOS protection, CDN...)
         - --cloudflare-dns-records-per-page=500 # (optional) configure how many DNS records to fetch per request
         envFrom:
         - secretRef:
