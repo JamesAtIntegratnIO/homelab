@@ -25,5 +25,3 @@ spec:
         envFrom:
         - secretRef:
             name: cloudflare-api-token
-        - secretRef:
-            name: cloudflare-email
