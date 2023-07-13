@@ -3,15 +3,7 @@ kind: Deployment
 metadata:
   name: external-dns-cloudflare
 spec:
-  strategy:
-    type: Recreate
-  selector:
-    matchLabels:
-      app: external-dns
   template:
-    metadata:
-      labels:
-        app: external-dns
     spec:
       containers:
       - name: external-dns-cloudflare
