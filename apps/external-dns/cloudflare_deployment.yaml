@@ -18,6 +18,7 @@ spec:
         image: registry.k8s.io/external-dns/external-dns:v0.13.5
         args:
         - --source=service # ingress is also possible
+        - --source=ingress
         - --domain-filter=integratn.tech # (optional) limit to only example.com domains; change to match the zone created above.
         - --provider=cloudflare
         - --cloudflare-proxied # (optional) enable the proxy feature of Cloudflare (DDOS protection, CDN...)
