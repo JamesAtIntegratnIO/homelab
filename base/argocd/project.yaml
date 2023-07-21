@@ -17,4 +17,6 @@ spec:
     kind: '*'
   sourceRepos:
   - '*'
+  sourceNamespaces:
+  - media
 status: {}

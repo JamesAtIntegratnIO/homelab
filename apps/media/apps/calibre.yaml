@@ -4,7 +4,6 @@ metadata:
   name: calibre
   namespace: argocd
   finalizers:
-  - resources-finalizer.argocd.argoproj.io
 spec:
   project: media
   source:
