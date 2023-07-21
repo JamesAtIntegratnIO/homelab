@@ -1,0 +1,11 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: tailscale
+  namespace: tailscale
+  labels:
+    app.kubernetes.io/part-of: tailscale
+rules:
+  - apiGroups: ['']
+    resources: ['secrets']
+    verbs: ['create', 'get', 'update']
