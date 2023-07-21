@@ -1,3 +1,4 @@
 namespace: media
 resources:
 - deployment.yaml
+- calibre-config-pvc.yaml
