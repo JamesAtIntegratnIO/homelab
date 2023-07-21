@@ -16,7 +16,5 @@ spec:
   - group: '*'
     kind: '*'
   sourceRepos:
-  - https://github.com/JamesAtIntegratnIO/homelab.git
-  - https://charts.jetstack.io
-  - https://prometheus-community.github.io/helm-charts
+  - '*'
 status: {}

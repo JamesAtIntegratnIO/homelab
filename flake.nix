@@ -17,7 +17,15 @@
         pkgs = nixpkgs.legacyPackages.${system};
       in {
         devShells.terraform = pkgs.mkShell {
-          buildInputs = with pkgs; [terraform tflint terraform-docs k3sup curl kubectl];
+          buildInputs = with pkgs; [
+            terraform
+            tflint
+            terraform-docs
+            k3sup
+            curl
+            kubectl
+            kustomize
+          ];
           shellHook = ''
             set -a
             source ./key.env
