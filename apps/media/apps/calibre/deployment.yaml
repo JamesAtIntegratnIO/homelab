@@ -30,8 +30,6 @@ spec:
               value: "1000"
             - name: TZ
               value: "America/Denver"
-            - name: DOCKER_MODS
-              value: "linuxserver/calibre-web:calibre"
           ports:
             - name: "http-port"
               containerPort: 8083
