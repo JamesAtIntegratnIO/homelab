@@ -1,3 +1,4 @@
 namespace: media
 resources:
 - namespace.yaml
+- calibre.yaml
