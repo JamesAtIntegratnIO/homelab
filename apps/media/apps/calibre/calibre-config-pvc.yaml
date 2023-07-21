@@ -1,0 +1,14 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: calibre-config
+  namespace: media
+  annotations:
+    nfs.io/storage-path: "calibre/calibre-config" # not required, depending on whether this annotation was shown in the storage class description
+spec:
+  storageClassName: nfs-client
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Mi
