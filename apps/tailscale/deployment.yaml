@@ -22,7 +22,7 @@ spec:
       labels:
         app.kubernetes.io/name: tailscale
         app.kubernetes.io/part-of: tailscale
-        app.kubernetes.io/version: 1.44
+        app.kubernetes.io/version: v1.44
 
     spec:
       serviceAccountName: tailscale
