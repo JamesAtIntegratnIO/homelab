@@ -25,9 +25,9 @@ spec:
           image: linuxserver/calibre-web:latest
           env:
             - name: PUID
-              value: "1001"
+              value: "1000"
             - name: PGID
-              value: "1001"
+              value: "1000"
             - name: TZ
               value: "America/Denver"
             - name: DOCKER_MODS
