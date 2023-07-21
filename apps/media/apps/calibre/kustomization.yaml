@@ -3,3 +3,4 @@ resources:
 - deployment.yaml
 - calibre-config-pvc.yaml
 - calibre-books-pvc.yaml
+- ingress.yaml
