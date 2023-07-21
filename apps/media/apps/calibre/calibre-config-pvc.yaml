@@ -3,6 +3,8 @@ apiVersion: v1
 metadata:
   name: calibre-config
   namespace: media
+  labels:
+    app: calibre
   annotations:
     nfs.io/storage-path: "calibre/calibre-config" # not required, depending on whether this annotation was shown in the storage class description
 spec:

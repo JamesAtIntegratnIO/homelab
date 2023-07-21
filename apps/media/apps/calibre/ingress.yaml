@@ -3,6 +3,8 @@ kind: Ingress
 metadata:
   name: calibre
   namespace: media
+  labels:
+    app: calibre
   annotations:
     nginx.ingress.kubernetes.io/proxy-body-size: 20m
 spec:
