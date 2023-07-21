@@ -48,10 +48,10 @@ spec:
             limits:
               memory: '512Mi'
               cpu: '1000m'
-      # volumes:
-      #   - name: calibre-config
-      #     persistentVolumeClaim:
-      #       claimName: calibre-config
-      #   - name: calibre-books
-      #     persistentVolumeClaim:
-      #       claimName: calibre-books
+      volumes:
+        - name: calibre-config
+          persistentVolumeClaim:
+            claimName: calibre-config
+        - name: calibre-books
+          persistentVolumeClaim:
+            claimName: calibre-books
