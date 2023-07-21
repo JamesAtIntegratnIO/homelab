@@ -19,4 +19,4 @@ spec:
           service:
             name: calibre
             port:
-              name: http
+              name: http-port
