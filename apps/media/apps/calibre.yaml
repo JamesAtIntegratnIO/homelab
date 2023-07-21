@@ -6,7 +6,7 @@ metadata:
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
-  project: homelab
+  project: media
   source:
     repoURL: https://github.com/JamesAtIntegratnIO/homelab.git
     targetRevision: HEAD
