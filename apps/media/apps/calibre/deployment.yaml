@@ -25,9 +25,9 @@ spec:
           image: linuxserver/calibre-web:latest
           env:
             - name: PUID
-              value: "1000"
+              value: "99"
             - name: PGID
-              value: "1000"
+              value: "100"
             - name: TZ
               value: "America/Denver"
           ports:
