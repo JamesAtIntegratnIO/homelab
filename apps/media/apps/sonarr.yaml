@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sonarr
+  namespace: argocd
+  finalizers:
+spec:
+  project: media
+  source:
+    repoURL: https://github.com/JamesAtIntegratnIO/homelab.git
+    targetRevision: HEAD
+    path: apps/media/apps/sonarr
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: media
+  syncPolicy:
+    automated: {}
