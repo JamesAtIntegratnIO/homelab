@@ -4,5 +4,7 @@ bases:
 resources:
   - namespace.yaml
 patchesStrategicMerge:
-  - patch_nfs_details.yaml
-  - class.yaml
+  - kube_storage_patch_nfs_details.yaml
+  - kube_storage_class.yaml
+  - data_class.yaml
+  - data_deployment.yaml
