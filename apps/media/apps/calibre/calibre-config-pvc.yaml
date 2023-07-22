@@ -9,7 +9,6 @@ metadata:
     nfs.io/storage-path: "calibre/calibre-config" # not required, depending on whether this annotation was shown in the storage class description
 spec:
   storageClassName: nfs-client
-  persistentVolumeReclaimPolicy: Recycle
   accessModes:
     - ReadWriteOnce
   resources:
