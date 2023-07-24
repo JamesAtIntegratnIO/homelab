@@ -25,6 +25,7 @@
             curl
             kubectl
             kustomize
+            kubernetes-helm
           ];
           shellHook = ''
             set -a
