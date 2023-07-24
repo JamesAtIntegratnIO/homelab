@@ -9,6 +9,8 @@ spec:
     repoURL: https://github.com/JamesAtIntegratnIO/homelab.git
     targetRevision: HEAD
     path: apps/cert-manager
+    plugin:
+      name: kustomized-helm
   destination:
     server: https://kubernetes.default.svc
     namespace: cert-manager

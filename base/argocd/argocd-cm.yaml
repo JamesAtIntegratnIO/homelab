@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 
 data:
-  # kustomize.buildOptions: --enable-helm
+  kustomize.buildOptions: --enable-helm
   configManagementPlugins: |
     - name: kustomized-helm
       init:
