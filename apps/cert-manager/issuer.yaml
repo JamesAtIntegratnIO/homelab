@@ -15,6 +15,7 @@ spec:
     - selector:
         dnsNames:
         - '*.cluster.integratn.tech'
+        - cluster.integratn.tech
       dns01:
         cloudflare:
           email: james@integratn.io
