@@ -10,7 +10,7 @@ data:
         args: ["helm dependency build"]
       generate:
         command: [sh, -c]
-        args: ["helm template $ARGOCD_APP_NAME --include-crds . > all.yaml && kustomize build"]
+        args: ["helm template $ARGOCD_APP_NAME --namespace $ARGOCD_APP_NAMESPACE --include-crds . > all.yaml && kustomize build"]
 
 
 metadata:
