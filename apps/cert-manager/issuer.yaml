@@ -11,5 +11,14 @@ spec:
     # Name of a secret used to store the ACME account private key
     privateKeySecretRef:
       name: letsencrypt-staging
-    dnsNames:
-      - '*.integratn.tech'
+    solvers:
+    - selector:
+        dnsNames:
+        - '*.integratn.tech'
+      dns01:
+        cloudflare:
+          email: james@integratn.io
+          apiKeySecretRef:
+            name: cloudflare-api-key
+            key: CF_API_KEY
+
