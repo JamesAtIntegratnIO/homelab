@@ -5,6 +5,8 @@ metadata:
   namespace: media
   labels:
     app: sonarr
+  annotations:
+    nfs.io/storage-path: "tv/" # not required, depending on whether this annotation was shown in the storage class description
 spec:
   storageClassName: data-nfs-client
   accessModes:
