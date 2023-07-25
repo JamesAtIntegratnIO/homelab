@@ -1,5 +1,7 @@
 namespace: media
 resources:
+- config_tv_pv.yaml
+- config_tv_pvc.yaml
 - downloads_tv_pv.yaml
 - downloads_tv_pvc.yaml
 - media_tv_pv.yaml
