@@ -12,4 +12,3 @@ spec:
   resources:
     requests:
       storage: 500Mi
-  volumeName: config-sonarr-local
