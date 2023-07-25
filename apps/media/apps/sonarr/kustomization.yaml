@@ -6,3 +6,4 @@ resources:
 - downloads_tv_pvc.yaml
 - media_tv_pv.yaml
 - media_tv_pvc.yaml
+- deployment.yaml
