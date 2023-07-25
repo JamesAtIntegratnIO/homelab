@@ -76,10 +76,10 @@ spec:
       volumes:
         - name: downloads
           persistentVolumeClaim:
-            claimName: downloads_tv
+            claimName: downloads-tv
         - name: media
           persistentVolumeClaim:
-            claimName: media_tv
+            claimName: media-tv
         - name: sonarr-config
           persistentVolumeClaim:
-            claimName: config_sonarr
+            claimName: config-sonarr
