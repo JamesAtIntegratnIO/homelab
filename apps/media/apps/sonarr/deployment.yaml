@@ -68,9 +68,9 @@ spec:
             periodSeconds: 5
           volumeMounts:
             - name: downloads
-              mountPath: /data/downloads
+              mountPath: /data/tv
             - name: media
-              mountPath: /data/media
+              mountPath: /data/media/tv
             - name: sonarr-config
               mountPath: /config
       volumes:

@@ -4,12 +4,17 @@ metadata:
   name: argocd-server-ingress
   namespace: argocd
   annotations:
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
-    nginx.ingress.kubernetes.io/ssl-passthrough: "false"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   ingressClassName: "nginx"
+  tls:
+  - hosts:
+    - argocd.cluster.integratn.tech
+    secretName: argocd-tls
   rules:
-  - host: argocd.cluster.arpa
+  - host: argocd.cluster.integratn.tech
     http:
       paths:
       - path: /
