@@ -88,4 +88,4 @@ spec:
             claimName: media-tv
         - name: sonarr-config
           persistentVolumeClaim:
-            claimName: config-sonarr
+            claimName: config-sonarr-local
