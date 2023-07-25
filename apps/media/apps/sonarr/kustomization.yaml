@@ -7,3 +7,5 @@ resources:
 - media_tv_pv.yaml
 - media_tv_pvc.yaml
 - deployment.yaml
+- service.yaml
+- ingress.yaml
