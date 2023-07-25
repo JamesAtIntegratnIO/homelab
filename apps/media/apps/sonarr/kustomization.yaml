@@ -1,5 +1,6 @@
 namespace: media
 resources:
+- config_sonarr_pvc.yaml
 - config_tv_pv.yaml
 - config_tv_pvc.yaml
 - downloads_tv_pv.yaml
