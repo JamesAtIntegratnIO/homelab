@@ -41,10 +41,10 @@ spec:
               mountPath: /books
           resources:
             requests:
-              memory: '128Mi'
+              memory: '750Mi'
               cpu: '100m'
             limits:
-              memory: '512Mi'
+              memory: '1250Mi'
               cpu: '1000m'
       volumes:
         - name: calibre-config
