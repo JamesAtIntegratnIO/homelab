@@ -26,7 +26,13 @@ spec:
         - name: sonarr
           image: "lscr.io/linuxserver/sonarr:latest"
           imagePullPolicy: Always
-          resources: {}
+          resources:
+            requests:
+              memory: '1Gi'
+              cpu: '1000m'
+            limits:
+              memory: '2Gi'
+              cpu: '2500m'
           env:
             - name: PUID
               value: "99"
