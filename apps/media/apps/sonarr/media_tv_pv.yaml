@@ -10,7 +10,7 @@ spec:
   capacity:
     storage: 1Gi
   nfs:
-    path: /mnt/user/data/media/tv
+    path: /mnt/user/data
     server: 10.0.0.10
   persistentVolumeReclaimPolicy: Retain
   storageClassName: data-nfs-client

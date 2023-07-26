@@ -73,16 +73,11 @@ spec:
             timeoutSeconds: 1
             periodSeconds: 5
           volumeMounts:
-            - name: downloads
-              mountPath: /data/tv
             - name: media
-              mountPath: /data/media/tv
+              mountPath: /data
             - name: sonarr-config
               mountPath: /config
       volumes:
-        - name: downloads
-          persistentVolumeClaim:
-            claimName: downloads-tv
         - name: media
           persistentVolumeClaim:
             claimName: media-tv
