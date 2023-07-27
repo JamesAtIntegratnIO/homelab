@@ -137,6 +137,7 @@ ingress:
         nginx.ingress.kubernetes.io/ssl-passthrough: "true"
         cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
+  ingressClassName: "nginx"
   tls:
   - hosts:
     - hajimari.cluster.integratn.tech
