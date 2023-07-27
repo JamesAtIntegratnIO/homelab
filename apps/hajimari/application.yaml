@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: hajimari
+  namespace: argocd
+spec:
+  project: homelab
+  source:
+    repoURL: https://github.com/JamesAtIntegratnIO/homelab.git
+    targetRevision: HEAD
+    path: apps/hajimari
+    plugin:
+      name: kustomized-helm
+  destination:
+    name: homelab
+    namespace: hajimari
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
