@@ -131,6 +131,7 @@ hajimari:
 ingress:
   main:
     enabled: true
+    ingressClassName: "nginx"
     hosts:
       - host: hajimari.domain.tld
         paths:
