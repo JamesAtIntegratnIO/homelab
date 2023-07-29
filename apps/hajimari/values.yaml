@@ -136,17 +136,17 @@ ingress:
         nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
         nginx.ingress.kubernetes.io/ssl-passthrough: "true"
         cert-manager.io/cluster-issuer: letsencrypt-prod
-  spec:
-    ingressClassName: "nginx"
-    tls:
-    - hosts:
-      - hajimari.cluster.integratn.tech
-      secretName: argocd-tls
-    hosts:
-    - host: hajimari.cluster.integratn.tech
-      paths:
-      - path: /
-        pathType: Prefix
+    spec:
+      ingressClassName: "nginx"
+      tls:
+      - hosts:
+        - hajimari.cluster.integratn.tech
+        secretName: argocd-tls
+      hosts:
+      - host: hajimari.cluster.integratn.tech
+        paths:
+        - path: /
+          pathType: Prefix
 persistence:
   data:
     enabled: true
