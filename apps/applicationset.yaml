@@ -6,7 +6,7 @@ spec:
   generators:
   - list:
       elements:
-      - appName: oath2-proxy
+      - appName: oauth2-proxy
         namespace: kube-system
 
   template:
