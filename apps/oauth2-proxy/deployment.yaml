@@ -23,6 +23,8 @@ spec:
         - --email-domain=*
         - --upstream=file:///dev/null
         - --http-address=0.0.0.0:4180
+        - --scope "user:email"
+
         # Register a new application
         # https://github.com/settings/applications/new
         envFrom:
