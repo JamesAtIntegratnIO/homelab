@@ -17,9 +17,9 @@ spec:
     spec:
       project: homelab
       source:
-        repoURL: git@github.com:JamesAtIntegratnIO/homelab.git
+        repoURL: https://github.com/JamesAtIntegratnIO/homelab.git
         targetRevision: main
-        path: "resources/{{appName}}"
+        path: "apps/{{appName}}"
       destination:
         name: homelab
         namespace: "{{namespace}}"
