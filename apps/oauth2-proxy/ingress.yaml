@@ -10,7 +10,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: oauth2.cluster.integratn.tech
+  - host: radarr.cluster.integratn.tech
     http:
       paths:
       - path: /oauth2
@@ -22,5 +22,5 @@ spec:
               number: 4180
   tls:
   - hosts:
-    - oauth2.cluster.integratn.tech
+    - radarr.cluster.integratn.tech
     secretName: oauth2-proxy-tls
