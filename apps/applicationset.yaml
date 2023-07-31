@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: infra-stack
+spec:
+  generators:
+  - list:
+      elements:
+      - appName: oath2-proxy
+        namespace: kube-system
+
+  template:
+    metadata:
+      name: "{{appName}}"
+      annotations:
+        argocd.argoproj.io/manifest-generate-paths: ".;.."
+    spec:
+      project: homelab
+      source:
+        repoURL: git@github.com:JamesAtIntegratnIO/homelab.git
+        targetRevision: main
+        path: "resources/{{appName}}"
+      destination:
+        name: homelab
+        namespace: "{{namespace}}"
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
