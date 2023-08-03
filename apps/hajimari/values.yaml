@@ -58,13 +58,6 @@ hajimari:
         icon: simple-icons:spotify
         searchUrl: hhttps://open.spotify.com/search/{query}
         url: https://open.spotify.com
-    customApps:
-      - group: Media
-        apps:
-          - name: Test
-            url: 'https://example.com'
-            icon: 'mdi:test-tube'
-            info: This is a test app
     globalBookmarks:
       - group: Communicate
         bookmarks:
