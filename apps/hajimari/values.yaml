@@ -132,12 +132,18 @@ hajimari:
   ingress:
     main:
       enabled: true
+      annotations:
+        hajimari.io/enable: "false"
+        cert-manager.io/cluster-issuer: letsencrypt-prod
       ingressClassName: "nginx"
       hosts:
-        - host: hajimari.cluster.integratn.tech
+        - host: cluster.integratn.tech
           paths:
             - path: /
               pathType: Prefix
+      tls:
+      - hosts:
+        - cluster.integratn.tech
   persistence:
     data:
       enabled: true
