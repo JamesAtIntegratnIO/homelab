@@ -16,14 +16,14 @@ hajimari:
         backgroundColor: '#0c0e0c'
         primaryColor: '#eaebea'
         accentColor: '#d8323c'
-    showGreeting: true
-    showAppGroups: false
+    showGreeting: false
+    showAppGroups: true
     showAppUrls: true
-    showAppInfo: false
+    showAppInfo: true
     showAppStatus: true
     defaultAppIcon: mdi:application
     showBookmarkGroups: true
-    showGlobalBookmarks: false
+    showGlobalBookmarks: true
     alwaysTargetBlank: false
     defaultSearchProvider: Google
     searchProviders:
