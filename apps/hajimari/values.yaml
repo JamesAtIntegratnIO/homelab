@@ -133,7 +133,7 @@ ingress:
     enabled: true
     ingressClassName: "nginx"
     hosts:
-      - host: hajimari.domain.tld
+      - host: hajimari.cluster.integratn.tech
         paths:
           - path: /
             pathType: Prefix
