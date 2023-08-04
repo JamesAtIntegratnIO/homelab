@@ -9,11 +9,10 @@ spec:
   ingressClassName: nginx
   rules:
   - host: mqtt.cluster.integratn.tech
-    http:
+    mqtt:
       paths:
       - path: /
         pathType: Prefix
-        port: 1883
         backend:
           service:
             name: mosquitto-mqtts
