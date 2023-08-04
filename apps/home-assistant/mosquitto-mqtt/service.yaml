@@ -7,4 +7,4 @@ spec:
   selector:
     app: mosquitto
   ports:
-  - port: 1883
+  - port: 8883
