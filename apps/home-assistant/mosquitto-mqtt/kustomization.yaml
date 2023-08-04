@@ -1,0 +1,9 @@
+namespace: home-assistant
+
+resources:
+  - deployment.yaml
+  - ingress.yaml
+  - service.yaml
+  - pvc.yaml
+  - configMap.yaml
+  
