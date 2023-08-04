@@ -18,6 +18,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: mosquitto-clusterip
+            name: mosquitto-mqtt
             port: 
               number: 8883
