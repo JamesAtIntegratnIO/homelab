@@ -7,18 +7,15 @@ metadata:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
 spec:
   ingressClassName: nginx
-  tls:
-  - hosts:
-    - mqtt.cluster.integratn.tech
-    secretName: mosquitto-tls
   rules:
   - host: mqtt.cluster.integratn.tech
     http:
       paths:
       - path: /
         pathType: Prefix
+        port: 1883
         backend:
           service:
             name: mosquitto-mqtts
             port: 
-              number: 8883
+              number: 1883
