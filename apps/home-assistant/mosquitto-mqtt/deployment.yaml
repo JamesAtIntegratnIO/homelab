@@ -12,6 +12,9 @@ spec:
       labels:
         app: mosquitto
     spec:
+      securityContext:
+        runAsUser: 1000
+        fsGroup: 1000
       containers:
       - name: mosquitto
         image: eclipse-mosquitto
