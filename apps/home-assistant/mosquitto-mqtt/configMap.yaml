@@ -13,7 +13,7 @@ data:
     # MQTT with TLS (MQTTS)
     listener 8883
     allow_anonymous true
-    protocol mqtts
+    protocol mqtt
 
     cafile /etc/ssl/certs/ca-certificates.crt
     keyfile /mosquitto/certs/tls.key
