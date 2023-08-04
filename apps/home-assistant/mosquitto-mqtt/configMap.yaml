@@ -7,7 +7,7 @@ data:
 
 
     # MQTT with TLS (MQTTS)
-    listener 8883
+    listener 1883
     allow_anonymous true
     protocol mqtt
 
