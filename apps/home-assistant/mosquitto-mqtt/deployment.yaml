@@ -19,7 +19,7 @@ spec:
         - containerPort: 8883
         - containerPort: 9001
         volumeMounts:
-        - mountPath: /etc/mosquitto/
+        - mountPath: /mosquitto/config/
           name: config
         - mountPath: /mosquitto/certs/
           name: certs
