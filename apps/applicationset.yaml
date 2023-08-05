@@ -8,6 +8,8 @@ spec:
       elements:
       - appName: oauth2-proxy
         namespace: kube-system
+      - appName: sealed-secrets
+        namespace: kube-system
 
   template:
     metadata:
