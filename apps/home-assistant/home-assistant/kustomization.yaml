@@ -1,0 +1,3 @@
+resources:
+  - home-assistant-mysql-db-secret.yaml
+  - db.yaml

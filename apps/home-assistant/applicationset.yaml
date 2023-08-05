@@ -2,11 +2,13 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: home-assistant-stack
+  namespace: argocd
 spec:
   generators:
   - list:
       elements:
       - appName: mosquitto-mqtt
+      - appname: home-assistant
   template:
     metadata:
       name: "{{appName}}"
