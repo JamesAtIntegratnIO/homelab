@@ -24,6 +24,7 @@
             k3sup
             curl
             kubectl
+            kubeseal
             kustomize
             kubernetes-helm
           ];
