@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: infra-stack
+  name: data-stack
   namespace: argocd
 spec:
   generators:
@@ -9,6 +9,7 @@ spec:
       elements:
       - appName: mysql
         namespace: data
+        serverSideApply: "true"
 
   template:
     metadata:
@@ -30,3 +31,4 @@ spec:
           selfHeal: true
         syncOptions:
           - CreateNamespace=true
+          - "ServerSideApply={{serverSideApply}}"
