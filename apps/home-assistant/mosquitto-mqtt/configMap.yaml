@@ -4,9 +4,8 @@ metadata:
   name: mosquitto-config
 data:
   mosquitto.conf: |
-
-
-    # MQTT with TLS (MQTTS)
+    persistence true
+    persistence_location /mosquitto/data
     listener 1883
     allow_anonymous true
     protocol mqtt
