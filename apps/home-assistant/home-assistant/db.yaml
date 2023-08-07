@@ -2,6 +2,9 @@ apiVersion: mysql.oracle.com/v2
 kind: InnoDBCluster
 metadata:
   name: home-assistant-mysql-db
+  namespace: home-assistant
+  labels:
+    app: home-assistant
 spec:
   secretName: home-assistant-mysql-db-secret
   tlsUseSelfSigned: true

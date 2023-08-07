@@ -1,3 +1,9 @@
 resources:
   - home-assistant-mysql-db-secret.yaml
+  - home-assistant-secrets.yaml
   - db.yaml
+
+configMapGenerator:
+  - files:
+    - configuration.yaml
+    name: home-assistant-config

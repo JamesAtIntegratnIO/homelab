@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: home-assistant
+  name: home-assistant
+  namespace: home-assistant
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: home-assistant
+  template:
+    metadata:
+      labels:
+        app: home-assistant
+    spec:
+      volumes:
+        - name: ha-storage
+          persistentVolumeClaim:
+            claimName: home-assistant-pvc
+        - name: ha-config
+          configMap:
+            name: home-assistant-config
+      containers:
+        - name: home-assistant
+          image: ghcr.io/homeassistant/homeassistant:stable
+          resources: {}
+          volumeMounts:
+            - mountPath: "/config"
+              name: ha-storage
+            - mountPath: "/config/configuration.yaml"
+              name: ha-config
+          envFrom:
+          - secretRef:
+              name: home-assistant-secrets

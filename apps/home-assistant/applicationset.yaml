@@ -8,7 +8,7 @@ spec:
   - list:
       elements:
       - appName: mosquitto-mqtt
-      - appname: home-assistant
+      - appName: home-assistant
   template:
     metadata:
       name: "{{appName}}"
