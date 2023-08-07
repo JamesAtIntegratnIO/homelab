@@ -44,7 +44,9 @@ spec:
             - mountPath: /config/configuration.yaml
               subPath: configuration.yaml
               name: ha-config
-
           envFrom:
           - secretRef:
               name: home-assistant-secrets
+        - name: tasmoAdmin
+          image: ghcr.io/tasmoadmin/tasmoadmin:v3.1.0
+          resources: {}
