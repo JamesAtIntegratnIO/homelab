@@ -51,4 +51,4 @@ spec:
           image: ghcr.io/tasmoadmin/tasmoadmin:v3.1.0
           resources: {}
           ports:
-          - containerPort: 8000
+          - containerPort: 80
