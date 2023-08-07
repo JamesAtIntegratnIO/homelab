@@ -10,5 +10,4 @@ script: !include scripts.yaml
 scene: !include scenes.yaml
 
 recorder:
-  purge_days: 365
   db_url: !env_var RECORDER_DB_URL
