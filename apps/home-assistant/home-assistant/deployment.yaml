@@ -34,7 +34,7 @@ spec:
           volumeMounts:
             - mountPath: "/config"
               name: ha-storage
-            - mountPath: "/config"
+            - mountPath: "/config/configuration.yaml"
               name: ha-config
           envFrom:
           - secretRef:
