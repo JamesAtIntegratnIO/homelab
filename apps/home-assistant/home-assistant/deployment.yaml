@@ -26,7 +26,7 @@ spec:
             claimName: home-assistant-pvc
         - name: ha-config
           configMap:
-            name: home-assistant-config-mbhtb965f6
+            name: home-assistant-config-h588g5g8d6
       containers:
         - name: home-assistant
           image: ghcr.io/home-assistant/home-assistant:stable
