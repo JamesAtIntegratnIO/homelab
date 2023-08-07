@@ -4,6 +4,8 @@ resources:
   - db.yaml
   - pvc.yaml
   - deployment.yaml
+  - service.yaml
+  - ingress.yaml
 
 configMapGenerator:
   - files:
