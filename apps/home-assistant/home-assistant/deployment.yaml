@@ -15,12 +15,6 @@ spec:
       labels:
         app: home-assistant
     spec:
-      securityContext:
-        capabilities:
-          add:
-          - NET_ADMIN
-          - NET_RAW
-          - NET_BROADCAST
       volumes:
         - name: ha-storage
           persistentVolumeClaim:
@@ -32,6 +26,12 @@ spec:
         - name: home-assistant
           image: ghcr.io/home-assistant/home-assistant:stable
           resources: {}
+          securityContext:
+            capabilities:
+              add:
+                - NET_ADMIN
+                - NET_RAW
+                - NET_BROADCAST
           ports:
           - containerPort: 1900
             protocol: UDP
