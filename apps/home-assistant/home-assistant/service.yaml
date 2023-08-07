@@ -37,3 +37,19 @@ spec:
     app: home-assistant
   type: LoadBalancer
   loadBalancerIP: 10.0.1.201
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: home-assistant
+  name: tasmo-admin-service
+spec:
+  ports:
+  - name: "http"
+    port: 80
+    protocol: TCP
+    targetPort: 8000
+  selector:
+    app: home-assistant
+  type: ClusterIP
