@@ -6,7 +6,7 @@ metadata:
   name: home-assistant
   namespace: home-assistant
 spec:
-  replicas: 0
+  replicas: 1
   selector:
     matchLabels:
       app: home-assistant
