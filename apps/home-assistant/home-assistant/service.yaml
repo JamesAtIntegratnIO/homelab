@@ -13,3 +13,26 @@ spec:
   selector:
     app: home-assistant
   type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    io.kompose.service: home-assistant
+  name: home-assistant-udp
+  annotations:
+    metallb.universe.tf/allow-shared-ip: "true"
+spec:
+  ports:
+  - name: "upnp"
+    port: 1900
+    protocol: UDP
+    targetPort: 1900
+  - name: "mdns"
+    port: 5353
+    protocol: UDP
+    targetPort: 5353
+  selector:
+    app: home-assistant
+  type: LoadBalancer
+  loadBalancerIP: 10.0.1.201
