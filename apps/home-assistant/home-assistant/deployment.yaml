@@ -24,7 +24,7 @@ spec:
             name: home-assistant-config-mbhtb965f6
       containers:
         - name: home-assistant
-          image: ghcr.io/homeassistant/homeassistant:stable
+          image: ghcr.io/home-assistant/home-assistant:stable
           resources: {}
           volumeMounts:
             - mountPath: "/config"
