@@ -9,3 +9,6 @@ configMapGenerator:
   - files:
     - configuration.yaml
     name: home-assistant-config
+generatorOptions:
+  annotations:
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
