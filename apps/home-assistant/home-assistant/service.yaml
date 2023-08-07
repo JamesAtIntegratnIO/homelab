@@ -43,7 +43,7 @@ kind: Service
 metadata:
   labels:
     app: home-assistant
-  name: tasmo-admin-service
+  name: tasmoadmin-service
 spec:
   ports:
   - name: "http"
