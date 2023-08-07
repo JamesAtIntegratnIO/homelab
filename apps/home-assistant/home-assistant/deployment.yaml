@@ -32,9 +32,9 @@ spec:
           image: ghcr.io/home-assistant/home-assistant:stable
           resources: {}
           volumeMounts:
-            - mountPath: "/config"
+            - mountPath: /config
               name: ha-storage
-            - mountPath: "/config/configuration.yaml"
+            - mountPath: /config/configuration.yaml
               name: ha-config
               subpath: configuration.yaml
           envFrom:
