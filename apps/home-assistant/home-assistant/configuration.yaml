@@ -12,6 +12,6 @@ scene: !include scenes.yaml
 recorder:
   db_url: !env_var RECORDER_DB_URL
 
-http:
-  trusted_proxies:
-  - 10.128.0.0/16
+# http:
+#   trusted_proxies:
+#   - 10.128.0.0/16
