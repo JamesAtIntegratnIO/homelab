@@ -35,8 +35,9 @@ spec:
             - mountPath: /config
               name: ha-storage
             - mountPath: /config/configuration.yaml
-              name: ha-config
               subpath: configuration.yaml
+              name: ha-config
+
           envFrom:
           - secretRef:
               name: home-assistant-secrets
