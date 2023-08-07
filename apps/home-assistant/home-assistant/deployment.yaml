@@ -34,6 +34,7 @@ spec:
           volumeMounts:
             - mountPath: /config
               name: ha-storage
+              subPath: /
             - mountPath: /config/configuration.yaml
               subPath: configuration.yaml
               name: ha-config
