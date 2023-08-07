@@ -21,7 +21,8 @@ metadata:
     io.kompose.service: home-assistant
   name: home-assistant-udp
   annotations:
-    metallb.universe.tf/allow-shared-ip: "true"
+    metallb.universe.tf/address-pool: default
+    metallb.universe.tf/allow-shared-ip: "home-assistant"
 spec:
   ports:
   - name: "upnp"
