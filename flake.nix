@@ -27,6 +27,7 @@
             kubeseal
             kustomize
             kubernetes-helm
+            krew
           ];
           shellHook = ''
             set -a

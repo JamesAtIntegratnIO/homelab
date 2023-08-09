@@ -8,6 +8,7 @@ hajimari:
         - downloads
         - media
         - monitoring
+        - home-assistant
     name: You
     title: Hajimari
     lightTheme: gazette
