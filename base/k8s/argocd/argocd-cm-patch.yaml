@@ -1,8 +1,8 @@
 - op: add
-  path: data/kustomize/buildOptions
+  path: /kustomize/buildOptions
   value: --enable-helm
 - op: add
-  path: data/configManagementPlugins/
+  path: /configManagementPlugins/
   value: |
     - name: kustomized-helm
       init:
