@@ -9,4 +9,4 @@ configMapGenerator:
   - name: argocd-cm
     behavior: merge
     envs:
-    - argocd-cm-patch.yamld
+    - argocd-cm-patch.yaml
