@@ -5,8 +5,8 @@ resources:
 - infra_project.yaml
 - repositories.yaml
 
-configMapGenerator:
-  - name: argocd-cm
-    behavior: merge
-    envs:
-    - argocd-cm-patch.yaml
+patches:
+  - path: argocd-cm-patch.yaml
+    target:
+      version: v1
+      kind: ConfigMap
