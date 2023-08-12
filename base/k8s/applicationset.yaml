@@ -13,6 +13,8 @@ spec:
           namespace: metallb-system
         - appName: ingress-nginx
           namespace: ingress-nginx
+        - appName: external-dns
+          namespace: external-dns
   template:
     metadata:
       name: "{{appName}}"
