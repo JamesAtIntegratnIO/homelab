@@ -25,7 +25,7 @@ spec:
         targetRevision: main
         path: "base/k8s/{{appName}}"
       destination:
-        name: infra
+        name: in-cluster
         namespace: "{{namespace}}"
       syncPolicy:
         automated:
