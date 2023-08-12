@@ -7,6 +7,3 @@ resources:
 
 patches:
   - path: argocd-cm-patch.yaml
-    target:
-      version: v1
-      kind: ConfigMap
