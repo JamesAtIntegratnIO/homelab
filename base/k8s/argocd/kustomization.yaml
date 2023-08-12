@@ -8,13 +8,5 @@ resources:
 configMapGenerator:
   - name: argocd-cm
     behavior: merge
-    literals:
-    - kustomize.buildOptions=--enable-helm
-    - configManagmentPlugins= |
-        - name: kustomized-helm
-          init:
-            command: ["/bin/sh", "-c"]
-            args: ["helm dependency build"]
-          generate:
-            command: [sh, -c]
-            args: ["helm template $ARGOCD_APP_NAME --namespace $ARGOCD_APP_NAMESPACE --include-crds . > all.yaml && kustomize build"]
+    envs:
+    - argocd-cm-patch.yamld
