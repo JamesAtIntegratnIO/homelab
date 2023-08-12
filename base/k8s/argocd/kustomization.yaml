@@ -4,9 +4,9 @@ resources:
 - github.com/argoproj/argo-cd/manifests/cluster-install/?ref=v2.7.8
 - infra_project.yaml
 - repositories.yaml
-patches:
-- target:
-    version: v1
-    kind: ConfigMap
-    name: argocd-cm
-  path: argocd-cm-patch.yaml
+
+configMapGenerator:
+  - name: argocd-cm
+    behavior: merge
+    files:
+    - argocd-cm-patch.yaml
