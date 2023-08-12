@@ -1,9 +1,13 @@
-kustomize.buildOptions: --enable-helm
-configManagmentPlugins: |
-  - name: kustomized-helm
-    init:
-      command: ["/bin/sh", "-c"]
-      args: ["helm dependency build"]
-    generate:
-      command: [sh, -c]
-      args: ["helm template $ARGOCD_APP_NAME --namespace $ARGOCD_APP_NAMESPACE --include-crds . > all.yaml && kustomize build"]
+- op: add
+  path: /data/kustomize/buildOptions
+  value: --enable-helm
+- op:  
+  path: /data/configManagementPlugins/
+  value: |
+    - name: kustomized-helm
+      init:
+        command: ["/bin/sh", "-c"]
+        args: ["helm dependency build"]
+      generate:
+        command: [sh, -c]
+        args: ["helm template $ARGOCD_APP_NAME --namespace $ARGOCD_APP_NAMESPACE --include-crds . > all.yaml && kustomize build"]
