@@ -15,6 +15,9 @@ spec:
           namespace: ingress-nginx
         - appName: external-dns
           namespace: external-dns
+        - appName: cert-manager
+          namespace: cert-manager
+          pluginName: kustomized-helm 
   template:
     metadata:
       name: "{{appName}}"
@@ -26,6 +29,8 @@ spec:
         repoURL: https://github.com/JamesAtIntegratnIO/homelab.git
         targetRevision: main
         path: "base/k8s/{{appName}}"
+        plugin:
+          name: {pluginName}
       destination:
         name: in-cluster
         namespace: "{{namespace}}"
