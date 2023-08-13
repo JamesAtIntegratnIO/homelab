@@ -1,22 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: infra-stack
+  name: infra-helm-stack
   namespace: argocd
 spec:
   generators:
   - list:
       elements:
-        - appName: argocd
-          namespace: argocd
-        - appName: metallb
-          namespace: metallb-system
-        - appName: ingress-nginx
-          namespace: ingress-nginx
-        - appName: external-dns
-          namespace: external-dns
-        - appName: nfs-subdir-external-provisioner
-          namespace: nfs-provisioner
+        - appName: cert-manager
+          namespace: cert-manager
   template:
     metadata:
       name: "{{appName}}"
@@ -28,6 +20,8 @@ spec:
         repoURL: https://github.com/JamesAtIntegratnIO/homelab.git
         targetRevision: main
         path: "base/k8s/{{appName}}"
+        plugin:
+          name: kustomized-helm
       destination:
         name: in-cluster
         namespace: "{{namespace}}"
