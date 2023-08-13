@@ -18,7 +18,6 @@ spec:
           namespace: external-dns
         - appName: cert-manager
           namespace: cert-manager
-          pluginName: kustomized-helm 
   template:
     metadata:
       name: "{{appName}}"
@@ -31,7 +30,7 @@ spec:
         targetRevision: main
         path: "base/k8s/{{appName}}"
         plugin:
-          name: {pluginName}
+          name: kustomized-helm
       destination:
         name: in-cluster
         namespace: "{{namespace}}"
