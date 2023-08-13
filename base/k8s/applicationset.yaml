@@ -9,6 +9,7 @@ spec:
       elements:
         - appName: argocd
           namespace: argocd
+          pluginName: ""
         - appName: metallb
           namespace: metallb-system
         - appName: ingress-nginx
