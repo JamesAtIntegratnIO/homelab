@@ -4,6 +4,7 @@ resources:
 - github.com/argoproj/argo-cd/manifests/cluster-install/?ref=v2.7.8
 - infra_project.yaml
 - repositories.yaml
+- ingress.yaml
 
 patches:
   - path: argocd-cm-patch.yaml
