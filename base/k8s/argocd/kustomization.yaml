@@ -7,3 +7,5 @@ resources:
 
 patches:
   - path: argocd-cm-patch.yaml
+    target:
+      labelSelector: "app.kubernetes.io/name=argocd-cm"
