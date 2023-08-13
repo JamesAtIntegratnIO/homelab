@@ -10,3 +10,8 @@ patches:
   - path: argocd-cm-patch.yaml
     target:
       labelSelector: "app.kubernetes.io/name=argocd-cm"
+
+configMapGenerator:
+  - name: argocd-cmd-params-cm
+    literals:
+    - server.insecure="true"
