@@ -11,8 +11,6 @@ spec:
           namespace: argocd
         - appName: metallb
           namespace: metallb-system
-        - appName: ingress-nginx
-          namespace: ingress-nginx
         - appName: external-dns
           namespace: external-dns
         - appName: nfs-subdir-external-provisioner

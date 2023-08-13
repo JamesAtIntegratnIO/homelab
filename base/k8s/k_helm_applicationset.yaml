@@ -9,6 +9,8 @@ spec:
       elements:
         - appName: cert-manager
           namespace: cert-manager
+        - appName: ingress-nginx
+          namespace: ingress-nginx
   template:
     metadata:
       name: "{{appName}}"
