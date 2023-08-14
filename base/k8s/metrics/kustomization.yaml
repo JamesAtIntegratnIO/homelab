@@ -1,3 +1,10 @@
 namespace: kube-system
 resources:
   - https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/high-availability-1.21+.yaml
+patches:
+  - target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: metrics-server
+    path: metrics_server_deployment_patch.yaml
