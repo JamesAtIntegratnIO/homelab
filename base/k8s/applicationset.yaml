@@ -17,6 +17,8 @@ spec:
           namespace: kube-system
         - appName: nfs-subdir-external-provisioner
           namespace: nfs-provisioner
+        - appName: sealed-secrets
+          namespace: kube-system
   template:
     metadata:
       name: "{{appName}}"
