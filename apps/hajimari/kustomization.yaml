@@ -1,3 +1,4 @@
 namespace: hajimari
 resources:
 - ./all.yaml
+- pv.yaml
