@@ -13,6 +13,8 @@ spec:
           namespace: metallb-system
         - appName: external-dns
           namespace: external-dns
+        - appName: metrics
+          namespace: kube-system
         - appName: nfs-subdir-external-provisioner
           namespace: nfs-provisioner
   template:
