@@ -1,6 +1,6 @@
 namespace: kube-system
 resources:
-  - https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+  - https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/high-availability-1.21+.yaml
 patches:
   - target:
       group: apps
