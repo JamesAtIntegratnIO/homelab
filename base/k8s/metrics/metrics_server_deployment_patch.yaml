@@ -3,7 +3,7 @@
   value: --kubelet-insecure-tls
 - op: add
   path: /spec/template/spec/containers/0/args/-
-  value: ----requestheader-client-ca-file=/ca/ca.pem
+  value: --requestheader-client-ca-file=/ca/ca.pem
 - op: add
   path: /spec/template/spec/volumes/-
   value:
