@@ -5,7 +5,7 @@ resources:
 - infra_project.yaml
 - repositories.yaml
 - ingress.yaml
-- github.com/argoproj-labs/argocd-image-updater/tree/master/manifests/base/?rev=v0.12.2
+- github.com/argoproj-labs/argocd-image-updater/manifests/base/?rev=v0.12.2
 
 patches:
   - path: argocd-cm-patch.yaml
