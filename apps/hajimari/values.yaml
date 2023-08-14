@@ -132,13 +132,13 @@ hajimari:
         cert-manager.io/cluster-issuer: letsencrypt-prod
       ingressClassName: "nginx"
       hosts:
-        - host: cluster.integratn.tech
+        - host: k8s.integratn.tech
           paths:
             - path: /
               pathType: Prefix
       tls:
       - hosts:
-        - cluster.integratn.tech
+        - k8s.integratn.tech
         secretName: hajimari-tls
   persistence:
     data:
