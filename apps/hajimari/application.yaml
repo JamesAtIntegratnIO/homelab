@@ -3,8 +3,12 @@ kind: Application
 metadata:
   name: hajimari
   namespace: argocd
+  annotations: 
+    argocd-image-updater.argoproj.io/write-back-method: kustomization
+    argocd-image-updater.argoproj.io/git-branch: main
+    argocd-image-updater.argoproj.io/image-list: hajimari
 spec:
-  project: homelab
+  project: infra
   source:
     repoURL: https://github.com/JamesAtIntegratnIO/homelab.git
     targetRevision: HEAD
@@ -12,7 +16,7 @@ spec:
     plugin:
       name: kustomized-helm
   destination:
-    name: homelab
+    name: in-cluster
     namespace: hajimari
   syncPolicy:
     automated:
