@@ -145,3 +145,4 @@ hajimari:
       enabled: true
       accessMode: ReadWriteOnce
       size: 1Gi
+      storageClassName: config-nfs-client
