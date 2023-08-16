@@ -1,7 +1,17 @@
 namespace: rook-ceph
 resources:
-  - namespace.yaml
   - crds.yaml
   - common.yaml
   - operator.yaml
   - cluster.yaml
+
+patches:
+  - patch: |-
+      - op: add
+        path: /metadata/labels
+        value: |-
+          pod-security.kubernetes.io/audit: privileged
+          pod-security.kubernetes.io/enforce: privileged
+          pod-security.kubernetes.io/warn: privileged
+    target:
+      kind: Namespace
