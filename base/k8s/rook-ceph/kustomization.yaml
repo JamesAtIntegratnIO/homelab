@@ -6,9 +6,6 @@ resources:
   - cluster.yaml
 
 patches:
-  - patch: |-
-      - op: add
-        path: /metadata/labels/pod-security.kubernetes.io/audit
-        value: privileged
+  - path: namespace.yaml
     target:
       kind: Namespace
