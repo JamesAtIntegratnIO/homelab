@@ -8,7 +8,7 @@ resources:
 patches:
   - patch: |-
       - op: add
-        path: /metadata/labels/-
-        value: pod-security.kubernetes.io/audit: privileged
+        path: /metadata/labels/pod-security.kubernetes.io/audit
+        value: privileged
     target:
       kind: Namespace
