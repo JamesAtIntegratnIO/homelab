@@ -3,4 +3,4 @@ kind: OnePasswordItem
 metadata:
   name: test-secret #this name will also be used for naming the generated kubernetes secret
 spec:
-  itemPath: "vaults/homelab/items/test"
+  itemPath: "vaults/c74zxv7vnwdixfpuw3lawaijvu/allitems/x2hhhzsam2emguuu5srll7e6du"
