@@ -1,0 +1,6 @@
+namespace: op-connect.yaml
+resources:
+  - op-connect-sealed-secret.yaml
+  - deployment.yaml
+  - service.yaml
+  - ingress.yaml  
