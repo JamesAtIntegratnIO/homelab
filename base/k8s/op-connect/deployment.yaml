@@ -12,8 +12,6 @@ spec:
         app: onepassword-connect
         version: "1.0.0"
     spec:
-      securityContext:
-        runAsNonRoot: true
       volumes:
         - name: shared-data
           emptyDir: {}
