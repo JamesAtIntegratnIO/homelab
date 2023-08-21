@@ -11,6 +11,8 @@ spec:
           namespace: cert-manager
         - appName: ingress-nginx
           namespace: ingress-nginx
+        - appName: external-secrets
+          namespace: external-secrets
   template:
     metadata:
       name: "{{appName}}"
