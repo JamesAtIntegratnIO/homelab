@@ -1,4 +1,4 @@
-namespace: op-connect.yaml
+namespace: op-connect
 resources:
   - op-connect-sealed-secret.yaml
   - deployment.yaml
