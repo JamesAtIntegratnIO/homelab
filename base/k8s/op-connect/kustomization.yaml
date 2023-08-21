@@ -6,3 +6,4 @@ resources:
   - ingress.yaml  
   - op-connect-token-sealed-secret.yaml
   - https://github.com/1Password/onepassword-operator/config/default/?ref=v1.8.0
+  - test-item.yaml
