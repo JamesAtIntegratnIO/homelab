@@ -45,7 +45,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: op-credentials
-                  key: op-session
+                  key: 1password-credentials.json
           volumeMounts:
             - mountPath: /home/opuser/.op/data
               name: shared-data
@@ -66,7 +66,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: op-credentials
-                  key: op-session
+                  key: 1password-credentials.json
           volumeMounts:
             - mountPath: /home/opuser/.op/data
               name: shared-data
