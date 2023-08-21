@@ -13,7 +13,7 @@ spec:
   # You may need to specify the IngressClass if your cluster does not have a
   # default IngressClass, e.g. for Ingress NGINX Controller, uncomment the
   # below line:
-  # ingressClassName: nginx
+  ingressClassName: nginx
   rules:
     - host: 1password.k8s.integratn.tech
       http:

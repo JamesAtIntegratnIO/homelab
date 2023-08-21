@@ -22,7 +22,7 @@ spec:
         - appName: rook-ceph
           namespace: rook-ceph
         - appName: op-connect
-        - namespace: op-connect
+          namespace: op-connect
   template:
     metadata:
       name: "{{appName}}"
