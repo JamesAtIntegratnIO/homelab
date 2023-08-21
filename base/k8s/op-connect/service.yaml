@@ -9,4 +9,6 @@ spec:
     - name: connect-api
       port: 8080
       targetPort: connect-api
- 
+    - port: 8081
+      name: connect-sync
+      targetPort: connect-sync
