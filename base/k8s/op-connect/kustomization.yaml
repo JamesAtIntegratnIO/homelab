@@ -4,4 +4,4 @@ resources:
   - deployment.yaml
   - service.yaml
   - ingress.yaml  
-  - https://github.com/1Password/onepassword-operator/config/default/kustomization.yaml/?ref=v1.8.0
+  - https://github.com/1Password/onepassword-operator/config/default/?ref=v1.8.0
