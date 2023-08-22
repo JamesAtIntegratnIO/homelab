@@ -34,6 +34,8 @@ spec:
           image: 1password/connect-api:latest
           securityContext:
             allowPrivilegeEscalation: false
+            runAsUser: 999
+            runAsGroup: 999
             capabilities:
               add: ["NET_BROADCAST"]
           resources:
@@ -55,6 +57,8 @@ spec:
           image: 1password/connect-sync:latest
           securityContext:
             allowPrivilegeEscalation: false
+            runAsUser: 999
+            runAsGroup: 999
             capabilities:
               add: ["NET_BROADCAST"]
           resources:
