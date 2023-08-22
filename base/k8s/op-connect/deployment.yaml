@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: onepassword-connect
 spec:
+  replicas: 0
   selector:
     matchLabels:
       app: onepassword-connect
