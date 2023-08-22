@@ -1,9 +1,9 @@
 namespace: op-connect
 resources:
   - op-connect-sealed-secret.yaml
-  # - deployment.yaml
-  # - service.yaml
-  # - ingress.yaml  
+  - deployment.yaml
+  - service.yaml
+  - ingress.yaml  
   - op-connect-token-sealed-secret.yaml
   - manager/
   - crds/
