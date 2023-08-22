@@ -4,7 +4,7 @@ resources:
   # - deployment.yaml
   # - service.yaml
   # - ingress.yaml  
-  # - op-connect-token-sealed-secret.yaml
+  - op-connect-token-sealed-secret.yaml
   # - manager/
   # - crds/
   # - rbac/
