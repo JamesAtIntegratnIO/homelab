@@ -3,7 +3,6 @@ kind: Deployment
 metadata:
   name: onepassword-connect
 spec:
-  replicas: 0
   selector:
     matchLabels:
       app: onepassword-connect
@@ -15,15 +14,12 @@ spec:
     spec:
       volumes:
         - name: shared-data
-          persistentVolumeClaim:
-            claimName: op-connect-pvc
+          emptyDir: {}
         - name: credentials
           secret:
             secretName: op-credentials
       initContainers:
         - name: sqlite-permissions
-          securityContext:
-            runAsUser: 999
           image: alpine:3.12
           command:
             - "/bin/sh"
@@ -35,11 +31,11 @@ spec:
               name: shared-data
       containers:
         - name: connect-api
-        
           image: 1password/connect-api:latest
           securityContext:
             allowPrivilegeEscalation: false
-            runAsUser: 999
+            capabilities:
+              add: ["NET_BROADCAST"]
           resources:
             limits:
               memory: "256Mi"
@@ -59,7 +55,8 @@ spec:
           image: 1password/connect-sync:latest
           securityContext:
             allowPrivilegeEscalation: false
-            runAsUser: 999
+            capabilities:
+              add: ["NET_BROADCAST"]
           resources:
             limits:
               memory: "256Mi"
