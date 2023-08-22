@@ -19,8 +19,6 @@ spec:
           namespace: nfs-provisioner
         - appName: sealed-secrets
           namespace: kube-system
-        - appName: rook-ceph
-          namespace: rook-ceph
         - appName: op-connect
           namespace: op-connect
   template:
