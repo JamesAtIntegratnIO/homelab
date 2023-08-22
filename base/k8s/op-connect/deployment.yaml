@@ -46,7 +46,10 @@ spec:
             - containerPort: 8080
           env:
             - name: OP_SESSION
-              value: /home/opuser/.config/1password-credentials.json
+              valueFrom:
+                secretKeyRef:
+                  name: op-credentials
+                  key: 1password-credentials.json
           volumeMounts:
             - mountPath: /home/opuser/.op/data
               name: shared-data
@@ -71,7 +74,10 @@ spec:
             - name: OP_HTTP_PORT
               value: "8081"
             - name: OP_SESSION
-              value: /home/opuser/.config/1password-credentials.json
+              valueFrom:
+                secretKeyRef:
+                  name: op-credentials
+                  key: 1password-credentials.json
           volumeMounts:
             - mountPath: /home/opuser/.op/data
               name: shared-data
