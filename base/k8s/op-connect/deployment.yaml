@@ -38,10 +38,7 @@ spec:
             runAsGroup: 999
             capabilities:
               add: ["NET_BROADCAST"]
-          resources:
-            limits:
-              memory: "256Mi"
-              cpu: "0.4"
+          resources: {}
           ports:
             - containerPort: 8080
           env:
@@ -66,10 +63,7 @@ spec:
             runAsGroup: 999
             capabilities:
               add: ["NET_BROADCAST"]
-          resources:
-            limits:
-              memory: "256Mi"
-              cpu: "0.4"
+          resources: {}
           ports:
             - containerPort: 8081
           env:
