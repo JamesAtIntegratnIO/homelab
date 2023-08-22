@@ -14,7 +14,8 @@ spec:
     spec:
       volumes:
         - name: shared-data
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: op-connect-pvc
         - name: credentials
           secret:
             secretName: op-credentials
@@ -36,8 +37,8 @@ spec:
             allowPrivilegeEscalation: false
           resources:
             limits:
-              memory: "128Mi"
-              cpu: "0.2"
+              memory: "256Mi"
+              cpu: "0.4"
           ports:
             - containerPort: 8080
           env:
