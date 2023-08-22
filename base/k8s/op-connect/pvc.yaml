@@ -6,10 +6,9 @@ metadata:
   labels:
     app: onepassword-connect
 spec:
-  storageClassName: data-nfs-client
+  storageClassName: rook-ceph-block
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
-  volumeName: op-connect-pv

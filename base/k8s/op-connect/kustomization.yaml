@@ -1,7 +1,6 @@
 namespace: op-connect
 resources:
   - op-connect-sealed-secret.yaml
-  - pv.yaml
   - pvc.yaml
   - deployment.yaml
   - service.yaml
