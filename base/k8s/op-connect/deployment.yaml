@@ -50,6 +50,8 @@ spec:
                 secretKeyRef:
                   name: op-credentials
                   key: 1password-credentials.json
+            - name: OP_LOG_LEVEL
+              value: debug
           volumeMounts:
             - mountPath: /home/opuser/.op/data
               name: shared-data
@@ -78,6 +80,8 @@ spec:
                 secretKeyRef:
                   name: op-credentials
                   key: 1password-credentials.json
+            - name: OP_LOG_LEVEL
+              value: debug
           volumeMounts:
             - mountPath: /home/opuser/.op/data
               name: shared-data
