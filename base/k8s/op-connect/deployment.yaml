@@ -42,13 +42,13 @@ spec:
             - containerPort: 8080
           env:
             - name: OP_SESSION
-              valueFrom:
-                secretKeyRef:
-                  name: op-credentials
-                  key: 1password-credentials.json
+              value: /home/opuser/.config/1password-credentials.json
           volumeMounts:
             - mountPath: /home/opuser/.op/data
               name: shared-data
+            - mountPath: /home/opuser/.config
+              name: credentials
+              readOnly: true
         - name: connect-sync
           image: 1password/connect-sync:latest
           securityContext:
@@ -63,10 +63,10 @@ spec:
             - name: OP_HTTP_PORT
               value: "8081"
             - name: OP_SESSION
-              valueFrom:
-                secretKeyRef:
-                  name: op-credentials
-                  key: 1password-credentials.json
+              value: /home/opuser/.config/1password-credentials.json
           volumeMounts:
             - mountPath: /home/opuser/.op/data
               name: shared-data
+            - mountPath: /home/opuser/.config
+              name: credentials
+              readOnly: true
