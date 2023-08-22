@@ -7,4 +7,5 @@ resources:
   - op-connect-token-sealed-secret.yaml
   - manager/
   - crds/
+  - rbac/
   - test-item.yaml
