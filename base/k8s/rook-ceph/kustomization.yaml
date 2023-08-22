@@ -6,6 +6,8 @@ resources:
   - cluster.yaml
   - toolbox.yaml
   - ingress.yaml
+  - ceph-block-pool.yaml
+  - storageclass.yaml
 
 patches:
   - path: namespace.yaml
