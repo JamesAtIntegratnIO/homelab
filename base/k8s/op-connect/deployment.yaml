@@ -21,6 +21,8 @@ spec:
             secretName: op-credentials
       initContainers:
         - name: sqlite-permissions
+          securityContext:
+            runAsUser: 999
           image: alpine:3.12
           command:
             - "/bin/sh"
@@ -32,9 +34,11 @@ spec:
               name: shared-data
       containers:
         - name: connect-api
+        
           image: 1password/connect-api:latest
           securityContext:
             allowPrivilegeEscalation: false
+            runAsUser: 999
           resources:
             limits:
               memory: "256Mi"
@@ -54,6 +58,7 @@ spec:
           image: 1password/connect-sync:latest
           securityContext:
             allowPrivilegeEscalation: false
+            runAsUser: 999
           resources:
             limits:
               memory: "256Mi"
