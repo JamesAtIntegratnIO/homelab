@@ -55,8 +55,8 @@ spec:
             allowPrivilegeEscalation: false
           resources:
             limits:
-              memory: "128Mi"
-              cpu: "0.2"
+              memory: "256Mi"
+              cpu: "0.4"
           ports:
             - containerPort: 8081
           env:
