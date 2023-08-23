@@ -70,7 +70,7 @@ data:
       empty_trash: false
       optimize: false
     tmdb:
-      apikey: '{{ tmbd_api }}'
+      apikey: '{{ tmdb_api }}'
       language: en
       cache_expiration: 60
       region:
