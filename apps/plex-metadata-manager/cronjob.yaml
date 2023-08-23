@@ -37,7 +37,7 @@ spec:
             - name: plex-media-manager
               image: meisnate12/plex-meta-manager:latest
               imagePullPolicy: Always
-              args: [ "--run", "--read-only-config" ]
+              args: [ "--run", "--read-only-config", "--config /config/config/yaml" ]
               resources:
                 limits:
                   cpu: 100m
