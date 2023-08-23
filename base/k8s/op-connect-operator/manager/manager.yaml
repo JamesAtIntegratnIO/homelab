@@ -52,7 +52,7 @@ spec:
                 name: onepassword-token
                 key: token
           - name: AUTO_RESTART
-            value: "false"
+            value: "true"
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:
