@@ -13,6 +13,8 @@ spec:
           namespace: ingress-nginx
         - appName: external-secrets
           namespace: external-secrets
+        - appName: op-connect-helm
+          namespace: op-connect
   template:
     metadata:
       name: "{{appName}}"
