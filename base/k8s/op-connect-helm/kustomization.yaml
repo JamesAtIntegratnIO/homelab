@@ -1,3 +1,4 @@
 namespace: op-connect
 resources:
 - ./all.yaml
+- op-connect-token-sealed-secret.yaml

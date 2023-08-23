@@ -3,6 +3,7 @@ kind: Service
 metadata:
   name: op-connect
 spec:
+  type: NodePort
   selector:
     app: op-connect
   ports:
