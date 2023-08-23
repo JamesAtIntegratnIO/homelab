@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: plex-metadata-manager
+  namespace: argocd
+spec:
+  project: homelab
+  source:
+    repoURL: https://github.com/JamesAtIntegratnIO/homelab.git
+    targetRevision: HEAD
+    path: apps/plex-metadata-manager
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: pmm
