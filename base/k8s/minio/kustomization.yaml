@@ -1,0 +1,5 @@
+namespace: minio-tenant
+resources: 
+- storage-user-onePasswordItem.yaml
+- ingress.yaml
+- tenant.yaml
