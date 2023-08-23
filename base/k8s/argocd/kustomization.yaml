@@ -5,6 +5,7 @@ resources:
 - infra_project.yaml
 - repositories-sealed-secret.yaml
 - ingress.yaml
+- project_media.yaml
 
 patches:
   - path: argocd-cm-patch.yaml

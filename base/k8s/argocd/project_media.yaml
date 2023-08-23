@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: media
+  namespace: argocd
+spec:
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  description: The Media Project
+  destinations:
+  - name: "*"
+    namespace: "*"
+    server: 'https://kubernetes.default.svc'
+  namespaceResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  sourceRepos:
+  - '*'
+  sourceNamespaces:
+  - media
+status: {}

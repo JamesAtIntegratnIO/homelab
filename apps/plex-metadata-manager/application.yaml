@@ -4,7 +4,7 @@ metadata:
   name: plex-metadata-manager
   namespace: argocd
 spec:
-  project: homelab
+  project: media
   source:
     repoURL: https://github.com/JamesAtIntegratnIO/homelab.git
     targetRevision: HEAD
