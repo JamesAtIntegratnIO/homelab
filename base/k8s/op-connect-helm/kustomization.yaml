@@ -1,6 +1,6 @@
 namespace: op-connect
 resources:
-- ./all.yaml
+- all.yaml
 - op-connect-token-sealed-secret.yaml
 - manager/
 - crds/
