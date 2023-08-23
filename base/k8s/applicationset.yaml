@@ -21,6 +21,8 @@ spec:
           namespace: kube-system
         - appName: op-connect-operator
           namespace: op-connect
+        - appName: minio
+          namespace: minio-tenant
   template:
     metadata:
       name: "{{appName}}"
