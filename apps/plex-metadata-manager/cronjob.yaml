@@ -4,7 +4,7 @@ metadata:
   name: plex-media-manager
   namespace: media
 spec:
-  schedule: "0 0 * * *"
+  schedule: "20 22 * * *"
   jobTemplate:
     spec:
       template:
