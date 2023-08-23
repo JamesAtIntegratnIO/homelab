@@ -183,7 +183,7 @@ spec:
           resources:
             requests:
               storage: 20G
-          storageClassName: standard
+          storageClassName: directpv-min-io
         status: { }
       ## Configure security context
       securityContext:
