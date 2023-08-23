@@ -8,16 +8,16 @@ data:
     libraries:                                      # Library mappings must have a colon (:) placed after them
       Movies:
         metadata_path:
-        - file: config/movies.yml
+        - file: config/movies.yaml
         - git: meisnate12/MovieCharts
         - git: meisnate12/Studios
       TV Shows:
         metadata_path:
-        - file: config/tv.yml
+        - file: config/tv.yaml
         - git: meisnate12/Networks
       Kids TV Shows:
         metadata_path:
-        - file: config/tv.yml
+        - file: config/tv.yaml
         - git: meisnate12/Networks
       # Anime:
       #   metadata_path:
@@ -89,7 +89,7 @@ data:
       root_folder_path: /data/media/movies
       monitor: true
       availability: announced
-      quality_profile: HD-1080p
+      quality_profile: HD - 720p/1080p
       # tag:
       search: false
       add_existing: false
@@ -104,7 +104,7 @@ data:
       version: v3
       root_folder_path: /data/media/tv
       monitor: all
-      quality_profile: HD-1080p
+      quality_profile: HD - 720p/1080p
       language_profile: English
       series_type: standard
       season_folder: true
