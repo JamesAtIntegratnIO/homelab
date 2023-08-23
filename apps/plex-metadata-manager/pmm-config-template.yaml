@@ -28,6 +28,7 @@ data:
       cache_expiration: 60
       asset_directory: config/assets
       asset_folders: true
+      create_asset_folders: true
       assets_for_all: false
       sync_mode: append
       show_unmanaged: true
@@ -36,7 +37,6 @@ data:
       save_missing: true
       run_again_delay: 2
       missing_only_released: false
-      create_asset_folders: false
       delete_below_minimum: false
       tvdb_language: default
       show_missing_assets: true
