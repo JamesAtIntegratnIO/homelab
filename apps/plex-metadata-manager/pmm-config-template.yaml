@@ -63,14 +63,14 @@ data:
       show_unconfigured: true
       playlist_exclude_users:
     plex:                                           # Can be individually specified per library as well
-      url: '{{ plex-url }}'
-      token: '{{ plex-api }}'
+      url: '{{ plex_url }}'
+      token: '{{ plex_api }}'
       timeout: 60
       clean_bundles: false
       empty_trash: false
       optimize: false
     tmdb:
-      apikey: '{{ tmbd-api }}'
+      apikey: '{{ tmbd_api }}'
       language: en
       cache_expiration: 60
       region:
@@ -83,8 +83,8 @@ data:
     #   language: en
     #   client:
     radarr:                                         # Can be individually specified per library as well
-      url: '{{ radarr-url }}'
-      token: '{{ radar-api }}'
+      url: '{{ radarr_url }}'
+      token: '{{ radarr_api }}'
       version: v3
       root_folder_path: /data/media/movies
       monitor: true
@@ -99,8 +99,8 @@ data:
       upgrade_existing: false
       ignore_cache: false
     sonarr:                                         # Can be individually specified per library as well
-      url: '{{ sonarr-url }}'
-      token: '{{ sonarr-api }}'
+      url: '{{ sonarr_url }}'
+      token: '{{ sonarr_api }}'
       version: v3
       root_folder_path: /data/media/tv
       monitor: all
