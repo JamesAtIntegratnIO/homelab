@@ -10,8 +10,8 @@ spec:
       template:
         spec:
           securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
+            runAsUser: 999
+            runAsGroup: 999
           initContainers:
             - name: render-dynamic-config-tv
               image: chrisjohnson00/jinja-init:v1.0.0
@@ -24,31 +24,29 @@ spec:
                 # let's be verbose
                 - name: VERBOSE
                   value: "1"
+                - name: JINJA_VAR_plex-api
+                  value: plex_api_token
+                - name: JINJA_VAR_plex-url
+                  value: plex_api_url
+                - name: JINJA_VAR_sonarr-api
+                  value: sonarr_api_key
+                - name: JINJA_VAR_sonarr-url
+                  value: sonarr_api_url
+                - name: JINJA_VAR_radarr-api
+                  value: radarr_api_key
+                - name: JINJA_VAR_radarr-url
+                  value: radarr_api_url
+                - name: JINJA_VAR_tmdb-api
+                  value: tmdb_api_key
               volumeMounts:
                 # configMap mount point
-                - name: tv-config-template
+                - name: pmm-config-template
                   mountPath: /config_src
                 # target directory mount point; the final config file will be created here
                 - name: config
                   mountPath: /config
-            - name: render-dynamic-config-movies
-              image: chrisjohnson00/jinja-init:v1.0.0
-              env:
-                # source and destination files
-                - name: JINJA_SRC_FILE
-                  value: /config_src/movies.yaml
-                - name: JINJA_DEST_FILE
-                  value: /config/movies.yaml
-                # let's be verbose
-                - name: VERBOSE
-                  value: "1"
-              volumeMounts:
-                # configMap mount point
-                - name: movie-config-template
-                  mountPath: /config_src
-                # target directory mount point; the final config file will be created here
-                - name: config
-                  mountPath: /config
+                - name: secrets
+                  mountPath: /secrets
           containers:
             - name: plex-media-manager
               image: meisnate12/plex-meta-manager:latest
@@ -75,12 +73,15 @@ spec:
               persistentVolumeClaim:
                 claimName: plex-media-manager
             - configMap:
-                name: pmm-config
-              name: pmm-config
+                name: pmm-config-template
+              name: pmm-config-template
             - configMap:
-                name: movie-config-jinja-template
-              name: movie-config-template
+                name: movie-config
+              name: movie-config
             - configMap:
-                name: tv-config-jinja-template
-              name: tv-config-template
+                name: tv-config
+              name: tv-config
+            - name: secrets
+              secret:
+                secretName: pmm-secrets
           restartPolicy: OnFailure

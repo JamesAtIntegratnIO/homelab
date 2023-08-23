@@ -1,3 +1,9 @@
 namespace: pmm
 resources:
 - pmm-1passwordItem.yaml
+- cronjob.yaml
+- movies-config.yaml
+- pmm-config-template.yaml
+- tv-config.yaml
+- pmm-pv.yaml
+- pmm-pvc.yaml
