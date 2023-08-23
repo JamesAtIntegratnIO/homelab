@@ -34,8 +34,8 @@ spec:
         image: 1password/onepassword-operator:latest
         name: manager
         env:
-          - name: WATCH_NAMESPACE
-            value: "op-connect"
+          # - name: WATCH_NAMESPACE
+          #   value: "op-connect,pmm,media,"
           - name: POD_NAME
             valueFrom:
               fieldRef:
