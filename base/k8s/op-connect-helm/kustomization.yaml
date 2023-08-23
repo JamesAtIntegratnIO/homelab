@@ -1,8 +1,8 @@
 namespace: op-connect
 resources:
-- all.yaml
-- op-connect-token-sealed-secret.yaml
 - manager/
 - crds/
 - rbac/
 - test-item.yaml
+- op-connect-token-sealed-secret.yaml
+- ./all.yaml
