@@ -18,9 +18,9 @@ spec:
               env:
                 # source and destination files
                 - name: JINJA_SRC_FILE
-                  value: /config_src/tv.yaml
+                  value: /config_src/config.yaml
                 - name: JINJA_DEST_FILE
-                  value: /config/tv.yaml
+                  value: /config/config.yaml
                 # let's be verbose
                 - name: VERBOSE
                   value: "1"
