@@ -25,19 +25,19 @@ spec:
                 - name: VERBOSE
                   value: "1"
                 - name: JINJA_VAR_plex_api
-                  value: /secrets
+                  # value: /secrets
                 - name: JINJA_VAR_plex_url
-                  value: /secrets
+                  # value: /secrets
                 - name: JINJA_VAR_sonarr_api
-                  value: /secrets
+                  # value: /secrets
                 - name: JINJA_VAR_sonarr_url
-                  value: /secrets
+                  # value: /secrets
                 - name: JINJA_VAR_radarr_api
-                  value: /secrets
+                  # value: /secrets
                 - name: JINJA_VAR_radarr_url
-                  value: /secrets
+                  # value: /secrets
                 - name: JINJA_VAR_tmdb_api
-                  value: /secrets
+                  # value: /secrets
               volumeMounts:
                 # configMap mount point
                 - name: pmm-config-template
