@@ -71,7 +71,7 @@ spec:
           volumes:
             - name: config
               persistentVolumeClaim:
-                claimName: plex-media-manager
+                claimName: pmm-config-pvc
             - configMap:
                 name: pmm-config-template
               name: pmm-config-template
