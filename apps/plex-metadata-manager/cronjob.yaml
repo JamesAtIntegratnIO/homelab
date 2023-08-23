@@ -25,19 +25,19 @@ spec:
                 - name: VERBOSE
                   value: "1"
                 - name: JINJA_VAR_plex-api
-                  value: plex_api_token
+                  value: /secrets
                 - name: JINJA_VAR_plex-url
-                  value: plex_api_url
+                  value: /secrets
                 - name: JINJA_VAR_sonarr-api
-                  value: sonarr_api_key
+                  value: /secrets
                 - name: JINJA_VAR_sonarr-url
-                  value: sonarr_api_url
+                  value: /secrets
                 - name: JINJA_VAR_radarr-api
-                  value: radarr_api_key
+                  value: /secrets
                 - name: JINJA_VAR_radarr-url
-                  value: radarr_api_url
+                  value: /secrets
                 - name: JINJA_VAR_tmdb-api
-                  value: tmdb_api_key
+                  value: /secrets
               volumeMounts:
                 # configMap mount point
                 - name: pmm-config-template
@@ -63,8 +63,8 @@ spec:
                 - name: config
                   mountPath: /config
                 - name: tv-config
-                  mountPath: /config/tv.yml
-                  subPath: tv.yml
+                  mountPath: /config/tv.yaml
+                  subPath: tv.yaml
                 - name: movie-config
                   mountPath: /config/movies.yaml
                   subPath: movies.yaml
