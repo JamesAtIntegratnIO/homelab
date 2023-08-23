@@ -76,7 +76,7 @@ spec:
                 name: pmm-config-template
               name: pmm-config-template
             - configMap:
-                name: movie-config
+                name: movies-config
               name: movie-config
             - configMap:
                 name: tv-config
