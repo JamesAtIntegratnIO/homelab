@@ -23,7 +23,6 @@ spec:
         volumeMounts:
         - name: config
           mountPath: /etc/docker/registry
-          subPath: config.yml
           readOnly: true
       volumes:
 
