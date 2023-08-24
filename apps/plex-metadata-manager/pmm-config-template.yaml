@@ -119,12 +119,12 @@ data:
       ignore_cache: false
     trakt:
       client_id: '{{ trakt_client_key }}'
-      client_secret: '{{ tract_client-secret }}'
+      client_secret: '{{ trakt_client-secret }}'
       authorization:
-        access_token: '{{ tract_access_token }}'
+        access_token: '{{ trakt_access_token }}'
         token_type: Bearer
         expires_in: 7889237
-        refresh_token: '{{ tract_refresh_token }}'
+        refresh_token: '{{ trakt_refresh_token }}'
         scope: public
         created_at: 1692893834
       pin: {{ trakt_pin }}
