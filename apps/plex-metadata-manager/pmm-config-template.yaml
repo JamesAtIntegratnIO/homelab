@@ -119,7 +119,7 @@ data:
       ignore_cache: false
     trakt:
       client_id: '{{ trakt_client_key }}'
-      client_secret: '{{ trakt_client-secret }}'
+      client_secret: '{{ trakt_client_secret }}'
       authorization:
         access_token: '{{ trakt_access_token }}'
         token_type: Bearer
