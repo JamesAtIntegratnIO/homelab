@@ -6,5 +6,5 @@ metadata:
 data:
   daemon.json: |
     {
-      "insecure-registries" : ["localhost:5000", "registry.k8s.integratn.tech"]
+      "insecure-registries" : ["localhost:5000", "registry.k8s.integratn.tech:5000"]
     }
