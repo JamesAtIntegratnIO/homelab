@@ -24,8 +24,13 @@ spec:
         - name: config
           mountPath: /etc/docker/registry
           readOnly: true
+        - name: daemon-json
+          mountPath: /etc/docker
+          readOnly: true
       volumes:
-
       - name: config
         secret:
           secretName: config-secret
+      - name: daemon-json
+        configMap:
+          name: daemon-json
