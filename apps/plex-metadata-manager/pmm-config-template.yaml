@@ -117,17 +117,17 @@ data:
       add_missing: false
       upgrade_existing: false
       ignore_cache: false
-    # trakt:
-    #   client_id: your_key
-    #   client_secret: your_secret
-    #   authorization:
-    #     access_token: your_token
-    #     token_type: Bearer
-    #     expires_in: 123123
-    #     refresh_token: your_refresh_token
-    #     scope: public
-    #     created_at: 123123123
-    #   pin:
+    trakt:
+      client_id: '{{ trakt_client_key }}'
+      client_secret: '{{ tract_client-secret }}'
+      authorization:
+        access_token: '{{ tract_access_token }}'
+        token_type: Bearer
+        expires_in: 7889237
+        refresh_token: '{{ tract_refresh_token }}'
+        scope: public
+        created_at: 1692893834
+      pin: {{ trakt_pin }}
     # #My Anime List
     # mal:
     #   client_id: your_client_id
