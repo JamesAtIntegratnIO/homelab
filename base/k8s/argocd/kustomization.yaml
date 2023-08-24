@@ -3,7 +3,7 @@ resources:
 - namespace.yaml
 - github.com/argoproj/argo-cd/manifests/cluster-install/?ref=v2.7.8
 - infra_project.yaml
-- repositories-sealed-secret.yaml
+- homelab-repository.yaml
 - ingress.yaml
 - project_media.yaml
 
