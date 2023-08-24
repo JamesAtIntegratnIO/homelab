@@ -5,6 +5,8 @@ metadata:
   namespace: media
 spec:
   schedule: "20 22 * * *"
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 2
   jobTemplate:
     spec:
       template:
