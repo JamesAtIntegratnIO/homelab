@@ -40,8 +40,8 @@ spec:
               args: [ "--run", "--read-only-config", "--config=config/config.yaml" ]
               resources:
                 limits:
-                  cpu: 100m
-                  memory: 256Mi
+                  cpu: 1000m
+                  memory: 1Gi
                 requests:
                   cpu: 100m
                   memory: 125Mi
