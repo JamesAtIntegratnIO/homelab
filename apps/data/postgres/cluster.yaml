@@ -5,6 +5,7 @@ metadata:
 spec:
   teamId: "primary"
   volume:
+    storageClass: data-nfs-client
     size: 1Gi
   numberOfInstances: 2
   users:
