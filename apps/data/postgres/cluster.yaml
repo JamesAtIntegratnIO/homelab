@@ -7,6 +7,10 @@ spec:
   volume:
     storageClass: data-nfs-client
     size: 1Gi
+    selector:
+      matchLabels:
+        app: postgres-operator
+        cluster: primary-cluster
   numberOfInstances: 2
   users:
     boboysdadda:  # database owner
