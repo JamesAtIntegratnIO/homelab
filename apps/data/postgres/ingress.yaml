@@ -2,7 +2,7 @@
   path: /spec/rules/0/host
   value: postgres-operator-ui.k8s.integratn.tech
 - op: add
-  path: /spec/tls/0/hosts/0
+  path: /spec/tls/0/hosts/-
   value: postgres-operator-ui.k8s.integratn.tech
 - op: add
   path: /spec/tls/0/secretName
