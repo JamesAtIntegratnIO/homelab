@@ -27,7 +27,7 @@ spec:
                 name: backstage-secrets
           volumeMounts:
             - name: config
-              mountPath: /app/app-config.yaml
+              mountPath: /app
           resources:
             limits:
               cpu: "1"
