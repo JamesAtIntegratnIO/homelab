@@ -3,7 +3,7 @@ resources:
 - github.com/zalando/postgres-operator/manifests
 - github.com/zalando/postgres-operator/ui/manifests
 patches:
-- path: ingress.yaml
+- path: ingress.json
   target:
     kind: Ingress
     name: postgres-operator-ui

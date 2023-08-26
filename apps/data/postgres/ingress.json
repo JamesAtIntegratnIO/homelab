@@ -1,0 +1,53 @@
+[
+  {
+    "op": "replace",
+    "path": "/metadata/annotations",
+    "value": {
+      "nginx.ingress.kubernetes.io/force-ssl-redirect": "true",
+      "nginx.ingress.kubernetes.io/ssl-passthrough": "true",
+      "cert-manager.io/cluster-issuer": "letsencrypt-prod"
+    }
+  },
+  {
+    "op": "replace",
+    "path": "/spec/ingressClassName",
+    "value": "nginx"
+  },
+  {
+    "op": "replace",
+    "path": "/spec/tls",
+    "value": [
+      {
+        "hosts": [
+          "postgres-operator-ui.k8s.integratn.tech"
+        ],
+        "secretName": "postgres-operator-ui-tls"
+      }
+    ]
+  },
+  {
+    "op": "replace",
+    "path": "/spec/rules",
+    "value": [
+      {
+        "host": "postgres-operator-ui.k8s.integratn.tech",
+        "http": {
+          "paths": [
+            {
+              "path": "/",
+              "pathType": "Prefix",
+              "backend": {
+                "service": {
+                  "name": "postgres-operator-ui",
+                  "port": {
+                    "number": 80
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+]
