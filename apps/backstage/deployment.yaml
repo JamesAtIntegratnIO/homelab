@@ -22,15 +22,12 @@ spec:
           image: registry.k8s.integratn.tech/backstage:latest
           ports:
             - containerPort: 7000
-          args:
-            - "--config" 
-            - "/usr/src/app/app-config.yaml"
           envFrom:
             - secretRef:
                 name: backstage-secrets
           volumeMounts:
             - name: config
-              mountPath: /usr/src/app/app-config.yaml
+              mountPath: /app/app-config.yaml
           resources:
             limits:
               cpu: "1"
