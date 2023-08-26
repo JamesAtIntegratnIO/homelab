@@ -1,7 +1,7 @@
 apiVersion: "acid.zalan.do/v1"
 kind: postgresql
 metadata:
-  name: primary cluster
+  name: primary-cluster
 spec:
   teamId: "primary"
   volume:
