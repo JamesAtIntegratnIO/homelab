@@ -8,6 +8,6 @@ patches:
     kind: Ingress
     name: postgres-operator-ui
     namespace: data
-    version: networking.k8s.io/v1
+    version: v1
     group: networking.k8s.io
   
