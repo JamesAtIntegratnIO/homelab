@@ -3,11 +3,45 @@ resources:
 - github.com/zalando/postgres-operator/manifests
 - github.com/zalando/postgres-operator/ui/manifests
 patches:
-- path: ingress.json
-  target:
+- target:
     kind: Ingress
     name: postgres-operator-ui
     namespace: data
     version: v1
     group: networking.k8s.io
+  patch: |-
+    - op: replace
+      path: /spec/rules/0/host
+      value: postgres-operator-ui.k8s.integratn.tech
+- target:
+    kind: Ingress
+    name: postgres-operator-ui
+    namespace: data
+    version: v1
+    group: networking.k8s.io
+  patch: |-
+    - op: replace
+      path: /spec/tls/0/hosts/0
+      value: postgres-operator-ui.k8s.integratn.tech
+- target:
+    kind: Ingress
+    name: postgres-operator-ui
+    namespace: data
+    version: v1
+    group: networking.k8s.io
+  patch: |-
+    - op: replace
+      path: /spec/tls/0/secretName
+      value: postgres-operator-ui-tls
+# patch ingressClassName
+- target:
+    kind: Ingress
+    name: postgres-operator-ui
+    namespace: data
+    version: v1
+    group: networking.k8s.io
+  patch: |-
+    - op: replace
+      path: /spec/ingressClassName
+      value: nginx
   
