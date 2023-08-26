@@ -11,7 +11,7 @@
   path: /spec/ingressClassName
   value: nginx
 # add nginx annotations
-- op: merge
+- op: replace
   path: /metadata/annotations
   value:
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
