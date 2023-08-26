@@ -2,6 +2,7 @@ namespace: data
 resources: 
 - github.com/zalando/postgres-operator/manifests
 - github.com/zalando/postgres-operator/ui/manifests
+- cluster.yaml
 patches:
 - target:
     kind: Ingress

@@ -1,0 +1,18 @@
+apiVersion: "acid.zalan.do/v1"
+kind: postgresql
+metadata:
+  name: primary cluster
+spec:
+  teamId: "primary"
+  volume:
+    size: 1Gi
+  numberOfInstances: 2
+  users:
+    boboysdadda:  # database owner
+    - superuser
+    - createdb
+    backtrace: []  # role for application foo
+  databases:
+    backtrace: backtrace  # dbname: owner
+  postgresql:
+    version: "15"
