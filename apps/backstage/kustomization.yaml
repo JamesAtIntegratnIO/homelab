@@ -1,0 +1,5 @@
+namespace: backstage
+resources:
+- 1passwordItem.yaml
+- deployment.yaml
+

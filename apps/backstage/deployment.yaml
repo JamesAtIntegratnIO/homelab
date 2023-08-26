@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: backstage
-          image: docker.io/backstage/backstage:v0.1.0
+          image: registry.k8s.integratn.tech/backstage/backstage:latest
           ports:
             - containerPort: 7000
           env:
@@ -27,10 +27,45 @@ spec:
               value: "7000"
             - name: APP_CONFIG
               value: /usr/src/app/app-config.yaml
-          volumeMounts:
-            - name: config
-              mountPath: /usr/src/app/app-config.yaml
-              subPath: app-config.yaml
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: backstage-secrets
+                  key: DB_HOST
+            - name: DB_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: backstage-secrets
+                  key: DB_PORT
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: backstage-secrets
+                  key: DB_USER
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:
+                  key: DB_PASS
+                  name: backstage-secrets
+            - name: GITHUB_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  key: GITHUB_TOKEN
+                  name: backstage-secrets
+            - name: GITHUB_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  key: GITHUB_CLIENT_ID
+                  name: backstage-secrets
+            - name: GITHUB_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  key: GITHUB_CLIENT_SECRET
+                  name: backstage-secrets
+          # volumeMounts:
+            # - name: config
+            #   mountPath: /usr/src/app/app-config.yaml
+            #   subPath: app-config.yaml
           resources:
             limits:
               cpu: "1"
@@ -38,9 +73,9 @@ spec:
             requests:
               cpu: "0.5"
               memory: 512Mi
-      volumes:
-      # use a secret instead of a configmap
-      - name: config
-        secret:
-          secretName: backstage-config
+      # volumes:
+      # # use a secret instead of a configmap
+      # - name: config
+      #   secret:
+      #     secretName: backstage-config
       
