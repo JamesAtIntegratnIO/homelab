@@ -6,20 +6,6 @@ patches:
 - target:
     kind: Ingress
     name: postgres-operator-ui
-    namespace: data
     version: v1
     group: networking.k8s.io
-  patch: |-
-    - op: replace
-      path: /spec/rules/0/host
-      value: postgres-operator-ui.k8s.integratn.tech
-    - op: replace
-      path: /spec/tls/0/hosts/0
-      value: postgres-operator-ui.k8s.integratn.tech
-    - op: replace
-      path: /spec/tls/0/secretName
-      value: postgres-operator-ui-tls
-    - op: replace
-      path: /spec/ingressClassName
-      value: nginx
-  
+  path: ingress.yaml
