@@ -1,20 +1,21 @@
-# create an ingress-nginx ingress manifest for the postgres-operator-ui service
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: postgres-operator-ui
-  namespace: data
-  annotations:
+- op: replace
+  path: /metadata/annotations
+  value:
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
     cert-manager.io/cluster-issuer: letsencrypt-prod
-spec:
-  ingressClassName: "nginx"
-  tls:
+- op: replace
+  path: /spec/ingressClassName
+  value: "nginx"
+- op: replace
+  path: /spec/tls
+  value:
   - hosts:
     - postgres-operator-ui.k8s.integratn.tech
     secretName: postgres-operator-ui-tls
-  rules:
+- op: replace
+  path: /spec/rules
+  value:
   - host: postgres-operator-ui.k8s.integratn.tech
     http:
       paths:
@@ -25,4 +26,3 @@ spec:
             name: postgres-operator-ui
             port:
               number: 80
-
