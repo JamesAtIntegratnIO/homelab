@@ -1,13 +1,13 @@
 - op: replace
   path: /spec/rules/0/host
   value: postgres-operator-ui.k8s.integratn.tech
-- op: replace
+- op: add
   path: /spec/tls/0/hosts/0
   value: postgres-operator-ui.k8s.integratn.tech
-- op: replace
+- op: add
   path: /spec/tls/0/secretName
   value: postgres-operator-ui-tls
-- op: replace
+- op: add
   path: /spec/ingressClassName
   value: nginx
 # add nginx annotations
