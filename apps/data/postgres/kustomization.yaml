@@ -2,4 +2,12 @@ namespace: data
 resources: 
 - github.com/zalando/postgres-operator/manifests
 - github.com/zalando/postgres-operator/ui/manifests
-- ingress.yaml
+patches:
+- path: ingress.yaml
+  target:
+    kind: Ingress
+    name: postgres-operator-ui
+    namespace: data
+    version: networking.k8s.io/v1
+    group: networking.k8s.io
+  
