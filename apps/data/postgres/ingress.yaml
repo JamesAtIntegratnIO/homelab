@@ -1,12 +1,6 @@
 - op: replace
   path: /spec/rules/0/host
   value: postgres-operator-ui.k8s.integratn.tech
-# - op: add
-#   path: /spec/tls/0/hosts/-
-#   value: postgres-operator-ui.k8s.integratn.tech
-# - op: add
-#   path: /spec/tls/0/secretName
-#   value: postgres-operator-ui-tls
 - op: add
   path: /spec/ingressClassName
   value: nginx
@@ -17,3 +11,10 @@
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
     cert-manager.io/cluster-issuer: letsencrypt-prod
+# add tls
+- op: add
+  path: /spec/tls
+  value:
+  - hosts:
+    - postgres-operator-ui.k8s.integratn.tech
+    secretName: postgres-operator-ui-tls
