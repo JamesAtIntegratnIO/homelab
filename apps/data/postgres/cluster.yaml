@@ -3,8 +3,8 @@ kind: postgresql
 metadata:
   name: primary-cluster
 spec:
-  spilioRunAsUser: 999
-  spilioRunAsGroup: 999
+  spiloRunAsUser: 999
+  spiloRunAsGroup: 999
   teamId: "primary"
   volume:
     storageClass: data-nfs-client
