@@ -23,7 +23,8 @@ spec:
           ports:
             - containerPort: 7000
           args:
-            - "--config /usr/src/app/app-config.yaml"
+            - "--config" 
+            - "/usr/src/app/app-config.yaml"
           envFrom:
             - secretRef:
                 name: backstage-secrets
