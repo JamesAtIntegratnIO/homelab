@@ -28,6 +28,7 @@ spec:
           volumeMounts:
             - name: config
               mountPath: /app
+              subPath: app-config.yaml
           resources:
             limits:
               cpu: "1"
