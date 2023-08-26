@@ -7,7 +7,7 @@ spec:
   generators:
   - list:
       elements:
-      - appName: mysql
+      - appName: postgres
         namespace: data
         serverSideApply: "true"
 
@@ -17,13 +17,13 @@ spec:
       annotations:
         argocd.argoproj.io/manifest-generate-paths: ".;.."
     spec:
-      project: homelab
+      project: infra
       source:
         repoURL: https://github.com/JamesAtIntegratnIO/homelab.git
         targetRevision: main
         path: "apps/data/{{appName}}"
       destination:
-        name: homelab
+        name: in-cluster
         namespace: "{{namespace}}"
       syncPolicy:
         automated:

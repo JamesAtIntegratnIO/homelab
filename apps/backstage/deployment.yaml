@@ -1,0 +1,46 @@
+# Create a deployment manifest to deploy backstage
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backstage
+  namespace: backstage
+  labels:
+    app: backstage
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backstage
+  template:
+    metadata:
+      labels:
+        app: backstage
+    spec:
+      containers:
+        - name: backstage
+          image: docker.io/backstage/backstage:v0.1.0
+          ports:
+            - containerPort: 7000
+          env:
+            - name: PORT
+              value: "7000"
+            - name: APP_CONFIG
+              value: /usr/src/app/app-config.yaml
+          volumeMounts:
+            - name: config
+              mountPath: /usr/src/app/app-config.yaml
+              subPath: app-config.yaml
+          resources:
+            limits:
+              cpu: "1"
+              memory: 1Gi
+            requests:
+              cpu: "0.5"
+              memory: 512Mi
+      volumes:
+      # use a secret instead of a configmap
+      - name: config
+        secret:
+          secretName: backstage-config
+      
