@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: backstage
-          image: registry.k8s.integratn.tech/backstage:latest
+          image: registry.k8s.integratn.tech/backstage:v0.1
           ports:
             - containerPort: 7000
           envFrom:
