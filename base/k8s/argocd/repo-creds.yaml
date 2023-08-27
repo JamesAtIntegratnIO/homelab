@@ -1,8 +1,0 @@
-apiVersion: onepassword.com/v1
-kind: OnePasswordItem
-metadata:
-  name: repo-creds #this name will also be used for naming the generated kubernetes secret
-  labels:
-    argocd.argoproj.io/secret-type: repo-creds
-spec:
-  itemPath: "vaults/homelab/items/argocd-repo-creds"
