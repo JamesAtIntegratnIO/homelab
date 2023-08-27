@@ -8,7 +8,7 @@ metadata:
   labels:
     app: backstage
 spec:
-  replicas: 1
+  replicas: 0
   selector:
     matchLabels:
       app: backstage
@@ -18,7 +18,9 @@ spec:
         app: backstage
     spec:
       containers:
+        
         - name: backstage
+
           image: registry.k8s.integratn.tech/backstage:v0.6
           ports:
             - containerPort: 7000
