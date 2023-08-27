@@ -6,7 +6,6 @@ resources:
 - homelab-repository.yaml
 - ingress.yaml
 - project_media.yaml
-- media-repository.yaml
 
 patches:
   - path: argocd-cm-patch.yaml
