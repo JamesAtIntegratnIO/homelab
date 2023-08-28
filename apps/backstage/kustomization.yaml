@@ -1,6 +1,6 @@
 namespace: backstage
 resources:
-- namepsace.yaml
+- namespace.yaml
 - 1passwordItem.yaml
 - app-config-configMap.yaml
 - deployment.yaml
