@@ -1,0 +1,10 @@
+# create namespace manifest for backstage
+#
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: backstage
+  labels:
+    name: backstage
+  annotations:
+    backstage.io/kubernetes-namespace: backstage
