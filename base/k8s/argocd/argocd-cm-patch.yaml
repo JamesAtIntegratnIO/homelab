@@ -3,6 +3,7 @@ kind: ConfigMap
 
 data:
   kustomize.buildOptions: --enable-helm
+  accounts.backstage: apiKey
   configManagementPlugins: |
     - name: kustomized-helm
       init:
