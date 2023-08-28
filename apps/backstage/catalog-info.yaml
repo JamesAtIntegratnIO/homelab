@@ -12,6 +12,6 @@ metadata:
     backstage.io/techdocs-ref: dir:.
     backstage.io/kubernetes-namespace: backstage
 spec:
-  type: library
-  owner: CNCF
+  type: service
+  owner: James
   lifecycle: experimental
