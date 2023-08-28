@@ -11,6 +11,7 @@ metadata:
     github.com/project-slug: jamesAtIntegratnIO/backstage-demo
     backstage.io/techdocs-ref: dir:.
     backstage.io/kubernetes-namespace: backstage
+    backstage.io/kubernetes-id: homelab
 spec:
   type: service
   owner: James
