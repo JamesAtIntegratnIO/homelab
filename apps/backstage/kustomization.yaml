@@ -3,4 +3,6 @@ resources:
 - 1passwordItem.yaml
 - app-config-configMap.yaml
 - deployment.yaml
+- service.yaml
+- ingress.yaml
 

@@ -24,6 +24,7 @@ spec:
           image: registry.k8s.integratn.tech/backstage:v0.14
           ports:
             - containerPort: 7007
+              name: http
           envFrom:
             - secretRef:
                 name: backstage-secrets
