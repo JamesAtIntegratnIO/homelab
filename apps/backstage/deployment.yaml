@@ -17,8 +17,8 @@ spec:
       labels:
         app: backstage
     spec:
+      serviceAccountName: backstage
       containers:
-        
         - name: backstage
 
           image: registry.k8s.integratn.tech/backstage:v0.19
