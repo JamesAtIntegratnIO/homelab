@@ -31,7 +31,13 @@ spec:
           # volumeMounts:
           #   - name: config
           #     mountPath: /app
-          resources: {}
+          resources:
+            requests:
+              cpu: 500m
+              memory: 512Mi
+            limits:
+              cpu: 1500m
+              memory: 2048Mi
       volumes:
       # use a secret instead of a configmap
       - name: config
