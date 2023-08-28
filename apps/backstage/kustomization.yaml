@@ -6,5 +6,5 @@ resources:
 - deployment.yaml
 - service.yaml
 - ingress.yaml
-- backstage-cluster-role.yaml
+- service-account.yaml
 
