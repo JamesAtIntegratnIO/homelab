@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: python-sample-app
+  namespace: python-sample-app
+spec:
+  selector:
+    matchLabels:
+      app: python-sample-app
+  template:
+    metadata:
+      labels:
+        app: python-sample-app
+    spec:
+      replicas: 1
+      containers:
+      - name: python-sample-app
+        image: registry.k8s.integratn.tech/python-sample-app:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 5000
+        volumeMounts:
+        - name: python-sample-app-pvc
+          mountPath: /app/data
+      volumes:
+      - name: python-sample-app-pvc
+        persistentVolumeClaim:
+          claimName: python-sample-app-pvc
