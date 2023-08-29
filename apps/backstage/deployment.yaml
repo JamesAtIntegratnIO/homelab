@@ -21,7 +21,7 @@ spec:
       containers:
         - name: backstage
 
-          image: registry.k8s.integratn.tech/backstage:v0.20
+          image: registry.k8s.integratn.tech/backstage:v0.21
           ports:
             - containerPort: 7007
               name: http
