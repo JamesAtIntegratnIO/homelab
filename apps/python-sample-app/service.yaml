@@ -3,10 +3,12 @@ kind: Service
 metadata:
   name: python-sample-app
   namespace: python-sample-app
-  
+
 spec:
   selector:
     app: python-sample-app
   ports:
-  - port: 80
+  - name: http
+    protocol: TCP
+    port: 5000
     targetPort: 5000
