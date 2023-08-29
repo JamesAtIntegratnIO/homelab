@@ -4,6 +4,7 @@ metadata:
   name: python-sample-app
   namespace: python-sample-app
 spec:
+  replicas: 1
   selector:
     matchLabels:
       app: python-sample-app
@@ -12,7 +13,6 @@ spec:
       labels:
         app: python-sample-app
     spec:
-      replicas: 1
       containers:
       - name: python-sample-app
         image: registry.k8s.integratn.tech/python-sample-app:latest
