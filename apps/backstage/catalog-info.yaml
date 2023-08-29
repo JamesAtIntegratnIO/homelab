@@ -12,6 +12,7 @@ metadata:
     backstage.io/techdocs-ref: dir:.
     backstage.io/kubernetes-namespace: backstage
     backstage.io/kubernetes-label-selector: app=backstage
+    argocd/app-name: backstage
 spec:
   type: service
   owner: James
