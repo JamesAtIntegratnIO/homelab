@@ -15,5 +15,5 @@ metadata:
     argocd/app-name: backstage
 spec:
   type: service
-  owner: user:guest
+  owner: user:default/jamesatintegratnio
   lifecycle: experimental
