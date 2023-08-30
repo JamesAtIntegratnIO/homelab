@@ -28,4 +28,29 @@ spec:
     displayName: James Dreier
     picture: https://avatars.githubusercontent.com/u/71669407?s=400&u=a98457f77dfb009529f759f136c17654cf81cb3c&v=4
   memberOf:
-    - default
+    - engineering
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+   namespace: default
+   name: engineering
+spec:
+   type: team
+   profile:
+      displayName: engineering
+      picture: https://blah.com/engineering
+   children: []
+   parent: technology
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  namespace: default
+  name: technology
+spec:
+  type: department
+  profile:
+    displayName: technology
+    picture: https://blah.com/technology
+  children: []
