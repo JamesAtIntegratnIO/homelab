@@ -28,10 +28,10 @@ spec:
           envFrom:
             - secretRef:
                 name: backstage-secrets
-          # volumeMounts:
-          #   - name: org-yaml
-          #     mountPath: /app
-          #     subPath: org.yaml
+          volumeMounts:
+            - name: org-yaml
+              mountPath: /app/
+              subPath: org.yaml
           
           resources:
             requests:
