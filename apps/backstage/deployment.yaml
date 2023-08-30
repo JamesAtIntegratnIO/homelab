@@ -21,16 +21,17 @@ spec:
       containers:
         - name: backstage
 
-          image: registry.k8s.integratn.tech/backstage:v0.27
+          image: registry.k8s.integratn.tech/backstage:v0.28
           ports:
             - containerPort: 7007
               name: http
           envFrom:
             - secretRef:
                 name: backstage-secrets
-          # volumeMounts:
-          #   - name: config
-          #     mountPath: /app
+          volumeMounts:
+            - name: org-yaml
+              mountPath: /org.yaml
+          
           resources:
             requests:
               cpu: 500m
@@ -40,8 +41,9 @@ spec:
               memory: 2048Mi
       volumes:
       # use a secret instead of a configmap
-      - name: config
-        configMap:
-          name: app-config
+      - name: org-yaml
+        secret:
+          secretName: backstage-org-yaml
+
         
       
