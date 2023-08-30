@@ -17,3 +17,15 @@ spec:
   type: service
   owner: user:guest
   lifecycle: experimental
+---
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  namespace: default
+  name: JamesAtIntegratnIO
+spec:
+  profile:
+    displayName: James Dreier
+    picture: https://avatars.githubusercontent.com/u/71669407?s=400&u=a98457f77dfb009529f759f136c17654cf81cb3c&v=4
+  memberOf:
+    - default
