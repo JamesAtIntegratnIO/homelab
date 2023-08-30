@@ -1,0 +1,9 @@
+apiVersion: onepassword.com/v1
+kind: OnePasswordItem
+metadata:
+  name: github.com-jamesatintegratnio-homelab #this name will also be used for naming the generated kubernetes secret
+  labels:
+        argocd.argoproj.io/secret-type: repository
+  namespace: argocd
+spec:
+  itemPath: "vaults/homelab/items/github.com-jamesatintegratnio-backstage-test-repo"

@@ -4,6 +4,7 @@ resources:
 - github.com/argoproj/argo-cd/manifests/cluster-install/?ref=v2.7.8
 - infra_project.yaml
 - homelab-repository.yaml
+- backstage-repository.yaml
 - ingress.yaml
 - project_media.yaml
 
