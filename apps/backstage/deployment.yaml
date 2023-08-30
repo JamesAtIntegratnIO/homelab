@@ -21,7 +21,7 @@ spec:
       containers:
         - name: backstage
 
-          image: registry.k8s.integratn.tech/backstage:v0.30
+          image: registry.k8s.integratn.tech/backstage:v0.31
           ports:
             - containerPort: 7007
               name: http
@@ -30,7 +30,7 @@ spec:
                 name: backstage-secrets
           volumeMounts:
             - name: org-yaml
-              mountPath: /app/org.yaml
+              mountPath: /app/users.yaml
               subPath: org.yaml
           
           resources:
