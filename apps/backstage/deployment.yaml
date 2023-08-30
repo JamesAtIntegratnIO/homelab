@@ -30,7 +30,7 @@ spec:
                 name: backstage-secrets
           volumeMounts:
             - name: org-yaml
-              mountPath: app/packages/backend
+              mountPath: /
               subPath: org.yaml
           
           resources:
