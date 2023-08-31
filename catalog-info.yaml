@@ -43,8 +43,6 @@ spec:
   type: kubernetes-manifest
   owner: group:default:engineering
   lifecycle: homeprod
-  system: backstage
-  children:
 
 ---
 apiVersion: backstage.io/v1alpha1
@@ -64,4 +62,3 @@ spec:
   owner: group:default:engineering
   type: database
   lifecycle: homeprod
-  system: backstage
