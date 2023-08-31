@@ -36,7 +36,7 @@ metadata:
     Pointer to the backstage manifest and linked resources
 spec:
   targets:
-    - apps/backstage/catalog-info.yaml
+    - ./apps/backstage/catalog-info.yaml
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Resource
