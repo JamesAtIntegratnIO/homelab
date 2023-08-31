@@ -1,0 +1,8 @@
+apiVersion: backstage.io/v1alpha1
+kind: Domain
+metadata:
+  name: infra-stack
+  description: |
+    The domain for infrastructure services
+spec:
+  owner: group:default:engineering
