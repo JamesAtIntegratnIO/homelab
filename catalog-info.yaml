@@ -6,3 +6,44 @@ metadata:
     The domain for infrastructure services
 spec:
   owner: group:default:engineering
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: argocd
+  description: |
+    ArgoCD is a declarative, GitOps continuous delivery tool for Kubernetes.
+spec:
+  owner: group:default:engineering
+  domain: infra-stack
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: backstage
+  description: |
+    Backstage is an open platform for building developer portals
+spec:
+  owner: group:default:engineering
+  domain: infra-stack
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: backstage
+  description: |
+    Backstage is an open-source developer portal that puts the developer experience first.
+  links:
+    - title: Website
+      url: https://backstage.k8s.integratn.tech
+  annotations:
+    github.com/project-slug: jamesAtIntegratnIO/backstage-demo
+    backstage.io/techdocs-ref: dir:.
+    backstage.io/kubernetes-namespace: backstage
+    backstage.io/kubernetes-label-selector: app=backstage
+    argocd/app-name: backstage
+spec:
+  type: service
+  owner: user:default/jamesatintegratnio
+  lifecycle: experimental
+  system: backstage
