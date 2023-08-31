@@ -16,3 +16,42 @@ spec:
   type: kubernetes-manifest
   owner: group:default:engineering
   lifecycle: homeprod
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: 1password-backstage-secrets
+  links:
+    - title: Backstage Secrets
+      url: https://my.1password.com/vaults/c74zxv7vnwdixfpuw3lawaijvu/allitems/4df26tsaf3k6wrtwcfspvam36a
+spec:
+  type: 1password
+  owner: group:default:engineering
+  lifecycle: homeprod
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: 1password-backstage-org-yaml
+  links:
+    - title: Backstage Org YAML
+      url: https://my.1password.com/vaults/c74zxv7vnwdixfpuw3lawaijvu/allitems/swjqzt4losqfycymph7kzqtmu4
+spec:
+  type: 1password
+  owner: group:default:engineering
+  lifecycle: homeprod
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: 1password-backstage-app-config
+  links:
+    - title: Backstage ArgoCD Secrets
+      url: https://my.1password.com/vaults/c74zxv7vnwdixfpuw3lawaijvu/allitems/haesircdaaal6zdcwrermc63hu
+spec:
+  type: 1password
+  owner: group:default:engineering
+  lifecycle: homeprod
