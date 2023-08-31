@@ -16,6 +16,10 @@ spec:
   type: kubernetes-manifest
   owner: group:default:engineering
   lifecycle: homeprod
+  dependsOn:
+    - resource:default/1password-backstage-secrets
+    - resource:default/1password-backstage-org-yaml
+    - resource:default/1password-backstage-app-config
 
 ---
 apiVersion: backstage.io/v1alpha1
@@ -49,7 +53,7 @@ kind: Resource
 metadata:
   name: 1password-backstage-app-config
   links:
-    - title: Backstage ArgoCD Secrets
+    - title: Backstage App Config
       url: https://my.1password.com/vaults/c74zxv7vnwdixfpuw3lawaijvu/allitems/haesircdaaal6zdcwrermc63hu
 spec:
   type: 1password
