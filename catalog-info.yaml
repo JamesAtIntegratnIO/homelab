@@ -28,7 +28,7 @@ spec:
   domain: infra-stack
 ---
 apiVersion: backstage.io/v1alpha1
-kind: Component
+kind: Resource
 metadata:
   name: backstage-service
   description: |
@@ -47,14 +47,24 @@ spec:
   owner: group:default:engineering
   lifecycle: homeprod
   system: backstage
+  children:
+    - backstage-db
 ---
 apiVersion: backstage.io/v1alpha1
-kind: Component
+kind: Resource
 metadata:
   name: backstage-db
   description: |
     Database for backstage persistance
+  links:
+    - title: Control Panel
+      url: https://10.0.3.1
+    - title: Web Shell
+      url: https://10.0.3.1:12320/
+    - title: Adminer
+      url: https://10.0.3.1:12322/
 spec:
   owner: group:default:engineering
   type: database
   lifecycle: homeprod
+  system: backstage
