@@ -44,6 +44,17 @@ metadata:
     argocd/app-name: backstage
 spec:
   type: service
-  owner: user:default/jamesatintegratnio
-  lifecycle: experimental
+  owner: group:default:engineering
+  lifecycle: homeprod
   system: backstage
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: backstage-db
+  description: |
+    Database for backstage persistance
+spec:
+  owner: group:default:engineering
+  type: database
+  lifecycle: homeprod
