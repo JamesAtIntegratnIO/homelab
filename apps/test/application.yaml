@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: test
+  namespace: argocd
+  annotations: 
+    # argocd-image-updater.argoproj.io/write-back-method: kustomization
+    # argocd-image-updater.argoproj.io/git-branch: main
+    # argocd-image-updater.argoproj.io/image-list: test
+spec:
+  project: infra
+  source:
+    repoURL: https://github.com/JamesAtIntegratnIO/homelab.git
+    targetRevision: HEAD
+    path: apps/test
+  destination:
+    name: in-cluster
+    namespace: test
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=false
