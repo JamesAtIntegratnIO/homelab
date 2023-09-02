@@ -7,3 +7,17 @@ metadata:
   namespace: argocd
 spec:
   itemPath: "vaults/homelab/items/github.com-jamesatintegratnio-homelab"
+---
+apiVerion: onepassword.com/v1
+kind: OnePasswordItem
+metadata:
+  name: github.com-jamesatintegratnio-repo-creds #this name will also be used for naming the generated kubernetes secret
+  labels:
+        argocd.argoproj.io/secret-type: repository-creds
+  namespace: argocd
+spec:
+  itemPath: "vaults/homelab/items/argocd-repo-creds"
+  itemFields:
+    - type
+    - url
+    - sshPrivateKey
