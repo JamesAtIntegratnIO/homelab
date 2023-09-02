@@ -6,5 +6,5 @@ metadata:
         argocd.argoproj.io/secret-type: argocd-repo-creds
   namespace: argocd
 spec:
-  itemPath: "vaults/homelab/items/argocd-repo-creds/repo-creds.yaml"
+  itemPath: "vaults/homelab/items/argocd-repo-creds:repo-creds.yaml"
   
