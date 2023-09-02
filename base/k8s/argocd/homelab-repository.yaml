@@ -8,12 +8,12 @@ metadata:
 spec:
   itemPath: "vaults/homelab/items/github.com-jamesatintegratnio-homelab"
 ---
-# apiVersion: onepassword.com/v1
-# kind: OnePasswordItem
-# metadata:
-#   name: argocd-repo-creds #this name will also be used for naming the generated kubernetes secret
-#   labels:
-#         argocd.argoproj.io/secret-type: repo-creds
-#   namespace: argocd
-# spec:
-#   itemPath: "vaults/homelab/items/argocd-repo-creds"
+apiVersion: onepassword.com/v1
+kind: OnePasswordItem
+metadata:
+  name: argocd-repo-creds #this name will also be used for naming the generated kubernetes secret
+  labels:
+        argocd.argoproj.io/secret-type: repo-creds
+  namespace: argocd
+spec:
+  itemPath: "vaults/homelab/items/argocd-repo-creds"
