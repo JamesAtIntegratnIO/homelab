@@ -13,7 +13,7 @@ kind: OnePasswordItem
 metadata:
   name: argocd-repo-creds #this name will also be used for naming the generated kubernetes secret
   labels:
-        argocd.argoproj.io/secret-type: repo-creds
+        argocd.argoproj.io/secret-type: repository
   namespace: argocd
 spec:
   itemPath: "vaults/homelab/items/argocd-repo-creds"
