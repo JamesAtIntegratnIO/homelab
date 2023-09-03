@@ -1,7 +1,5 @@
 resources:
-  - home-assistant-mysql-db-secret.yaml
   - home-assistant-secrets.yaml
-  - db.yaml
   - pvc.yaml
   - deployment.yaml
   - service.yaml

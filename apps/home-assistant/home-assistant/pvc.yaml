@@ -6,9 +6,9 @@ metadata:
   labels:
     app: home-assistant
 spec:
-  storageClassName: local-path
+  storageClassName: directpv-min-io
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
-      storage: 10Gi
+      storage: 5Gi

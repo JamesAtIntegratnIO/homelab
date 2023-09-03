@@ -3,8 +3,9 @@ kind: PersistentVolumeClaim
 metadata:
   name: mosquitto-data
 spec:
+  storageClassName: directpv-min-io
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
       storage: 5Gi
