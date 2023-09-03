@@ -7,3 +7,5 @@ resources:
 - ingress.yaml
 - service-account.yaml
 
+commonLabels:
+  app: backstage

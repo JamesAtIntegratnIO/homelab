@@ -1,14 +1,12 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  finalizers:
-  - resources-finalizer.argocd.argoproj.io
   name: kube-prometheus-stack
   namespace: argocd
 spec:
   destination:
     namespace: monitoring
-    server: https://kubernetes.default.svc
+    name: in-cluster
   project: monitoring
   source:
     chart: kube-prometheus-stack
