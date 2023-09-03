@@ -22,6 +22,15 @@ spec:
         - name: ha-config
           configMap:
             name: home-assistant-config
+        - name: home-assistant-automations
+          configMap:
+            name: home-assistant-automations
+        - name: home-assistant-scripts
+          configMap:
+            name: home-assistant-scripts
+        - name: home-assistant-scenes
+          configMap:
+            name: home-assistant-scenes
       containers:
         - name: home-assistant
           image: ghcr.io/home-assistant/home-assistant:stable
@@ -44,6 +53,15 @@ spec:
             - mountPath: /config/configuration.yaml
               subPath: configuration.yaml
               name: ha-config
+            - mountPath: /config/automations.yaml
+              subPath: automations.yaml
+              name: home-assistant-automations
+            - mountPath: /config/scripts.yaml
+              subPath: scripts.yaml
+              name: home-assistant-scripts
+            - mountPath: /config/scenes.yaml
+              subPath: scenes.yaml
+              name: home-assistant-scenes
           envFrom:
           - secretRef:
               name: home-assistant-secrets

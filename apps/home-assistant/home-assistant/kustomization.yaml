@@ -9,5 +9,14 @@ configMapGenerator:
   - files:
     - configuration.yaml
     name: home-assistant-config
+  - files:
+    - automations.yaml
+    name: home-assistant-automations
+  - files:
+    - scenes.yaml
+    name: home-assistant-scenes
+  - files:
+    - scripts.yaml
+    name: home-assistant-scripts
 generatorOptions:
   disableNameSuffixHash: true
