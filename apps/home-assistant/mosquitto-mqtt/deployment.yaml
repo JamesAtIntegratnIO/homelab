@@ -24,8 +24,8 @@ spec:
         volumeMounts:
         - mountPath: /mosquitto/config/
           name: config
-        - mountPath: /mosquitto/certs/
-          name: certs
+        # - mountPath: /mosquitto/certs/
+        #   name: certs
         - mountPath: /mosquitto/data/
           name: data
         resources: {}
@@ -33,9 +33,9 @@ spec:
       - name: config
         configMap:
           name: mosquitto-config
-      - name: certs
-        secret:
-          secretName: mosquitto-tls
+      # - name: certs
+      #   secret:
+      #     secretName: mosquitto-tls
       - name: data
         persistentVolumeClaim:
           claimName: mosquitto-data
