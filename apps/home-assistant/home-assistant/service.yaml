@@ -36,7 +36,7 @@ spec:
   selector:
     app: home-assistant
   type: LoadBalancer
-  loadBalancerIP: 10.0.1.201
+  loadBalancerIP: 10.0.2.201
 ---
 apiVersion: v1
 kind: Service
