@@ -18,7 +18,7 @@ spec:
       volumes:
         - name: ha-storage
           persistentVolumeClaim:
-            claimName: home-assistant-pvc
+            claimName: home-assistant-data
         - name: ha-config
           configMap:
             name: home-assistant-config
