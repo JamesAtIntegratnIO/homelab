@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: discord
+  namespace: argocd
+data:
+  service.webhook.discord: |
+    url: https://ptb.discord.com/api/webhooks/1133142555165479062/QOo8fAnCddtdNIDhaK0Dynip3AnwwZ-mZqKZMKq6_p9P5-0ILRANnyliIIAiMnEELRPM
