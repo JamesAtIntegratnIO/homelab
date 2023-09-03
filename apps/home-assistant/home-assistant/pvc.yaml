@@ -8,7 +8,7 @@ metadata:
 spec:
   storageClassName: directpv-min-io
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnces
   resources:
     requests:
       storage: 5Gi

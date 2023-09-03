@@ -21,7 +21,7 @@ spec:
         targetRevision: main
         path: "apps/home-assistant/{{appName}}"
       destination:
-        name: homelab
+        name: in-cluster
         namespace: home-assistant
       syncPolicy:
         automated:
