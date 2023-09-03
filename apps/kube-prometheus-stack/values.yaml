@@ -3,19 +3,19 @@ kubeApiServer:
 kubeControllerManager:
   enabled: true
   endpoints:
-  - 10.0.1.101
+  - 10.0.2.101
 kubeScheduler:
   enabled: true
   endpoints:
-  - 10.0.1.101
+  - 10.0.2.101
 kubeProxy:
   enabled: true
   endpoints:
-  - 10.0.1.101
+  - 10.0.2.101
 kubeEtcd:
   enabled: true
   endpoints:
-  - 10.0.1.101
+  - 10.0.2.101
   service:
     enabled: true
     port: 2381
@@ -37,12 +37,12 @@ grafana:
       # cert-manager.io/issuer-kind: OriginIssuer
       # cert-manager.io/issuer-group: cert-manager.k8s.cloudflare.com
     hosts:
-    - grafana.cluster.integratn.tech
+    - grafana.k8s.integratn.tech
     tls:
     # # specifying a host in the TLS section will tell cert-manager what
     # # DNS SANs should be on the created certificate.
     - hosts:
-      - grafana.cluster.integratn.tech
+      - grafana.k8s.integratn.tech
     #   # cert-manager will create this secret
       secretName: grafana-integratn-tech-tls
 prometheus-node-exporter:
