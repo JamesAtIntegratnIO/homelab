@@ -7,7 +7,7 @@ metadata:
     metallb.universe.tf/allow-shared-ip: "home-assistant"
 spec:
   type: LoadBalancer
-  loadBalancerIP: 10.0.1.201
+  loadBalancerIP: 10.0.2.201
   selector:
     app: mosquitto
   ports:
