@@ -1,14 +1,32 @@
-kind: PersistentVolumeClaim
 apiVersion: v1
+kind: PersistentVolume
 metadata:
-  name: home-assistant-pvc
-  namespace: home-assistant
+  annotations:
+    pv.kubernetes.io/provisioned-by: k8s-sigs.io/nfs-subdir-external-provisioner
+  name: home-assistant-pv
   labels:
     app: home-assistant
 spec:
-  storageClassName: directpv-min-io
   accessModes:
-    - ReadWriteOnces
+  - ReadWriteOnce
+  capacity:
+    storage: 5Gi
+  nfs:
+    path: /mnt/user/kube_storage/home-assistant
+    server: 10.0.0.12
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs-client
+  volumeMode: Filesystem
+status:
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: home-assistant-data
+spec:
+  storageClassName: nfs-client
+  accessModes:
+    - ReadWriteOnce
   resources:
     requests:
       storage: 5Gi
