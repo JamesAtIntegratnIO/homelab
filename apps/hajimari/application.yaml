@@ -4,9 +4,6 @@ metadata:
   name: hajimari
   namespace: argocd
   annotations: 
-    argocd-image-updater.argoproj.io/write-back-method: kustomization
-    argocd-image-updater.argoproj.io/git-branch: main
-    argocd-image-updater.argoproj.io/image-list: hajimari
 spec:
   project: infra
   source:

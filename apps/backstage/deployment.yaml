@@ -21,7 +21,7 @@ spec:
       containers:
         - name: backstage
 
-          image: ghcr.io/jamesatintegratnio/backstage:main
+          image: ghcr.io/jamesatintegratnio/backstage:latest
           ports:
             - containerPort: 7007
               name: http
