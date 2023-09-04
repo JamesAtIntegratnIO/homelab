@@ -2,3 +2,8 @@ namespace: argocd
 resources:
   - github.com/argoproj-labs/argocd-image-updater/manifests/base/?rev=v0.12.2
   - argocd-image-updater-secret.yaml
+
+patches:
+  - path: argocd-image-updater-config-cm-patch.yaml
+    target:
+      labelSelector: "app.kubernetes.io/name=argocd-image-updater-config"
