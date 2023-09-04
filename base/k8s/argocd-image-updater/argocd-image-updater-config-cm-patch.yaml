@@ -9,6 +9,7 @@ metadata:
     app.kubernetes.io/part-of: argocd-image-updater
 data:
   registries.conf: |
+    registries:
     - name: GitHub Registry
       prefix: ghcr.io
       api_url: https://ghcr.io
