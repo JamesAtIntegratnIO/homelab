@@ -6,7 +6,8 @@ metadata:
   annotations: 
     # argocd-image-updater.argoproj.io/write-back-method: kustomization
     # argocd-image-updater.argoproj.io/git-branch: main
-    argocd-image-updater.argoproj.io/image-list: ghcr.io/jamesatintegratnio/backstage:latest
+    argocd-image-updater.argoproj.io/image-list: latest-updater=ghcr.io/jamesatintegratnio/backstage
+    argocd-image-updater.argoproj.io/latest-updater.update-strategy: newest-build
 spec:
   project: infra
   source:
@@ -22,3 +23,4 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=false
+  revisionHistoryLimit: 3

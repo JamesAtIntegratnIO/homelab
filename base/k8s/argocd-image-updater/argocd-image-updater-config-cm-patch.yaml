@@ -14,6 +14,9 @@ data:
       prefix: ghcr.io
       api_url: https://ghcr.io
       default: true
+    - name: Docker Hub
+      prefix: docker.io
+      api_url: https://index.docker.io
 
 
 
