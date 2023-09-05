@@ -17,6 +17,7 @@ data:
     - name: Docker Hub
       prefix: docker.io
       api_url: https://index.docker.io
+      credentials: secret:argocd/argocd-image-updater-secret#dockerhub
 
 
 
