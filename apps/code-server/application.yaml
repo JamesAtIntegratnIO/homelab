@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: code-server
+  namespace: argocd
+  annotations: 
+    # argocd-image-updater.argoproj.io/write-back-method: kustomization
+    # argocd-image-updater.argoproj.io/git-branch: main
+    argocd-image-updater.argoproj.io/image-list: latest-updater=docker.io/codercom/code-server
+    argocd-image-updater.argoproj.io/latest-updater.update-strategy: newest-build
+spec:
+  project: infra
+  source:
+    repoURL: https://github.com/JamesAtIntegratnIO/homelab.git
+    targetRevision: HEAD
+    path: apps/code-server
+  destination:
+    name: in-cluster
+    namespace: code-server
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=false
+  revisionHistoryLimit: 3

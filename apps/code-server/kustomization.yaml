@@ -1,0 +1,8 @@
+namespace: code-server
+resources:
+- namespace.yaml
+- pv.yaml
+- pvc.yaml
+- deployment.yaml
+- service.yaml
+- ingress.yaml
