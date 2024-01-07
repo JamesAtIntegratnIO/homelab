@@ -22,13 +22,13 @@ kubeEtcd:
     targetPort: 2381
 alertmanager:
   service:
-    type: ClusterIP
+    type: LoadBalancer
 prometheus:
   service:
-    type: ClusterIP
+    type: LoadBalancer
 grafana:
   service:
-    type: ClusterIP
+    type: LoadBalancer
   ingress:
     enabled: true
     ingressClassName: nginx
@@ -39,12 +39,13 @@ grafana:
     hosts:
     - grafana.k8s.integratn.tech
     tls:
+
     # # specifying a host in the TLS section will tell cert-manager what
     # # DNS SANs should be on the created certificate.
     - hosts:
       - grafana.k8s.integratn.tech
     #   # cert-manager will create this secret
-      secretName: grafana-integratn-tech-tls
+      secretName: grafana-tls
 prometheus-node-exporter:
   hostRootFsMount:
     enabled: false
