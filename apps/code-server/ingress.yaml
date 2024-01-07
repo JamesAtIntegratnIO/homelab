@@ -2,7 +2,10 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: code-server-ingress
+  name: code-server
+  namespace: code-server
+  labels:
+    app: code-server
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
     
