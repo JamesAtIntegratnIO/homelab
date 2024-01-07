@@ -3,6 +3,8 @@ kind: Service
 metadata:
   name: backstage
   namespace: backstage
+  labels:
+    app: backstage
 spec:
   selector:
     app: backstage

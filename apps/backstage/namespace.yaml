@@ -6,5 +6,6 @@ metadata:
   name: backstage
   labels:
     name: backstage
+    app: backstage
   annotations:
     backstage.io/kubernetes-namespace: backstage
