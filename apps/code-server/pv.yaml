@@ -17,3 +17,4 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: nfs-client
   volumeMode: Filesystem
+

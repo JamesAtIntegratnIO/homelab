@@ -15,7 +15,14 @@ spec:
     spec:
       containers:
         - name: code-server
-          image: codercom/code-server:latest
+          image: ghcr.io/jamesatintegratnio/code-server:main
+          env:
+            - name: PUID
+              value: "99"
+            - name: PGID
+              value: "100"
+            - name: "TZ"
+              value: "America/Denver"
           ports:
             - containerPort: 8080
           volumeMounts:
@@ -32,4 +39,5 @@ spec:
         - name: code-server-pvc
           persistentVolumeClaim:
             claimName: code-server-pvc
+
 
