@@ -9,6 +9,9 @@ hajimari:
         - media
         - monitoring
         - home-assistant
+        - code-server
+        - backstage
+        
     name: You
     title: Hajimari
     lightTheme: gazette
