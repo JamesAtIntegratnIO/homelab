@@ -17,3 +17,26 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: nfs-client
   volumeMode: Filesystem
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: code-server-nix-pv
+  labels:
+    app: code-server
+  annotations:
+    pv.kubernetes.io/provisioned-by: k8s-sigs.io/nfs-subdir-external-provisioner
+spec:
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs-client
+  mountOptions:
+    - hard
+    - nfsvers=4.1
+  nfs:
+    path: /mnt/user/kube_storage/code-server-nix-pvc
+    server: 10.0.0.12

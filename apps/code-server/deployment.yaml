@@ -16,11 +16,20 @@ spec:
       containers:
         - name: code-server
           image: codercom/code-server:latest
+          env:
+            - name: PUID
+              value: "99"
+            - name: PGID
+              value: "100"
+            - name: "TZ"
+              value: "America/Denver"
           ports:
             - containerPort: 8080
           volumeMounts:
             - name: code-server-pvc
               mountPath: /home/coder
+            - name: nix
+              mountPath: /nix
           resources:
             requests:
               cpu: 500m
@@ -28,8 +37,57 @@ spec:
             limits:
               cpu: 1500m
               memory: 2048Mi
+      initContainers:        
+        - name: install-extensions
+          image: codercom/code-server:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: SERVICE_URL
+              value: https://open-vsx.org/vscode/gallery
+            - name: ITEM_URL
+              value: https://open-vsx.org/vscode/item
+            - name: PUID
+              value: "99"
+            - name: PGID
+              value: "100"
+            - name: "TZ"
+              value: "America/Denver"
+          command: 
+            - "/bin/bash"
+            - "-c"
+            - |
+              code-server --install-extension ms-python.python
+              code-server --install-extension golang.Go
+          volumeMounts:
+            - name: code-server-pvc
+              mountPath: /home/coder
+        - name: install-nix
+          image: codercom/code-server:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: PUID
+              value: "99"
+            - name: PGID
+              value: "100"
+            - name: "TZ"
+              value: "America/Denver"
+          command: 
+            - "/bin/bash"
+            - "-c"
+            - |
+              sudo apt update
+              sudo apt install -y xz-utils
+              sh <(curl -L https://nixos.org/nix/install) --no-daemon
+          volumeMounts:
+            - name: code-server-pvc
+              mountPath: /home/coder
+            - name: nix
+              mountPath: /nix
       volumes:
         - name: code-server-pvc
           persistentVolumeClaim:
             claimName: code-server-pvc
+        - name: nix
+          persistentVolumeClaim:
+            claimName: code-server-nix-pvc
 
