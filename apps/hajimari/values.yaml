@@ -14,8 +14,8 @@ hajimari:
         
     name: You
     title: Hajimari
-    lightTheme: gazette
-    darkTheme: horizon
+    lightTheme: espresso
+    darkTheme: espresso
     customThemes:
       - name: danger
         backgroundColor: '#0c0e0c'
@@ -30,7 +30,7 @@ hajimari:
     showBookmarkGroups: true
     showGlobalBookmarks: true
     alwaysTargetBlank: false
-    defaultSearchProvider: Google
+    defaultSearchProvider: DuckDuckGo
     searchProviders:
       - name: Google
         token: g
