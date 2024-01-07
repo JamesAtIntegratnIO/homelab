@@ -15,6 +15,5 @@ spec:
     path: /mnt/user/kube_storage/pmm
     server: 10.0.0.12
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: data-nfs-client
+  storageClassName: nfs-client
   volumeMode: Filesystem
-status:

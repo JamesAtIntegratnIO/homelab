@@ -6,7 +6,7 @@ metadata:
   labels:
     app: plex-media-manager
 spec:
-  storageClassName: data-nfs-client
+  storageClassName: nfs-client
   accessModes:
     - ReadWriteOnce
   resources:
