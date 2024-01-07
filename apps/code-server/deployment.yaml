@@ -21,7 +21,15 @@ spec:
           volumeMounts:
             - name: code-server-pvc
               mountPath: /home/coder
+          resources:
+            requests:
+              cpu: 500m
+              memory: 512Mi
+            limits:
+              cpu: 1500m
+              memory: 2048Mi
       volumes:
         - name: code-server-pvc
           persistentVolumeClaim:
             claimName: code-server-pvc
+
