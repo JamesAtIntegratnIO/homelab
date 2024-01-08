@@ -16,6 +16,19 @@ patches:
   - path: argocd-rbac-cm-patch.yaml
     target:
       labelSelector: "app.kubernetes.io/name=argocd-rbac-cm"
+  - path: argo-server-patch.yaml
+    target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: argo-server
+    
+  - path: argo-service-patch.yaml
+    target:
+      version: v1
+      kind: Service
+      name: argo-server
+    
 configMapGenerator:
   - name: argocd-cmd-params-cm
     behavior: merge
