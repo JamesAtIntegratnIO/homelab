@@ -23,7 +23,7 @@ hajimari:
         accentColor: '#d8323c'
     showGreeting: false
     showAppGroups: true
-    showAppUrls: true
+    showAppUrls: false
     showAppInfo: true
     showAppStatus: true
     defaultAppIcon: mdi:application

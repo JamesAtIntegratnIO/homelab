@@ -1,7 +1,7 @@
 namespace: argocd
 resources:
 - namespace.yaml
-- github.com/argoproj/argo-cd/manifests/cluster-install/?ref=v2.7.8
+- github.com/argoproj/argo-cd/manifests/cluster-install/?ref=v2.9.3
 - infra_project.yaml
 - homelab-repository.yaml
 - backstage-repository.yaml
