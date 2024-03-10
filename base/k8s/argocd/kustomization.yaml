@@ -1,4 +1,7 @@
 namespace: argocd
+labels:
+  - pairs:
+      'backstage.io/kubernetes-id': 'argocd'
 resources:
 - namespace.yaml
 - github.com/argoproj/argo-cd/manifests/cluster-install/?ref=v2.9.3

@@ -1,4 +1,7 @@
 namespace: kube-system
+labels:
+  - pairs:
+      'backstage.io/kubernetes-id': 'metrics'
 resources:
   - https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/high-availability-1.21+.yaml
   - ca-pem.yaml

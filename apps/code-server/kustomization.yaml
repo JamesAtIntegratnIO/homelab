@@ -1,4 +1,8 @@
 namespace: code-server
+labels:
+  - pairs:
+      'backstage.io/kubernetes-id': 'code-server'
+      app: code-server
 resources:
 - namespace.yaml
 - pv.yaml

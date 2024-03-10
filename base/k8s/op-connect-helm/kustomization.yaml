@@ -1,2 +1,5 @@
+labels:
+  - pairs:
+      'backstage.io/kubernetes-id': 'op-connect-helm'
 resources:
   - ./all.yaml

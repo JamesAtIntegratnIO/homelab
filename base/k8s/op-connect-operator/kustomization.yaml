@@ -1,4 +1,7 @@
 namespace: op-connect
+labels:
+  - pairs:
+      'backstage.io/kubernetes-id': 'op-connect-operator'
 resources:
   - op-connect-token-sealed-secret.yaml
   - manager/

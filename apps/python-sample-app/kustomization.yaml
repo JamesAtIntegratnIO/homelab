@@ -1,4 +1,8 @@
 namespace: python-sample-app
+labels:
+  - pairs:
+      'backstage.io/kubernetes-id': 'python-sample-app'
+      app: python-sample-app
 resources:
 - deployment.yaml
 - service.yaml

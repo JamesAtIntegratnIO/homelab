@@ -1,4 +1,8 @@
 namespace: hajimari
+labels:
+  - pairs:
+      'backstage.io/kubernetes-id': 'hajimari'
+      app: hajimari
 resources:
 - ./all.yaml
 - pv.yaml

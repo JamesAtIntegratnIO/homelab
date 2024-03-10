@@ -1,4 +1,7 @@
 namespace: minio-tenant
+labels:
+  - pairs:
+      'backstage.io/kubernetes-id': 'minio-tenant'
 resources: 
 - storage-user-onePasswordItem.yaml
 - ingress.yaml

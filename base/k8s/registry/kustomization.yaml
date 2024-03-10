@@ -1,4 +1,7 @@
 namespace: docker-registry
+labels:
+  - pairs:
+      'backstage.io/kubernetes-id': 'docker-registry'
 resources:
 - config-onePasswordItem.yaml
 - deployment.yaml

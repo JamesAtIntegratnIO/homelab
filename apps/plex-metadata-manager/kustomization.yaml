@@ -1,4 +1,8 @@
 namespace: pmm
+labels:
+  - pairs:
+      'backstage.io/kubernetes-id': 'pmm'
+      app: pmm
 resources:
 - pmm-1passwordItem.yaml
 - cronjob.yaml

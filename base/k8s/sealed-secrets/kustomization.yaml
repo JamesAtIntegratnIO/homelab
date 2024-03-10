@@ -1,3 +1,6 @@
 namespace: kube-system
+labels:
+  - pairs:
+      'backstage.io/kubernetes-id': 'sealed-secrets'
 resources:
 - https://github.com/bitnami-labs/sealed-secrets/releases/download/v0.23.0/controller.yaml
