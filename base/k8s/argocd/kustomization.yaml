@@ -4,13 +4,14 @@ labels:
       'backstage.io/kubernetes-id': 'argocd'
 resources:
 - namespace.yaml
-- github.com/argoproj/argo-cd/manifests/cluster-install/?ref=v2.9.3
+- github.com/argoproj/argo-cd/manifests/cluster-install/?ref=v2.10.3
 - github.com/argoproj/argo-workflows/manifests/cluster-install/?ref=v3.5.2
 - infra_project.yaml
 - homelab-repository.yaml
 - backstage-repository.yaml
 - ingress.yaml
 - project_media.yaml
+- helm-kustomized-cmp.yaml
 
 patches:
   - path: argocd-cm-patch.yaml
@@ -31,7 +32,12 @@ patches:
       version: v1
       kind: Service
       name: argo-server
-    
+  - path: plugin-sidecar-patch.yaml
+    target:
+      group: apps
+      version: v1
+      kind: Deployment
+      name: argocd-repo-server
 configMapGenerator:
   - name: argocd-cmd-params-cm
     behavior: merge
