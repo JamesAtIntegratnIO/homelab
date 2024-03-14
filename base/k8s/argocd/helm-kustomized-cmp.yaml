@@ -11,8 +11,17 @@ data:
       name: kustomized-helm
     spec:
       init:
-        command: ["/bin/sh", "-c"]
-        args: ["helm dependency build"]
+        command: [/bin/sh, -c]
+        args: 
+          - BOBOYSDADDA_TEMP=$(mktemp -d) &&
+            export XDG_CACHE_HOME=$BOBOYSDADDA_TEMP/cache &&
+            export XDG_CONFIG_HOME=$BOBOYSDADDA_TEMP/config &&
+            export XDG_DATA_HOME=$BOBOYSDADDA_TEMP/data &&
+            export HELM_HOME=$BOBOYSDADDA_TEMP/helm &&
+            helm repo add $ARGOCD_ENV_HELM_REPO_NAME $ARGOCD_ENV_HELM_REPO_URL && 
+            helm dependency build &&
+            rm -r $BOBOYSDADDA_TEMP
       generate:
         command: [sh, -c]
-        args: ["helm template --release-name release-name --include-crds . > all.yaml && kustomize build"]
+        args: 
+          - helm template --release-name $ARGOCD_ENV_HELM_RELEASE_NAME --include-crds . > all.yaml && kustomize build

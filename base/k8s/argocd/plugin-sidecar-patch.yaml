@@ -12,7 +12,7 @@ spec:
       - name: kustomized-helm
         command: [/var/run/argocd/argocd-cmp-server] # Entrypoint should be Argo CD lightweight CMP server i.e. argocd-cmp-server
         # image: busybox # This can be off-the-shelf or custom-built image
-        image: dtzar/helm-kubectl:3.14.2
+        image: quay.io/argoproj/argocd:v2.10.3
         securityContext:
           runAsNonRoot: true
           runAsUser: 999
