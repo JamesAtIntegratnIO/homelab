@@ -3,13 +3,10 @@ kind: Service
 metadata:
   name: op-connect
 spec:
-  type: NodePort
   selector:
     app: op-connect
   ports:
     - name: connect-api
       port: 8080
       targetPort: connect-api
-    - port: 8081
-      name: connect-sync
-      targetPort: connect-sync
+ 

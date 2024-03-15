@@ -3,8 +3,12 @@ labels:
   - pairs:
       'backstage.io/kubernetes-id': 'op-connect-operator'
 resources:
+  - namespace.yaml
   - op-connect-token-sealed-secret.yaml
-  - manager/
+  - op-connect-sealed-secret.yaml
+  - service.yaml
+  - deployment.yaml
   - crds/
   - rbac/
+  - manager/
   - test-item.yaml
