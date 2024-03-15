@@ -1,0 +1,36 @@
+apiVersion: k0sctl.k0sproject.io/v1beta1
+kind: Cluster
+metadata:
+  name: k0s-homelab-cluster
+spec:
+  hosts:
+  - ssh:
+      address: 10.0.2.101
+      user: boboysdadda
+      port: 22
+      keyPath: ~/.ssh/id_ed25519
+    role: controller+worker
+    noTaints: true
+    environment:
+      DISABLE_TELEMETRY: true
+  - ssh:
+      address: 10.0.2.102
+      user: boboysdadda
+      port: 22
+      keyPath: ~/.ssh/id_ed25519
+    role: worker
+    environment:
+      DISABLE_TELEMETRY: true
+  - ssh:
+      address: 10.0.2.103
+      user: boboysdadda
+      port: 22
+      keyPath: ~/.ssh/id_ed25519
+    role: worker
+    environment:
+      DISABLE_TELEMETRY: true
+  k0s:
+    version: null
+    versionChannel: stable
+    dynamicConfig: false
+    config: {}

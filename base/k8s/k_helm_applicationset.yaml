@@ -9,12 +9,19 @@ spec:
       elements:
         - appName: cert-manager
           namespace: cert-manager
+          helmReleaseName: cert-manager
+          helmChartName: jetsack
+          helmChartRepo: https://charts.jetstack.io
         - appName: ingress-nginx
           namespace: ingress-nginx
+          helmReleaseName: ingress-nginx
+          helmChartName: ingress-nginx
+          helmChartRepo: https://kubernetes.github.io/ingress-nginx
         - appName: external-secrets
           namespace: external-secrets
-        - appName: op-connect-helm
-          namespace: op-connect
+          helmReleaseName: external-secrets
+          helmChartName: external-secrets
+          helmChartRepo: https://charts.external-secrets.io
   template:
     metadata:
       name: "{{appName}}"
@@ -28,6 +35,13 @@ spec:
         path: "base/k8s/{{appName}}"
         plugin:
           name: kustomized-helm
+          env: 
+            - name: HELM_RELASE_NAME
+              value: "{{helmReleaseName}}"
+            - name: HELM_REPO_NAME
+              value: "{{helmChartName}}"
+            - name: HELM_REPO_URL
+              value: "{{helmChartRepo}}"
       destination:
         name: in-cluster
         namespace: "{{namespace}}"
