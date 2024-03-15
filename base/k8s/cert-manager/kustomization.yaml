@@ -5,5 +5,5 @@ labels:
 resources:
 - namespace.yaml
 - ./all.yaml
-- https://github.com/cert-manager/cert-manager/releases/download/v1.12.2/cert-manager.crds.yaml
+- https://github.com/cert-manager/cert-manager/releases/download/v1.14.4/cert-manager.crds.yaml
 - issuer.yaml
