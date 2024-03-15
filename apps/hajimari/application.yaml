@@ -12,6 +12,13 @@ spec:
     path: apps/hajimari
     plugin:
       name: kustomized-helm
+      env: 
+        - name: HELM_RELASE_NAME
+          value: hajimari
+        - name: HELM_REPO_NAME
+          value: hajimari
+        - name: HELM_REPO_URL
+          value: https://hajimari.io
   destination:
     name: in-cluster
     namespace: hajimari

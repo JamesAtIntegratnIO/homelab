@@ -1,7 +1,0 @@
-namespace: test
-labels:
-  - pairs:  
-      'backstage.io/kubernetes-id': 'test'
-      app: test
-resources:
-- test.yaml
