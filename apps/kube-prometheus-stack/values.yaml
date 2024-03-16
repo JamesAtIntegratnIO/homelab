@@ -48,3 +48,6 @@ kube-prometheus-stack:
         - grafana.k8s.integratn.tech
       #   # cert-manager will create this secret
         secretName: grafana-tls
+  global:
+    rbac:
+      create: true
