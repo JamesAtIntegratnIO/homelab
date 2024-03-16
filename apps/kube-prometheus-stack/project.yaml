@@ -13,6 +13,8 @@ spec:
     namespace: "monitoring"
   - name: "in-cluster"
     namespace: "kube-system"
+  - name: "in-cluster"
+    namespace: "kube-prometheus-stack"
   sourceRepos:
   - '*'
   sourceNamespaces:

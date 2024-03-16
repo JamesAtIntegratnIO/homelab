@@ -1,23 +1,23 @@
 
 kube-prometheus-stack:
-# kubeApiServer:
-#   enabled: true
-# kubeControllerManager:
-#   enabled: true
-#   endpoints:
-#   - 10.0.2.101
-# kubeScheduler:
-#   enabled: true
-#   endpoints:
-#   - 10.0.2.101
-# kubeProxy:
-#   enabled: true
-#   endpoints:
-#   - 10.0.2.101
-# kubeEtcd:
-#   enabled: true
-#   endpoints:
-#   - 10.0.2.101
+  kubeApiServer:
+    enabled: true
+  kubeControllerManager:
+    enabled: true
+    endpoints:
+    - 10.0.2.101
+  kubeScheduler:
+    enabled: true
+    endpoints:
+    - 10.0.2.101
+  kubeProxy:
+    enabled: true
+    endpoints:
+    - 10.0.2.101
+  kubeEtcd:
+    enabled: true
+    endpoints:
+    - 10.0.2.101
 #   service:
 #     enabled: true
 #     port: 2381
@@ -48,9 +48,3 @@ kube-prometheus-stack:
         - grafana.k8s.integratn.tech
       #   # cert-manager will create this secret
         secretName: grafana-tls
-  prometheus-node-exporter:
-    hostRootFsMount:
-      enabled: false
-  prometheusOperator:
-    admissionWebhooks:
-      failurePolicy: Ignore
