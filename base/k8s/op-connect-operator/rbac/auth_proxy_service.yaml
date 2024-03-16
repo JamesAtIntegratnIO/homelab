@@ -11,7 +11,7 @@ metadata:
     app.kubernetes.io/part-of: onepassword-connect-operator
     app.kubernetes.io/managed-by: kustomize
   name: onepassword-connect-operator-metrics-service
-  namespace: system
+  namespace: op-connect
 spec:
   ports:
   - name: https
