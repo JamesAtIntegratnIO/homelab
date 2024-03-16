@@ -3,7 +3,7 @@
 # explicitly interpolated on the template side by using the `tpl` function.
 
 # global common labels, applied to all ressources
-labels: {}
+commonLabels: {}
 
 # This section of values is for 1Password Connect API and Sync Configuration
 connect:
@@ -189,13 +189,19 @@ connect:
     # Number of profiler snapshots to keep.
     keepLast: 12
 
+  # 1Password Connect Custom Container Environment Variables
+  # Must be written in the following format:
+  # - name: VARIABLE_NAME
+  #   value: VARIABLE_VALUE
+  customEnvVars: []
+
 # This section of values is for 1Password Operator Configuration
 operator:
   # Denotes whether the 1Password Operator will be deployed
   create: false
 
   # Denotes whether the 1Password Operator will automatically restart deployments based on associated updated secrets.
-  autoRestart: true
+  autoRestart: false
 
   # The name of 1Password Operator Application
   applicationName: onepassword-connect-operator
@@ -210,7 +216,7 @@ operator:
   pollingInterval: 600
 
   # The 1Password Operator version to pull
-  version: "1.7.1"
+  version: "1.8.1"
 
   # Node selector stanza for the Operator pod
   # See: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector
@@ -285,6 +291,12 @@ operator:
 
   # 1Password Operator Log Level Configuration
   logLevel: info
+
+  # 1Password Operator Custom Container Environment Variables
+  # Must be written in the following format:
+  # - name: VARIABLE_NAME
+  #   value: VARIABLE_VALUE
+  customEnvVars: []
 
 # 1Password Acceptance Tests Functionality
 acceptanceTests:

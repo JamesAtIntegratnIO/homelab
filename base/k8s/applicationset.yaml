@@ -19,8 +19,8 @@ spec:
           namespace: nfs-provisioner
         - appName: sealed-secrets
           namespace: kube-system
-        - appName: op-connect-operator
-          namespace: op-connect
+        # - appName: op-connect-operator
+        #   namespace: op-connect
         - appName: minio
           namespace: minio-tenant
         - appName: registry
