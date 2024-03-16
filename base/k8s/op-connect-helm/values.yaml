@@ -198,10 +198,10 @@ connect:
 # This section of values is for 1Password Operator Configuration
 operator:
   # Denotes whether the 1Password Operator will be deployed
-  create: false
+  create: true
 
   # Denotes whether the 1Password Operator will automatically restart deployments based on associated updated secrets.
-  autoRestart: false
+  autoRestart: true
 
   # The name of 1Password Operator Application
   applicationName: onepassword-connect-operator

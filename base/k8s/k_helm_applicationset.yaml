@@ -22,6 +22,11 @@ spec:
           helmReleaseName: external-secrets
           helmChartName: external-secrets
           helmChartRepo: https://charts.external-secrets.io
+        - appName: op-connect-helm
+          namespace: op-connect
+          helmReleaseName: op-connect-operator
+          helmChartName: onepassword-connect-operator
+          helmChartRepo: https://1password.github.io/connect-helm-charts
   template:
     metadata:
       name: "{{appName}}"
@@ -36,7 +41,7 @@ spec:
         plugin:
           name: kustomized-helm
           env: 
-            - name: HELM_RELASE_NAME
+            - name: HELM_RELEASE_NAME
               value: "{{helmReleaseName}}"
             - name: HELM_REPO_NAME
               value: "{{helmChartName}}"
