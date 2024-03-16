@@ -16,7 +16,7 @@
       system: let
         pkgs = nixpkgs.legacyPackages.${system};
       in {
-        devShells.terraform = pkgs.mkShell {
+        devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
             terraform
             tflint
@@ -28,6 +28,7 @@
             kustomize
             kubernetes-helm
             krew
+            yq
           ];
           shellHook = ''
             set -a

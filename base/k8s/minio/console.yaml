@@ -1,0 +1,74 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    operator.min.io/authors: MinIO, Inc.
+    operator.min.io/license: AGPLv3
+    operator.min.io/support: https://subnet.min.io
+  labels:
+    app.kubernetes.io/instance: minio-operator
+    app.kubernetes.io/name: operator
+    min.io/operator: v5.0.13
+  name: console
+  namespace: minio-operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: console
+  template:
+    metadata:
+      annotations:
+        operator.min.io/authors: MinIO, Inc.
+        operator.min.io/license: AGPLv3
+        operator.min.io/support: https://subnet.min.io
+      labels:
+        app: console
+        app.kubernetes.io/instance: minio-operator-console
+        app.kubernetes.io/name: operator
+    spec:
+      containers:
+      - args:
+        - ui
+        - --certs-dir=/tmp/certs
+        image: minio/operator:v5.0.13
+        imagePullPolicy: IfNotPresent
+        name: console
+        ports:
+        - containerPort: 9090
+          name: http
+        - containerPort: 9443
+          name: https
+        securityContext:
+          runAsGroup: 1000
+          runAsNonRoot: true
+          runAsUser: 1000
+        volumeMounts:
+        - mountPath: /tmp/certs
+          name: tls-certificates
+        - mountPath: /tmp/certs/CAs
+          name: tmp
+      serviceAccountName: console-sa
+      volumes:
+      - name: tls-certificates
+        projected:
+          sources:
+          - secret:
+              items:
+              - key: public.crt
+                path: public.crt
+              - key: public.crt
+                path: CAs/public.crt
+              - key: private.key
+                path: private.key
+              - key: tls.crt
+                path: tls.crt
+              - key: tls.crt
+                path: CAs/tls.crt
+              - key: tls.key
+                path: tls.key
+              name: console-tls
+              optional: true
+      - emptyDir: {}
+        name: tmp

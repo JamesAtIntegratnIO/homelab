@@ -1,0 +1,61 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    operator.min.io/authors: MinIO, Inc.
+    operator.min.io/license: AGPLv3
+    operator.min.io/support: https://subnet.min.io
+  labels:
+    app.kubernetes.io/instance: minio-operator
+    app.kubernetes.io/name: operator
+    min.io/operator: v5.0.13
+  name: minio-operator
+  namespace: minio-operator
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      name: minio-operator
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        operator.min.io/authors: MinIO, Inc.
+        operator.min.io/license: AGPLv3
+        operator.min.io/support: https://subnet.min.io
+      labels:
+        app.kubernetes.io/instance: minio-operator
+        app.kubernetes.io/name: operator
+        name: minio-operator
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: name
+                operator: In
+                values:
+                - minio-operator
+            topologyKey: kubernetes.io/hostname
+      containers:
+      - args:
+        - controller
+        env:
+        - name: CLUSTER_DOMAIN
+          value: cluster.local
+        image: minio/operator:v5.0.13
+        imagePullPolicy: IfNotPresent
+        name: minio-operator
+        resources:
+          requests:
+            cpu: 200m
+            ephemeral-storage: 500Mi
+            memory: 256Mi
+        securityContext:
+          runAsGroup: 1000
+          runAsNonRoot: true
+          runAsUser: 1000
+      serviceAccountName: minio-operator
