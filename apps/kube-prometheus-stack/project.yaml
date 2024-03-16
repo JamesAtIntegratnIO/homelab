@@ -15,6 +15,7 @@ spec:
     namespace: "kube-system"
   - name: "in-cluster"
     namespace: "kube-prometheus-stack"
+  - name: "in-cluster"
   sourceRepos:
   - '*'
   sourceNamespaces:
