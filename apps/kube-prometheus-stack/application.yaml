@@ -9,69 +9,22 @@ spec:
     name: in-cluster
   project: monitoring
   source:
-    chart: kube-prometheus-stack
     path: apps/kube-prometheus-stack
-    helm:
-      valueFiles:
-        - ./values.yaml
-      # values: |-
-      #   kubeApiServer:
-      #     enabled: true
-      #   kubeControllerManager:
-      #     enabled: true
-      #     endpoints:
-      #     - 10.0.1.101
-      #   kubeScheduler:
-      #     enabled: true
-      #     endpoints:
-      #     - 10.0.1.101
-      #   kubeProxy:
-      #     enabled: true
-      #     endpoints:
-      #     - 10.0.1.101
-      #   kubeEtcd:
-      #     enabled: true
-      #     endpoints:
-      #     - 10.0.1.101
-      #     service:
-      #       enabled: true
-      #       port: 2381
-      #       targetPort: 2381
-      #   alertmanager:
-      #     service:
-      #       type: ClusterIP
-      #   prometheus:
-      #     service:
-      #       type: ClusterIP
-      #   grafana:
-      #     service:
-      #       type: ClusterIP
-      #     ingress:
-      #       enabled: true
-      #       ingressClassName: nginx
-      #       annotations:
-      #         cert-manager.io/cluster-issuer: prod-issuer
-      #         # cert-manager.io/issuer-kind: OriginIssuer
-      #         # cert-manager.io/issuer-group: cert-manager.k8s.cloudflare.com
-      #       hosts:
-      #       - grafana.cluster.integratn.tech
-      #       tls:
-      #       # # specifying a host in the TLS section will tell cert-manager what
-      #       # # DNS SANs should be on the created certificate.
-      #       - hosts:
-      #         - grafana.cluster.integratn.tech
-      #       #   # cert-manager will create this secret
-      #         secretName: grafana-integratn-tech-tls
-      #   prometheus-node-exporter:
-      #     hostRootFsMount:
-      #       enabled: false
-      #   prometheusOperator:
-      #     admissionWebhooks:
-      #       failurePolicy: Ignore
-    repoURL: https://prometheus-community.github.io/helm-charts
-    targetRevision: 47.6.1
+    repoURL: https://github.com/JamesAtIntegratnIO/homelab.git
+    targetRevision: main
+    plugin: 
+      name: kustomized-helm
+      env: 
+        - name: HELM_RELEASE_NAME
+          value: "kube-prometheus-stack"
+        - name: HELM_REPO_NAME
+          value: "kube-prometheus-stack"
+        - name: HELM_REPO_URL
+          value: "https://prometheus-community.github.io/helm-charts"
   syncPolicy:
-    automated: {}
+    automated:
+      prune: true
+      selfHeal: true
     syncOptions:
     - ServerSideApply=true
     - CreateNamespace=true
