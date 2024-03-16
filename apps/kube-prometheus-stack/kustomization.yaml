@@ -1,4 +1,4 @@
-namespace: monitoring
+namespace: kube-prometheus-stack
 labels:
   - pairs:
       'backstage.io/kubernetes-id': 'kube-prometheus-stack'

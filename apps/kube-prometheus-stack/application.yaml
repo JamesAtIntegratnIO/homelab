@@ -5,7 +5,7 @@ metadata:
   namespace: argocd
 spec:
   destination:
-    namespace: monitoring
+    namespace: kube-prometheus-stack
     name: in-cluster
   project: monitoring
   source:
