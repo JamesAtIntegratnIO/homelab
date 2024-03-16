@@ -1,5 +1,6 @@
 
 kube-prometheus-stack:
+  namespaceOverride: monitoring
   kubeApiServer:
     enabled: true
   kubeControllerManager:
