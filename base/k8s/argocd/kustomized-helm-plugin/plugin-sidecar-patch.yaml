@@ -16,23 +16,38 @@ spec:
         securityContext:
           runAsNonRoot: true
           runAsUser: 999
+        resources:
+          limits:
+            cpu: "1"
+            memory: "1Gi"
+          requests:
+            cpu: "100m"
+            memory: "256Mi"
         volumeMounts:
           - mountPath: /var/run/argocd
             name: var-files
+          
           - mountPath: /home/argocd/cmp-server/plugins
             name: plugins
-          # Remove this volumeMount if you've chosen to bake the config file into the sidecar image.
+          
           - mountPath: /home/argocd/cmp-server/config/plugin.yaml
             subPath: plugin.yaml
-            name: kustomized-helm
+            name: helm-kustomize-plugin-config
+
+          - mountPath: /var/run/argocd/helm-kustomize-plugin/generate.sh
+            subPath: generate.sh
+            name: helm-kustomize-plugin-config
+
+          - mountPath: /var/run/argocd/helm-kustomize-plugin/init.sh
+            subPath: init.sh
+            name: helm-kustomize-plugin-config
           # Starting with v2.4, do NOT mount the same tmp volume as the repo-server container. The filesystem separation helps 
           # mitigate path traversal attacks.
           - mountPath: /tmp
             name: cmp-tmp
-        resources: {}
       volumes:
-      - configMap:
-          name: kustomized-helm
-        name: kustomized-helm
-      - emptyDir: {}
-        name: cmp-tmp
+        - configMap:
+            name: helm-kustomize-plugin-config
+          name: helm-kustomize-plugin-config
+        - emptyDir: {}
+          name: cmp-tmp

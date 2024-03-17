@@ -11,15 +11,19 @@ resources:
 - backstage-repository.yaml
 - ingress.yaml
 - project_media.yaml
-- helm-kustomized-cmp.yaml
+
+components:
+  - kustomized-helm-plugin
 
 patches:
   - path: argocd-cm-patch.yaml
     target:
       labelSelector: "app.kubernetes.io/name=argocd-cm"
+  
   - path: argocd-rbac-cm-patch.yaml
     target:
       labelSelector: "app.kubernetes.io/name=argocd-rbac-cm"
+  
   - path: argo-server-patch.yaml
     target:
       group: apps
@@ -32,12 +36,7 @@ patches:
       version: v1
       kind: Service
       name: argo-server
-  - path: plugin-sidecar-patch.yaml
-    target:
-      group: apps
-      version: v1
-      kind: Deployment
-      name: argocd-repo-server
+
 configMapGenerator:
   - name: argocd-cmd-params-cm
     behavior: merge
