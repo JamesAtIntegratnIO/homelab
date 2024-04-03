@@ -9,6 +9,7 @@ resources:
 - infra_project.yaml
 - homelab-repository.yaml
 - backstage-repository.yaml
+- backstage-test-repository.yaml
 - ingress.yaml
 - project_media.yaml
 
