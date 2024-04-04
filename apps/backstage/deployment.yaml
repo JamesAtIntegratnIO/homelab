@@ -19,12 +19,33 @@ spec:
     spec:
       serviceAccountName: backstage
       containers:
-        - name: backstage
-
-          image: ghcr.io/jamesatintegratnio/backstage:latest
-          
+        - name: backstage-backend
+          image: ghcr.io/jamesatintegratnio/backstage-backend:latest
           ports:
             - containerPort: 7007
+              name: http-backend
+          envFrom:
+            - secretRef:
+                name: backstage-secrets
+          volumeMounts:
+            - name: org-yaml
+              mountPath: /app/users.yaml
+              subPath: org.yaml
+            - name: app-config
+              mountPath: /app/app-config.yaml
+              subPath: app-config.yaml
+          resources:
+            requests:
+              cpu: 500m
+              memory: 512Mi
+            limits:
+              cpu: 1500m
+              memory: 2048Mi
+        
+        - name: backstage-app
+          image: ghcr.io/jamesatintegratnio/backstage-app:latest
+          ports:
+            - containerPort: 3000
               name: http
           envFrom:
             - secretRef:
