@@ -49,7 +49,7 @@ spec:
               name: http
           envFrom:
             - secretRef:
-                name: backstage-secrets
+                name: backstage-frontend-secrets
           volumeMounts:
             - name: org-yaml
               mountPath: /app/users.yaml
