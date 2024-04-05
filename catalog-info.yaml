@@ -37,7 +37,8 @@ metadata:
 spec:
   owner: group:default:engineering
   domain: infra-stack
-
+  dependsOn:
+    - resource:homelab-cluster
 ---
 apiVersion: backstage.io/v1alpha1
 kind: Location
