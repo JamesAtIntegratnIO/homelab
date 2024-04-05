@@ -67,3 +67,5 @@ spec:
   owner: group:engineering
   type: database
   lifecycle: homeprod
+  dependsOn:
+    - resource:default/postgres-server
