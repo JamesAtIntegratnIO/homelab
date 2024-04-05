@@ -5,7 +5,7 @@ metadata:
   description: |
     The primary cluster for my homelab
 spec:
-  owner: group:default:engineering
+  owner: group:engineering
   type: cluster
   lifecycle: homeprod
 ---
@@ -16,7 +16,7 @@ metadata:
   description: |
     The domain for infrastructure services
 spec:
-  owner: group:default:engineering
+  owner: group:engineering
 ---
 apiVersion: backstage.io/v1alpha1
 kind: System
@@ -25,7 +25,7 @@ metadata:
   description: |
     ArgoCD is a declarative, GitOps continuous delivery tool for Kubernetes.
 spec:
-  owner: group:default:engineering
+  owner: group:engineering
   domain: infra-stack
 ---
 apiVersion: backstage.io/v1alpha1
@@ -35,7 +35,7 @@ metadata:
   description: |
     Backstage is an open platform for building developer portals
 spec:
-  owner: group:default:engineering
+  owner: group:engineering
   domain: infra-stack
   dependsOn:
     - resource:homelab-cluster
@@ -64,6 +64,6 @@ metadata:
     - title: Adminer
       url: https://10.0.3.1:12322/
 spec:
-  owner: group:default:engineering
+  owner: group:engineering
   type: database
   lifecycle: homeprod
