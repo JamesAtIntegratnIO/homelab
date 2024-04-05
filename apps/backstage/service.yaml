@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: backstage-app
+  name: backstage
   namespace: backstage
   labels:
     app: backstage
