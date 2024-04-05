@@ -14,6 +14,7 @@ spec:
   tls:
   - hosts:
     - backstage.k8s.integratn.tech
+    - backstage-backend.k8s.integratn.tech
     secretName: backstage-tls
   rules:
   - host: backstage.k8s.integratn.tech
@@ -26,3 +27,13 @@ spec:
             name: backstage
             port:
               name: http
+  - host: backstage-backend.k8s.integratn.tech
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: backstage
+            port:
+              name: http-backend
