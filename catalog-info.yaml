@@ -1,3 +1,14 @@
+apiVersion: backstage.io/v1beta1
+kind: Resource
+metadata:
+  name: homelab-cluster
+  description: |
+    The primary cluster for my homelab
+spec:
+  owner: group:default:engineering
+  type: cluster
+  lifecycle: homeprod
+---
 apiVersion: backstage.io/v1alpha1
 kind: Domain
 metadata:

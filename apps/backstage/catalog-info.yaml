@@ -20,6 +20,7 @@ spec:
     - resource:default/1password-backstage-secrets
     - resource:default/1password-backstage-org-yaml
     - resource:default/1password-backstage-app-config
+    - resource:default/homelab-cluster
 
 ---
 apiVersion: backstage.io/v1alpha1
