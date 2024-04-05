@@ -51,11 +51,8 @@ spec:
             - secretRef:
                 name: backstage-frontend-secrets
           volumeMounts:
-            - name: org-yaml
-              mountPath: /app/users.yaml
-              subPath: org.yaml
             - name: app-config
-              mountPath: /app/app-config.yaml
+              mountPath: /usr/share/nginx/html/app-config.yaml
               subPath: app-config.yaml
           resources:
             requests:
