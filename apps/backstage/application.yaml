@@ -7,8 +7,8 @@ metadata:
     # argocd-image-updater.argoproj.io/write-back-method: kustomization
     # argocd-image-updater.argoproj.io/git-branch: main
     argocd-image-updater.argoproj.io/image-list: backend=ghcr.io/jamesatintegratnio/backstage-backend,app=ghcr.io/jamesatintegratnio/backstage-app
-    argocd-image-updater.argoproj.io/backend.update-strategy: latest
-    argocd-image-updater.argoproj.io/app.update-strategy: latest
+    argocd-image-updater.argoproj.io/backend.update-strategy: newest-build
+    argocd-image-updater.argoproj.io/app.update-strategy: newest-build
 spec:
   project: infra
   source:
