@@ -5,6 +5,10 @@ metadata:
   name: argocd-image-updater
   title: ArgoCD Image Updater
   description: Some description of the argocd-image-updater component
+  annotations:
+    argocd/app-name: argocd-image-updater
+    backstage.io/kubernetes-namespace: argocd
+    backstage.io/kubernetes-label-selector: app.kubernetes.io/instance=argocd-image-updater
 spec:
   type: service
   lifecycle: homeprod
