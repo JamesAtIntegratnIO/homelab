@@ -4,11 +4,9 @@ metadata:
   name: backstage
   namespace: argocd
   annotations: 
-    # argocd-image-updater.argoproj.io/write-back-method: kustomization
-    # argocd-image-updater.argoproj.io/git-branch: main
-    argocd-image-updater.argoproj.io/image-list: backend=ghcr.io/jamesatintegratnio/backstage-backend,app=ghcr.io/jamesatintegratnio/backstage-app
-    argocd-image-updater.argoproj.io/backend.update-strategy: newest-build
-    argocd-image-updater.argoproj.io/app.update-strategy: newest-build
+    argocd-image-updater.argoproj.io/image-list: backend=ghcr.io/jamesatintegratnio/backstage-backend:latest,app=ghcr.io/jamesatintegratnio/backstage-app:latest
+    argocd-image-updater.argoproj.io/backend.update-strategy: digest
+    argocd-image-updater.argoproj.io/app.update-strategy: digest
 spec:
   project: infra
   source:
