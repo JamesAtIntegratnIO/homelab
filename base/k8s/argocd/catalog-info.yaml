@@ -1,0 +1,25 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: argocd-system
+  title: ArgoCD System
+  description: |
+    ArgoCD is a declarative, GitOps continuous delivery tool for Kubernetes.
+spec:
+  owner: group:engineering
+  domain: infra-stack
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: argocd
+  title: ArgoCD
+  description: Some description of the argocd component
+spec:
+  type: service
+  lifecycle: homeprod
+  owner: group:engineering
+  system: argocd-system
+  dependsOn:
+    - resource:default/homelab-cluster

@@ -21,16 +21,6 @@ spec:
 apiVersion: backstage.io/v1alpha1
 kind: System
 metadata:
-  name: argocd
-  description: |
-    ArgoCD is a declarative, GitOps continuous delivery tool for Kubernetes.
-spec:
-  owner: group:engineering
-  domain: infra-stack
----
-apiVersion: backstage.io/v1alpha1
-kind: System
-metadata:
   name: backstage
   description: |
     Backstage is an open platform for building developer portals
@@ -69,3 +59,15 @@ spec:
   lifecycle: homeprod
   dependsOn:
     - resource:default/postgres-server
+---
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: additional-catalog-info-yamls
+  title: Additional Catalog Info YAMLS
+  description: |
+    Pointer to additional catalog info yamls
+spec:
+  targets:
+    - ./base/k8s/argocd/catalog-info.yaml
+    - ./base/k8s/argocd-image-updater/catalog-info.yaml
