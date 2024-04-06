@@ -1,9 +1,9 @@
 namespace: argocd
 labels:
   - pairs:
-      'backstage.io/kubernetes-id': 'argocd'
+      'backstage.io/kubernetes-id': 'argocd-image-updater'
 resources:
-  - github.com/argoproj-labs/argocd-image-updater/manifests/base/?rev=v0.12.2
+  - github.com/argoproj-labs/argocd-image-updater/manifests/base/?rev=master
   - argocd-image-updater-secret.yaml
 
 patches:
