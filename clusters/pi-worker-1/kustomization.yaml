@@ -6,5 +6,4 @@ resources:
   - k0stmotron-control-plane.yaml
   - remote-cluster.yaml
   - machines.yaml
-  # machinePools don't seem to work right now
-  # - remote-machines.yaml
+  - remote-machines.yaml

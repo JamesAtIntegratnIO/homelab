@@ -34,120 +34,120 @@ spec:
   user: root
   sshKeyRef:
     name: ssh-key-secret
----
-apiVersion: cluster.x-k8s.io/v1beta1
-kind: Machine
-metadata:
-  name:  pi-worker-1-2
-  namespace: pi-worker-1-cluster
-spec:
-  clusterName: pi-worker-1
-  bootstrap:
-    configRef:
-      apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
-      kind: K0sWorkerConfig
-      name: pi-worker-1-workconfig
-  infrastructureRef:
-    apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
-    kind: RemoteMachine
-    name: pi-worker-1-2
----
-apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
-kind: RemoteMachine
-metadata:
-  name: pi-worker-1-2
-  namespace: pi-worker-1-cluster
-spec:
-  address: 10.0.3.102
-  port: 22
-  user: root
-  sshKeyRef:
-    name: ssh-key-secret
----
-apiVersion: cluster.x-k8s.io/v1beta1
-kind: Machine
-metadata:
-  name:  pi-worker-1-3
-  namespace: pi-worker-1-cluster
-spec:
-  clusterName: pi-worker-1
-  bootstrap:
-    configRef:
-      apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
-      kind: K0sWorkerConfig
-      name: pi-worker-1-workconfig
-  infrastructureRef:
-    apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
-    kind: RemoteMachine
-    name: pi-worker-1-3
----
-apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
-kind: RemoteMachine
-metadata:
-  name: pi-worker-1-3
-  namespace: pi-worker-1-cluster
-spec:
-  address: 10.0.3.103
-  port: 22
-  user: root
-  sshKeyRef:
-    name: ssh-key-secret
----
-apiVersion: cluster.x-k8s.io/v1beta1
-kind: Machine
-metadata:
-  name:  pi-worker-1-4
-  namespace: pi-worker-1-cluster
-spec:
-  clusterName: pi-worker-1
-  bootstrap:
-    configRef:
-      apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
-      kind: K0sWorkerConfig
-      name: pi-worker-1-workconfig
-  infrastructureRef:
-    apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
-    kind: RemoteMachine
-    name: pi-worker-1-4
----
-apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
-kind: RemoteMachine
-metadata:
-  name: pi-worker-1-4
-  namespace: pi-worker-1-cluster
-spec:
-  address: 10.0.3.104
-  port: 22
-  user: root
-  sshKeyRef:
-    name: ssh-key-secret
----
-apiVersion: cluster.x-k8s.io/v1beta1
-kind: Machine
-metadata:
-  name:  pi-worker-1-5
-  namespace: pi-worker-1-cluster
-spec:
-  clusterName: pi-worker-1
-  bootstrap:
-    configRef:
-      apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
-      kind: K0sWorkerConfig
-      name: pi-worker-1-workconfig
-  infrastructureRef:
-    apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
-    kind: RemoteMachine
-    name: pi-worker-1-5
----
-apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
-kind: RemoteMachine
-metadata:
-  name: pi-worker-1-5
-  namespace: pi-worker-1-cluster
-spec:
-  address: 10.0.3.105
-  port: 22
-  user: root
-  sshKeyRef:
-    name: ssh-key-secret
----
+# ---
+# apiVersion: cluster.x-k8s.io/v1beta1
+# kind: Machine
+# metadata:
+#   name:  pi-worker-1-2
+#   namespace: pi-worker-1-cluster
+# spec:
+#   clusterName: pi-worker-1
+#   bootstrap:
+#     configRef:
+#       apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
+#       kind: K0sWorkerConfig
+#       name: pi-worker-1-workconfig
+#   infrastructureRef:
+#     apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+#     kind: RemoteMachine
+#     name: pi-worker-1-2
+# ---
+# apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+# kind: RemoteMachine
+# metadata:
+#   name: pi-worker-1-2
+#   namespace: pi-worker-1-cluster
+# spec:
+#   address: 10.0.3.102
+#   port: 22
+#   user: root
+#   sshKeyRef:
+#     name: ssh-key-secret
+# ---
+# apiVersion: cluster.x-k8s.io/v1beta1
+# kind: Machine
+# metadata:
+#   name:  pi-worker-1-3
+#   namespace: pi-worker-1-cluster
+# spec:
+#   clusterName: pi-worker-1
+#   bootstrap:
+#     configRef:
+#       apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
+#       kind: K0sWorkerConfig
+#       name: pi-worker-1-workconfig
+#   infrastructureRef:
+#     apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+#     kind: RemoteMachine
+#     name: pi-worker-1-3
+# ---
+# apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+# kind: RemoteMachine
+# metadata:
+#   name: pi-worker-1-3
+#   namespace: pi-worker-1-cluster
+# spec:
+#   address: 10.0.3.103
+#   port: 22
+#   user: root
+#   sshKeyRef:
+#     name: ssh-key-secret
+# ---
+# apiVersion: cluster.x-k8s.io/v1beta1
+# kind: Machine
+# metadata:
+#   name:  pi-worker-1-4
+#   namespace: pi-worker-1-cluster
+# spec:
+#   clusterName: pi-worker-1
+#   bootstrap:
+#     configRef:
+#       apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
+#       kind: K0sWorkerConfig
+#       name: pi-worker-1-workconfig
+#   infrastructureRef:
+#     apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+#     kind: RemoteMachine
+#     name: pi-worker-1-4
+# ---
+# apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+# kind: RemoteMachine
+# metadata:
+#   name: pi-worker-1-4
+#   namespace: pi-worker-1-cluster
+# spec:
+#   address: 10.0.3.104
+#   port: 22
+#   user: root
+#   sshKeyRef:
+#     name: ssh-key-secret
+# ---
+# apiVersion: cluster.x-k8s.io/v1beta1
+# kind: Machine
+# metadata:
+#   name:  pi-worker-1-5
+#   namespace: pi-worker-1-cluster
+# spec:
+#   clusterName: pi-worker-1
+#   bootstrap:
+#     configRef:
+#       apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
+#       kind: K0sWorkerConfig
+#       name: pi-worker-1-workconfig
+#   infrastructureRef:
+#     apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+#     kind: RemoteMachine
+#     name: pi-worker-1-5
+# ---
+# apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+# kind: RemoteMachine
+# metadata:
+#   name: pi-worker-1-5
+#   namespace: pi-worker-1-cluster
+# spec:
+#   address: 10.0.3.105
+#   port: 22
+#   user: root
+#   sshKeyRef:
+#     name: ssh-key-secret
+# ---
