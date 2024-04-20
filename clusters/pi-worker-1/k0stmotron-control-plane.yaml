@@ -4,21 +4,14 @@ metadata:
   name: pi-worker-1
   namespace: pi-worker-1-cluster
 spec:
-  version: v1.27.2-k0s.0
-  persistence:
-    type: emptyDir
-  service:
-    type: NodePort
   replicas: 1
+  version: v1.27.2-k0s.0
   k0sConfigSpec:
-    args:
-      - --enable-worker
-      - --no-taints
     k0s:
       apiVersion: k0s.k0sproject.io/v1beta1
       kind: ClusterConfig
       metadata:
-        name: pi-worker-1
+        name: k0s
       spec:
         api:
           extraArgs:
