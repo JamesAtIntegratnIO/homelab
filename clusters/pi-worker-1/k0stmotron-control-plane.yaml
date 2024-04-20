@@ -46,10 +46,10 @@ spec:
         kind: K0sWorkerConfigTemplate
         name: pi-worker-1
       clusterName: pi-worker-1
-      infrastructureRef:
-        apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
-        kind: RemoteCluster
-        name: pi-worker-1-remote-cluster
+      # infrastructureRef:
+      #   apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+      #   kind: RemoteCluster
+      #   name: pi-worker-1-remote-cluster
       version: v1.27.2-k0s.0
 ---
 apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
