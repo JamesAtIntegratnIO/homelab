@@ -1,6 +1,6 @@
-kind: Kustomization
 namespace: pi-worker-1-cluster
 
 resources:
+  - namespace.yaml
   - cluster.yaml
-  - k0stm0tron-control-plane.yaml
+  - k0stmotron-control-plane.yaml
