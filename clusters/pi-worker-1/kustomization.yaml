@@ -5,3 +5,4 @@ resources:
   - cluster.yaml
   - k0stmotron-control-plane.yaml
   - remote-cluster.yaml
+  - remote-machines.yaml
