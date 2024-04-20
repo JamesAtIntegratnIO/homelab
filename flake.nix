@@ -30,7 +30,7 @@
             krew
             k0sctl
             k9s
-            clusterctl
+          
             yq
             go
           ];

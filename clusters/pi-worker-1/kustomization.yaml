@@ -2,7 +2,7 @@ namespace: pi-worker-1-cluster
 
 resources:
   - namespace.yaml
-  - cluster.yaml
+  - mycluster.yaml
   - k0stmotron-control-plane.yaml
   - remote-cluster.yaml
   - remote-machines.yaml

@@ -29,40 +29,40 @@ spec:
       kind: RemoteMachineTemplate
       name: pi-worker-1-remote-machine-template
       namespace: pi-worker-1-cluster
----
-apiVersion: cluster.x-k8s.io/v1beta1
-kind: MachineDeployment
-metadata:
-  name: pi-worker-1
-  namespace: pi-worker-1-cluster
-spec:
-  replicas: 4
-  clusterName: pi-worker-1
-  selector:
-    matchLabels:
-      cluster.x-k8s.io/cluster-name: pi-worker-1
-      pool: default
-  template:
-    metadata:
-      labels:
-        cluster.x-k8s.io/cluster-name: pi-worker-1
-        pool: default
-    spec:
-      bootstrap:
-        apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
-        kind: K0sWorkerConfigTemplate
-        name: pi-worker-1
-      clusterName: pi-worker-1
-      infrastructureRef:
-        apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
-        kind: RemoteCluster
-        name: pi-worker-1
-      version: v1.27.2-k0s.0
----
-apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
-kind: K0sWorkerConfigTemplate
-metadata:
-  name: pi-worker-1
-  namespace: pi-worker-1-cluster
-spec:
-  version: v1.27.2-k0s.0
+# ---
+# apiVersion: cluster.x-k8s.io/v1beta1
+# kind: MachineDeployment
+# metadata:
+#   name: pi-worker-1
+#   namespace: pi-worker-1-cluster
+# spec:
+#   replicas: 4
+#   clusterName: pi-worker-1
+#   selector:
+#     matchLabels:
+#       cluster.x-k8s.io/cluster-name: pi-worker-1
+#       pool: default
+#   template:
+#     metadata:
+#       labels:
+#         cluster.x-k8s.io/cluster-name: pi-worker-1
+#         pool: default
+#     spec:
+#       bootstrap:
+#         apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
+#         kind: K0sWorkerConfigTemplate
+#         name: pi-worker-1
+#       clusterName: pi-worker-1
+#       infrastructureRef:
+#         apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+#         kind: RemoteCluster
+#         name: pi-worker-1
+#       version: v1.27.2-k0s.0
+# ---
+# apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
+# kind: K0sWorkerConfigTemplate
+# metadata:
+#   name: pi-worker-1
+#   namespace: pi-worker-1-cluster
+# spec:
+#   version: v1.27.2-k0s.0
