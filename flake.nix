@@ -29,6 +29,7 @@
             kubernetes-helm
             krew
             k0sctl
+            clusterctl
             yq
           ];
           shellHook = ''

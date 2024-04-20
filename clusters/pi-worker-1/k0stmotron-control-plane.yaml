@@ -1,0 +1,11 @@
+apiVersion: controlplane.cluster.x-k8s.io/v1beta1
+kind: pi-worker-1
+metadata:
+  name: 
+  namespace: pi-worker-1-cluster
+spec:
+  version: v1.27.2-k0s.0
+  persistence:
+    type: emptyDir
+  service:
+    type: NodePort
