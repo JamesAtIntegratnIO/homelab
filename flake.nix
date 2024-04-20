@@ -32,6 +32,7 @@
             k9s
             clusterctl
             yq
+            go
           ];
           shellHook = ''
             set -a

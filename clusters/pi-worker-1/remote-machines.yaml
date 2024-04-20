@@ -17,9 +17,9 @@ metadata:
 spec:
   pool: default
   machine:
-    address: 10.0.3.301
+    address: 10.0.3.101
     port: 22
-    user: boboysdadda
+    user: root
     sshKeyRef:
       name: ssh-key-secret
 ---
@@ -31,9 +31,9 @@ metadata:
 spec:
   pool: default
   machine:
-    address: 10.0.3.302
+    address: 10.0.3.102
     port: 22
-    user: boboysdadda
+    user: root
     sshKeyRef:
       name: ssh-key-secret
 ---
@@ -45,9 +45,9 @@ metadata:
 spec:
   pool: default
   machine:
-    address: 10.0.3.303
+    address: 10.0.3.103
     port: 22
-    user: boboysdadda
+    user: root
     sshKeyRef:
       name: ssh-key-secret
 ---
@@ -59,9 +59,9 @@ metadata:
 spec:
   pool: default
   machine:
-    address: 10.0.3.304
+    address: 10.0.3.104
     port: 22
-    user: boboysdadda
+    user: root
     sshKeyRef:
       name: ssh-key-secret
 ---
@@ -73,8 +73,8 @@ metadata:
 spec:
   pool: default
   machine:
-    address: 10.0.3.305
+    address: 10.0.3.105
     port: 22
-    user: boboysdadda
+    user: root
     sshKeyRef:
       name: ssh-key-secret
