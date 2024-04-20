@@ -42,15 +42,17 @@ spec:
         pool: default
     spec:
       bootstrap:
-        ref:
+        configRef:
           apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
           kind: K0sWorkerConfigTemplate
           name: pi-worker-1
+          namespace: pi-worker-1-cluster
       clusterName: pi-worker-1
       infrastructureRef:
         apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
         kind: RemoteMachineTemplate
         name: pi-worker-1-remote-machine-template
+        namespace: pi-worker-1-cluster
       version: v1.27.2-k0s.0
 ---
 apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
@@ -59,6 +61,6 @@ metadata:
   name: pi-worker-1
   namespace: pi-worker-1-cluster
 spec:
-  templates:
+  template:
     spec:
       version: v1.27.2-k0s.0
