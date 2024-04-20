@@ -1,0 +1,6 @@
+apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+kind: RemoteCluster
+metadata:
+  name: pi-worker-1
+  namespace: pi-worker-1-cluster
+spec:

@@ -4,3 +4,4 @@ resources:
   - namespace.yaml
   - cluster.yaml
   - k0stmotron-control-plane.yaml
+  - remote-cluster.yaml
