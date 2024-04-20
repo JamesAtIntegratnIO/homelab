@@ -8,7 +8,7 @@ spec:
       address: 10.0.2.101
       user: boboysdadda
       port: 22
-      keyPath: ~/.ssh/id_rsa
+      keyPath: ~/.ssh/id_ed25519
     role: controller+worker
     noTaints: true
     environment:
@@ -17,7 +17,7 @@ spec:
       address: 10.0.2.102
       user: boboysdadda
       port: 22
-      keyPath: ~/.ssh/id_rsa
+      keyPath: ~/.ssh/id_ed25519
     role: worker
     environment:
       DISABLE_TELEMETRY: true
@@ -25,12 +25,12 @@ spec:
       address: 10.0.2.103
       user: boboysdadda
       port: 22
-      keyPath: ~/.ssh/id_rsa
+      keyPath: ~/.ssh/id_ed25519
     role: worker
     environment:
       DISABLE_TELEMETRY: true
   k0s:
     version: null
-    versionChannel: stable
+    # versionChannel: stable
     dynamicConfig: false
     config: {}

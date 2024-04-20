@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: k0smotron
-  namespace: k0smotron
+  namespace: argocd
   annotations:
     argocd-image-updater.argoproj.io/write-back-method: git:secret:github.com-jamesatintegratnio-homelab/sshPrivateKey
     argocd-image-updater.argoproj.io/git-branch: main

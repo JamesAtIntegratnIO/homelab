@@ -28,6 +28,7 @@
             kustomize
             kubernetes-helm
             krew
+            k0sctl
             yq
           ];
           shellHook = ''
