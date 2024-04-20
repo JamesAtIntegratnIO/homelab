@@ -1,0 +1,80 @@
+---
+apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+kind: RemoteMachineTemplate
+metadata:
+  name: pi-worker-1-remote-machine-template
+  namespace: pi-worker-1-cluster
+spec:
+  template:
+    spec:
+      pool: default
+---
+apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+kind: PooledRemoteMachine
+metadata:
+  name: pi-worker-1-1
+  namespace: pi-worker-1-cluster
+spec:
+  pool: default
+  machine:
+    address: 10.0.3.301
+    port: 22
+    user: boboysdadda
+    sshKeyRef:
+      name: ssh-key-secret
+---
+apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+kind: PooledRemoteMachine
+metadata:
+  name: pi-worker-1-2
+  namespace: pi-worker-1-cluster
+spec:
+  pool: default
+  machine:
+    address: 10.0.3.302
+    port: 22
+    user: boboysdadda
+    sshKeyRef:
+      name: ssh-key-secret
+---
+apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+kind: PooledRemoteMachine
+metadata:
+  name: pi-worker-1-3
+  namespace: pi-worker-1-cluster
+spec:
+  pool: default
+  machine:
+    address: 10.0.3.303
+    port: 22
+    user: boboysdadda
+    sshKeyRef:
+      name: ssh-key-secret
+---
+apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+kind: PooledRemoteMachine
+metadata:
+  name: pi-worker-1-4
+  namespace: pi-worker-1-cluster
+spec:
+  pool: default
+  machine:
+    address: 10.0.3.304
+    port: 22
+    user: boboysdadda
+    sshKeyRef:
+      name: ssh-key-secret
+---
+apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+kind: PooledRemoteMachine
+metadata:
+  name: pi-worker-1-5
+  namespace: pi-worker-1-cluster
+spec:
+  pool: default
+  machine:
+    address: 10.0.3.305
+    port: 22
+    user: boboysdadda
+    sshKeyRef:
+      name: ssh-key-secret
