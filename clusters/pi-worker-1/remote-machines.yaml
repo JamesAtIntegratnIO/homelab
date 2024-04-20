@@ -8,20 +8,20 @@ spec:
   template:
     spec:
       pool: default
----
-apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
-kind: PooledRemoteMachine
-metadata:
-  name: pi-worker-1-1
-  namespace: pi-worker-1-cluster
-spec:
-  pool: default
-  machine:
-    address: 10.0.3.101
-    port: 22
-    user: root
-    sshKeyRef:
-      name: ssh-key-secret
+# ---
+# apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+# kind: PooledRemoteMachine
+# metadata:
+#   name: pi-worker-1-1
+#   namespace: pi-worker-1-cluster
+# spec:
+#   pool: default
+#   machine:
+#     address: 10.0.3.101
+#     port: 22
+#     user: root
+#     sshKeyRef:
+#       name: ssh-key-secret
 ---
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
 kind: PooledRemoteMachine
