@@ -1,7 +1,7 @@
 apiVersion: controlplane.cluster.x-k8s.io/v1beta1
 kind: K0smotronControlPlane
 metadata:
-  name: pi4-cluster
+  name: pi4-cluster-control-plane
   namespace: pi4-cluster
 spec:
   replicas: 1
