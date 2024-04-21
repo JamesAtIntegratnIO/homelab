@@ -4,25 +4,57 @@
   become: true
 
   tasks:
-    # - name: Update and upgrade apt packages
-    #   become: true
-    #   apt:
-    #     upgrade: yes
-    #     update_cache: yes
-    #     cache_valid_time: 86400 #One day
+    - name: Update and upgrade apt packages
+      become: true
+      apt:
+        upgrade: yes
+        update_cache: yes
+        cache_valid_time: 86400 #One day
+    
+    - name: Add public key to root SSH
+      authorized_key:
+        user: root
+        key: "{{ lookup('file', '/home/boboysdadda/.ssh/id_ed25519.pub') }}"
+        state: present
+    
     - name: Enable root SSH
       lineinfile:
         path: /etc/ssh/sshd_config
         regexp: '^#?PermitRootLogin'
         line: 'PermitRootLogin yes'
         state: present
+      notify: Restart SSH Service
+    
+    - name: Set static IP with netplan
+      copy:
+        content: |
+          network:
+            version: 2
+            ethernets:
+              eth0:
+                dhcp4: no
+                addresses: [{{ static_ip }}/9]
+                routes:
+                  - to: default
+                    via: 10.0.0.1
+                nameservers:
+                  addresses: [192.168.16.53, 10.0.0.1]
+        dest: /etc/netplan/01-static-ip.yaml
+        owner: root
+        mode: '0600'
+      notify:
+      - Apply netplan configuration
+    - name: remove 50-cloud-init.yaml
+      file:
+        path: /etc/netplan/50-cloud-init.yaml
+        state: absent
+      notify:
+      - Apply netplan configuration
 
-    - name: Restart SSH Service
-      service:
-        name: ssh
-        state: restarted
-    - name: Add public key to root SSH
-      authorized_key:
-        user: root
-        key: "{{ lookup('file', '/home/boboysdadda/.ssh/id_ed25519.pub') }}"
-        state: present
+  handlers:
+  - name: Apply netplan configuration
+    command: netplan apply
+  - name: Restart SSH Service
+    service:
+      name: ssh
+      state: restarted
