@@ -4,5 +4,3 @@ metadata:
   name: pi-worker-1-remote-cluster
   namespace: pi-worker-1-cluster
 spec:
-  template:
-    spec: {}
