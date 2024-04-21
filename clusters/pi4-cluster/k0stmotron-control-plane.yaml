@@ -6,19 +6,19 @@ metadata:
 spec:
   replicas: 1
   version: v1.27.2-k0s.0
-  # k0sConfigSpec:
-  #   k0s:
-  #     apiVersion: k0s.k0sproject.io/v1beta1
-  #     kind: ClusterConfig
-  #     metadata:
-  #       name: k0s
-  #     spec:
-  #       api:
-  #         extraArgs:
-  #           anonymous-auth: "true"
-  # machineTemplate:
-  #   infrastructureRef:
-  #     apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
-  #     kind: RemoteMachineTemplate
-  #     name: pi4-cluster-remote-machine-template
-  #     namespace: pi4-cluster
+  k0sConfigSpec:
+    k0s:
+      apiVersion: k0s.k0sproject.io/v1beta1
+      kind: ClusterConfig
+      metadata:
+        name: k0s
+      spec:
+        api:
+          extraArgs:
+            anonymous-auth: "true"
+  machineTemplate:
+    infrastructureRef:
+      apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+      kind: RemoteMachineTemplate
+      name: pi4-cluster-remote-machine-template
+      namespace: pi4-cluster
