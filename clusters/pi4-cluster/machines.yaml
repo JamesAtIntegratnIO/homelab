@@ -4,7 +4,7 @@ metadata:
   name: pi4-cluster-workconfig
   namespace: pi4-cluster
 spec:
-  version: v1.27.2-k0s.0
+  version: v1.27.12+k0s.0 
 ---
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: Machine
