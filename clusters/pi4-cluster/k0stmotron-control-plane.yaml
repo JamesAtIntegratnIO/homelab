@@ -9,7 +9,7 @@ spec:
   persistence:
     type: emptyDir
   service:
-    type: NodePort
+    type: LoadBalancer
   # k0sConfigSpec:
   #   k0s:
   #     apiVersion: k0s.k0sproject.io/v1beta1
