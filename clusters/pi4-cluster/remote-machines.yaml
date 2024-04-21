@@ -29,7 +29,7 @@ spec:
         kind: RemoteMachineTemplate
         name: pi4-cluster-remote-machine-template
         namespace: pi4-cluster
-      version: v1.27.2-k0s.0
+      version: v1.27.12+k0s.0
 ---
 apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
 kind: K0sWorkerConfigTemplate
