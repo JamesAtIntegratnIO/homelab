@@ -45,7 +45,7 @@ spec:
         configRef:
           apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
           kind: K0sWorkerConfigTemplate
-          name: pi-worker-1
+          name: pi-worker-1-remote-cluster
           namespace: pi-worker-1-cluster
       clusterName: pi-worker-1
       infrastructureRef:
