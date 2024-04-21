@@ -1,4 +1,4 @@
-namespace: pi-worker-1-cluster
+namespace: pi4-cluster
 
 resources:
   - namespace.yaml

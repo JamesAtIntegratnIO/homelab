@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: pi-worker-1-cluster
+  name: pi4-cluster
   namespace: argocd
   annotations:
     argocd-image-updater.argoproj.io/write-back-method: git:secret:github.com-jamesatintegratnio-homelab/sshPrivateKey
@@ -15,7 +15,7 @@ spec:
     path: clusters/pi-worker-1
   destination:
     server: https://kubernetes.default.svc
-    namespace: pi-worker-1-cluster
+    namespace: pi4-cluster
     
   syncPolicy:
     automated:

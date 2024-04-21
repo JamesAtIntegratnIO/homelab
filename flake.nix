@@ -18,6 +18,7 @@
       in {
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
+            ansible
             terraform
             tflint
             terraform-docs

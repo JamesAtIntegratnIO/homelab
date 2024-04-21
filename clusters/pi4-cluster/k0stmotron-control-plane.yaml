@@ -1,8 +1,8 @@
 apiVersion: controlplane.cluster.x-k8s.io/v1beta1
 kind: K0smotronControlPlane
 metadata:
-  name: pi-worker-1
-  namespace: pi-worker-1-cluster
+  name: pi4-cluster
+  namespace: pi4-cluster
 spec:
   replicas: 1
   version: v1.27.2-k0s.0
@@ -20,46 +20,46 @@ spec:
   #   infrastructureRef:
   #     apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
   #     kind: RemoteMachineTemplate
-  #     name: pi-worker-1-remote-machine-template
-  #     namespace: pi-worker-1-cluster
+  #     name: pi4-cluster-remote-machine-template
+  #     namespace: pi4-cluster
 ---
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: MachineDeployment
 metadata:
-  name: pi-worker-1
-  namespace: pi-worker-1-cluster
+  name: pi4-cluster
+  namespace: pi4-cluster
 spec:
   replicas: 4
-  clusterName: pi-worker-1
+  clusterName: pi4-cluster
   selector:
     matchLabels:
-      cluster.x-k8s.io/cluster-name: pi-worker-1
+      cluster.x-k8s.io/cluster-name: pi4-cluster
       pool: default
   template:
     metadata:
       labels:
-        cluster.x-k8s.io/cluster-name: pi-worker-1
+        cluster.x-k8s.io/cluster-name: pi4-cluster
         pool: default
     spec:
       bootstrap:
         configRef:
           apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
           kind: K0sWorkerConfigTemplate
-          name: pi-worker-1
-          namespace: pi-worker-1-cluster
-      clusterName: pi-worker-1
+          name: pi4-cluster
+          namespace: pi4-cluster
+      clusterName: pi4-cluster
       infrastructureRef:
         apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
         kind: RemoteMachineTemplate
-        name: pi-worker-1-remote-machine-template
-        namespace: pi-worker-1-cluster
+        name: pi4-cluster-remote-machine-template
+        namespace: pi4-cluster
       version: v1.27.2-k0s.0
 ---
 apiVersion: bootstrap.cluster.x-k8s.io/v1beta1
 kind: K0sWorkerConfigTemplate
 metadata:
-  name: pi-worker-1
-  namespace: pi-worker-1-cluster
+  name: pi4-cluster
+  namespace: pi4-cluster
 spec:
   template:
     spec:

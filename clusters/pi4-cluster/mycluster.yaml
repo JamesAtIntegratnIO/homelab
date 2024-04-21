@@ -1,8 +1,8 @@
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: Cluster
 metadata:
-  name: pi-worker-1
-  namespace: pi-worker-1-cluster
+  name: pi4-cluster
+  namespace: pi4-cluster
 spec:
   clusterNetwork:
     pods:
@@ -15,8 +15,8 @@ spec:
   controlPlaneRef:
     apiVersion: controlplane.cluster.x-k8s.io/v1beta1
     kind: K0smotronControlPlane
-    name: pi-worker-1
+    name: pi4-cluster
   infrastructureRef:
     apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
     kind: RemoteCluster
-    name: pi-worker-1
+    name: pi4-cluster

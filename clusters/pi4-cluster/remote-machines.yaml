@@ -2,8 +2,8 @@
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
 kind: RemoteMachineTemplate
 metadata:
-  name: pi-worker-1-remote-machine-template
-  namespace: pi-worker-1-cluster
+  name: pi4-cluster-remote-machine-template
+  namespace: pi4-cluster
 spec:
   template:
     spec:
@@ -12,8 +12,8 @@ spec:
 # apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
 # kind: PooledRemoteMachine
 # metadata:
-#   name: pi-worker-1-1
-#   namespace: pi-worker-1-cluster
+#   name: pi4-cluster-1
+#   namespace: pi4-cluster
 # spec:
 #   pool: default
 #   machine:
@@ -26,8 +26,8 @@ spec:
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
 kind: PooledRemoteMachine
 metadata:
-  name: pi-worker-1-2
-  namespace: pi-worker-1-cluster
+  name: pi4-cluster-2
+  namespace: pi4-cluster
 spec:
   pool: default
   machine:
@@ -40,8 +40,8 @@ spec:
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
 kind: PooledRemoteMachine
 metadata:
-  name: pi-worker-1-3
-  namespace: pi-worker-1-cluster
+  name: pi4-cluster-3
+  namespace: pi4-cluster
 spec:
   pool: default
   machine:
@@ -54,8 +54,8 @@ spec:
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
 kind: PooledRemoteMachine
 metadata:
-  name: pi-worker-1-4
-  namespace: pi-worker-1-cluster
+  name: pi4-cluster-4
+  namespace: pi4-cluster
 spec:
   pool: default
   machine:
@@ -68,8 +68,8 @@ spec:
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
 kind: PooledRemoteMachine
 metadata:
-  name: pi-worker-1-5
-  namespace: pi-worker-1-cluster
+  name: pi4-cluster-5
+  namespace: pi4-cluster
 spec:
   pool: default
   machine:
