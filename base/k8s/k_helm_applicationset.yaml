@@ -12,21 +12,25 @@ spec:
           helmReleaseName: cert-manager
           helmChartName: jetsack
           helmChartRepo: https://charts.jetstack.io
+          path: overlays/k0s-homelab-cluster
         - appName: ingress-nginx
           namespace: ingress-nginx
           helmReleaseName: ingress-nginx
           helmChartName: ingress-nginx
           helmChartRepo: https://kubernetes.github.io/ingress-nginx
+          path: ""
         - appName: external-secrets
           namespace: external-secrets
           helmReleaseName: external-secrets
           helmChartName: external-secrets
           helmChartRepo: https://charts.external-secrets.io
+          path: ""
         - appName: op-connect-helm
           namespace: op-connect
           helmReleaseName: op-connect-operator
           helmChartName: onepassword-connect-operator
           helmChartRepo: https://1password.github.io/connect-helm-charts
+          path: ""
   template:
     metadata:
       name: "{{appName}}"
@@ -37,7 +41,7 @@ spec:
       source:
         repoURL: https://github.com/JamesAtIntegratnIO/homelab.git
         targetRevision: main
-        path: "base/k8s/{{appName}}"
+        path: "base/k8s/{{appName}}/{{path}}"
         plugin:
           name: kustomized-helm
           env: 
