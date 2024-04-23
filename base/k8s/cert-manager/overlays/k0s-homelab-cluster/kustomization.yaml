@@ -1,10 +1,11 @@
 bases:
 - ../../base
+- ./all.yaml
 
 patches:
 - target:
-    group: cert-manager.io
-    version: v1
-    kind: ClusterIssuer
-    name: letsencrypt-prod
+      group: cert-manager.io
+      version: v1
+      kind: ClusterIssuer
+      name: letsencrypt-prod
   path: dnszones-patch.yaml

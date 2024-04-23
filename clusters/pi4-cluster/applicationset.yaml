@@ -1,0 +1,93 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+
+  name: pi4-infra
+  namespace: argocd
+spec:
+  goTemplate: true
+  generators:
+  - list:
+      elements:
+        - appName: op-connect-helm
+          namespace: op-connect
+          helmReleaseName: op-connect-operator
+          helmChartName: onepassword-connect-operator
+          helmChartRepo: https://1password.github.io/connect-helm-charts
+          fromHelmStack: true
+          syncWave: 1
+        - appName: external-secrets
+          namespace: external-secrets
+          helmReleaseName: external-secrets
+          helmChartName: external-secrets
+          helmChartRepo: https://charts.external-secrets.io
+          fromHelmStack: true
+          syncWave: 1
+        - appName: sealed-secrets
+          namespace: kube-system
+          fromHelmStack: false
+          syncWave: 1
+        - appName: external-dns
+          namespace: external-dns
+          fromHelmStack: false
+          syncWave: 1
+        - appName: metallb
+          namespace: metallb-system
+          fromHelmStack: false
+          syncWave: 1
+        - appName: nfs-subdir-external-provisioner
+          namespace: nfs-provisioner
+          fromHelmStack: false
+          syncWave: 1
+
+        - appName: cert-manager
+          namespace: cert-manager
+          helmReleaseName: cert-manager
+          helmChartName: jetsack
+          helmChartRepo: https://charts.jetstack.io
+          fromHelmStack: true
+          syncWave: 2
+        
+        - appName: ingress-nginx
+          namespace: ingress-nginx
+          helmReleaseName: ingress-nginx
+          helmChartName: ingress-nginx
+          helmChartRepo: https://kubernetes.github.io/ingress-nginx
+          fromHelmStack: true
+          syncWave: 3
+  template:
+    metadata:
+      name: "pi4-cluster-{{.appName}}"
+      annotations:
+        argocd.argoproj.io/manifest-generate-paths: ".;.."
+        argocd.argoproj.io/sync-wave: "{{.syncWave}}"
+    spec:
+      project: infra
+      source:
+        repoURL: https://github.com/JamesAtIntegratnIO/homelab.git
+        targetRevision: main
+        path: "base/k8s/{{.appName}}"
+      destination:
+        name: pi4-cluster
+        namespace: "{{.namespace}}"
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+  templatePatch: |
+    spec:
+      source:
+        plugin:
+          {{-  if eq .fromHelmStack true }}
+          name: kustomized-helm
+          env: 
+            - name: HELM_RELEASE_NAME
+              value: "{{.helmReleaseName}}"
+            - name: HELM_REPO_NAME
+              value: "{{.helmChartName}}"
+            - name: HELM_REPO_URL
+              value: "{{.helmChartRepo}}"
+          {{- end }}
+
