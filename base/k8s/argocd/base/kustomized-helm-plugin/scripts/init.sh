@@ -15,7 +15,6 @@ export HELM_HOME="$BOBOYSDADDA_TEMP/helm"
 
 # Add helm repository
 
-cd ../../base
 if ! helm repo add "$ARGOCD_ENV_HELM_REPO_NAME" "$ARGOCD_ENV_HELM_REPO_URL"; then
     echo "Failed to add helm repository."
     rm -r "$BOBOYSDADDA_TEMP"
@@ -23,7 +22,7 @@ if ! helm repo add "$ARGOCD_ENV_HELM_REPO_NAME" "$ARGOCD_ENV_HELM_REPO_URL"; the
 fi
 
 # Build helm dependency
-if ! helm dependency build; then
+if ! helm dependency build ../../base; then
     echo "Failed to build helm dependency."
     rm -r "$BOBOYSDADDA_TEMP"
     exit 1
