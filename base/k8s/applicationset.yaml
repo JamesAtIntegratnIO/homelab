@@ -35,7 +35,7 @@ spec:
       source:
         repoURL: https://github.com/JamesAtIntegratnIO/homelab.git
         targetRevision: main
-        path: "base/k8s/{{appName}}"
+        path: "base/k8s/{{appName}}/overlays/k0s-homelab-cluster"
       destination:
         name: in-cluster
         namespace: "{{namespace}}"

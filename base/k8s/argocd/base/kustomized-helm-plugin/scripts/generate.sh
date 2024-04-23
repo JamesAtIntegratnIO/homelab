@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Initialize helm command with basic options
-helm_cmd="helm template --release-name $ARGOCD_ENV_HELM_RELEASE_NAME --include-crds ."
+helm_cmd="helm template --release-name $ARGOCD_ENV_HELM_RELEASE_NAME --include-crds ../../base"
 
 # Temporary file to hold the find results
 temp_file=$(mktemp)

@@ -4,7 +4,10 @@ metadata:
   name: infra-helm-stack
   namespace: argocd
 spec:
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
   generators:
+  - clusters: {}
   - list:
       elements:
         - appName: cert-manager
@@ -12,48 +15,44 @@ spec:
           helmReleaseName: cert-manager
           helmChartName: jetsack
           helmChartRepo: https://charts.jetstack.io
-          path: overlays/k0s-homelab-cluster
         - appName: ingress-nginx
           namespace: ingress-nginx
           helmReleaseName: ingress-nginx
           helmChartName: ingress-nginx
           helmChartRepo: https://kubernetes.github.io/ingress-nginx
-          path: ""
         - appName: external-secrets
           namespace: external-secrets
           helmReleaseName: external-secrets
           helmChartName: external-secrets
           helmChartRepo: https://charts.external-secrets.io
-          path: ""
         - appName: op-connect-helm
           namespace: op-connect
           helmReleaseName: op-connect-operator
           helmChartName: onepassword-connect-operator
           helmChartRepo: https://1password.github.io/connect-helm-charts
-          path: ""
   template:
     metadata:
-      name: "{{appName}}"
+      name: "{{.appName}}"
       annotations:
         argocd.argoproj.io/manifest-generate-paths: ".;.."
     spec:
-      project: infra
+      project: "{{.nameNormalized}}-infra"
       source:
         repoURL: https://github.com/JamesAtIntegratnIO/homelab.git
         targetRevision: main
-        path: "base/k8s/{{appName}}/{{path}}"
+        path: "base/k8s/{{appName}}/overlays/{{.nameNormalized}}"
         plugin:
           name: kustomized-helm
           env: 
             - name: HELM_RELEASE_NAME
-              value: "{{helmReleaseName}}"
+              value: "{{.helmReleaseName}}"
             - name: HELM_REPO_NAME
-              value: "{{helmChartName}}"
+              value: "{{.helmChartName}}"
             - name: HELM_REPO_URL
-              value: "{{helmChartRepo}}"
+              value: "{{.helmChartRepo}}"
       destination:
-        name: in-cluster
-        namespace: "{{namespace}}"
+        name: {{.server}}
+        namespace: "{{.namespace}}"
       syncPolicy:
         automated:
           prune: true
