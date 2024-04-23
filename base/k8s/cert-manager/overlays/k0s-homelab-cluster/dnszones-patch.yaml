@@ -1,3 +1,4 @@
 - op: replace
-  path: /spec/acme/solvers/0/dnsZones/0
-  value: "k8s.integratn.tech"
+  path: /spec/acme/solvers/0/selector/dnsZones
+  value: 
+    - "k8s.integratn.tech"
