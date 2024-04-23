@@ -7,40 +7,42 @@ spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
   generators:
-  - clusters: {}
-  - list:
-      elements:
-        - appName: cert-manager
-          namespace: cert-manager
-          helmReleaseName: cert-manager
-          helmChartName: jetsack
-          helmChartRepo: https://charts.jetstack.io
-        - appName: ingress-nginx
-          namespace: ingress-nginx
-          helmReleaseName: ingress-nginx
-          helmChartName: ingress-nginx
-          helmChartRepo: https://kubernetes.github.io/ingress-nginx
-        - appName: external-secrets
-          namespace: external-secrets
-          helmReleaseName: external-secrets
-          helmChartName: external-secrets
-          helmChartRepo: https://charts.external-secrets.io
-        - appName: op-connect-helm
-          namespace: op-connect
-          helmReleaseName: op-connect-operator
-          helmChartName: onepassword-connect-operator
-          helmChartRepo: https://1password.github.io/connect-helm-charts
+  - matrix:
+      generators:
+      - clusters: {}
+      - list:
+          elements:
+            - appName: cert-manager
+              namespace: cert-manager
+              helmReleaseName: cert-manager
+              helmChartName: jetsack
+              helmChartRepo: https://charts.jetstack.io
+            - appName: ingress-nginx
+              namespace: ingress-nginx
+              helmReleaseName: ingress-nginx
+              helmChartName: ingress-nginx
+              helmChartRepo: https://kubernetes.github.io/ingress-nginx
+            - appName: external-secrets
+              namespace: external-secrets
+              helmReleaseName: external-secrets
+              helmChartName: external-secrets
+              helmChartRepo: https://charts.external-secrets.io
+            - appName: op-connect-helm
+              namespace: op-connect
+              helmReleaseName: op-connect-operator
+              helmChartName: onepassword-connect-operator
+              helmChartRepo: https://1password.github.io/connect-helm-charts
   template:
     metadata:
-      name: "{{.appName}}"
+      name: "{{.name}}-{{.appName}}"
       annotations:
         argocd.argoproj.io/manifest-generate-paths: ".;.."
     spec:
-      project: "{{.nameNormalized}}-infra"
+      project: "{{.name}}-infra"
       source:
         repoURL: https://github.com/JamesAtIntegratnIO/homelab.git
         targetRevision: main
-        path: "base/k8s/{{appName}}/overlays/{{.nameNormalized}}"
+        path: "base/k8s/{{.appName}}/overlays/{{.name}}"
         plugin:
           name: kustomized-helm
           env: 
@@ -51,7 +53,7 @@ spec:
             - name: HELM_REPO_URL
               value: "{{.helmChartRepo}}"
       destination:
-        name: {{.server}}
+        name: "{{.server}}"
         namespace: "{{.namespace}}"
       syncPolicy:
         automated:

@@ -18,9 +18,9 @@ done < "$temp_file"
 rm "$temp_file"
 
 # Execute the helm command and pipe its output to all.yaml
-eval "$helm_cmd > all.yaml"
+eval "$helm_cmd > ../../base/all.yaml"
 
 # Followed by kustomize build
 kustomize build
 
-echo "Command executed: $helm_cmd > all.yaml && kustomize build"
+echo "Command executed: $helm_cmd > ../../base/all.yaml && kustomize build"
