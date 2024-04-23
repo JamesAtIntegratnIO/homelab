@@ -38,7 +38,7 @@ spec:
       annotations:
         argocd.argoproj.io/manifest-generate-paths: ".;.."
     spec:
-      project: "{{.name}}-infra"
+      project: "infra"
       source:
         repoURL: https://github.com/JamesAtIntegratnIO/homelab.git
         targetRevision: main
@@ -53,7 +53,7 @@ spec:
             - name: HELM_REPO_URL
               value: "{{.helmChartRepo}}"
       destination:
-        name: "{{.server}}"
+        name: "{{.name}}"
         namespace: "{{.namespace}}"
       syncPolicy:
         automated:
