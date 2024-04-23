@@ -14,6 +14,8 @@ export XDG_DATA_HOME="$BOBOYSDADDA_TEMP/data"
 export HELM_HOME="$BOBOYSDADDA_TEMP/helm"
 
 # Add helm repository
+
+cd ../../base
 if ! helm repo add "$ARGOCD_ENV_HELM_REPO_NAME" "$ARGOCD_ENV_HELM_REPO_URL"; then
     echo "Failed to add helm repository."
     rm -r "$BOBOYSDADDA_TEMP"
