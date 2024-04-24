@@ -1,7 +1,7 @@
 apiVersion: k0sctl.k0sproject.io/v1beta1
 kind: Cluster
 metadata:
-  name: k0s-homelab-cluster
+  name: k0s-management-cluster
 spec:
   hosts:
   - ssh:

@@ -8,30 +8,106 @@ on:
 jobs:
   helm_template:
     runs-on: ubuntu-latest
+    permissions:
+      # Give the default GITHUB_TOKEN write permission to commit and push the changed files back to the repository.
+      contents: write
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Fetch all history for all branches and tags
 
       - name: Set up Helm
         uses: azure/setup-helm@v4.2.0
         with:
           version: 'v3.14.4'
 
+      - name: Create and checkout new branch
+        run: |
+          # Generate a unique branch name based on the date and time
+          new_branch="temp-branch-$(date +%Y%m%d-%H%M%S)"
+          git checkout -b $new_branch
+
       - name: Find changed directories
         id: find_changed_dirs
         run: |
-          changed_dirs=$(git diff --name-only HEAD^ HEAD | grep -oE 'base/k8s/[^/]+/overlays/[^/]' | sort -u)
-          echo "::set-output name=dirs::$changed_dirs"
+          # Ensure we have the latest state of 'main'
+          git fetch origin main:main
+          # Compare current new branch with 'main'
+          changed_dirs=$(git diff --name-only $new_branch origin/main~1 | grep -oE 'core/[^/]+/overlays/[^/]+' | sort -u | tr '\n' ',')
+          echo "dirs=$changed_dirs" >> $GITHUB_ENV
+        shell: /usr/bin/bash -e {0}
+
+      - name: Add Helm repositories dynamically
+        run: |
+          IFS=',' read -r -a dir_array <<< "${dirs}"  # Split dirs into an array based on comma delimiter
+          for dir in "${dir_array[@]}"; do  # Iterate over each element in the array
+            echo "Checking directory: $dir"  # Debug output
+            if [ -d "$dir" ]; then
+              cd $dir
+              cd ../../base
+              # Check if Chart.yaml exists
+              if [ -f Chart.yaml ]; then
+                pwd  # Debug: print current directory after cd
+                dependencies=$(yq e '.dependencies[] | (.name + "=" + .repository)' Chart.yaml)
+                IFS=$'\n'  # Change the internal field separator to new line for looping
+                for dep in $dependencies; do
+                  repo_name="${dep%=*}"  # Everything before the '='
+                  repo_url="${dep#*=}"  # Everything after the '='
+                  
+                  # Check if the repository URL is not null
+                  if [ ! -z "$repo_url" ]; then
+                    echo "Adding Helm repository $repo_name from $repo_url"
+                    helm repo add "$repo_name" "$repo_url"
+                  fi
+                done
+                helm repo update
+              else
+                echo "Chart.yaml does not exist in the base directory"
+              fi
+            else
+              echo "$dir does not exist."
+            fi
+            cd $GITHUB_WORKSPACE  # Return to the initial directory
+          done
 
       - name: Template Helm charts
         run: |
-          for dir in ${{ steps.find_changed_dirs.outputs.dirs }}; do
-            helm template my-chart ./$dir > ./$dir/all.yaml
+          IFS=',' read -r -a dir_array <<< "${dirs}"  # Split dirs into an array based on comma delimiter
+          pwd  # Print the current working directory
+          ls -lah  # List all files and directories in the current working directory
+          for dir in "${dir_array[@]}"; do  # Iterate over each element in the array
+            echo "Checking directory: $dir"  # Debug output
+            if [ -d "$dir" ]; then
+              cd $dir
+              pwd  # Debug: print current directory after cd
+              ls -lah  # List contents to verify
+              # Check if Chart.yaml exists before proceeding
+              if [ -f ../../base/Chart.yaml ]; then
+                BASE_NAMESPACE=$(cat ../../base/kustomization.yaml | yq e '.namespace // "default"' -)
+                NAMESPACE=$(cat kustomization.yaml | yq e ".namespace // \"$BASE_NAMESPACE\"" -)
+                helm dependency build ../../base
+                touch ../../base/values.yaml
+                touch values.yaml
+                helm template \
+                  --release-name ${NAMESPACE} \
+                  ../../base \
+                  -f ../../base/values.yaml \
+                  -f values.yaml > all.yaml
+                ls -lah  # List contents to verify
+              else
+                echo "Chart.yaml does not exist in $dir"
+              fi
+            else
+              echo "$dir does not exist."
+            fi
+            cd $GITHUB_WORKSPACE  # Return to the initial directory
           done
-      
+
+
       - name: Commit changes to infra branch
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
             commit_message: "helm template $(date +%Y-%m-%d)"
             commit_user_name: "github-actions[bot]"
