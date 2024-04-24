@@ -5,7 +5,7 @@ labels:
 resources: 
 - storage-user-onePasswordItem.yaml
 - ingress.yaml
-- tenant.yaml- minio-operator.yaml
+- tenant.yaml
 - minio-operator.yaml
 - minio-operator-role.yaml
 - minio-operator-binding.yaml
@@ -14,11 +14,9 @@ resources:
 - miniojobs.job.min.io.yaml
 - operator.yaml
 - sts.yaml
-- minio-operator.yaml
 - console-sa.yaml
 - console-sa-secret.yaml
 - console-sa-role.yaml
 - console-sa-binding.yaml
 - console-env.yaml
-- console.yaml
 - console.yaml

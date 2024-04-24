@@ -45,3 +45,7 @@ kubeconfig
 # ignore some secret files
 base/argocd/argocd-notifications-cm.yaml
 base/argocd/discord-notifications-webhook-cm.yaml
+
+# Ignore helm chart building outputs
+*/base/charts/*.tgz
+*/overlays/*/helm-charts.yaml
