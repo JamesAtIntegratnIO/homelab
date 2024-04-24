@@ -6,7 +6,6 @@ labels:
       'backstage.io/kubernetes-id': 'cert-manager'
 resources:
 - namespace.yaml
-- ./all.yaml
 - https://github.com/cert-manager/cert-manager/releases/download/v1.14.4/cert-manager.crds.yaml
 - issuer.yaml
 - onepassword-item.yaml
