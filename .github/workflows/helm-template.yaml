@@ -1,0 +1,40 @@
+name: Helm Template
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  helm_template:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v1
+        with:
+          version: '3'
+
+      - name: Find changed directories
+        id: find_changed_dirs
+        run: |
+          changed_dirs=$(git diff --name-only HEAD^ HEAD | grep -oE 'base/k8s/[^/]+/overlays/[^/]' | sort -u)
+          echo "::set-output name=dirs::$changed_dirs"
+
+      - name: Template Helm charts
+        run: |
+          for dir in ${{ steps.find_changed_dirs.outputs.dirs }}; do
+            helm template my-chart ./$dir > ./$dir/all.yaml
+          done
+      
+      - name: commit changes to infra branch
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git checkout -b infra
+          git add .
+          git commit -m "helm template"
+          git push origin infra

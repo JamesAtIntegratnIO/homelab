@@ -12,10 +12,10 @@ spec:
         - clusters: {}
         - list:
             elements:
-              - appName: argocd
-                namespace: argocd
-                fromHelmStack: false
-                syncWave: 1
+              # - appName: argocd
+              #   namespace: argocd
+              #   fromHelmStack: false
+              #   syncWave: 1
 
               - appName: op-connect-helm
                 namespace: op-connect
