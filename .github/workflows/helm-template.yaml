@@ -108,15 +108,23 @@ jobs:
       - name: Commit changes to infra branch
         run: |
           git fetch origin infra:infra || true  # Fetch the infra branch if it exists, don't fail if it doesn't
+          # Stash the committed files
           git stash
+          # Check if the branch exists, if it does switch to it, otherwise create it
           if git show-ref --verify --quiet refs/heads/infra; then
             git switch infra
           else
             git switch --create infra origin/infra || git switch --create infra
           fi
+          # Delete all the code from the branch so its in a clean state
           git rm -rf . --quiet
+          # Pop the stashed files
           git stash pop
-            git add **/all.yaml
+          # Add only the files that were generated that will be applied by ArgoCD
+          git add **/all.yaml
+          # Check if there are changes to commit. This ensures we only trigger a commit which
+          # would trigger ArgoCD to apply changes if there are actual changes to apply and we
+          # didn't just rebuild the exact same manifests.
           if ! git diff --quiet --staged; then  # Ensure there are changes staged for commit
             git commit -m "${{ github.event.head_commit.message }}"
             git push --set-upstream origin infra
