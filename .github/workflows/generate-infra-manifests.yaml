@@ -1,4 +1,4 @@
-name: Helm Template
+name: Generate Infra Manifests
 
 on:
   push:
@@ -68,10 +68,8 @@ jobs:
       - name: Template Helm charts
         run: |
           IFS=',' read -r -a dir_array <<< "${dirs}"  # Split dirs into an array based on comma delimiter
-          pwd  # Print the current working directory
           ls -lah  # List all files and directories in the current working directory
           for dir in "${dir_array[@]}"; do  # Iterate over each element in the array
-            echo "Checking directory: $dir"  # Debug output
             if [ -d "$dir" ]; then
               cd $dir
               cd ../../base
@@ -98,12 +96,10 @@ jobs:
               echo "running kustomize build . > all.yaml"
               kustomize build . > all.yaml
               git add all.yaml
-              echo $(head -n 10 all.yaml)
             else
               echo "$dir does not exist."
             fi
             cd $GITHUB_WORKSPACE  # Return to the initial directory
-            echo "Present Working Dir after build: $(pwd)"
           done
       - name: Commit changes to infra branch
         run: |
