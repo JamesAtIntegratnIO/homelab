@@ -1,9 +1,0 @@
-namespace: pi4-cluster
-
-resources:
-  - namespace.yaml
-  - mycluster.yaml
-  - k0stmotron-control-plane.yaml
-  - remote-cluster.yaml
-  - machines.yaml
-  - remote-machines.yaml

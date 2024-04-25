@@ -1,0 +1,267 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    backstage.io/kubernetes-id: nfs-provisioner
+  name: nfs-provisioner
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  labels:
+    backstage.io/kubernetes-id: nfs-provisioner
+  name: config-nfs-client
+parameters:
+  archiveOnDelete: "false"
+provisioner: k8s-sigs.io/config-nfs-subdir-external-provisioner
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  labels:
+    backstage.io/kubernetes-id: nfs-provisioner
+  name: data-nfs-client
+parameters:
+  archiveOnDelete: "false"
+provisioner: k8s-sigs.io/data-nfs-subdir-external-provisioner
+---
+allowVolumeExpansion: true
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  labels:
+    backstage.io/kubernetes-id: nfs-provisioner
+  name: nfs-client
+parameters:
+  archiveOnDelete: "false"
+provisioner: k8s-sigs.io/nfs-subdir-external-provisioner
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    backstage.io/kubernetes-id: nfs-provisioner
+  name: nfs-client-provisioner
+  namespace: nfs-provisioner
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  labels:
+    backstage.io/kubernetes-id: nfs-provisioner
+  name: leader-locking-nfs-client-provisioner
+  namespace: nfs-provisioner
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - endpoints
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    backstage.io/kubernetes-id: nfs-provisioner
+  name: nfs-client-provisioner-runner
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - nodes
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - persistentvolumes
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+- apiGroups:
+  - ""
+  resources:
+  - persistentvolumeclaims
+  verbs:
+  - get
+  - list
+  - watch
+  - update
+- apiGroups:
+  - storage.k8s.io
+  resources:
+  - storageclasses
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - events
+  verbs:
+  - create
+  - update
+  - patch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    backstage.io/kubernetes-id: nfs-provisioner
+  name: leader-locking-nfs-client-provisioner
+  namespace: nfs-provisioner
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: leader-locking-nfs-client-provisioner
+subjects:
+- kind: ServiceAccount
+  name: nfs-client-provisioner
+  namespace: nfs-provisioner
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    backstage.io/kubernetes-id: nfs-provisioner
+  name: run-nfs-client-provisioner
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: nfs-client-provisioner-runner
+subjects:
+- kind: ServiceAccount
+  name: nfs-client-provisioner
+  namespace: nfs-provisioner
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: config-nfs-client-provisioner
+    backstage.io/kubernetes-id: nfs-provisioner
+  name: config-nfs-client-provisioner
+  namespace: nfs-provisioner
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: config-nfs-client-provisioner
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: config-nfs-client-provisioner
+    spec:
+      containers:
+      - env:
+        - name: PROVISIONER_NAME
+          value: k8s-sigs.io/config-nfs-subdir-external-provisioner
+        - name: NFS_SERVER
+          value: 10.0.0.12
+        - name: NFS_PATH
+          value: /mnt/user/appdata
+        image: registry.k8s.io/sig-storage/nfs-subdir-external-provisioner:v4.0.2
+        name: config-nfs-client-provisioner
+        volumeMounts:
+        - mountPath: /persistentvolumes
+          name: nfs-client-root
+      serviceAccountName: nfs-client-provisioner
+      volumes:
+      - name: nfs-client-root
+        nfs:
+          path: /mnt/user/appdata
+          server: 10.0.0.12
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: data-nfs-client-provisioner
+    backstage.io/kubernetes-id: nfs-provisioner
+  name: data-nfs-client-provisioner
+  namespace: nfs-provisioner
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: data-nfs-client-provisioner
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: data-nfs-client-provisioner
+    spec:
+      containers:
+      - env:
+        - name: PROVISIONER_NAME
+          value: k8s-sigs.io/data-nfs-subdir-external-provisioner
+        - name: NFS_SERVER
+          value: 10.0.0.12
+        - name: NFS_PATH
+          value: /mnt/user/data
+        image: registry.k8s.io/sig-storage/nfs-subdir-external-provisioner:v4.0.2
+        name: data-nfs-client-provisioner
+        volumeMounts:
+        - mountPath: /persistentvolumes
+          name: nfs-client-root
+      serviceAccountName: nfs-client-provisioner
+      volumes:
+      - name: nfs-client-root
+        nfs:
+          path: /mnt/user/data
+          server: 10.0.0.12
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nfs-client-provisioner
+    backstage.io/kubernetes-id: nfs-provisioner
+  name: nfs-client-provisioner
+  namespace: nfs-provisioner
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nfs-client-provisioner
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: nfs-client-provisioner
+    spec:
+      containers:
+      - env:
+        - name: NFS_SERVER
+          value: 10.0.0.12
+        - name: NFS_PATH
+          value: /mnt/user/kube_storage
+        - name: PROVISIONER_NAME
+          value: k8s-sigs.io/nfs-subdir-external-provisioner
+        image: registry.k8s.io/sig-storage/nfs-subdir-external-provisioner:v4.0.2
+        name: nfs-client-provisioner
+        volumeMounts:
+        - mountPath: /persistentvolumes
+          name: nfs-client-root
+      serviceAccountName: nfs-client-provisioner
+      volumes:
+      - name: nfs-client-root
+        nfs:
+          path: /mnt/user/kube_storage
+          server: 10.0.0.12

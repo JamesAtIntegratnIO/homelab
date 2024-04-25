@@ -1,3 +1,0 @@
-- op: replace
-  path: /spec/acme/solvers/0/selector/dnsZones
-  value: "k0s.integratn.tech"
