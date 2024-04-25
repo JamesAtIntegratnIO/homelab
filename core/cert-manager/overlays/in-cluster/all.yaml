@@ -3,6 +3,7 @@ kind: Namespace
 metadata:
   labels:
     backstage.io/kubernetes-id: cert-manager
+    test-label: test-label-value
   name: cert-manager
 ---
 apiVersion: apiextensions.k8s.io/v1
@@ -14,6 +15,7 @@ metadata:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/version: v1.14.4
     backstage.io/kubernetes-id: cert-manager
+    test-label: test-label-value
   name: certificaterequests.cert-manager.io
 spec:
   group: cert-manager.io
@@ -277,6 +279,7 @@ metadata:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/version: v1.14.4
     backstage.io/kubernetes-id: cert-manager
+    test-label: test-label-value
   name: certificates.cert-manager.io
 spec:
   group: cert-manager.io
@@ -939,6 +942,7 @@ metadata:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/version: v1.14.4
     backstage.io/kubernetes-id: cert-manager
+    test-label: test-label-value
   name: challenges.acme.cert-manager.io
 spec:
   group: acme.cert-manager.io
@@ -3264,6 +3268,7 @@ metadata:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/version: v1.14.4
     backstage.io/kubernetes-id: cert-manager
+    test-label: test-label-value
   name: clusterissuers.cert-manager.io
 spec:
   group: cert-manager.io
@@ -6274,6 +6279,7 @@ metadata:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/version: v1.14.4
     backstage.io/kubernetes-id: cert-manager
+    test-label: test-label-value
   name: issuers.cert-manager.io
 spec:
   group: cert-manager.io
@@ -9283,6 +9289,7 @@ metadata:
     app.kubernetes.io/name: cert-manager
     app.kubernetes.io/version: v1.14.4
     backstage.io/kubernetes-id: cert-manager
+    test-label: test-label-value
   name: orders.acme.cert-manager.io
 spec:
   group: acme.cert-manager.io
@@ -11022,6 +11029,7 @@ kind: ClusterIssuer
 metadata:
   labels:
     backstage.io/kubernetes-id: cert-manager
+    test-label: test-label-value
   name: letsencrypt-prod
   namespace: cert-manager
 spec:
@@ -11046,6 +11054,7 @@ kind: OnePasswordItem
 metadata:
   labels:
     backstage.io/kubernetes-id: cert-manager
+    test-label: test-label-value
   name: cloudflare-api-key
   namespace: cert-manager
 spec:
