@@ -1,0 +1,134 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    app: code-server
+    backstage.io/kubernetes-id: code-server
+  name: code-server
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: code-server
+    backstage.io/kubernetes-id: code-server
+  name: code-server
+  namespace: code-server
+spec:
+  ports:
+  - port: 8080
+    targetPort: 8080
+  selector:
+    app: code-server
+  type: LoadBalancer
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  annotations:
+    pv.kubernetes.io/provisioned-by: k8s-sigs.io/nfs-subdir-external-provisioner
+  labels:
+    app: code-server
+    backstage.io/kubernetes-id: code-server
+  name: code-server-pv
+spec:
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 10Gi
+  nfs:
+    path: /mnt/user/kube_storage/code-server-pvc
+    server: 10.0.0.12
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs-client
+  volumeMode: Filesystem
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: code-server
+    backstage.io/kubernetes-id: code-server
+  name: code-server-pvc
+  namespace: code-server
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: nfs-client
+  volumeName: code-server-pv
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: code-server
+    backstage.io/kubernetes-id: code-server
+  name: code-server-deployment
+  namespace: code-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: code-server
+  template:
+    metadata:
+      labels:
+        app: code-server
+    spec:
+      containers:
+      - env:
+        - name: PUID
+          value: "99"
+        - name: PGID
+          value: "100"
+        - name: TZ
+          value: America/Denver
+        image: ghcr.io/jamesatintegratnio/code-server:main
+        name: code-server
+        ports:
+        - containerPort: 8080
+        resources:
+          limits:
+            cpu: 1500m
+            memory: 2048Mi
+          requests:
+            cpu: 500m
+            memory: 512Mi
+        volumeMounts:
+        - mountPath: /home/coder
+          name: code-server-pvc
+      volumes:
+      - name: code-server-pvc
+        persistentVolumeClaim:
+          claimName: code-server-pvc
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  labels:
+    app: code-server
+    backstage.io/kubernetes-id: code-server
+  name: code-server
+  namespace: code-server
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: code-server.k8s.integratn.tech
+    http:
+      paths:
+      - backend:
+          service:
+            name: code-server
+            port:
+              number: 8080
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - code-server.k8s.integratn.tech
+    secretName: code-server-tls

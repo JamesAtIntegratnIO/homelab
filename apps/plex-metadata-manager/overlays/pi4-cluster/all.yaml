@@ -1,0 +1,509 @@
+apiVersion: v1
+data:
+  movies.yaml: "templates:\n  IMDb Genre:\n    default:\n      title: feature\n      limit:
+    100\n    imdb_list:\n      - url: https://www.imdb.com/search/title/?title_type=<<title>>&release_date=1990-01-01,&user_rating=5.0,10.0&num_votes=100000,&genres=<<genre>>\n
+    \       limit: <<limit>>\n      - url: https://www.imdb.com/search/title/?title_type=<<title>>&release_date=1990-01-01,&user_rating=5.0,10.0&num_votes=100000,&genres=<<genre>>&sort=user_rating,desc\n
+    \       limit: <<limit>>\n      - url:https://m.imdb.com/list/ls099779687/\n        limit:
+    <<limit>>\n    sort_title: +3_<<collection_name>>\n    sync_mode: sync\n    smart_label:
+    random\n  Other Genre:\n    sort_title: +3_<<collection_name>>\n    sync_mode:
+    sync\n    smart_label: random\n    url_poster: <<poster>>\n  Genre:\n    plex_search:\n
+    \     genre: <<genre>>\n    url_poster: <<poster>>\n    sort_title: +3_<<collection_name>>\n
+    \   collection_order: alpha\n  Holiday:\n    url_poster: <<poster>>\n    sort_title:
+    <<collection_name>>\n    collection_order: release\n  Studio:\n    plex_search:\n
+    \     studio: <<studio>>\n    url_poster: <<poster>>\n    sort_title: +++++_<<collection_name>>\n
+    \   collection_order: alpha\n  Movie:\n    tmdb_collection: <<collection>>\n    tmdb_summary:
+    <<summary>>\n    url_poster: <<poster>>\n    sort_title: ++++_<<collection_name>>\n
+    \   collection_order: release\n  Decade:\n    # I was not able to find any posters
+    i liked for decades 00 and 10, so i did not use the template. \n    plex_search:\n
+    \     decade: <<year>>\n    url_poster: <<poster>>\n    sort_title: +++_<<collection_name>>\n
+    \   collection_order: alpha\n  people:\n    actor: tmdb\n    tmdb_person: <<person>>\n
+    \   sort_title: ++_<<collection_name>>\n    collection_order: release\n  Special
+    Genre:\n    url_poster: <<poster>>\n    sort_title: <<collection_name>>\n    collection_order:
+    release.desc\ncollections:\n###########################\n#    Genre Collections
+    \   #\n###########################\n  Anime:\n    template: {name: Genre, genre:
+    Anime, poster: https://theposterdb.com/api/assets/126743}\n    summary: A collection
+    of Anime movies\n  Christmas:\n    template: {name: Holiday, poster: https://theposterdb.com/api/assets/69443}\n
+    \   sort_title: +3_Christmas\n    trakt_list:\n      - https://trakt.tv/users/movistapp/lists/christmas-movies\n
+    \     - https://trakt.tv/users/2borno2b/lists/christmas-movies-extravanganza\n
+    \     - https://trakt.tv/users/pualani78/lists/christmas-2020\n      - https://trakt.tv/users/veninjak/lists/complete-christmas-2021-copy\n
+    \   imdb_list:\n      - https://www.imdb.com/list/ls025976544/\n      - https://www.imdb.com/list/ls003863000/\n
+    \     - https://www.imdb.com/list/ls027454200/\n      - https://www.imdb.com/list/ls027886673/\n
+    \     - https://www.imdb.com/list/ls097998599/\n    summary: Christmas and the
+    like holiday movies. Yes Die Hard counts.\n  Halloween:\n    sort_title: +3_Halloween\n
+    \   template: {name: Holiday, poster: https://theposterdb.com/api/assets/111218}\n
+    \   trakt_list:\n      - https://trakt.tv/users/kairbear08/lists/halloween\n      -
+    https://trakt.tv/users/mybicycle/lists/halloween\n      - https://trakt.tv/users/jayinftl/lists/halloween\n
+    \     - https://trakt.tv/users/roswellgeek/lists/halloween\n    summary: Spooky
+    movies\n  Valentine's Day Movies:\n    sort_title: +3_Valentines\n    template:
+    {name: Holiday, holiday: Valentine's Day}\n    imdb_list:\n      - https://www.imdb.com/list/ls000094398/\n
+    \     - https://www.imdb.com/list/ls057783436/\n      - https://www.imdb.com/list/ls064427905/\n
+    \ Time Travel:\n    smart_label: title.asc\n    trakt_list: https://trakt.tv/users/vagnerr/lists/time-travel\n
+    \   summary: Film/show contains time-travel. In any form. Be it time-loop, full
+    on relocation in time, consciousness transfer...\n    sort_title: +3_TimeTravel\n
+    \ DC Universe Animated Original Movies:\n    imdb_list: https://www.imdb.com/list/ls085085810/\n
+    \   smart_label: title.asc\n    sort_title: +3_DC Animated Movies\n    url_poster:
+    https://i.imgur.com/voc6uAz.jpg    \n###########################\n#     Trakt
+    Trending      #\n###########################\n  4K Overlay:\n    plex_search:\n
+    \     all:\n        resolution: 4K\n        hdr: false\n    item_overlay:\n      name:
+    4K\n      url: https://i.imgur.com/0B3q9ma.png\n    build_collection: false\n
+    \ 4K-HDR Overlay:\n    plex_search:\n      all:\n        resolution: 4K\n        hdr:
+    true\n    item_overlay:\n      name: 4K-HDR\n      url: https://i.imgur.com/IzJSG74.png\n
+    \   build_collection: false\n  Trending:\n    trakt_trending: 50\n    tmdb_trending_daily:
+    50\n    tmdb_trending_weekly: 50\n    sort_title: +1_2Trending\n    sync_mode:
+    sync\n    smart_label: year.desc\n    summary: Movies Trending across the internet\n
+    \   radarr_add: false\n    radarr_search: false\n    radarr_monitor: false\n    url_background:
+    https://i.imgur.com/SOVfrIq.png\n    url_poster: https://i.imgur.com/4vpMZoA.png\n
+    \ IMDb Top 250:\n    imdb_list: https://www.imdb.com/search/title/?groups=top_250&count=250&sort=user_rating,desc\n
+    \   sort_title: +1_2IMDb Top 250\n  Latest releases:\n    template: {name: Special
+    Genre}\n    url_poster: https://theposterdb.com/api/assets/213599\n    sort_title:
+    ++++++++_\n    trakt_list: https://trakt.tv/users/giladg/lists/latest-releases\n
+    \   summary: Latest releases\n  Top 10 Movies of The Week:\n    template: {name:
+    Special Genre}\n    sort_title: ++++++++_\n    trakt_list: https://trakt.tv/users/giladg/lists/top-10-movies-of-the-week\n
+    \   summary: Top 10 Movies of The Week\n  Action:\n    template: { name: IMDb
+    Genre, genre: action }\n    summary: Action film is a genre wherein physical action
+    takes precedence in the storytelling. The film will often have continuous motion
+    and action including physical stunts, chases, fights, battles, and races. The
+    story usually revolves around a hero that has a goal, but is facing incredible
+    odds to obtain it.\n  Adventure:\n    template: { name: IMDb Genre, genre: adventure
+    }\n    summary: Adventure film is a genre that revolves around the conquests and
+    explorations of a protagonist. The purpose of the conquest can be to retrieve
+    a person or treasure, but often the main focus is simply the pursuit of the unknown.
+    These films generally take place in exotic locations and play on historical myths.
+    Adventure films incorporate suspenseful puzzles and intricate obstacles that the
+    protagonist must overcome in order to achieve the end goal.\n  Animation:\n    template:
+    { name: IMDb Genre, genre: animation }\n    summary: Animated film is a collection
+    of illustrations that are photographed frame-by-frame and then played in a quick
+    succession. Since its inception, animation has had a creative and imaginative
+    tendency. Being able to bring animals and objects to life, this genre has catered
+    towards fairy tales and children’s stories. However, animation has long been a
+    genre enjoyed by all ages. As of recent, there has even been an influx of animation
+    geared towards adults. Animation is commonly thought of as a technique, thus it’s
+    ability to span over many different genres.\n  Comedy:\n    template: { name:
+    IMDb Genre, genre: comedy }\n    summary: Comedy is a genre of film that uses
+    humor as a driving force. The aim of a comedy film is to illicit laughter from
+    the audience through entertaining stories and characters. Although the comedy
+    film may take on some serious material, most have a happy ending. Comedy film
+    has the tendency to become a hybrid sub-genre because humor can be incorporated
+    into many other genres. Comedies are more likely than other films to fall back
+    on the success and popularity of an individual star.\n  Crime:\n    template:
+    { name: IMDb Genre, genre: crime }\n    summary: Crime film is a genre that revolves
+    around the action of a criminal mastermind. A Crime film will often revolve around
+    the criminal himself, chronicling his rise and fall. Some Crime films will have
+    a storyline that follows the criminal's victim, yet others follow the person in
+    pursuit of the criminal. This genre tends to be fast paced with an air of mystery
+    – this mystery can come from the plot or from the characters themselves.\n  Documentary:\n
+    \   template: { name: IMDb Genre, genre: documentary, title: documentary }\n    summary:
+    Documentary film is a non-fiction genre intended to document reality primarily
+    for the purposes of instruction, education, or maintaining a historical record.\n
+    \ Drama:\n    template: { name: IMDb Genre, genre: drama }\n    summary: Drama
+    film is a genre that relies on the emotional and relational development of realistic
+    characters. While Drama film relies heavily on this kind of development, dramatic
+    themes play a large role in the plot as well. Often, these dramatic themes are
+    taken from intense, real life issues. Whether heroes or heroines are facing a
+    conflict from the outside or a conflict within themselves, Drama film aims to
+    tell an honest story of human struggles.\n  Family:\n    template: { name: IMDb
+    Genre, genre: family }\n    summary: Family film is a genre that is contains appropriate
+    content for younger viewers. Family film aims to appeal not only to children,
+    but to a wide range of ages. While the storyline may appeal to a younger audience,
+    there are components of the film that are geared towards adults- such as witty
+    jokes and humor. This genre may fall into many other genres, including comedy,
+    adventure, fantasy, and animated film.\n  Fantasy:\n    template: { name: IMDb
+    Genre, genre: fantasy }\n    summary: Fantasy film is a genre that incorporates
+    imaginative and fantastic themes. These themes usually involve magic, supernatural
+    events, or fantasy worlds. Although it is its own distinct genre, these films
+    can overlap into the horror and science fiction genres. Unlike science fiction,
+    a fantasy film does not need to be rooted in fact. This element allows the audience
+    to be transported into a new and unique world. Often, these films center on an
+    ordinary hero in an extraordinary situation.\n  Gangster:\n    template: { name:
+    Other Genre }\n    imdb_list:\n      - https://www.imdb.com/list/ls026270180/\n
+    \     - https://www.imdb.com/list/ls000093502/\n    summary: Gangster film is
+    a sub-genre of crime films that center on organized crime or the mafia. Often
+    the plot revolves around the rise and fall of an organized crime leader. Many
+    Gangster films explore the destructive nature of organized crime, while others
+    attempt to show the humanity of the individual characters.\n  History:\n    template:
+    { name: IMDb Genre, genre: history }\n    summary: History film is a genre that
+    takes historical events and people and interprets them in a larger scale. Historical
+    accuracy is not the main focus, but rather the telling of a grandiose story. The
+    drama of an History film is often accentuated by a sweeping musical score, lavish
+    costumes, and high production value.\n  Horror:\n    template: { name: IMDb Genre,
+    genre: horror }\n    summary: Horror film is a genre that aims to create a sense
+    of fear, panic, alarm, and dread for the audience. These films are often unsettling
+    and rely on scaring the audience through a portrayal of their worst fears and
+    nightmares. Horror films usually center on the arrival of an evil force, person,
+    or event. Many Horror films include mythical creatures such as ghosts, vampires,
+    and zombies. Traditionally, Horror films incorporate a large amount of violence
+    and gore into the plot. Though it has its own style, Horror film often overlaps
+    into Fantasy, Thriller, and Science-Fiction genres.\n  LGBTQ+:\n    template:
+    { name: Other Genre }\n    imdb_list: https://www.imdb.com/list/ls062688328/\n
+    \   summary: LGBTQ+ film is a genre of films where the characters decpict lesbian,
+    gay, bisexual, transgender, queer and intersex people.\n  Martial Arts:\n    template:
+    { name: Other Genre }\n    imdb_list:\n      - https://www.imdb.com/list/ls000099643/\n
+    \     - https://www.imdb.com/list/ls068611186/\n      - https://www.imdb.com/list/ls068378513/\n
+    \     - https://www.imdb.com/list/ls090404120/\n    summary: Martial Arts film
+    is a sub-genre of action films that feature numerous martial arts combat between
+    characters. These combats are usually the films' primary appeal and entertainment
+    value, and often are a method of storytelling and character expression and development.
+    Martial Arts are frequently featured in training scenes and other sequences in
+    addition to fights. Martial Arts films commonly include other types of action,
+    such as hand-to-hand combat, stuntwork, chases, and gunfights.\n  Music:\n    template:
+    { name: IMDb Genre, genre: music, limit: 200 }\n    summary: Music film is genre
+    that revolves around music being an integral part of the characters lives.\n  Musical:\n
+    \   template: { name: IMDb Genre, genre: musical, limit: 200 }\n    summary: A
+    Musical interweaves vocal and dance performances into the narrative of the film.
+    The songs of a film can either be used to further the story or simply enhance
+    the experience of the audience. These films are often done on a grand scale and
+    incorporate lavish costumes and sets. Traditional musicals center on a well-known
+    star, famous for their dancing or singing skills (i.e. Fred Astaire, Gene Kelly,
+    Judy Garland). These films explore concepts such are love and success, allowing
+    the audience to escape from reality.\n  Mystery:\n    template: { name: IMDb Genre,
+    genre: mystery }\n    summary: A Mystery film centers on a person of authority,
+    usually a detective, that is trying to solve a mysterious crime. The main protagonist
+    uses clues, investigation, and logical reasoning. The biggest element in these
+    films is a sense of “whodunit” suspense, usually created through visual cues and
+    unusual plot twists.\n  Pandemic:\n    template: { name: Other Genre }\n    imdb_list:\n
+    \     - url: https://www.imdb.com/search/keyword/?keywords=deadly-virus%2Chealth-crisis%2Cpandemic%2Cpublic-health-epidemic%2Cvirus%2Ccoronavirus&sort=moviemeter,asc&mode=detail&page=1&ref_=kw_ref_key\n
+    \       limit: 1000\n      - url: https://www.imdb.com/list/ls041901506/\n      -
+    url: https://www.imdb.com/list/ls092321048/\n    summary: A Pandemic film resolves
+    around widespread viruses, plagues, and diseases.\n  Romance:\n    template: {
+    name: IMDb Genre, genre: romance, limit: 200 }\n    summary: \"Romance film can
+    be defined as a genre wherein the plot revolves around the love between two protagonists.
+    This genre usually has a theme that explores an issue within love, including but
+    not limited to: love at first sight, forbidden love, love triangles, and sacrificial
+    love. The tone of Romance film can vary greatly. Whether the end is happy or tragic,
+    Romance film aims to evoke strong emotions in the audience.\"\n  Romantic Comedy:\n
+    \   template: { name: IMDb Genre, genre: \"romance,comedy\", limit: 200 }\n    summary:
+    Romantic Comedy is a genre that attempts to catch the viewer’s heart with the
+    combination of love and humor. This sub-genre is light-hearted and usually places
+    the two protagonists in humorus situation. Romantic-Comedy film revolves around
+    a romantic ideal, such as true love. In the end, the ideal triumphs over the situation
+    or obstacle, thus creating a happy ending.\n    filters:\n      genre: Comedy\n
+    \ Romantic Drama:\n    template: { name: IMDb Genre, genre: \"romance,drama\",
+    limit: 200 }\n    summary: Romantic Drama film is a genre that explores the complex
+    side of love. The plot usually centers around an obstacle that is preventing love
+    between two people. The obstacles in Romantic Drama film can range from a family's
+    disapproval, to forbidden love, to one's own psychological restraints. Many Romantic
+    Dramas end with the lovers separating because of the enormity of the obstacle,
+    the realization of incompatibility, or simply because of fate.\n    filters:\n
+    \     genre: Drama\n  Sci-Fi:\n    template: { name: IMDb Genre, genre: sci-fi
+    }\n    summary: Science Fiction (Sci-Fi) film is a genre that incorporates hypothetical,
+    science-based themes into the plot of the film. Often, this genre incorporates
+    futuristic elements and technologies to explore social, political, and philosophical
+    issues. The film itself is usually set in the future, either on earth or in space.
+    Traditionally, a Science Fiction film will incorporate heroes, villains, unexplored
+    locations, fantastical quests, and advanced technology.\n  Sports:\n    template:
+    { name: IMDb Genre, genre: sport, limit: 200 }\n    summary: A Sport Film revolves
+    around a sport setting, event, or an athlete. Often, these films will center on
+    a single sporting event that carries significant importance. Sports films traditionally
+    have a simple plot that builds up to the significant sporting event. This genre
+    is known for incorporating film techniques to build anticipation and intensity.
+    Sport films have a large range of sub-genres, from comedies to dramas, and are
+    more likely than other genres to be based true-life events.\n  Stand Up Comedy:\n
+    \   template: { name: Other Genre }\n    imdb_list:\n      - https://www.imdb.com/list/ls070221411/\n
+    \     - https://www.imdb.com/list/ls086584751/\n      - https://www.imdb.com/list/ls086022668/\n
+    \     - https://www.imdb.com/list/ls049792208/\n    summary: Stand-up comedy is
+    a comedic style in which a comedian performs in front of a live audience, speaking
+    directly to them through a microphone. Comedians give the illusion that they are
+    dialoguing, but in actuality, they are monologuing a grouping of humorous stories,
+    jokes and one-liners, typically called a shtick, routine, act, or set. Some stand-up
+    comedians use props, music or magic tricks to enhance their acts. Stand-up comedians
+    perform quasi-autobiographical and fictionalized extensions of their offstage
+    selves.\n  Sword & Sorcery:\n    template: { name: Other Genre }\n    imdb_list:
+    https://www.imdb.com/list/ls022909805\n    summary: Sword and Sorcery film is
+    a sub-genre of Fantasy that tend to be more plot-driven. These films rely on heavy
+    action and battle scenes. Common themes in Sword and Sorcery films include a rescue
+    mission, saving a princess, and battling a fantastical monster. The worlds and
+    characters in these films are often much less developed than in other fantasy
+    sub-genres. Of all the Fantasy sub-genres, Sword and Sorcery is most likely to
+    be geared towards a younger audience, as many of these films are animated.\n  Thriller:\n
+    \   template: { name: IMDb Genre, genre: thriller }\n    summary: Thriller Film
+    is a genre that revolves around anticipation and suspense. The aim for Thrillers
+    is to keep the audience alert and on the edge of their seats. The protagonist
+    in these films is set against a problem – an escape, a mission, or a mystery.
+    No matter what sub-genre a Thriller film falls into, it will emphasize the danger
+    that the protagonist faces. The tension with the main problem is built on throughout
+    the film and leads to a highly stressful climax.\n  War:\n    template: { name:
+    IMDb Genre, genre: war, limit: 200 }\n    summary: War Film is a genre that looks
+    at the reality of war on a grand scale. They often focus on landmark battles as
+    well as political issues within war. This genre usually focuses on a main character
+    and his team of support, giving the audience an inside look into the gritty reality
+    of war.\n  Western:\n    template: { name: IMDb Genre, genre: western, limit:
+    200 }\n    summary: \"Western Film is a genre that revolves around stories primarily
+    set in the late 19th century in the American Old West. Most Westerns are set between
+    the American Civil War (1865) and the early 1900s. Common themes within Western
+    Film include: the conquest of the wild west, the cultural separation of the East
+    and the West, the West’s resistance to modern change, the conflict between Cowboys
+    and Indians, outlaws, and treasure/gold hunting. American Western Film usually
+    revolves around a stoic hero and emphasizes the importance of honor and sacrifice.\"\n"
+kind: ConfigMap
+metadata:
+  labels:
+    app: pmm
+    backstage.io/kubernetes-id: pmm
+  name: movies-config
+  namespace: pmm
+---
+apiVersion: v1
+data:
+  config.yaml: "libraries:                                      # Library mappings
+    must have a colon (:) placed after them\n  Movies:\n    metadata_path:\n    -
+    file: config/movies.yaml\n    - git: meisnate12/MovieCharts\n    - git: meisnate12/Studios\n
+    \ TV Shows:\n    metadata_path:\n    - file: config/tv.yaml\n    - git: meisnate12/Networks\n
+    \ Kids TV Shows:\n    metadata_path:\n    - file: config/tv.yaml\n    - git: meisnate12/Networks\n
+    \ # Anime:\n  #   metadata_path:\n  #   - git: meisnate12/AnimeCharts\n  #   -
+    file: ./config/config/anime.yml\nsettings:                                       #
+    Can be individually specified per library as well\n  cache: true\n  cache_expiration:
+    60\n  asset_directory: config/assets\n  asset_folders: true\n  create_asset_folders:
+    true\n  assets_for_all: false\n  sync_mode: append\n  show_unmanaged: true\n  show_filtered:
+    false\n  show_missing: true\n  save_missing: true\n  run_again_delay: 2\n  missing_only_released:
+    false\n  delete_below_minimum: false\n  tvdb_language: default\n  show_missing_assets:
+    true\n  show_missing_season_assets: false\n  delete_not_scheduled: false\n  only_filter_missing:
+    false\n  ignore_ids:\n  ignore_imdb_ids:\n  asset_depth: 0\n  dimensional_asset_rename:
+    false\n  show_options: false\n  minimum_items: 3\n  download_url_assets: false\n
+    \ default_collection_order:\n  verify_ssl: true\n  playlist_sync_to_users: all\n
+    \ show_missing_episode_assets: false\n  show_asset_not_needed: true\n  item_refresh_delay:
+    0\n  custom_repo:\n  prioritize_assets: false\n  playlist_report: true\n  check_nightly:
+    false\n  show_unconfigured: true\n  playlist_exclude_users:\nplex:                                           #
+    Can be individually specified per library as well\n  url: '{{ plex_url }}'\n  token:
+    '{{ plex_api }}'\n  timeout: 60\n  clean_bundles: false\n  empty_trash: false\n
+    \ optimize: false\ntmdb:\n  apikey: '{{ tmdb_api }}'\n  language: en\n  cache_expiration:
+    60\n  region:\n# tautulli:                                       # Can be individually
+    specified per library as well\n#   url: http://plex_host:8181/tautulli\n#   apikey:
+    \n# anidb:          # Optional\n#   username: your_account\n#   password: your_pass\n#
+    \  language: en\n#   client:\nradarr:                                         #
+    Can be individually specified per library as well\n  url: '{{ radarr_url }}'\n
+    \ token: '{{ radarr_api }}'\n  version: v3\n  root_folder_path: /data/media/movies\n
+    \ monitor: true\n  availability: announced\n  quality_profile: HD - 720p/1080p\n
+    \ # tag:\n  search: false\n  add_existing: false\n  radarr_path:\n  plex_path:\n
+    \ add_missing: false\n  upgrade_existing: false\n  ignore_cache: false\nsonarr:
+    \                                        # Can be individually specified per library
+    as well\n  url: '{{ sonarr_url }}'\n  token: '{{ sonarr_api }}'\n  version: v3\n
+    \ root_folder_path: /data/media/tv\n  monitor: all\n  quality_profile: HD - 720p/1080p\n
+    \ language_profile: English\n  series_type: standard\n  season_folder: true\n
+    \ # tag:\n  search: false\n  cutoff_search: false\n  add_existing: false\n  sonarr_path:\n
+    \ plex_path:\n  add_missing: false\n  upgrade_existing: false\n  ignore_cache:
+    false\ntrakt:\n  client_id: '{{ trakt_client_key }}'\n  client_secret: '{{ trakt_client_secret
+    }}'\n  authorization:\n    access_token: '{{ trakt_access_token }}'\n    token_type:
+    Bearer\n    expires_in: 7889237\n    refresh_token: '{{ trakt_refresh_token }}'\n
+    \   scope: public\n    created_at: 1692893834\n  pin: {{ trakt_pin }}\n# #My Anime
+    List\n# mal:\n#   client_id: your_client_id\n#   client_secret: your_secret\n#
+    \  authorization:\n#     access_token: your_access_token\n#     token_type: Bearer\n#
+    \    expires_in: 123123123\n#     refresh_token: your_refresh\n#   localhost_url:\n#
+    \  cache_expiration: 60\n"
+kind: ConfigMap
+metadata:
+  labels:
+    app: pmm
+    backstage.io/kubernetes-id: pmm
+  name: pmm-config-template
+  namespace: pmm
+---
+apiVersion: v1
+data:
+  tv.yaml: |
+    ######################################################
+    #                Chart Collections                   #
+    ######################################################
+    templates:
+        Chart:
+            sort_title: +1_<<num>><<collection_name>>
+            sync_mode: sync
+            smart_label: random
+        network:
+            optional:
+                - network
+            tmdb_network: <<network>>
+            url_poster: <<poster>>
+            sort_title: +2_<<collection_name>>
+            sync_mode: sync
+    collections:
+      Plex Popular:
+        template: { name: Chart, num: 1 }
+        tautulli_popular:
+          list_days: 30
+          list_size: 20
+          list_buffer: 20
+        tautulli_watched:
+          list_days: 30
+          list_size: 20
+          list_buffer: 20
+        summary: Shows Popular on Plex
+      Trending Shows:
+        template: { name: Chart, num: 2 }
+        trakt_trending: 30
+        tmdb_trending_daily: 10
+        tmdb_trending_weekly: 10
+        summary: Shows Trending across the internet
+      Popular Shows:
+        template: { name: Chart, num: 3 }
+        tmdb_popular: 40
+        imdb_list:
+          url: https://www.imdb.com/search/title/?title_type=tv_series,tv_miniseries
+          limit: 40
+        summary: Popular Shows across the internet
+      Top Rated:
+        template: { name: Chart, num: 4 }
+        imdb_list:
+          url: https://www.imdb.com/search/title/?title_type=tv_series,tv_miniseries&num_votes=20000,&sort=user_rating,desc
+          limit: 100
+        tmdb_top_rated: 100
+        summary: Top Rated Movies across the internet
+      Emmy Winners:
+        template: { name: Chart, num: 5 }
+        imdb_list: https://www.imdb.com/search/title/?title_type=tv_series,tv_miniseries&groups=emmy_winner
+        summary: Emmy Winning Shows
+      Best New Shows of 2021:
+        template: { name: Chart, num: 6 }
+        imdb_list:
+          url: https://www.imdb.com/search/title/?title_type=tv_series,tv_miniseries&release_date=2021-01-01,2021-12-31&user_rating=7.0,&num_votes=150,&sort=num_votes,desc
+          limit: 50
+        summary: Best New Shows of 2021
+      Best New Shows of 2022:
+        template: { name: Chart, num: 7 }
+        imdb_list:
+          url: https://www.imdb.com/search/title/?title_type=tv_series,tv_miniseries&release_date=2022-01-01,2022-12-31&user_rating=7.0,&num_votes=150,&sort=num_votes,desc
+          limit: 50
+        summary: Best New Shows of 2022
+      Best New Shows of 2023:
+        template: { name: Chart, num: 8 }
+        imdb_list:
+          url: https://www.imdb.com/search/title/?title_type=tv_series,tv_miniseries&release_date=2023-01-01,2023-12-31&user_rating=7.0,&num_votes=150,&sort=num_votes,desc
+          limit: 50
+        summary: Best New Shows of 2023
+      Cartoon Network:
+        template: { name: network, network: "56, 217, 1232, 1483, 2193, 3917, 4771", poster: https://theposterdb.com/api/assets/172187}
+      Adult Swim:
+        template: { name: network, network: 80, poster: https://theposterdb.com/api/assets/98825}
+kind: ConfigMap
+metadata:
+  labels:
+    app: pmm
+    backstage.io/kubernetes-id: pmm
+  name: tv-config
+  namespace: pmm
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  annotations:
+    pv.kubernetes.io/provisioned-by: k8s-sigs.io/nfs-subdir-external-provisioner
+  labels:
+    app: pmm
+    backstage.io/kubernetes-id: pmm
+  name: pmm-config-pv
+spec:
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 5Gi
+  nfs:
+    path: /mnt/user/kube_storage/pmm
+    server: 10.0.0.12
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: nfs-client
+  volumeMode: Filesystem
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: pmm
+    backstage.io/kubernetes-id: pmm
+  name: pmm-config-pvc
+  namespace: pmm
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: nfs-client
+  volumeName: pmm-config-pv
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  labels:
+    app: pmm
+    backstage.io/kubernetes-id: pmm
+  name: plex-media-manager
+  namespace: pmm
+spec:
+  failedJobsHistoryLimit: 2
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - args:
+            - --run
+            - --read-only-config
+            - --config=config/config.yaml
+            image: meisnate12/plex-meta-manager:latest
+            imagePullPolicy: Always
+            name: plex-media-manager
+            resources:
+              limits:
+                cpu: 1000m
+                memory: 1Gi
+              requests:
+                cpu: 100m
+                memory: 125Mi
+            volumeMounts:
+            - mountPath: /config
+              name: config
+            - mountPath: /config/tv.yaml
+              name: tv-config
+              subPath: tv.yaml
+            - mountPath: /config/movies.yaml
+              name: movie-config
+              subPath: movies.yaml
+          initContainers:
+          - env:
+            - name: JINJA_SRC_FILE
+              value: /config_src/config.yaml
+            - name: JINJA_DEST_FILE
+              value: /config/config.yaml
+            - name: VERBOSE
+              value: "1"
+            image: chrisjohnson00/jinja-init:v1.0.0
+            name: render-dynamic-config-tv
+            volumeMounts:
+            - mountPath: /config_src
+              name: pmm-config-template
+            - mountPath: /config
+              name: config
+            - mountPath: /secrets
+              name: secrets
+          restartPolicy: OnFailure
+          securityContext:
+            runAsGroup: 999
+            runAsUser: 999
+          volumes:
+          - name: config
+            persistentVolumeClaim:
+              claimName: pmm-config-pvc
+          - configMap:
+              name: pmm-config-template
+            name: pmm-config-template
+          - configMap:
+              name: movies-config
+            name: movie-config
+          - configMap:
+              name: tv-config
+            name: tv-config
+          - name: secrets
+            secret:
+              secretName: pmm-secrets
+  schedule: 20 22 * * *
+  successfulJobsHistoryLimit: 2
+---
+apiVersion: onepassword.com/v1
+kind: OnePasswordItem
+metadata:
+  labels:
+    app: pmm
+    backstage.io/kubernetes-id: pmm
+  name: pmm-secrets
+  namespace: pmm
+spec:
+  itemPath: vaults/homelab/items/pmm-secrets

@@ -1,0 +1,280 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    backstage.io/kubernetes-namespace: backstage
+  labels:
+    app: backstage
+    backstage.io/kubernetes-id: backstage
+    name: backstage
+  name: backstage
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:
+    backstage.io/kubernetes-service-account: backstage
+  labels:
+    app: backstage
+    backstage.io/kubernetes-id: backstage
+  name: backstage
+  namespace: backstage
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app: backstage
+    backstage.io/kubernetes-id: backstage
+  name: backstage-read-only
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  - pods/log
+  verbs:
+  - get
+  - list
+- apiGroups:
+  - '*'
+  resources:
+  - pods
+  - pods/log
+  - configmaps
+  - services
+  - deployments
+  - replicasets
+  - horizontalpodautoscalers
+  - ingresses
+  - statefulsets
+  - limitranges
+  - daemonsets
+  - resourcequotas
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - batch
+  resources:
+  - jobs
+  - cronjobs
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - metrics.k8s.io
+  resources:
+  - pods
+  verbs:
+  - get
+  - list
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    app: backstage
+    backstage.io/kubernetes-id: backstage
+  name: backstage-read-only
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: backstage-read-only
+subjects:
+- kind: ServiceAccount
+  name: backstage
+  namespace: backstage
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  annotations:
+    kubernetes.io/service-account.name: backstage
+  labels:
+    app: backstage
+    backstage.io/kubernetes-id: backstage
+  name: backstage-sa-token
+  namespace: backstage
+type: kubernetes.io/service-account-token
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: backstage
+    backstage.io/kubernetes-id: backstage
+  name: backstage
+  namespace: backstage
+spec:
+  ports:
+  - name: http
+    port: 80
+    targetPort: http
+  - name: http-backend
+    port: 7007
+    targetPort: http-backend
+  selector:
+    app: backstage
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: backstage
+    backstage.io/kubernetes-id: backstage
+  name: backstage
+  namespace: backstage
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backstage
+  template:
+    metadata:
+      labels:
+        app: backstage
+    spec:
+      containers:
+      - envFrom:
+        - secretRef:
+            name: backstage-secrets
+        image: ghcr.io/jamesatintegratnio/backstage-backend:latest
+        name: backstage-backend
+        ports:
+        - containerPort: 7007
+          name: http-backend
+        resources:
+          limits:
+            cpu: 1500m
+            memory: 2048Mi
+          requests:
+            cpu: 500m
+            memory: 512Mi
+        volumeMounts:
+        - mountPath: /app/users.yaml
+          name: org-yaml
+          subPath: org.yaml
+        - mountPath: /app/app-config.yaml
+          name: app-config
+          subPath: app-config.yaml
+      - envFrom:
+        - secretRef:
+            name: backstage-frontend-secrets
+        image: ghcr.io/jamesatintegratnio/backstage-app:latest
+        name: backstage-app
+        ports:
+        - containerPort: 3000
+          name: http
+        resources:
+          limits:
+            cpu: 1500m
+            memory: 2048Mi
+          requests:
+            cpu: 500m
+            memory: 512Mi
+        volumeMounts:
+        - mountPath: /usr/share/nginx/html/app-config.yaml
+          name: app-config
+          subPath: app-config.yaml
+      imagePullSecrets:
+      - name: ghcr-login-secret
+      serviceAccountName: backstage
+      volumes:
+      - name: org-yaml
+        secret:
+          secretName: backstage-org-yaml
+      - name: app-config
+        secret:
+          secretName: backstage-app-config
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+  labels:
+    app: backstage
+    backstage.io/kubernetes-id: backstage
+  name: backstage
+  namespace: backstage
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: backstage.k8s.integratn.tech
+    http:
+      paths:
+      - backend:
+          service:
+            name: backstage
+            port:
+              name: http
+        path: /
+        pathType: Prefix
+  - host: backstage-backend.k8s.integratn.tech
+    http:
+      paths:
+      - backend:
+          service:
+            name: backstage
+            port:
+              name: http-backend
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - backstage.k8s.integratn.tech
+    - backstage-backend.k8s.integratn.tech
+    secretName: backstage-tls
+---
+apiVersion: onepassword.com/v1
+kind: OnePasswordItem
+metadata:
+  labels:
+    app: backstage
+    argocd.argoproj.io/secret-type: backstage-secrets
+    backstage.io/kubernetes-id: backstage
+  name: backstage-app-config
+  namespace: backstage
+spec:
+  itemPath: vaults/homelab/items/backstage-app-config
+---
+apiVersion: onepassword.com/v1
+kind: OnePasswordItem
+metadata:
+  labels:
+    app: backstage
+    argocd.argoproj.io/secret-type: backstage-secrets
+    backstage.io/kubernetes-id: backstage
+  name: backstage-frontend-secrets
+  namespace: backstage
+spec:
+  itemPath: vaults/homelab/items/backstage-frontend-secrets
+---
+apiVersion: onepassword.com/v1
+kind: OnePasswordItem
+metadata:
+  labels:
+    app: backstage
+    argocd.argoproj.io/secret-type: backstage-secrets
+    backstage.io/kubernetes-id: backstage
+  name: backstage-org-yaml
+  namespace: backstage
+spec:
+  itemPath: vaults/homelab/items/backstage-org-yaml
+---
+apiVersion: onepassword.com/v1
+kind: OnePasswordItem
+metadata:
+  labels:
+    app: backstage
+    argocd.argoproj.io/secret-type: backstage-secrets
+    backstage.io/kubernetes-id: backstage
+  name: backstage-secrets
+  namespace: backstage
+spec:
+  itemPath: vaults/homelab/items/backstage-secrets

@@ -1,0 +1,119 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: python-sample-app
+    backstage.io/kubernetes-id: python-sample-app
+  name: python-sample-app
+  namespace: python-sample-app
+spec:
+  ports:
+  - name: http
+    port: 5000
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: python-sample-app
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  labels:
+    app: python-sample-app
+    backstage.io/kubernetes-id: python-sample-app
+  name: python-sample-app-pv
+spec:
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 200m
+  nfs:
+    path: /mnt/user/kube_storage/python-sample-app
+    server: 10.0.0.12
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: nfs-client
+  volumeMode: Filesystem
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+    app: python-sample-app
+    backstage.io/kubernetes-id: python-sample-app
+  name: python-sample-app-pvc
+  namespace: python-sample-app
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 200m
+  storageClassName: nfs-client
+  volumeMode: Filesystem
+  volumeName: python-sample-app-pv
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: python-sample-app
+    backstage.io/kubernetes-id: python-sample-app
+  name: python-sample-app
+  namespace: python-sample-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: python-sample-app
+  template:
+    metadata:
+      labels:
+        app: python-sample-app
+    spec:
+      containers:
+      - image: registry.k8s.integratn.tech/python-sample-app:latest
+        name: python-sample-app
+        ports:
+        - containerPort: 5000
+        resources:
+          limits:
+            cpu: 500m
+            memory: 128Mi
+        volumeMounts:
+        - mountPath: /app/data
+          name: python-sample-app-pvc
+      volumes:
+      - name: python-sample-app-pvc
+        persistentVolumeClaim:
+          claimName: python-sample-app-pvc
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+  labels:
+    app: python-sample-app
+    backstage.io/kubernetes-id: python-sample-app
+    name: python-sample-app
+  name: python-sample-app
+  namespace: python-sample-app
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: psa.k8s.integratn.tech
+    http:
+      paths:
+      - backend:
+          service:
+            name: python-sample-app
+            port:
+              name: http
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - psa.k8s.integratn.tech
+    secretName: python-sample-app-tls

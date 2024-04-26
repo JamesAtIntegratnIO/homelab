@@ -1,4 +1,0 @@
-namespace: ingress-nginx
-labels:
-  - pairs:
-      'backstage.io/kubernetes-id': 'ingress-nginx'
