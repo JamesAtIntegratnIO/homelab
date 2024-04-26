@@ -10,6 +10,7 @@ resources:
 - homelab-repository.yaml
 - backstage-repository.yaml
 - backstage-test-repository.yaml
+- media-repository.yaml
 - ingress.yaml
 - project_media.yaml
 
