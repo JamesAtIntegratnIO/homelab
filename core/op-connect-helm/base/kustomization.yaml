@@ -4,5 +4,4 @@ labels:
       'backstage.io/kubernetes-id': 'op-connect-helm'
 resources:
   - namespace.yaml
-  - op-connect-sealed-secret.yaml
-  - op-connect-token-sealed-secret.yaml
+
