@@ -15,7 +15,6 @@ spec:
 
               - appName: op-connect-helm
                 namespace: op-connect
-                fromHelmStack: true
                 syncWave: 1
               - appName: external-secrets
                 namespace: external-secrets
@@ -44,6 +43,9 @@ spec:
               - appName: registry
                 namespace: docker-registry
                 syncWave: 4
+              # - appName: kyverno
+              #   namespace: kyverno
+              #   syncWave: 4
   template:
     metadata:
       name: "{{.name}}-{{.appName}}"
@@ -73,3 +75,13 @@ spec:
         {{- else }}
         name: "in-cluster"
         {{- end }}
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+          {{- if .syncPolicy == "replace" }}
+          - Replace=true
+          {{- end }}
+          {{- if .syncPolicy == "hook" }}
