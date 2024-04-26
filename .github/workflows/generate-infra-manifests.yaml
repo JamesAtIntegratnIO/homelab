@@ -86,6 +86,7 @@ jobs:
                   --release-name ${NAMESPACE} \
                   ../../base \
                   -f ../../base/values.yaml \
+                  --include-crds \
                   -f values.yaml > helm-all.yaml
               else
                 echo "Chart.yaml does not exist in $dir"
