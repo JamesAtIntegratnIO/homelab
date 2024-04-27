@@ -36,11 +36,11 @@ spec:
               subPath: app-config.yaml
           resources:
             requests:
-              cpu: 500m
-              memory: 512Mi
+              cpu: 22m
+              memory: 267M
             limits:
-              cpu: 1500m
-              memory: 2048Mi
+              cpu: 705m
+              memory: 3047M
         
         - name: backstage-app
           image: ghcr.io/jamesatintegratnio/backstage-app:latest
@@ -56,11 +56,11 @@ spec:
               subPath: app-config.yaml
           resources:
             requests:
-              cpu: 500m
-              memory: 512Mi
+              cpu: 12m
+              memory: 132M
             limits:
-              cpu: 1500m
-              memory: 2048Mi
+              cpu: 123m
+              memory: 132M
       imagePullSecrets:
         - name: ghcr-login-secret
       volumes:
