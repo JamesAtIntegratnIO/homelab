@@ -789,24 +789,24 @@ kind: ServiceAccount
 metadata:
   labels:
     app.kubernetes.io/component: controller
-    app.kubernetes.io/instance: falco
+    app.kubernetes.io/instance: goldilocks
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: goldilocks
     helm.sh/chart: goldilocks-8.0.1
-  name: falco-goldilocks-controller
-  namespace: falco
+  name: goldilocks-controller
+  namespace: goldilocks
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
     app.kubernetes.io/component: dashboard
-    app.kubernetes.io/instance: falco
+    app.kubernetes.io/instance: goldilocks
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: goldilocks
     helm.sh/chart: goldilocks-8.0.1
-  name: falco-goldilocks-dashboard
-  namespace: falco
+  name: goldilocks-dashboard
+  namespace: goldilocks
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -817,13 +817,13 @@ metadata:
     helm.sh/hook-weight: "-110"
   labels:
     app.kubernetes.io/component: admission-certgen
-    app.kubernetes.io/instance: falco
+    app.kubernetes.io/instance: goldilocks
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: vpa
     app.kubernetes.io/version: 1.0.0
     helm.sh/chart: vpa-4.4.6
-  name: falco-vpa-admission-certgen
-  namespace: falco
+  name: goldilocks-vpa-admission-certgen
+  namespace: goldilocks
 ---
 apiVersion: v1
 automountServiceAccountToken: true
@@ -831,13 +831,13 @@ kind: ServiceAccount
 metadata:
   labels:
     app.kubernetes.io/component: admission-controller
-    app.kubernetes.io/instance: falco
+    app.kubernetes.io/instance: goldilocks
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: vpa
     app.kubernetes.io/version: 1.0.0
     helm.sh/chart: vpa-4.4.6
-  name: falco-vpa-admission-controller
-  namespace: falco
+  name: goldilocks-vpa-admission-controller
+  namespace: goldilocks
 ---
 apiVersion: v1
 automountServiceAccountToken: true
@@ -845,13 +845,13 @@ kind: ServiceAccount
 metadata:
   labels:
     app.kubernetes.io/component: recommender
-    app.kubernetes.io/instance: falco
+    app.kubernetes.io/instance: goldilocks
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: vpa
     app.kubernetes.io/version: 1.0.0
     helm.sh/chart: vpa-4.4.6
-  name: falco-vpa-recommender
-  namespace: falco
+  name: goldilocks-vpa-recommender
+  namespace: goldilocks
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -859,8 +859,8 @@ metadata:
   annotations:
     helm.sh/hook: test
     helm.sh/hook-delete-policy: hook-succeeded,before-hook-creation,hook-failed
-  name: falco-vpa-test
-  namespace: falco
+  name: goldilocks-vpa-test
+  namespace: goldilocks
 ---
 apiVersion: v1
 automountServiceAccountToken: true
@@ -868,13 +868,13 @@ kind: ServiceAccount
 metadata:
   labels:
     app.kubernetes.io/component: updater
-    app.kubernetes.io/instance: falco
+    app.kubernetes.io/instance: goldilocks
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: vpa
     app.kubernetes.io/version: 1.0.0
     helm.sh/chart: vpa-4.4.6
-  name: falco-vpa-updater
-  namespace: falco
+  name: goldilocks-vpa-updater
+  namespace: goldilocks
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -885,13 +885,13 @@ metadata:
     helm.sh/hook-weight: "-110"
   labels:
     app.kubernetes.io/component: admission-certgen
-    app.kubernetes.io/instance: falco
+    app.kubernetes.io/instance: goldilocks
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: vpa
     app.kubernetes.io/version: 1.0.0
     helm.sh/chart: vpa-4.4.6
-  name: falco-vpa-admission-certgen
-  namespace: falco
+  name: goldilocks-vpa-admission-certgen
+  namespace: goldilocks
 rules:
 - apiGroups:
   - ""
@@ -908,13 +908,13 @@ metadata:
     helm.sh/hook: test
     helm.sh/hook-delete-policy: hook-succeeded,before-hook-creation,hook-failed
   labels:
-    app.kubernetes.io/instance: falco
+    app.kubernetes.io/instance: goldilocks
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: vpa
     app.kubernetes.io/version: 1.0.0
     helm.sh/chart: vpa-4.4.6
-  name: falco-vpa-test
-  namespace: falco
+  name: goldilocks-vpa-test
+  namespace: goldilocks
 rules:
 - apiGroups:
   - autoscaling.k8s.io
@@ -937,8 +937,8 @@ rules:
 - apiGroups:
   - ""
   resourceNames:
-  - falco-vpa-webhook
-  - falco-vpa-tls-secret
+  - goldilocks-vpa-webhook
+  - goldilocks-vpa-tls-secret
   resources:
   - secrets
   - services
@@ -952,11 +952,11 @@ kind: ClusterRole
 metadata:
   labels:
     app.kubernetes.io/component: controller
-    app.kubernetes.io/instance: falco
+    app.kubernetes.io/instance: goldilocks
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: goldilocks
     helm.sh/chart: goldilocks-8.0.1
-  name: falco-goldilocks-controller
+  name: goldilocks-controller
 rules:
 - apiGroups:
   - apps
@@ -1008,11 +1008,11 @@ kind: ClusterRole
 metadata:
   labels:
     app.kubernetes.io/component: dashboard
-    app.kubernetes.io/instance: falco
+    app.kubernetes.io/instance: goldilocks
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: goldilocks
     helm.sh/chart: goldilocks-8.0.1
-  name: falco-goldilocks-dashboard
+  name: goldilocks-dashboard
 rules:
 - apiGroups:
   - autoscaling.k8s.io
@@ -1053,12 +1053,12 @@ metadata:
     helm.sh/hook-weight: "-110"
   labels:
     app.kubernetes.io/component: admission-certgen
-    app.kubernetes.io/instance: falco
+    app.kubernetes.io/instance: goldilocks
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: vpa
     app.kubernetes.io/version: 1.0.0
     helm.sh/chart: vpa-4.4.6
-  name: falco-vpa-admission-certgen
+  name: goldilocks-vpa-admission-certgen
 rules:
 - apiGroups:
   - admissionregistration.k8s.io
@@ -1076,12 +1076,12 @@ metadata:
     helm.sh/hook: test
     helm.sh/hook-delete-policy: hook-succeeded,before-hook-creation,hook-failed
   labels:
-    app.kubernetes.io/instance: falco
+    app.kubernetes.io/instance: goldilocks
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: vpa
     app.kubernetes.io/version: 1.0.0
     helm.sh/chart: vpa-4.4.6
-  name: falco-vpa-test
+  name: goldilocks-vpa-test
 rules:
 - apiGroups:
   - metrics.k8s.io
@@ -1103,7 +1103,7 @@ rules:
 - apiGroups:
   - admissionregistration.k8s.io
   resourceNames:
-  - falco-vpa-webhook-config
+  - goldilocks-vpa-webhook-config
   resources:
   - mutatingwebhookconfigurations
   verbs:
@@ -1349,21 +1349,21 @@ metadata:
     helm.sh/hook-weight: "-110"
   labels:
     app.kubernetes.io/component: admission-certgen
-    app.kubernetes.io/instance: falco
+    app.kubernetes.io/instance: goldilocks
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: vpa
     app.kubernetes.io/version: 1.0.0
     helm.sh/chart: vpa-4.4.6
-  name: falco-vpa-admission-certgen
-  namespace: falco
+  name: goldilocks-vpa-admission-certgen
+  namespace: goldilocks
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: falco-vpa-admission-certgen
+  name: goldilocks-vpa-admission-certgen
 subjects:
 - kind: ServiceAccount
-  name: falco-vpa-admission-certgen
-  namespace: falco
+  name: goldilocks-vpa-admission-certgen
+  namespace: goldilocks
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
@@ -1372,59 +1372,59 @@ metadata:
     helm.sh/hook: test
     helm.sh/hook-delete-policy: hook-succeeded,before-hook-creation,hook-failed
   labels:
-    app.kubernetes.io/instance: falco
+    app.kubernetes.io/instance: goldilocks
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: vpa
     app.kubernetes.io/version: 1.0.0
     helm.sh/chart: vpa-4.4.6
-  name: falco-vpa-test
-  namespace: falco
+  name: goldilocks-vpa-test
+  namespace: goldilocks
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: falco-vpa-test
+  name: goldilocks-vpa-test
 subjects:
 - kind: ServiceAccount
-  name: falco-vpa-test
-  namespace: falco
+  name: goldilocks-vpa-test
+  namespace: goldilocks
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   labels:
     app.kubernetes.io/component: controller
-    app.kubernetes.io/instance: falco
+    app.kubernetes.io/instance: goldilocks
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: goldilocks
     helm.sh/chart: goldilocks-8.0.1
-  name: falco-goldilocks-controller
+  name: goldilocks-controller
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: falco-goldilocks-controller
+  name: goldilocks-controller
 subjects:
 - kind: ServiceAccount
-  name: falco-goldilocks-controller
-  namespace: falco
+  name: goldilocks-controller
+  namespace: goldilocks
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   labels:
     app.kubernetes.io/component: dashboard
-    app.kubernetes.io/instance: falco
+    app.kubernetes.io/instance: goldilocks
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: goldilocks
     helm.sh/chart: goldilocks-8.0.1
-  name: falco-goldilocks-dashboard
+  name: goldilocks-dashboard
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: falco-goldilocks-dashboard
+  name: goldilocks-dashboard
 subjects:
 - kind: ServiceAccount
-  name: falco-goldilocks-dashboard
-  namespace: falco
+  name: goldilocks-dashboard
+  namespace: goldilocks
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -1435,20 +1435,20 @@ metadata:
     helm.sh/hook-weight: "-110"
   labels:
     app.kubernetes.io/component: admission-certgen
-    app.kubernetes.io/instance: falco
+    app.kubernetes.io/instance: goldilocks
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: vpa
     app.kubernetes.io/version: 1.0.0
     helm.sh/chart: vpa-4.4.6
-  name: falco-vpa-admission-certgen
+  name: goldilocks-vpa-admission-certgen
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: falco-vpa-admission-certgen
+  name: goldilocks-vpa-admission-certgen
 subjects:
 - kind: ServiceAccount
-  name: falco-vpa-admission-certgen
-  namespace: falco
+  name: goldilocks-vpa-admission-certgen
+  namespace: goldilocks
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -1457,20 +1457,20 @@ metadata:
     helm.sh/hook: test
     helm.sh/hook-delete-policy: hook-succeeded,before-hook-creation,hook-failed
   labels:
-    app.kubernetes.io/instance: falco
+    app.kubernetes.io/instance: goldilocks
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: vpa
     app.kubernetes.io/version: 1.0.0
     helm.sh/chart: vpa-4.4.6
-  name: falco-vpa-test
+  name: goldilocks-vpa-test
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: falco-vpa-test
+  name: goldilocks-vpa-test
 subjects:
 - kind: ServiceAccount
-  name: falco-vpa-test
-  namespace: falco
+  name: goldilocks-vpa-test
+  namespace: goldilocks
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -1482,11 +1482,11 @@ roleRef:
   name: vpa-actor
 subjects:
 - kind: ServiceAccount
-  name: falco-vpa-recommender
-  namespace: falco
+  name: goldilocks-vpa-recommender
+  namespace: goldilocks
 - kind: ServiceAccount
-  name: falco-vpa-updater
-  namespace: falco
+  name: goldilocks-vpa-updater
+  namespace: goldilocks
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -1498,8 +1498,8 @@ roleRef:
   name: vpa-admission-controller
 subjects:
 - kind: ServiceAccount
-  name: falco-vpa-admission-controller
-  namespace: falco
+  name: goldilocks-vpa-admission-controller
+  namespace: goldilocks
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -1511,8 +1511,8 @@ roleRef:
   name: vpa-checkpoint-actor
 subjects:
 - kind: ServiceAccount
-  name: falco-vpa-recommender
-  namespace: falco
+  name: goldilocks-vpa-recommender
+  namespace: goldilocks
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -1524,8 +1524,8 @@ roleRef:
   name: vpa-evictioner
 subjects:
 - kind: ServiceAccount
-  name: falco-vpa-updater
-  namespace: falco
+  name: goldilocks-vpa-updater
+  namespace: goldilocks
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -1537,8 +1537,8 @@ roleRef:
   name: vpa-metrics-reader
 subjects:
 - kind: ServiceAccount
-  name: falco-vpa-recommender
-  namespace: falco
+  name: goldilocks-vpa-recommender
+  namespace: goldilocks
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -1550,8 +1550,8 @@ roleRef:
   name: vpa-status-actor
 subjects:
 - kind: ServiceAccount
-  name: falco-vpa-recommender
-  namespace: falco
+  name: goldilocks-vpa-recommender
+  namespace: goldilocks
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -1563,8 +1563,8 @@ roleRef:
   name: vpa-status-reader
 subjects:
 - kind: ServiceAccount
-  name: falco-vpa-updater
-  namespace: falco
+  name: goldilocks-vpa-updater
+  namespace: goldilocks
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -1576,26 +1576,26 @@ roleRef:
   name: vpa-target-reader
 subjects:
 - kind: ServiceAccount
-  name: falco-vpa-recommender
-  namespace: falco
+  name: goldilocks-vpa-recommender
+  namespace: goldilocks
 - kind: ServiceAccount
-  name: falco-vpa-admission-controller
-  namespace: falco
+  name: goldilocks-vpa-admission-controller
+  namespace: goldilocks
 - kind: ServiceAccount
-  name: falco-vpa-updater
-  namespace: falco
+  name: goldilocks-vpa-updater
+  namespace: goldilocks
 ---
 apiVersion: v1
 kind: Service
 metadata:
   labels:
     app.kubernetes.io/component: dashboard
-    app.kubernetes.io/instance: falco
+    app.kubernetes.io/instance: goldilocks
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: goldilocks
     helm.sh/chart: goldilocks-8.0.1
-  name: falco-goldilocks-dashboard
-  namespace: falco
+  name: goldilocks-dashboard
+  namespace: goldilocks
 spec:
   ports:
   - name: http
@@ -1604,22 +1604,22 @@ spec:
     targetPort: http
   selector:
     app.kubernetes.io/component: dashboard
-    app.kubernetes.io/instance: falco
+    app.kubernetes.io/instance: goldilocks
     app.kubernetes.io/name: goldilocks
   type: ClusterIP
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: falco-vpa-webhook
-  namespace: falco
+  name: goldilocks-vpa-webhook
+  namespace: goldilocks
 spec:
   ports:
   - port: 443
     targetPort: 8000
   selector:
     app.kubernetes.io/component: admission-controller
-    app.kubernetes.io/instance: falco
+    app.kubernetes.io/instance: goldilocks
     app.kubernetes.io/name: vpa
 ---
 apiVersion: apps/v1
@@ -1627,25 +1627,25 @@ kind: Deployment
 metadata:
   labels:
     app.kubernetes.io/component: controller
-    app.kubernetes.io/instance: falco
+    app.kubernetes.io/instance: goldilocks
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: goldilocks
     helm.sh/chart: goldilocks-8.0.1
-  name: falco-goldilocks-controller
-  namespace: falco
+  name: goldilocks-controller
+  namespace: goldilocks
 spec:
   replicas: 1
   revisionHistoryLimit: 10
   selector:
     matchLabels:
       app.kubernetes.io/component: controller
-      app.kubernetes.io/instance: falco
+      app.kubernetes.io/instance: goldilocks
       app.kubernetes.io/name: goldilocks
   template:
     metadata:
       labels:
         app.kubernetes.io/component: controller
-        app.kubernetes.io/instance: falco
+        app.kubernetes.io/instance: goldilocks
         app.kubernetes.io/name: goldilocks
     spec:
       containers:
@@ -1672,32 +1672,32 @@ spec:
       securityContext:
         seccompProfile:
           type: RuntimeDefault
-      serviceAccountName: falco-goldilocks-controller
+      serviceAccountName: goldilocks-controller
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
     app.kubernetes.io/component: dashboard
-    app.kubernetes.io/instance: falco
+    app.kubernetes.io/instance: goldilocks
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: goldilocks
     helm.sh/chart: goldilocks-8.0.1
-  name: falco-goldilocks-dashboard
-  namespace: falco
+  name: goldilocks-dashboard
+  namespace: goldilocks
 spec:
   replicas: 2
   revisionHistoryLimit: 10
   selector:
     matchLabels:
       app.kubernetes.io/component: dashboard
-      app.kubernetes.io/instance: falco
+      app.kubernetes.io/instance: goldilocks
       app.kubernetes.io/name: goldilocks
   template:
     metadata:
       labels:
         app.kubernetes.io/component: dashboard
-        app.kubernetes.io/instance: falco
+        app.kubernetes.io/instance: goldilocks
         app.kubernetes.io/name: goldilocks
     spec:
       containers:
@@ -1737,39 +1737,39 @@ spec:
       securityContext:
         seccompProfile:
           type: RuntimeDefault
-      serviceAccountName: falco-goldilocks-dashboard
+      serviceAccountName: goldilocks-dashboard
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
     app.kubernetes.io/component: admission-controller
-    app.kubernetes.io/instance: falco
+    app.kubernetes.io/instance: goldilocks
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: vpa
     app.kubernetes.io/version: 1.0.0
     helm.sh/chart: vpa-4.4.6
-  name: falco-vpa-admission-controller
-  namespace: falco
+  name: goldilocks-vpa-admission-controller
+  namespace: goldilocks
 spec:
   replicas: 1
   revisionHistoryLimit: 10
   selector:
     matchLabels:
       app.kubernetes.io/component: admission-controller
-      app.kubernetes.io/instance: falco
+      app.kubernetes.io/instance: goldilocks
       app.kubernetes.io/name: vpa
   template:
     metadata:
       labels:
         app.kubernetes.io/component: admission-controller
-        app.kubernetes.io/instance: falco
+        app.kubernetes.io/instance: goldilocks
         app.kubernetes.io/name: vpa
     spec:
       containers:
       - args:
         - --register-webhook=false
-        - --webhook-service=falco-vpa-webhook
+        - --webhook-service=goldilocks-vpa-webhook
         - --client-ca-file=/etc/tls-certs/ca
         - --tls-cert-file=/etc/tls-certs/cert
         - --tls-private-key=/etc/tls-certs/key
@@ -1827,37 +1827,37 @@ spec:
         runAsUser: 65534
         seccompProfile:
           type: RuntimeDefault
-      serviceAccountName: falco-vpa-admission-controller
+      serviceAccountName: goldilocks-vpa-admission-controller
       volumes:
       - name: tls-certs
         secret:
-          secretName: falco-vpa-tls-secret
+          secretName: goldilocks-vpa-tls-secret
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
     app.kubernetes.io/component: recommender
-    app.kubernetes.io/instance: falco
+    app.kubernetes.io/instance: goldilocks
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: vpa
     app.kubernetes.io/version: 1.0.0
     helm.sh/chart: vpa-4.4.6
-  name: falco-vpa-recommender
-  namespace: falco
+  name: goldilocks-vpa-recommender
+  namespace: goldilocks
 spec:
   replicas: 1
   revisionHistoryLimit: 10
   selector:
     matchLabels:
       app.kubernetes.io/component: recommender
-      app.kubernetes.io/instance: falco
+      app.kubernetes.io/instance: goldilocks
       app.kubernetes.io/name: vpa
   template:
     metadata:
       labels:
         app.kubernetes.io/component: recommender
-        app.kubernetes.io/instance: falco
+        app.kubernetes.io/instance: goldilocks
         app.kubernetes.io/name: vpa
     spec:
       containers:
@@ -1906,33 +1906,33 @@ spec:
         runAsUser: 65534
         seccompProfile:
           type: RuntimeDefault
-      serviceAccountName: falco-vpa-recommender
+      serviceAccountName: goldilocks-vpa-recommender
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
     app.kubernetes.io/component: updater
-    app.kubernetes.io/instance: falco
+    app.kubernetes.io/instance: goldilocks
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: vpa
     app.kubernetes.io/version: 1.0.0
     helm.sh/chart: vpa-4.4.6
-  name: falco-vpa-updater
-  namespace: falco
+  name: goldilocks-vpa-updater
+  namespace: goldilocks
 spec:
   replicas: 1
   revisionHistoryLimit: 10
   selector:
     matchLabels:
       app.kubernetes.io/component: updater
-      app.kubernetes.io/instance: falco
+      app.kubernetes.io/instance: goldilocks
       app.kubernetes.io/name: vpa
   template:
     metadata:
       labels:
         app.kubernetes.io/component: updater
-        app.kubernetes.io/instance: falco
+        app.kubernetes.io/instance: goldilocks
         app.kubernetes.io/name: vpa
     spec:
       containers:
@@ -1982,7 +1982,7 @@ spec:
         runAsUser: 65534
         seccompProfile:
           type: RuntimeDefault
-      serviceAccountName: falco-vpa-updater
+      serviceAccountName: goldilocks-vpa-updater
 ---
 apiVersion: batch/v1
 kind: Job
@@ -1993,36 +1993,36 @@ metadata:
     helm.sh/hook-weight: "-110"
   labels:
     app.kubernetes.io/component: certgen
-    app.kubernetes.io/instance: falco
+    app.kubernetes.io/instance: goldilocks
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: vpa
     app.kubernetes.io/version: 1.0.0
     helm.sh/chart: vpa-4.4.6
-  name: falco-vpa-admission-certgen
-  namespace: falco
+  name: goldilocks-vpa-admission-certgen
+  namespace: goldilocks
 spec:
   template:
     metadata:
       labels:
         app.kubernetes.io/component: admission-certgen
-        app.kubernetes.io/instance: falco
+        app.kubernetes.io/instance: goldilocks
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: vpa
         app.kubernetes.io/version: 1.0.0
         helm.sh/chart: vpa-4.4.6
-      name: falco-vpa-admission-certgen
+      name: goldilocks-vpa-admission-certgen
     spec:
       containers:
       - args:
         - create
-        - --host=falco-vpa-webhook,falco-vpa-webhook.default.svc
+        - --host=goldilocks-vpa-webhook,goldilocks-vpa-webhook.default.svc
         - --namespace=default
-        - --secret-name=falco-vpa-tls-secret
+        - --secret-name=goldilocks-vpa-tls-secret
         image: registry.k8s.io/ingress-nginx/kube-webhook-certgen:v20230312-helm-chart-4.5.2-28-g66a760794
         name: create
         resources: {}
       restartPolicy: OnFailure
-      serviceAccountName: falco-vpa-admission-certgen
+      serviceAccountName: goldilocks-vpa-admission-certgen
   ttlSecondsAfterFinished: 300
 ---
 apiVersion: batch/v1
@@ -2033,38 +2033,38 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
   labels:
     app.kubernetes.io/component: admission-certgen
-    app.kubernetes.io/instance: falco
+    app.kubernetes.io/instance: goldilocks
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: vpa
     app.kubernetes.io/version: 1.0.0
     helm.sh/chart: vpa-4.4.6
-  name: falco-vpa-admission-certgen-patch
-  namespace: falco
+  name: goldilocks-vpa-admission-certgen-patch
+  namespace: goldilocks
 spec:
   template:
     metadata:
       labels:
         app.kubernetes.io/component: admission-certgen
-        app.kubernetes.io/instance: falco
+        app.kubernetes.io/instance: goldilocks
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: vpa
         app.kubernetes.io/version: 1.0.0
         helm.sh/chart: vpa-4.4.6
-      name: falco-vpa-admission-certgen-patch
+      name: goldilocks-vpa-admission-certgen-patch
     spec:
       containers:
       - args:
         - patch
-        - --webhook-name=falco-vpa-webhook-config
+        - --webhook-name=goldilocks-vpa-webhook-config
         - --namespace=default
-        - --secret-name=falco-vpa-tls-secret
+        - --secret-name=goldilocks-vpa-tls-secret
         - --patch-validating=false
         - --log-level=debug
         image: registry.k8s.io/ingress-nginx/kube-webhook-certgen:v20230312-helm-chart-4.5.2-28-g66a760794
         name: patch
         resources: {}
       restartPolicy: OnFailure
-      serviceAccountName: falco-vpa-admission-certgen
+      serviceAccountName: goldilocks-vpa-admission-certgen
   ttlSecondsAfterFinished: 300
 ---
 apiVersion: v1
@@ -2075,13 +2075,13 @@ metadata:
     helm.sh/hook-delete-policy: hook-succeeded,before-hook-creation
     helm.sh/hook-weight: "10"
   labels:
-    app.kubernetes.io/instance: falco
+    app.kubernetes.io/instance: goldilocks
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: vpa
     app.kubernetes.io/version: 1.0.0
     helm.sh/chart: vpa-4.4.6
-  name: falco-vpa-test-crds-available
-  namespace: falco
+  name: goldilocks-vpa-test-crds-available
+  namespace: goldilocks
 spec:
   containers:
   - args:
@@ -2103,7 +2103,7 @@ spec:
       runAsNonRoot: true
       runAsUser: 10324
   restartPolicy: Never
-  serviceAccountName: falco-vpa-test
+  serviceAccountName: goldilocks-vpa-test
 ---
 apiVersion: v1
 kind: Pod
@@ -2113,13 +2113,13 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
     helm.sh/hook-weight: "20"
   labels:
-    app.kubernetes.io/instance: falco
+    app.kubernetes.io/instance: goldilocks
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: vpa
     app.kubernetes.io/version: 1.0.0
     helm.sh/chart: vpa-4.4.6
-  name: falco-vpa-test-create-vpa
-  namespace: falco
+  name: goldilocks-vpa-test-create-vpa
+  namespace: goldilocks
 spec:
   containers:
   - args:
@@ -2158,7 +2158,7 @@ spec:
       runAsNonRoot: true
       runAsUser: 10324
   restartPolicy: Never
-  serviceAccountName: falco-vpa-test
+  serviceAccountName: goldilocks-vpa-test
 ---
 apiVersion: v1
 kind: Pod
@@ -2168,13 +2168,13 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
     helm.sh/hook-weight: "40"
   labels:
-    app.kubernetes.io/instance: falco
+    app.kubernetes.io/instance: goldilocks
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: vpa
     app.kubernetes.io/version: 1.0.0
     helm.sh/chart: vpa-4.4.6
-  name: falco-vpa-test-metrics-api-available
-  namespace: falco
+  name: goldilocks-vpa-test-metrics-api-available
+  namespace: goldilocks
 spec:
   containers:
   - args:
@@ -2195,7 +2195,7 @@ spec:
       runAsNonRoot: true
       runAsUser: 10324
   restartPolicy: Never
-  serviceAccountName: falco-vpa-test
+  serviceAccountName: goldilocks-vpa-test
 ---
 apiVersion: v1
 kind: Pod
@@ -2205,13 +2205,13 @@ metadata:
     helm.sh/hook-delete-policy: before-hook-creation,hook-succeeded
     helm.sh/hook-weight: "30"
   labels:
-    app.kubernetes.io/instance: falco
+    app.kubernetes.io/instance: goldilocks
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: vpa
     app.kubernetes.io/version: 1.0.0
     helm.sh/chart: vpa-4.4.6
-  name: falco-vpa-test-webhook-configuration
-  namespace: falco
+  name: goldilocks-vpa-test-webhook-configuration
+  namespace: goldilocks
 spec:
   containers:
   - args:
@@ -2225,26 +2225,26 @@ spec:
       SERVICE=$(kubectl \
         get service \
         -n default \
-        falco-vpa-webhook \
+        goldilocks-vpa-webhook \
         -o=jsonpath="{.metadata.name}.{.metadata.namespace}.svc:{.spec.ports[0].port}")
 
       # Get configured FQDN
       WEBHOOK_SERVICE=$(kubectl \
         get mutatingwebhookconfigurations.admissionregistration.k8s.io \
-        falco-vpa-webhook-config \
+        goldilocks-vpa-webhook-config \
         -o=jsonpath="{.webhooks[0].clientConfig.service.name}.{.webhooks[0].clientConfig.service.namespace}.svc:{.webhooks[0].clientConfig.service.port}")
 
       # Get CA bundle
       SECRET_CABUNDLE=$(kubectl \
         get secret \
         -n default \
-        falco-vpa-tls-secret \
+        goldilocks-vpa-tls-secret \
         -o=jsonpath="{.data.ca}")
 
       # Get configured CA bundle
       WEBHOOK_CABUNDLE=$(kubectl \
         get mutatingwebhookconfigurations.admissionregistration.k8s.io \
-        falco-vpa-webhook-config \
+        goldilocks-vpa-webhook-config \
         -o=jsonpath="{.webhooks[0].clientConfig.caBundle}")
 
       # All corresponding values must match
@@ -2256,10 +2256,10 @@ spec:
           echo "Webhook CA bundle matches"
           exit 0;
         else
-          echo "CA bundle in mutating webhook falco-vpa-webhook-config does not match secret default/falco-vpa-tls-secret"
+          echo "CA bundle in mutating webhook goldilocks-vpa-webhook-config does not match secret default/goldilocks-vpa-tls-secret"
         fi
       else
-        echo "Service configured in mutating webhook falco-vpa-webhook-config is '$WEBHOOK_SERVICE' not '$SERVICE'"
+        echo "Service configured in mutating webhook goldilocks-vpa-webhook-config is '$WEBHOOK_SERVICE' not '$SERVICE'"
       fi
       exit 1;
     command:
@@ -2276,26 +2276,26 @@ spec:
       runAsNonRoot: true
       runAsUser: 10324
   restartPolicy: Never
-  serviceAccountName: falco-vpa-test
+  serviceAccountName: goldilocks-vpa-test
 ---
 apiVersion: admissionregistration.k8s.io/v1
 kind: MutatingWebhookConfiguration
 metadata:
   labels:
     app.kubernetes.io/component: admission-controller
-    app.kubernetes.io/instance: falco
+    app.kubernetes.io/instance: goldilocks
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: vpa
     app.kubernetes.io/version: 1.0.0
     helm.sh/chart: vpa-4.4.6
-  name: falco-vpa-webhook-config
+  name: goldilocks-vpa-webhook-config
 webhooks:
 - admissionReviewVersions:
   - v1
   clientConfig:
     service:
-      name: falco-vpa-webhook
-      namespace: falco
+      name: goldilocks-vpa-webhook
+      namespace: goldilocks
       port: 443
   failurePolicy: Ignore
   matchPolicy: Equivalent
