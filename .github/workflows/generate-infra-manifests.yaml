@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'core/**'
+      - .github/workflows/generate-infra-manifests.yaml
 
 jobs:
   template_the_infra_manifests:
