@@ -149,11 +149,11 @@ spec:
           name: http-backend
         resources:
           limits:
-            cpu: 1500m
-            memory: 2048Mi
+            cpu: 705m
+            memory: 3047M
           requests:
-            cpu: 500m
-            memory: 512Mi
+            cpu: 22m
+            memory: 267M
         volumeMounts:
         - mountPath: /app/users.yaml
           name: org-yaml
@@ -171,11 +171,11 @@ spec:
           name: http
         resources:
           limits:
-            cpu: 1500m
-            memory: 2048Mi
+            cpu: 123m
+            memory: 132M
           requests:
-            cpu: 500m
-            memory: 512Mi
+            cpu: 12m
+            memory: 132M
         volumeMounts:
         - mountPath: /usr/share/nginx/html/app-config.yaml
           name: app-config
