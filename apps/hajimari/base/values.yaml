@@ -1,4 +1,11 @@
 hajimari:
+  resources:
+    requests:
+      cpu: 25m
+      memory: 263M
+    limits:
+      cpu: 122m
+      memory: 263M
   hajimari:
     instanceName: null
     defaultEnable: true
