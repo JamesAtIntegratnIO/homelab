@@ -3,6 +3,7 @@ kind: Namespace
 metadata:
   labels:
     backstage.io/kubernetes-id: cert-manager
+    goldilocks.fairwinds.com/enabled: "true"
     test-label: test-label-value
   name: cert-manager
 ---
