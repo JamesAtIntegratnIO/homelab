@@ -1,3 +1,14 @@
 labels:
   - pairs:
       'backstage.io/kubernetes-id': 'external-secrets'
+
+patches:
+  - target:
+      group: v1
+      version: v1
+      kind: Namespace
+    patch: |
+      - op: add
+        path: /metadata/labels
+        value:
+          goldilocks.fairwinds.com/enabled: "true"

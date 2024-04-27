@@ -46,6 +46,9 @@ spec:
               - appName: falco
                 namespace: falco
                 syncWave: 4
+              - appName: goldilocks
+                namespace: goldilocks
+                syncWave: 4
               # - appName: kyverno
               #   namespace: kyverno
               #   syncWave: 4
@@ -84,7 +87,6 @@ spec:
           selfHeal: true
         syncOptions:
           - CreateNamespace=true
-          {{- if .syncPolicy == "replace" }}
+          {{- if eq .syncPolicy "replace" }}
           - Replace=true
           {{- end }}
-          {{- if .syncPolicy == "hook" }}

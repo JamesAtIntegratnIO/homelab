@@ -1,7 +1,7 @@
 labels:
   - pairs:
-      'backstage.io/kubernetes-id': 'falco'
-namespace: falco
+      'backstage.io/kubernetes-id': 'goldilocks'
+namespace: goldilocks
 patches:
   - target:
       group: v1

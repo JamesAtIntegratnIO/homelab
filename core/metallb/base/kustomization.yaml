@@ -6,3 +6,14 @@ resources:
   - github.com/metallb/metallb/config/native?ref=v0.13.10
   - ip_address_pool.yaml
   - l2_advertisement.yaml
+
+patches:
+  - target:
+      group: v1
+      version: v1
+      kind: Namespace
+    patch: |
+      - op: add
+        path: /metadata/labels
+        value:
+          goldilocks.fairwinds.com/enabled: "true"
