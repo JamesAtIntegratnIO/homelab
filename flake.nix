@@ -35,6 +35,7 @@
             k9s
           
             yq
+            jq
             go
           ];
           shellHook = ''

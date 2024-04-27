@@ -1,0 +1,6 @@
+namespace: kube-system
+labels:
+  - pairs:
+      'backstage.io/kubernetes-id': 'vertical-pod-autoscaler'
+resources:
+  - vpa.yaml
