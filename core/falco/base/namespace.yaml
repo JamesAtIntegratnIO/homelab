@@ -1,7 +1,6 @@
-# namespace.yaml
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: op-connect
+  name: falcod
   labels:
     goldilocks.fairwinds.com/enabled: "true"

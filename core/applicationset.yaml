@@ -38,6 +38,9 @@ spec:
               - appName: metrics
                 namespace: kube-system
                 syncWave: 2
+              - appName: vertical-pod-autoscaler
+                namespace: kube-system
+                syncWave: 2
               
               - appName: ingress-nginx
                 namespace: ingress-nginx
