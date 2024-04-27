@@ -18,7 +18,13 @@ connect:
       name: connect-api
       # The 1Password Connect API repository
       imageRepository: 1password/connect-api
-      resources: {}
+      resources:
+        requests:
+          cpu: 90m
+          memory: 132M
+        limits:
+          cpu: 2161m
+          memory: 750M
       httpPort: 8080
       httpsPort: 8443
       logLevel: info
@@ -46,7 +52,13 @@ connect:
     sync:
       name: connect-sync
       imageRepository: 1password/connect-sync
-      resources: {}
+      resources:
+        requests:
+          cpu: 12m
+          memory: 132M
+        limits:
+          cpu: 166m
+          memory: 357M
       httpPort: 8081
       logLevel: info
 
@@ -241,7 +253,13 @@ connect:
     watchNamespace: []
 
     # The resources requests/limits for the 1Password Operator pod
-    resources: {}
+    resources: 
+      requests:
+        cpu: 25m
+        memory: 263M
+      limits:
+        cpu: 166m
+        memory: 357M
 
     # 1Password Operator Token Configuration
     token:
