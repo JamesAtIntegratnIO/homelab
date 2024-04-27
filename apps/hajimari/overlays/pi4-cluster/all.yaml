@@ -144,6 +144,7 @@ data:
       - home-assistant
       - code-server
       - backstage
+      - goldilocks
     searchProviders:
     - icon: simple-icons:google
       name: Google
