@@ -15,6 +15,13 @@ spec:
               value: 10.0.0.12
             - name: NFS_PATH
               value: /mnt/user/kube_storage
+          resources:
+            requests:
+              cpu: 25m
+              memory: 263M
+            limits:
+              cpu: 937m
+              memory: 980M
       volumes:
         - name: nfs-client-root
           nfs:
