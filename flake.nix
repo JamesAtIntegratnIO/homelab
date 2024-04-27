@@ -42,7 +42,7 @@
             set -a
             source ./key.env
             set +a
-          '';
+            '';
         };
       }
     );
