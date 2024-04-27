@@ -1,4 +1,12 @@
 apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    backstage.io/kubernetes-id: falco
+    goldilocks.fairwinds.com/enabled: "true"
+  name: falco
+---
+apiVersion: v1
 data:
   falco.yaml: |-
     base_syscalls:

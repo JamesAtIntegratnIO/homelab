@@ -3,6 +3,7 @@ kind: Namespace
 metadata:
   labels:
     backstage.io/kubernetes-id: nfs-provisioner
+    goldilocks.fairwinds.com/enabled: "true"
   name: nfs-provisioner
 ---
 apiVersion: storage.k8s.io/v1

@@ -1,4 +1,12 @@
 apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    backstage.io/kubernetes-id: goldilocks
+    goldilocks.fairwinds.com/enabled: "true"
+  name: goldilocks
+---
+apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
