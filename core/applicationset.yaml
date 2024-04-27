@@ -35,6 +35,9 @@ spec:
               - appName: cert-manager
                 namespace: cert-manager
                 syncWave: 2
+              - appName: metrics
+                namespace: kube-system
+                syncWave: 2
               
               - appName: ingress-nginx
                 namespace: ingress-nginx
