@@ -23,16 +23,6 @@ metadata:
   namespace: falco
 ---
 apiVersion: v1
-kind: ServiceAccount
-metadata:
-  annotations:
-    helm.sh/hook: pre-upgrade,post-delete
-    helm.sh/hook-delete-policy: hook-succeeded,before-hook-creation,hook-failed
-    helm.sh/hook-weight: "-250"
-  name: falco-goldilocks-vpa-uninstall
-  namespace: falco
----
-apiVersion: v1
 automountServiceAccountToken: true
 kind: ServiceAccount
 metadata:
@@ -247,29 +237,6 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: falco-goldilocks-dashboard
-  namespace: falco
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  annotations:
-    helm.sh/hook: pre-upgrade,post-delete
-    helm.sh/hook-delete-policy: hook-succeeded,before-hook-creation,hook-failed
-    helm.sh/hook-weight: "-240"
-  labels:
-    app.kubernetes.io/component: vpa-uninstall
-    app.kubernetes.io/instance: falco
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: goldilocks
-    helm.sh/chart: goldilocks-8.0.1
-  name: falco-goldilocks-vpa-uninstall
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: cluster-admin
-subjects:
-- kind: ServiceAccount
-  name: falco-goldilocks-vpa-uninstall
   namespace: falco
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -570,44 +537,6 @@ spec:
     namespace: falco
   version: v1beta1
   versionPriority: 100
----
-apiVersion: batch/v1
-kind: Job
-metadata:
-  annotations:
-    helm.sh/hook: pre-upgrade,post-delete
-    helm.sh/hook-delete-policy: before-hook-creation
-    helm.sh/hook-weight: "-230"
-  labels:
-    app.kubernetes.io/component: vpa-uninstall
-    app.kubernetes.io/instance: falco
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: goldilocks
-    helm.sh/chart: goldilocks-8.0.1
-  name: falco-goldilocks-vpa-uninstall
-  namespace: falco
-spec:
-  template:
-    metadata:
-      labels:
-        app.kubernetes.io/component: vpa-uninstall
-        app.kubernetes.io/instance: falco
-        app.kubernetes.io/managed-by: Helm
-        app.kubernetes.io/name: goldilocks
-        helm.sh/chart: goldilocks-8.0.1
-      name: falco-goldilocks-vpa-uninstall
-    spec:
-      containers:
-      - args:
-        - -c
-        - "apk --update add git openssl\ngit clone \"https://github.com/kubernetes/autoscaler.git\"\ncd
-          autoscaler/vertical-pod-autoscaler\ngit checkout \n./hack/vpa-down.sh\n"
-        command:
-        - bash
-        image: quay.io/reactiveops/ci-images:v9-alpine
-        name: vpa-uninstall
-      restartPolicy: Never
-      serviceAccountName: falco-goldilocks-vpa-uninstall
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
