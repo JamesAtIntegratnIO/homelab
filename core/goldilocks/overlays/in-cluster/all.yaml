@@ -22,18 +22,6 @@ metadata:
   name: falco-goldilocks-dashboard
   namespace: falco
 ---
-apiVersion: v1
-automountServiceAccountToken: true
-kind: ServiceAccount
-metadata:
-  labels:
-    app.kubernetes.io/instance: falco
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: metrics-server
-    helm.sh/chart: metrics-server-6.4.1
-  name: falco-metrics-server
-  namespace: falco
----
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -132,76 +120,6 @@ rules:
   - list
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  labels:
-    app.kubernetes.io/instance: falco
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: metrics-server
-    helm.sh/chart: metrics-server-6.4.1
-  name: falco-metrics-server-default
-rules:
-- apiGroups:
-  - ""
-  resources:
-  - pods
-  - nodes
-  - namespaces
-  verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
-  - ""
-  resources:
-  - nodes/metrics
-  verbs:
-  - get
-  - create
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  labels:
-    app.kubernetes.io/instance: falco
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: metrics-server
-    helm.sh/chart: metrics-server-6.4.1
-    rbac.authorization.k8s.io/aggregate-to-admin: "true"
-    rbac.authorization.k8s.io/aggregate-to-edit: "true"
-    rbac.authorization.k8s.io/aggregate-to-view: "true"
-  name: falco-metrics-server-default-view
-rules:
-- apiGroups:
-  - metrics.k8s.io
-  resources:
-  - pods
-  - nodes
-  verbs:
-  - get
-  - list
-  - watch
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  labels:
-    app.kubernetes.io/instance: falco
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: metrics-server
-    helm.sh/chart: metrics-server-6.4.1
-  name: falco-metrics-server-default-auth-reader
-  namespace: falco
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: extension-apiserver-authentication-reader
-subjects:
-- kind: ServiceAccount
-  name: falco-metrics-server
-  namespace: falco
----
-apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   labels:
@@ -239,42 +157,6 @@ subjects:
   name: falco-goldilocks-dashboard
   namespace: falco
 ---
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  labels:
-    app.kubernetes.io/instance: falco
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: metrics-server
-    helm.sh/chart: metrics-server-6.4.1
-  name: falco-metrics-server-default
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: falco-metrics-server-default
-subjects:
-- kind: ServiceAccount
-  name: falco-metrics-server
-  namespace: falco
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRoleBinding
-metadata:
-  labels:
-    app.kubernetes.io/instance: falco
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: metrics-server
-    helm.sh/chart: metrics-server-6.4.1
-  name: falco-metrics-server-default-auth-delegator
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: system:auth-delegator
-subjects:
-- kind: ServiceAccount
-  name: falco-metrics-server
-  namespace: falco
----
 apiVersion: v1
 kind: Service
 metadata:
@@ -296,29 +178,6 @@ spec:
     app.kubernetes.io/component: dashboard
     app.kubernetes.io/instance: falco
     app.kubernetes.io/name: goldilocks
-  type: ClusterIP
----
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    app.kubernetes.io/instance: falco
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: metrics-server
-    helm.sh/chart: metrics-server-6.4.1
-  name: falco-metrics-server
-  namespace: falco
-spec:
-  ports:
-  - name: https
-    nodePort: null
-    port: 443
-    protocol: TCP
-    targetPort: https
-  selector:
-    app.kubernetes.io/instance: falco
-    app.kubernetes.io/name: metrics-server
-  sessionAffinity: None
   type: ClusterIP
 ---
 apiVersion: apps/v1
@@ -437,106 +296,6 @@ spec:
         seccompProfile:
           type: RuntimeDefault
       serviceAccountName: falco-goldilocks-dashboard
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  labels:
-    app.kubernetes.io/instance: falco
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: metrics-server
-    helm.sh/chart: metrics-server-6.4.1
-  name: falco-metrics-server
-  namespace: falco
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app.kubernetes.io/instance: falco
-      app.kubernetes.io/name: metrics-server
-  strategy:
-    type: RollingUpdate
-  template:
-    metadata:
-      labels:
-        app.kubernetes.io/instance: falco
-        app.kubernetes.io/managed-by: Helm
-        app.kubernetes.io/name: metrics-server
-        helm.sh/chart: metrics-server-6.4.1
-    spec:
-      affinity:
-        nodeAffinity: null
-        podAffinity: null
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - podAffinityTerm:
-              labelSelector:
-                matchLabels:
-                  app.kubernetes.io/instance: falco
-                  app.kubernetes.io/name: metrics-server
-              topologyKey: kubernetes.io/hostname
-            weight: 1
-      containers:
-      - args:
-        - --secure-port=8443
-        command:
-        - metrics-server
-        env: null
-        envFrom: null
-        image: docker.io/bitnami/metrics-server:0.6.3-debian-11-r21
-        imagePullPolicy: IfNotPresent
-        livenessProbe:
-          failureThreshold: 3
-          httpGet:
-            path: /livez
-            port: https
-            scheme: HTTPS
-          initialDelaySeconds: 0
-          periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 1
-        name: metrics-server
-        ports:
-        - containerPort: 8443
-          name: https
-        readinessProbe:
-          failureThreshold: 3
-          httpGet:
-            path: /readyz
-            port: https
-            scheme: HTTPS
-          initialDelaySeconds: 0
-          periodSeconds: 10
-          successThreshold: 1
-          timeoutSeconds: 1
-        resources:
-          limits: {}
-          requests: {}
-        securityContext:
-          readOnlyRootFilesystem: false
-          runAsNonRoot: true
-          runAsUser: 1001
-      dnsPolicy: ClusterFirst
-      serviceAccountName: falco-metrics-server
----
-apiVersion: apiregistration.k8s.io/v1
-kind: APIService
-metadata:
-  labels:
-    app.kubernetes.io/instance: falco
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: metrics-server
-    helm.sh/chart: metrics-server-6.4.1
-  name: v1beta1.metrics.k8s.io
-spec:
-  group: metrics.k8s.io
-  groupPriorityMinimum: 100
-  insecureSkipTLSVerify: true
-  service:
-    name: falco-metrics-server
-    namespace: falco
-  version: v1beta1
-  versionPriority: 100
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
