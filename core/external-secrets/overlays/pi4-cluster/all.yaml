@@ -1,3 +1,11 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    backstage.io/kubernetes-id: external-secrets
+    goldilocks.fairwinds.com/enabled: "true"
+  name: external-secrets
+---
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
@@ -10,8 +18,8 @@ spec:
     webhook:
       clientConfig:
         service:
-          name: default-external-secrets-webhook
-          namespace: default
+          name: external-secrets-webhook
+          namespace: external-secrets
           path: /convert
       conversionReviewVersions:
       - v1
@@ -193,8 +201,8 @@ spec:
     webhook:
       clientConfig:
         service:
-          name: default-external-secrets-webhook
-          namespace: default
+          name: external-secrets-webhook
+          namespace: external-secrets
           path: /convert
       conversionReviewVersions:
       - v1
@@ -740,8 +748,8 @@ spec:
     webhook:
       clientConfig:
         service:
-          name: default-external-secrets-webhook
-          namespace: default
+          name: external-secrets-webhook
+          namespace: external-secrets
           path: /convert
       conversionReviewVersions:
       - v1
@@ -4674,8 +4682,8 @@ spec:
     webhook:
       clientConfig:
         service:
-          name: default-external-secrets-webhook
-          namespace: default
+          name: external-secrets-webhook
+          namespace: external-secrets
           path: /convert
       conversionReviewVersions:
       - v1
@@ -4837,8 +4845,8 @@ spec:
     webhook:
       clientConfig:
         service:
-          name: default-external-secrets-webhook
-          namespace: default
+          name: external-secrets-webhook
+          namespace: external-secrets
           path: /convert
       conversionReviewVersions:
       - v1
@@ -5562,8 +5570,8 @@ spec:
     webhook:
       clientConfig:
         service:
-          name: default-external-secrets-webhook
-          namespace: default
+          name: external-secrets-webhook
+          namespace: external-secrets
           path: /convert
       conversionReviewVersions:
       - v1
@@ -5629,8 +5637,8 @@ spec:
     webhook:
       clientConfig:
         service:
-          name: default-external-secrets-webhook
-          namespace: default
+          name: external-secrets-webhook
+          namespace: external-secrets
           path: /convert
       conversionReviewVersions:
       - v1
@@ -5754,8 +5762,8 @@ spec:
     webhook:
       clientConfig:
         service:
-          name: default-external-secrets-webhook
-          namespace: default
+          name: external-secrets-webhook
+          namespace: external-secrets
           path: /convert
       conversionReviewVersions:
       - v1
@@ -5840,8 +5848,8 @@ spec:
     webhook:
       clientConfig:
         service:
-          name: default-external-secrets-webhook
-          namespace: default
+          name: external-secrets-webhook
+          namespace: external-secrets
           path: /convert
       conversionReviewVersions:
       - v1
@@ -6089,8 +6097,8 @@ spec:
     webhook:
       clientConfig:
         service:
-          name: default-external-secrets-webhook
-          namespace: default
+          name: external-secrets-webhook
+          namespace: external-secrets
           path: /convert
       conversionReviewVersions:
       - v1
@@ -10023,8 +10031,8 @@ spec:
     webhook:
       clientConfig:
         service:
-          name: default-external-secrets-webhook
-          namespace: default
+          name: external-secrets-webhook
+          namespace: external-secrets
           path: /convert
       conversionReviewVersions:
       - v1
@@ -10662,49 +10670,49 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    app.kubernetes.io/instance: default
+    app.kubernetes.io/instance: external-secrets
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-secrets
     app.kubernetes.io/version: v0.9.3
     helm.sh/chart: external-secrets-0.9.3
-  name: default-external-secrets
-  namespace: default
+  name: external-secrets
+  namespace: external-secrets
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    app.kubernetes.io/instance: default
+    app.kubernetes.io/instance: external-secrets
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-secrets-cert-controller
     app.kubernetes.io/version: v0.9.3
     helm.sh/chart: external-secrets-0.9.3
   name: external-secrets-cert-controller
-  namespace: default
+  namespace: external-secrets
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
-    app.kubernetes.io/instance: default
+    app.kubernetes.io/instance: external-secrets
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-secrets-webhook
     app.kubernetes.io/version: v0.9.3
     helm.sh/chart: external-secrets-0.9.3
   name: external-secrets-webhook
-  namespace: default
+  namespace: external-secrets
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   labels:
-    app.kubernetes.io/instance: default
+    app.kubernetes.io/instance: external-secrets
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-secrets
     app.kubernetes.io/version: v0.9.3
     helm.sh/chart: external-secrets-0.9.3
-  name: default-external-secrets-leaderelection
-  namespace: default
+  name: external-secrets-leaderelection
+  namespace: external-secrets
 rules:
 - apiGroups:
   - ""
@@ -10736,12 +10744,12 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   labels:
-    app.kubernetes.io/instance: default
+    app.kubernetes.io/instance: external-secrets
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-secrets-cert-controller
     app.kubernetes.io/version: v0.9.3
     helm.sh/chart: external-secrets-0.9.3
-  name: default-external-secrets-cert-controller
+  name: external-secrets-cert-controller
 rules:
 - apiGroups:
   - apiextensions.k8s.io
@@ -10802,12 +10810,12 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   labels:
-    app.kubernetes.io/instance: default
+    app.kubernetes.io/instance: external-secrets
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-secrets
     app.kubernetes.io/version: v0.9.3
     helm.sh/chart: external-secrets-0.9.3
-  name: default-external-secrets-controller
+  name: external-secrets-controller
 rules:
 - apiGroups:
   - external-secrets.io
@@ -10910,14 +10918,14 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   labels:
-    app.kubernetes.io/instance: default
+    app.kubernetes.io/instance: external-secrets
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-secrets
     app.kubernetes.io/version: v0.9.3
     helm.sh/chart: external-secrets-0.9.3
     rbac.authorization.k8s.io/aggregate-to-admin: "true"
     rbac.authorization.k8s.io/aggregate-to-edit: "true"
-  name: default-external-secrets-edit
+  name: external-secrets-edit
 rules:
 - apiGroups:
   - external-secrets.io
@@ -10952,13 +10960,13 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   labels:
-    app.kubernetes.io/instance: default
+    app.kubernetes.io/instance: external-secrets
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-secrets
     app.kubernetes.io/version: v0.9.3
     helm.sh/chart: external-secrets-0.9.3
     servicebinding.io/controller: "true"
-  name: default-external-secrets-servicebindings
+  name: external-secrets-servicebindings
 rules:
 - apiGroups:
   - external-secrets.io
@@ -10973,7 +10981,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   labels:
-    app.kubernetes.io/instance: default
+    app.kubernetes.io/instance: external-secrets
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-secrets
     app.kubernetes.io/version: v0.9.3
@@ -10981,7 +10989,7 @@ metadata:
     rbac.authorization.k8s.io/aggregate-to-admin: "true"
     rbac.authorization.k8s.io/aggregate-to-edit: "true"
     rbac.authorization.k8s.io/aggregate-to-view: "true"
-  name: default-external-secrets-view
+  name: external-secrets-view
 rules:
 - apiGroups:
   - external-secrets.io
@@ -11012,85 +11020,85 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   labels:
-    app.kubernetes.io/instance: default
+    app.kubernetes.io/instance: external-secrets
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-secrets
     app.kubernetes.io/version: v0.9.3
     helm.sh/chart: external-secrets-0.9.3
-  name: default-external-secrets-leaderelection
-  namespace: default
+  name: external-secrets-leaderelection
+  namespace: external-secrets
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: default-external-secrets-leaderelection
+  name: external-secrets-leaderelection
 subjects:
 - kind: ServiceAccount
-  name: default-external-secrets
-  namespace: default
+  name: external-secrets
+  namespace: external-secrets
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   labels:
-    app.kubernetes.io/instance: default
+    app.kubernetes.io/instance: external-secrets
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-secrets-cert-controller
     app.kubernetes.io/version: v0.9.3
     helm.sh/chart: external-secrets-0.9.3
-  name: default-external-secrets-cert-controller
+  name: external-secrets-cert-controller
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: default-external-secrets-cert-controller
+  name: external-secrets-cert-controller
 subjects:
 - kind: ServiceAccount
   name: external-secrets-cert-controller
-  namespace: default
+  namespace: external-secrets
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   labels:
-    app.kubernetes.io/instance: default
+    app.kubernetes.io/instance: external-secrets
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-secrets
     app.kubernetes.io/version: v0.9.3
     helm.sh/chart: external-secrets-0.9.3
-  name: default-external-secrets-controller
+  name: external-secrets-controller
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: default-external-secrets-controller
+  name: external-secrets-controller
 subjects:
 - kind: ServiceAccount
-  name: default-external-secrets
-  namespace: default
+  name: external-secrets
+  namespace: external-secrets
 ---
 apiVersion: v1
 kind: Secret
 metadata:
   labels:
-    app.kubernetes.io/instance: default
+    app.kubernetes.io/instance: external-secrets
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-secrets-webhook
     app.kubernetes.io/version: v0.9.3
     external-secrets.io/component: webhook
     helm.sh/chart: external-secrets-0.9.3
-  name: default-external-secrets-webhook
-  namespace: default
+  name: external-secrets-webhook
+  namespace: external-secrets
 ---
 apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app.kubernetes.io/instance: default
+    app.kubernetes.io/instance: external-secrets
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-secrets-webhook
     app.kubernetes.io/version: v0.9.3
     external-secrets.io/component: webhook
     helm.sh/chart: external-secrets-0.9.3
-  name: default-external-secrets-webhook
-  namespace: default
+  name: external-secrets-webhook
+  namespace: external-secrets
 spec:
   ports:
   - name: webhook
@@ -11098,7 +11106,7 @@ spec:
     protocol: TCP
     targetPort: 10250
   selector:
-    app.kubernetes.io/instance: default
+    app.kubernetes.io/instance: external-secrets
     app.kubernetes.io/name: external-secrets-webhook
   type: ClusterIP
 ---
@@ -11106,24 +11114,24 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app.kubernetes.io/instance: default
+    app.kubernetes.io/instance: external-secrets
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-secrets
     app.kubernetes.io/version: v0.9.3
     helm.sh/chart: external-secrets-0.9.3
-  name: default-external-secrets
-  namespace: default
+  name: external-secrets
+  namespace: external-secrets
 spec:
   replicas: 3
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app.kubernetes.io/instance: default
+      app.kubernetes.io/instance: external-secrets
       app.kubernetes.io/name: external-secrets
   template:
     metadata:
       labels:
-        app.kubernetes.io/instance: default
+        app.kubernetes.io/instance: external-secrets
         app.kubernetes.io/name: external-secrets
     spec:
       automountServiceAccountToken: true
@@ -11149,30 +11157,30 @@ spec:
           seccompProfile:
             type: RuntimeDefault
       hostNetwork: false
-      serviceAccountName: default-external-secrets
+      serviceAccountName: external-secrets
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app.kubernetes.io/instance: default
+    app.kubernetes.io/instance: external-secrets
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-secrets-cert-controller
     app.kubernetes.io/version: v0.9.3
     helm.sh/chart: external-secrets-0.9.3
-  name: default-external-secrets-cert-controller
-  namespace: default
+  name: external-secrets-cert-controller
+  namespace: external-secrets
 spec:
   replicas: 1
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app.kubernetes.io/instance: default
+      app.kubernetes.io/instance: external-secrets
       app.kubernetes.io/name: external-secrets-cert-controller
   template:
     metadata:
       labels:
-        app.kubernetes.io/instance: default
+        app.kubernetes.io/instance: external-secrets
         app.kubernetes.io/name: external-secrets-cert-controller
     spec:
       automountServiceAccountToken: true
@@ -11180,9 +11188,9 @@ spec:
       - args:
         - certcontroller
         - --crd-requeue-interval=5m
-        - --service-name=default-external-secrets-webhook
+        - --service-name=external-secrets-webhook
         - --service-namespace=default
-        - --secret-name=default-external-secrets-webhook
+        - --secret-name=external-secrets-webhook
         - --secret-namespace=default
         - --metrics-addr=:8080
         - --healthz-addr=:8081
@@ -11216,24 +11224,24 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app.kubernetes.io/instance: default
+    app.kubernetes.io/instance: external-secrets
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: external-secrets-webhook
     app.kubernetes.io/version: v0.9.3
     helm.sh/chart: external-secrets-0.9.3
-  name: default-external-secrets-webhook
-  namespace: default
+  name: external-secrets-webhook
+  namespace: external-secrets
 spec:
   replicas: 1
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app.kubernetes.io/instance: default
+      app.kubernetes.io/instance: external-secrets
       app.kubernetes.io/name: external-secrets-webhook
   template:
     metadata:
       labels:
-        app.kubernetes.io/instance: default
+        app.kubernetes.io/instance: external-secrets
         app.kubernetes.io/name: external-secrets-webhook
     spec:
       automountServiceAccountToken: true
@@ -11241,7 +11249,7 @@ spec:
       - args:
         - webhook
         - --port=10250
-        - --dns-name=default-external-secrets-webhook.default.svc
+        - --dns-name=external-secrets-webhook.default.svc
         - --cert-dir=/tmp/certs
         - --check-interval=5m
         - --metrics-addr=:8080
@@ -11281,7 +11289,7 @@ spec:
       volumes:
       - name: certs
         secret:
-          secretName: default-external-secrets-webhook
+          secretName: external-secrets-webhook
 ---
 apiVersion: admissionregistration.k8s.io/v1
 kind: ValidatingWebhookConfiguration
@@ -11295,8 +11303,8 @@ webhooks:
   - v1beta1
   clientConfig:
     service:
-      name: default-external-secrets-webhook
-      namespace: default
+      name: external-secrets-webhook
+      namespace: external-secrets
       path: /validate-external-secrets-io-v1beta1-externalsecret
   failurePolicy: Fail
   name: validate.externalsecret.external-secrets.io
@@ -11327,8 +11335,8 @@ webhooks:
   - v1beta1
   clientConfig:
     service:
-      name: default-external-secrets-webhook
-      namespace: default
+      name: external-secrets-webhook
+      namespace: external-secrets
       path: /validate-external-secrets-io-v1beta1-secretstore
   name: validate.secretstore.external-secrets.io
   rules:
@@ -11350,8 +11358,8 @@ webhooks:
   - v1beta1
   clientConfig:
     service:
-      name: default-external-secrets-webhook
-      namespace: default
+      name: external-secrets-webhook
+      namespace: external-secrets
       path: /validate-external-secrets-io-v1beta1-clustersecretstore
   name: validate.clustersecretstore.external-secrets.io
   rules:
