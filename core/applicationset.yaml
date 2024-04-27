@@ -43,6 +43,9 @@ spec:
               - appName: registry
                 namespace: docker-registry
                 syncWave: 4
+              - appName: falco
+                namespace: falco
+                syncWave: 4
               # - appName: kyverno
               #   namespace: kyverno
               #   syncWave: 4

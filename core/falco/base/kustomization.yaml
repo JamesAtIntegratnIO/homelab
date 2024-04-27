@@ -1,0 +1,4 @@
+labels:
+  - pairs:
+      'backstage.io/kubernetes-id': 'falco'
+namespace: falco
