@@ -177,6 +177,13 @@ spec:
           value: /mnt/user/appdata
         image: registry.k8s.io/sig-storage/nfs-subdir-external-provisioner:v4.0.2
         name: config-nfs-client-provisioner
+        resources:
+          limits:
+            cpu: 937m
+            memory: 980M
+          requests:
+            cpu: 25m
+            memory: 263M
         volumeMounts:
         - mountPath: /persistentvolumes
           name: nfs-client-root
@@ -217,6 +224,13 @@ spec:
           value: /mnt/user/data
         image: registry.k8s.io/sig-storage/nfs-subdir-external-provisioner:v4.0.2
         name: data-nfs-client-provisioner
+        resources:
+          limits:
+            cpu: 937m
+            memory: 980M
+          requests:
+            cpu: 25m
+            memory: 263M
         volumeMounts:
         - mountPath: /persistentvolumes
           name: nfs-client-root
@@ -257,6 +271,13 @@ spec:
           value: k8s-sigs.io/nfs-subdir-external-provisioner
         image: registry.k8s.io/sig-storage/nfs-subdir-external-provisioner:v4.0.2
         name: nfs-client-provisioner
+        resources:
+          limits:
+            cpu: 937m
+            memory: 980M
+          requests:
+            cpu: 25m
+            memory: 263M
         volumeMounts:
         - mountPath: /persistentvolumes
           name: nfs-client-root
