@@ -144,6 +144,13 @@ data:
       - home-assistant
       - code-server
       - backstage
+    resources:
+      limits:
+        cpu: 122m
+        memory: 263M
+      requests:
+        cpu: 25m
+        memory: 263M
     searchProviders:
     - icon: simple-icons:google
       name: Google
