@@ -7,5 +7,6 @@ metadata:
   labels:
     name: backstage
     app: backstage
+    goldilocks.fairwinds.com/enabled: "true"
   annotations:
     backstage.io/kubernetes-namespace: backstage
