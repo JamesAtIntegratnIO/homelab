@@ -55,6 +55,9 @@ spec:
               - appName: goldilocks
                 namespace: goldilocks
                 syncWave: 4
+              - appName: minio
+                namespace: minio-tenant
+                syncWave: 4
               # - appName: kyverno
               #   namespace: kyverno
               #   syncWave: 4
