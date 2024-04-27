@@ -29,6 +29,7 @@
             kubeseal
             kustomize
             kubernetes-helm
+            kubescape
             krew
             k0sctl
             k9s

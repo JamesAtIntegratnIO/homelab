@@ -36,3 +36,8 @@ spec:
         ports:
         - containerPort: 4180
           protocol: TCP
+        securityContext:
+          readOnlyRootFilesystem: true
+          allowPrivilegeEscalation: false
+          runAsNonRoot: true
+          runAsGroup: 1000
