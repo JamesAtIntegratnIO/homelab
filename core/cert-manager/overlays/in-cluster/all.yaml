@@ -10807,6 +10807,13 @@ spec:
         - containerPort: 9403
           name: http-healthz
           protocol: TCP
+        resources:
+          limits:
+            cpu: 150m
+            memory: 677M
+          requests:
+            cpu: 25m
+            memory: 263M
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:
@@ -10865,6 +10872,13 @@ spec:
         image: quay.io/jetstack/cert-manager-cainjector:v1.14.4
         imagePullPolicy: IfNotPresent
         name: cert-manager-cainjector
+        resources:
+          limits:
+            cpu: 149m
+            memory: 675M
+          requests:
+            cpu: 25m
+            memory: 263M
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:
@@ -10955,6 +10969,13 @@ spec:
           periodSeconds: 5
           successThreshold: 1
           timeoutSeconds: 1
+        resources:
+          limits:
+            cpu: 150m
+            memory: 322M
+          requests:
+            cpu: 25m
+            memory: 263M
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:
