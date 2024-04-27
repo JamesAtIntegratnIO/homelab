@@ -277,7 +277,13 @@ spec:
             port: 8080
             scheme: HTTP
           initialDelaySeconds: 15
-        resources: {}
+        resources:
+          limits:
+            cpu: 2161m
+            memory: 750M
+          requests:
+            cpu: 90m
+            memory: 132M
         securityContext:
           allowPrivilegeEscalation: false
           runAsGroup: 999
@@ -315,7 +321,13 @@ spec:
             path: /health
             port: 8081
           initialDelaySeconds: 15
-        resources: {}
+        resources:
+          limits:
+            cpu: 166m
+            memory: 357M
+          requests:
+            cpu: 12m
+            memory: 132M
         securityContext:
           allowPrivilegeEscalation: false
           runAsGroup: 999
@@ -382,7 +394,13 @@ spec:
         image: 1password/onepassword-operator:1.8.1
         imagePullPolicy: IfNotPresent
         name: onepassword-connect
-        resources: {}
+        resources:
+          limits:
+            cpu: 166m
+            memory: 357M
+          requests:
+            cpu: 25m
+            memory: 263M
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:
