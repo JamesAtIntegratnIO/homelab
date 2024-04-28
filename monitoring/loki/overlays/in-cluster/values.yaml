@@ -980,12 +980,13 @@ loki-distributed:
   ingress:
     enabled: true
     ingressClassName: nginx
-    annotations: {}
+    annotations:
   #    nginx.ingress.kubernetes.io/auth-type: basic
   #    nginx.ingress.kubernetes.io/auth-secret: loki-distributed-basic-auth
   #    nginx.ingress.kubernetes.io/auth-secret-type: auth-map
   #    nginx.ingress.kubernetes.io/configuration-snippet: |
   #      proxy_set_header X-Scope-OrgID $remote_user;
+      cert-manager.io/cluster-issuer: letsencrypt-prod
     paths:
       distributor:
         - /api/prom/push
