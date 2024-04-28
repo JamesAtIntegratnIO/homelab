@@ -978,7 +978,7 @@ loki:
   # If you enable this, make sure to disable the gateway.
   # You'll need to supply authn configuration for your ingress controller.
   ingress:
-    enabled: false
+    enabled: true
     ingressClassName: nginx
     annotations: {}
   #    nginx.ingress.kubernetes.io/auth-type: basic
@@ -1152,7 +1152,8 @@ loki:
       ingressClassName: nginx
 
       # -- Annotations for the gateway ingress
-      annotations: {}
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-prod
       # -- Hosts configuration for the gateway ingress
       hosts:
         - host: gateway.loki.k8s.integratn.tech

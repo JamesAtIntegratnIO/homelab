@@ -1,5 +1,6 @@
 [![Generate Infra Manifests](https://github.com/JamesAtIntegratnIO/homelab/actions/workflows/generate-infra-manifests.yaml/badge.svg)](https://github.com/JamesAtIntegratnIO/homelab/actions/workflows/generate-infra-manifests.yaml)
 [![Generate Apps Manifests](https://github.com/JamesAtIntegratnIO/homelab/actions/workflows/generate-app-manifests.yaml/badge.svg)](https://github.com/JamesAtIntegratnIO/homelab/actions/workflows/generate-app-manifests.yaml)
+[![Generate Monitoring Manifests](https://github.com/JamesAtIntegratnIO/homelab/actions/workflows/generate-monitoring-manifests.yaml/badge.svg)](https://github.com/JamesAtIntegratnIO/homelab/actions/workflows/generate-monitoring-manifests.yaml)
 # My Homelab Clusters
 ## Installation
 
