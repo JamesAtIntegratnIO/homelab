@@ -495,7 +495,7 @@ metadata:
   namespace: monitoring
 spec:
   podManagementPolicy: Parallel
-  replicas: 1
+  replicas: 3
   revisionHistoryLimit: 10
   selector:
     matchLabels:
@@ -616,7 +616,7 @@ metadata:
   namespace: monitoring
 spec:
   podManagementPolicy: Parallel
-  replicas: 1
+  replicas: 3
   revisionHistoryLimit: 10
   selector:
     matchLabels:
@@ -722,6 +722,46 @@ spec:
   updateStrategy:
     rollingUpdate:
       partition: 0
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  labels:
+    app.kubernetes.io/component: ingester
+    app.kubernetes.io/instance: monitoring
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: loki-distributed
+    app.kubernetes.io/version: 2.9.6
+    helm.sh/chart: loki-distributed-0.79.0
+  name: monitoring-loki-distributed-ingester
+  namespace: monitoring
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: ingester
+      app.kubernetes.io/instance: monitoring
+      app.kubernetes.io/name: loki-distributed
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  labels:
+    app.kubernetes.io/component: querier
+    app.kubernetes.io/instance: monitoring
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: loki-distributed
+    app.kubernetes.io/version: 2.9.6
+    helm.sh/chart: loki-distributed-0.79.0
+  name: monitoring-loki-distributed-querier
+  namespace: monitoring
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: querier
+      app.kubernetes.io/instance: monitoring
+      app.kubernetes.io/name: loki-distributed
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
