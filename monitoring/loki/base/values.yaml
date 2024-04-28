@@ -1,4 +1,4 @@
-loki:  
+loki-distributed:  
   global:
     image:
       # -- Overrides the Docker registry globally for all images
