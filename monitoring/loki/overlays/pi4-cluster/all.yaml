@@ -1052,3 +1052,13 @@ spec:
   updateStrategy:
     rollingUpdate:
       partition: 0
+---
+apiVersion: onepassword.com/v1
+kind: OnePasswordItem
+metadata:
+  labels:
+    backstage.io/kubernetes-id: loki
+  name: loki-config-secret
+  namespace: monitoring
+spec:
+  itemPath: vaults/homelab/items/loki-config-secret
