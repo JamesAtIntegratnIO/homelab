@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - 'apps/**'
-      - .github/workflows/generate-infra-manifests.yaml
+      - .github/workflows/generate-app-manifests.yaml
 
 jobs:
   template_the_apps_manifests:
