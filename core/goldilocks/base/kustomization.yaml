@@ -1,6 +1,0 @@
-labels:
-  - pairs:
-      'backstage.io/kubernetes-id': 'goldilocks'
-namespace: goldilocks
-resources:
-  - namespace.yaml
