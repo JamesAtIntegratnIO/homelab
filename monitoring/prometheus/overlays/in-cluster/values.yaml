@@ -50,7 +50,7 @@ prometheus:
     prometheus:
       ## If false, the configmap-reload container will not be deployed
       ##
-      enabled: true
+      enabled: false
 
       ## configmap-reload container name
       ##
@@ -191,7 +191,7 @@ prometheus:
 
     ## External URL which can access prometheus
     ## Maybe same with Ingress host name
-    baseURL: prometheus.k8s.integratn.tech
+    baseURL: ""
 
     ## Additional server container environment variables
     ##
