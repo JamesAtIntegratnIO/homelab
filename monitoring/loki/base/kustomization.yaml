@@ -1,0 +1,6 @@
+labels:
+  - pairs:
+      'backstage.io/kubernetes-id': 'loki'
+namespace: monigoring
+resources:
+  - namespace.yaml

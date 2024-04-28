@@ -13,6 +13,7 @@ resources:
 - media-repository.yaml
 - ingress.yaml
 - project_media.yaml
+- project_monitoring.yaml
 
 components:
   - kustomized-helm-plugin

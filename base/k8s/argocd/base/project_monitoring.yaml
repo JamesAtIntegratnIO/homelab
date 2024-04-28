@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: monitoring
+  namespace: argocd
+spec:
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  description: The Monitoring Project
+  destinations:
+  - name: "*"
+    namespace: "*"
+    server: 'https://kubernetes.default.svc'
+  namespaceResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  sourceRepos:
+  - '*'
+  sourceNamespaces:
+  - '*'
+status: {}
