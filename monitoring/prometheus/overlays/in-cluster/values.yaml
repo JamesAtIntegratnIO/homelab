@@ -1232,6 +1232,9 @@ prometheus:
 
     persistence:
       size: 2Gi
+      storageClass: "nfs-client"
+      accessModes:
+        - ReadWriteOnce
 
     podSecurityContext:
       runAsUser: 65534
