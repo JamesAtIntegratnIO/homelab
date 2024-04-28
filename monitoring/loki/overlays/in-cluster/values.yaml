@@ -389,7 +389,7 @@ loki-distributed:
     # -- Kind of deployment [StatefulSet/Deployment]
     kind: StatefulSet
     # -- Number of replicas for the ingester
-    replicas: 1
+    replicas: 3
     # -- hostAliases to add
     hostAliases: []
     #  - ip: 1.2.3.4
@@ -487,9 +487,9 @@ loki-distributed:
                   {{- include "loki.ingesterSelectorLabels" . | nindent 12 }}
               topologyKey: failure-domain.beta.kubernetes.io/zone
     # -- Pod Disruption Budget maxUnavailable
-    maxUnavailable: null
+    maxUnavailable: 1
     # -- Max Surge for ingester pods
-    maxSurge: 0
+    maxSurge: 2
     # -- Node selector for ingester pods
     nodeSelector: {}
     # -- Tolerations for ingester pods
@@ -626,7 +626,7 @@ loki-distributed:
   # Configuration for the querier
   querier:
     # -- Number of replicas for the querier
-    replicas: 1
+    replicas: 3
     # -- hostAliases to add
     hostAliases: []
     #  - ip: 1.2.3.4
@@ -720,9 +720,9 @@ loki-distributed:
                   {{- include "loki.querierSelectorLabels" . | nindent 12 }}
               topologyKey: failure-domain.beta.kubernetes.io/zone
     # -- Pod Disruption Budget maxUnavailable
-    maxUnavailable: null
+    maxUnavailable: 1
     # -- Max Surge for querier pods
-    maxSurge: 0
+    maxSurge: 2
     # -- Node selector for querier pods
     nodeSelector: {}
     # -- Tolerations for querier pods
