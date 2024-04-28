@@ -1101,6 +1101,7 @@ spec:
       resources:
         requests:
           storage: 2Gi
+      storageClassName: nfs-client
 ---
 apiVersion: apps/v1
 kind: StatefulSet
