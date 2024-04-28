@@ -76,7 +76,7 @@ loki-distributed:
           - ALL
       allowPrivilegeEscalation: false
     # -- Specify an existing secret containing loki configuration. If non-empty, overrides `loki.config`
-    existingSecretForConfig: ""
+    existingSecretForConfig: "loki-config-secret"
     # -- Store the loki configuration as a secret.
     configAsSecret: false
     # -- Annotations for the secret with loki configuration.

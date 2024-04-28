@@ -4,3 +4,4 @@ labels:
 namespace: monitoring
 resources:
   - namespace.yaml
+  - loki-config-secret-onePasswordItem.yaml
