@@ -103,8 +103,8 @@ data:
         s3: https://minio.k8s.integratn.tech/logs
         s3forcepathstyle: true
       boltdb_shipper:
-        active_index_directory: /logs/index
-        cache_location: /logs/cache
+        active_index_directory: /var/loki/index
+        cache_location: /var/loki/cache
         cache_ttl: 168h
         resync_interval: 5s
         shared_store: s3
@@ -398,7 +398,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: c495205f5c0397b350703ddb456bc4b3e0bc8c178363ce1a975d7ea049ee0fe2
+        checksum/config: 4666c02765450f4ec1f9e7865d0dd0aec95255189a5817a22fabaff403100d99
       labels:
         app.kubernetes.io/component: distributor
         app.kubernetes.io/instance: kube-system
@@ -505,7 +505,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: c495205f5c0397b350703ddb456bc4b3e0bc8c178363ce1a975d7ea049ee0fe2
+        checksum/config: 4666c02765450f4ec1f9e7865d0dd0aec95255189a5817a22fabaff403100d99
       labels:
         app.kubernetes.io/component: query-frontend
         app.kubernetes.io/instance: kube-system
@@ -611,7 +611,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: c495205f5c0397b350703ddb456bc4b3e0bc8c178363ce1a975d7ea049ee0fe2
+        checksum/config: 4666c02765450f4ec1f9e7865d0dd0aec95255189a5817a22fabaff403100d99
       labels:
         app.kubernetes.io/component: ingester
         app.kubernetes.io/instance: kube-system
@@ -732,7 +732,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: c495205f5c0397b350703ddb456bc4b3e0bc8c178363ce1a975d7ea049ee0fe2
+        checksum/config: 4666c02765450f4ec1f9e7865d0dd0aec95255189a5817a22fabaff403100d99
       labels:
         app.kubernetes.io/component: querier
         app.kubernetes.io/instance: kube-system
