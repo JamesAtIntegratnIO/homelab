@@ -245,8 +245,10 @@ loki-distributed:
         active_index_directory: /var/loki/index
         cache_location: /var/loki/cache
         cache_ttl: 168h
+        resync_interval: 5s
       aws:
         s3: https://minio.k8s.integratn.tech/logs
+        s3forcepathstyle: true
   # -- Uncomment to configure each storage individually
   #   azure: {}
   #   gcs: {}
