@@ -66,7 +66,7 @@ metadata:
   namespace: monitoring
 stringData:
   promtail.yaml: "server:\n  log_level: info\n  log_format: logfmt\n  http_listen_port:
-    3101\n  \n\nclients:\n  - url: http://loki-gateway/loki/api/v1/push\n\npositions:\n
+    3101\n  \n\nclients:\n  - url: http://loki.k8s.integratn.tech/loki/api/v1/push\n\npositions:\n
     \ filename: /run/promtail/positions.yaml\n\nscrape_configs:\n  # See also https://github.com/grafana/loki/blob/master/production/ksonnet/promtail/scrape_config.libsonnet
     for reference\n  - job_name: kubernetes-pods\n    pipeline_stages:\n      - cri:
     {}\n    kubernetes_sd_configs:\n      - role: pod\n    relabel_configs:\n      -
@@ -116,7 +116,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 2ef0f14afc8ed4b72495a244ef20e42a4bc14afd488033fe94e04c341b97529a
+        checksum/config: 1dff6f362c05897a51d02306deae1ff4e4f866b611dc81bafe8b1fe6ad8188db
       labels:
         app.kubernetes.io/instance: monitoring
         app.kubernetes.io/name: promtail
