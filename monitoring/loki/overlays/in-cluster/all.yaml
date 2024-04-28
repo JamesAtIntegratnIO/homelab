@@ -93,17 +93,19 @@ data:
         index:
           period: 24h
           prefix: loki_index_
-        object_store: filesystem
-        schema: v11
+        object_store: s3
+        schema: v13
         store: boltdb-shipper
     server:
       http_listen_port: 3100
     storage_config:
+      aws:
+        s3: https://minio.k8s.integratn.tech/logs
       boltdb_shipper:
         active_index_directory: /var/loki/index
         cache_location: /var/loki/cache
         cache_ttl: 168h
-        shared_store: filesystem
+        shared_store: s3
       filesystem:
         directory: /var/loki/chunks
     table_manager:
@@ -118,113 +120,6 @@ metadata:
     app.kubernetes.io/version: 2.9.6
     helm.sh/chart: loki-distributed-0.79.0
   name: kube-system-loki-distributed
-  namespace: kube-system
----
-apiVersion: v1
-data:
-  nginx.conf: |
-    worker_processes  5;  ## Default: 1
-    error_log  /dev/stderr;
-    pid        /tmp/nginx.pid;
-    worker_rlimit_nofile 8192;
-
-    events {
-      worker_connections  4096;  ## Default: 1024
-    }
-
-    http {
-      client_body_temp_path /tmp/client_temp;
-      proxy_temp_path       /tmp/proxy_temp_path;
-      fastcgi_temp_path     /tmp/fastcgi_temp;
-      uwsgi_temp_path       /tmp/uwsgi_temp;
-      scgi_temp_path        /tmp/scgi_temp;
-
-      proxy_http_version    1.1;
-
-      default_type application/octet-stream;
-      log_format   main '$remote_addr - $remote_user [$time_local]  $status '
-            '"$request" $body_bytes_sent "$http_referer" '
-            '"$http_user_agent" "$http_x_forwarded_for"';
-      access_log   /dev/stderr  main;
-
-      sendfile     on;
-      tcp_nopush   on;
-      resolver kube-dns.kube-system.svc.cluster.local;
-
-      server {
-        listen             8080;
-
-        location = / {
-          return 200 'OK';
-          auth_basic off;
-          access_log off;
-        }
-
-        location = /api/prom/push {
-          set $api_prom_push_backend http://kube-system-loki-distributed-distributor.default.svc.cluster.local;
-          proxy_pass       $api_prom_push_backend:3100$request_uri;
-          proxy_http_version 1.1;
-        }
-
-        location = /api/prom/tail {
-          set $api_prom_tail_backend http://kube-system-loki-distributed-querier.default.svc.cluster.local;
-          proxy_pass       $api_prom_tail_backend:3100$request_uri;
-          proxy_set_header Upgrade $http_upgrade;
-          proxy_set_header Connection "upgrade";
-          proxy_http_version 1.1;
-        }
-
-        # Ruler
-        location ~ /prometheus/api/v1/alerts.* {
-          proxy_pass       http://kube-system-loki-distributed-ruler.default.svc.cluster.local:3100$request_uri;
-        }
-        location ~ /prometheus/api/v1/rules.* {
-          proxy_pass       http://kube-system-loki-distributed-ruler.default.svc.cluster.local:3100$request_uri;
-        }
-        location ~ /api/prom/rules.* {
-          proxy_pass       http://kube-system-loki-distributed-ruler.default.svc.cluster.local:3100$request_uri;
-        }
-        location ~ /api/prom/alerts.* {
-          proxy_pass       http://kube-system-loki-distributed-ruler.default.svc.cluster.local:3100$request_uri;
-        }
-
-        location ~ /api/prom/.* {
-          set $api_prom_backend http://kube-system-loki-distributed-query-frontend-headless.default.svc.cluster.local;
-          proxy_pass       $api_prom_backend:3100$request_uri;
-          proxy_http_version 1.1;
-        }
-
-        location = /loki/api/v1/push {
-          set $loki_api_v1_push_backend http://kube-system-loki-distributed-distributor.default.svc.cluster.local;
-          proxy_pass       $loki_api_v1_push_backend:3100$request_uri;
-          proxy_http_version 1.1;
-        }
-
-        location = /loki/api/v1/tail {
-          set $loki_api_v1_tail_backend http://kube-system-loki-distributed-querier.default.svc.cluster.local;
-          proxy_pass       $loki_api_v1_tail_backend:3100$request_uri;
-          proxy_set_header Upgrade $http_upgrade;
-          proxy_set_header Connection "upgrade";
-          proxy_http_version 1.1;
-        }
-
-        location ~ /loki/api/.* {
-          set $loki_api_backend http://kube-system-loki-distributed-query-frontend-headless.default.svc.cluster.local;
-          proxy_pass       $loki_api_backend:3100$request_uri;
-          proxy_http_version 1.1;
-        }
-      }
-    }
-kind: ConfigMap
-metadata:
-  labels:
-    app.kubernetes.io/component: gateway
-    app.kubernetes.io/instance: kube-system
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: loki-distributed
-    app.kubernetes.io/version: 2.9.6
-    helm.sh/chart: loki-distributed-0.79.0
-  name: kube-system-loki-distributed-gateway
   namespace: kube-system
 ---
 apiVersion: v1
@@ -267,30 +162,6 @@ spec:
     targetPort: grpc
   selector:
     app.kubernetes.io/component: distributor
-    app.kubernetes.io/instance: kube-system
-    app.kubernetes.io/name: loki-distributed
-  type: ClusterIP
----
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    app.kubernetes.io/component: gateway
-    app.kubernetes.io/instance: kube-system
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: loki-distributed
-    app.kubernetes.io/version: 2.9.6
-    helm.sh/chart: loki-distributed-0.79.0
-  name: kube-system-loki-distributed-gateway
-  namespace: kube-system
-spec:
-  ports:
-  - name: http
-    port: 80
-    protocol: TCP
-    targetPort: http
-  selector:
-    app.kubernetes.io/component: gateway
     app.kubernetes.io/instance: kube-system
     app.kubernetes.io/name: loki-distributed
   type: ClusterIP
@@ -525,7 +396,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 5ffe51c171f59e74ee848537e08655ad9373afdd684636489281feb2b3fac7a9
+        checksum/config: 9bd7ea1fe623150d5cd293f65aa0240391e5edc68c0c65401e170e88b72c84b0
       labels:
         app.kubernetes.io/component: distributor
         app.kubernetes.io/instance: kube-system
@@ -609,104 +480,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app.kubernetes.io/component: gateway
-    app.kubernetes.io/instance: kube-system
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: loki-distributed
-    app.kubernetes.io/version: 2.9.6
-    helm.sh/chart: loki-distributed-0.79.0
-  name: kube-system-loki-distributed-gateway
-  namespace: kube-system
-spec:
-  replicas: 1
-  revisionHistoryLimit: 10
-  selector:
-    matchLabels:
-      app.kubernetes.io/component: gateway
-      app.kubernetes.io/instance: kube-system
-      app.kubernetes.io/name: loki-distributed
-  strategy:
-    type: RollingUpdate
-  template:
-    metadata:
-      annotations:
-        checksum/config: ec975968dfaf6eb3884b602a6a566f957decfecc3b7c9b6e3af69b5b84424b69
-      labels:
-        app.kubernetes.io/component: gateway
-        app.kubernetes.io/instance: kube-system
-        app.kubernetes.io/name: loki-distributed
-    spec:
-      affinity:
-        podAntiAffinity:
-          preferredDuringSchedulingIgnoredDuringExecution:
-          - podAffinityTerm:
-              labelSelector:
-                matchLabels:
-                  app.kubernetes.io/component: gateway
-                  app.kubernetes.io/instance: kube-system
-                  app.kubernetes.io/name: loki-distributed
-              topologyKey: failure-domain.beta.kubernetes.io/zone
-            weight: 100
-          requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchLabels:
-                app.kubernetes.io/component: gateway
-                app.kubernetes.io/instance: kube-system
-                app.kubernetes.io/name: loki-distributed
-            topologyKey: kubernetes.io/hostname
-      containers:
-      - image: docker.io/nginxinc/nginx-unprivileged:1.20.2-alpine
-        imagePullPolicy: IfNotPresent
-        livenessProbe:
-          httpGet:
-            path: /
-            port: http
-          initialDelaySeconds: 30
-        name: nginx
-        ports:
-        - containerPort: 8080
-          name: http
-          protocol: TCP
-        readinessProbe:
-          httpGet:
-            path: /
-            port: http
-          initialDelaySeconds: 15
-          timeoutSeconds: 1
-        resources: {}
-        securityContext:
-          allowPrivilegeEscalation: false
-          capabilities:
-            drop:
-            - ALL
-          readOnlyRootFilesystem: true
-        volumeMounts:
-        - mountPath: /etc/nginx
-          name: config
-        - mountPath: /tmp
-          name: tmp
-        - mountPath: /docker-entrypoint.d
-          name: docker-entrypoint-d-override
-      securityContext:
-        fsGroup: 101
-        runAsGroup: 101
-        runAsNonRoot: true
-        runAsUser: 101
-      serviceAccountName: kube-system-loki-distributed
-      terminationGracePeriodSeconds: 30
-      volumes:
-      - configMap:
-          name: kube-system-loki-distributed-gateway
-        name: config
-      - emptyDir: {}
-        name: tmp
-      - emptyDir: {}
-        name: docker-entrypoint-d-override
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  labels:
     app.kubernetes.io/component: query-frontend
     app.kubernetes.io/instance: kube-system
     app.kubernetes.io/managed-by: Helm
@@ -730,7 +503,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 5ffe51c171f59e74ee848537e08655ad9373afdd684636489281feb2b3fac7a9
+        checksum/config: 9bd7ea1fe623150d5cd293f65aa0240391e5edc68c0c65401e170e88b72c84b0
       labels:
         app.kubernetes.io/component: query-frontend
         app.kubernetes.io/instance: kube-system
@@ -836,7 +609,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 5ffe51c171f59e74ee848537e08655ad9373afdd684636489281feb2b3fac7a9
+        checksum/config: 9bd7ea1fe623150d5cd293f65aa0240391e5edc68c0c65401e170e88b72c84b0
       labels:
         app.kubernetes.io/component: ingester
         app.kubernetes.io/instance: kube-system
@@ -957,7 +730,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 5ffe51c171f59e74ee848537e08655ad9373afdd684636489281feb2b3fac7a9
+        checksum/config: 9bd7ea1fe623150d5cd293f65aa0240391e5edc68c0c65401e170e88b72c84b0
       labels:
         app.kubernetes.io/component: querier
         app.kubernetes.io/instance: kube-system
@@ -1052,3 +825,88 @@ spec:
   updateStrategy:
     rollingUpdate:
       partition: 0
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  labels:
+    app.kubernetes.io/instance: kube-system
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: loki-distributed
+    app.kubernetes.io/version: 2.9.6
+    helm.sh/chart: loki-distributed-0.79.0
+  name: kube-system-loki-distributed
+  namespace: kube-system
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: loki.k8s.integratn.tech
+    http:
+      paths:
+      - backend:
+          service:
+            name: kube-system-loki-distributed-distributor
+            port:
+              number: 3100
+        path: /api/prom/push
+        pathType: Prefix
+      - backend:
+          service:
+            name: kube-system-loki-distributed-distributor
+            port:
+              number: 3100
+        path: /loki/api/v1/push
+        pathType: Prefix
+      - backend:
+          service:
+            name: kube-system-loki-distributed-querier
+            port:
+              number: 3100
+        path: /api/prom/tail
+        pathType: Prefix
+      - backend:
+          service:
+            name: kube-system-loki-distributed-querier
+            port:
+              number: 3100
+        path: /loki/api/v1/tail
+        pathType: Prefix
+      - backend:
+          service:
+            name: kube-system-loki-distributed-query-frontend
+            port:
+              number: 3100
+        path: /loki/api
+        pathType: Prefix
+      - backend:
+          service:
+            name: kube-system-loki-distributed-ruler
+            port:
+              number: 3100
+        path: /api/prom/rules
+        pathType: Prefix
+      - backend:
+          service:
+            name: kube-system-loki-distributed-ruler
+            port:
+              number: 3100
+        path: /loki/api/v1/rules
+        pathType: Prefix
+      - backend:
+          service:
+            name: kube-system-loki-distributed-ruler
+            port:
+              number: 3100
+        path: /prometheus/api/v1/rules
+        pathType: Prefix
+      - backend:
+          service:
+            name: kube-system-loki-distributed-ruler
+            port:
+              number: 3100
+        path: /prometheus/api/v1/alerts
+        pathType: Prefix
+  tls:
+  - hosts:
+    - loki.k8s.integratn.tech
+    secretName: loki-distributed-tls
