@@ -18,6 +18,9 @@ spec:
               - appName: promtail
                 namespace: monitoring
                 project: monitoring
+              - appName: prometheus
+                namespace: monitoring
+                project: monitoring
              
   template:
     metadata:
