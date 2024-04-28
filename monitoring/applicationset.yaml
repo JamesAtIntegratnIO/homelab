@@ -15,6 +15,9 @@ spec:
               - appName: loki
                 namespace: monitoring
                 project: monitoring
+              - appName: promtail
+                namespace: monitoring
+                project: monitoring
              
   template:
     metadata:

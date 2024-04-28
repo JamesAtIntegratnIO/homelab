@@ -2,5 +2,3 @@ labels:
   - pairs:
       'backstage.io/kubernetes-id': 'loki'
 namespace: monitoring
-resources:
-  - namespace.yaml
