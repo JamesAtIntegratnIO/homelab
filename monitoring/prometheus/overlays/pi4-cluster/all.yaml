@@ -639,6 +639,10 @@ data:
         regex: Pending|Succeeded|Failed|Completed
         source_labels:
         - __meta_kubernetes_pod_phase
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_pod_node_name
+        target_label: node
     - honor_labels: true
       job_name: kubernetes-pods-slow
       kubernetes_sd_configs:
@@ -689,6 +693,10 @@ data:
         regex: Pending|Succeeded|Failed|Completed
         source_labels:
         - __meta_kubernetes_pod_phase
+      - action: replace
+        source_labels:
+        - __meta_kubernetes_pod_node_name
+        target_label: node
       scrape_interval: 5m
       scrape_timeout: 30s
     alerting:
@@ -871,7 +879,7 @@ spec:
   type: ClusterIP
 ---
 apiVersion: v1
-kind: PersistentVolumeClaim
+kind: Service
 metadata:
   labels:
     app: prometheus
@@ -879,14 +887,19 @@ metadata:
     component: server
     heritage: Helm
     release: monitoring
-  name: monitoring-prometheus-server
+  name: monitoring-prometheus-server-headless
   namespace: monitoring
 spec:
-  accessModes:
-  - ReadWriteOnce
-  resources:
-    requests:
-      storage: 8Gi
+  clusterIP: None
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 9090
+  selector:
+    app: prometheus
+    component: server
+    release: monitoring
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -1009,104 +1022,6 @@ spec:
         name: storage-volume
 ---
 apiVersion: apps/v1
-kind: Deployment
-metadata:
-  labels:
-    app: prometheus
-    chart: prometheus-19.7.2
-    component: server
-    heritage: Helm
-    release: monitoring
-  name: monitoring-prometheus-server
-  namespace: monitoring
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: prometheus
-      component: server
-      release: monitoring
-  strategy:
-    rollingUpdate: null
-    type: Recreate
-  template:
-    metadata:
-      labels:
-        app: prometheus
-        chart: prometheus-19.7.2
-        component: server
-        heritage: Helm
-        release: monitoring
-    spec:
-      containers:
-      - args:
-        - --volume-dir=/etc/config
-        - --webhook-url=http://127.0.0.1:9090/-/reload
-        image: jimmidyson/configmap-reload:v0.8.0
-        imagePullPolicy: IfNotPresent
-        name: prometheus-server-configmap-reload
-        resources: {}
-        volumeMounts:
-        - mountPath: /etc/config
-          name: config-volume
-          readOnly: true
-      - args:
-        - --storage.tsdb.retention.time=15d
-        - --config.file=/etc/config/prometheus.yml
-        - --storage.tsdb.path=/data
-        - --web.console.libraries=/etc/prometheus/console_libraries
-        - --web.console.templates=/etc/prometheus/consoles
-        - --web.enable-lifecycle
-        image: quay.io/prometheus/prometheus:v2.41.0
-        imagePullPolicy: IfNotPresent
-        livenessProbe:
-          failureThreshold: 3
-          httpGet:
-            path: /-/healthy
-            port: 9090
-            scheme: HTTP
-          initialDelaySeconds: 30
-          periodSeconds: 15
-          successThreshold: 1
-          timeoutSeconds: 10
-        name: prometheus-server
-        ports:
-        - containerPort: 9090
-        readinessProbe:
-          failureThreshold: 3
-          httpGet:
-            path: /-/ready
-            port: 9090
-            scheme: HTTP
-          initialDelaySeconds: 30
-          periodSeconds: 5
-          successThreshold: 1
-          timeoutSeconds: 4
-        resources: {}
-        volumeMounts:
-        - mountPath: /etc/config
-          name: config-volume
-        - mountPath: /data
-          name: storage-volume
-          subPath: ""
-      dnsPolicy: ClusterFirst
-      enableServiceLinks: true
-      securityContext:
-        fsGroup: 65534
-        runAsGroup: 65534
-        runAsNonRoot: true
-        runAsUser: 65534
-      serviceAccountName: monitoring-prometheus-server
-      terminationGracePeriodSeconds: 300
-      volumes:
-      - configMap:
-          name: monitoring-prometheus-server
-        name: config-volume
-      - name: storage-volume
-        persistentVolumeClaim:
-          claimName: monitoring-prometheus-server
----
-apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   labels:
@@ -1186,6 +1101,101 @@ spec:
       resources:
         requests:
           storage: 2Gi
+      storageClassName: nfs-client
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app: prometheus
+    chart: prometheus-19.7.2
+    component: server
+    heritage: Helm
+    release: monitoring
+  name: monitoring-prometheus-server
+  namespace: monitoring
+spec:
+  podManagementPolicy: OrderedReady
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus
+      component: server
+      release: monitoring
+  serviceName: monitoring-prometheus-server-headless
+  template:
+    metadata:
+      labels:
+        app: prometheus
+        chart: prometheus-19.7.2
+        component: server
+        heritage: Helm
+        release: monitoring
+    spec:
+      containers:
+      - args:
+        - --storage.tsdb.retention.time=15d
+        - --config.file=/etc/config/prometheus.yml
+        - --storage.tsdb.path=/data
+        - --web.console.libraries=/etc/prometheus/console_libraries
+        - --web.console.templates=/etc/prometheus/consoles
+        - --web.enable-lifecycle
+        image: quay.io/prometheus/prometheus:v2.41.0
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /-/healthy
+            port: 9090
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 15
+          successThreshold: 1
+          timeoutSeconds: 10
+        name: prometheus-server
+        ports:
+        - containerPort: 9090
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /-/ready
+            port: 9090
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 5
+          successThreshold: 1
+          timeoutSeconds: 4
+        resources: {}
+        volumeMounts:
+        - mountPath: /etc/config
+          name: config-volume
+        - mountPath: /data
+          name: storage-volume
+          subPath: prometheus
+      dnsPolicy: ClusterFirst
+      enableServiceLinks: true
+      hostNetwork: false
+      securityContext:
+        fsGroup: 65534
+        runAsGroup: 65534
+        runAsNonRoot: true
+        runAsUser: 65534
+      serviceAccountName: monitoring-prometheus-server
+      terminationGracePeriodSeconds: 300
+      volumes:
+      - configMap:
+          name: monitoring-prometheus-server
+        name: config-volume
+  volumeClaimTemplates:
+  - metadata:
+      name: storage-volume
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 8Gi
+      storageClassName: nfs-client
 ---
 apiVersion: apps/v1
 kind: DaemonSet
@@ -1295,6 +1305,37 @@ spec:
     rollingUpdate:
       maxUnavailable: 1
     type: RollingUpdate
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  labels:
+    app: prometheus
+    chart: prometheus-19.7.2
+    component: server
+    heritage: Helm
+    release: monitoring
+  name: monitoring-prometheus-server
+  namespace: monitoring
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: prometheus.k8s.integratn.tech
+    http:
+      paths:
+      - backend:
+          service:
+            name: monitoring-prometheus-server
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - prometheus.k8s.integratn.tech
+    secretName: prometheus-server-tls
 ---
 apiVersion: v1
 kind: Pod
