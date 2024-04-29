@@ -80,20 +80,8 @@ hajimari:
             url: 'https://slack.com/signin'
       - group: Cloud
         bookmarks:
-          - name: Box
-            url: 'https://box.com'
-          - name: Dropbox
-            url: 'https://dropbox.com'
           - name: Drive
             url: 'https://drive.google.com'
-      - group: Design
-        bookmarks:
-          - name: Awwwards
-            url: 'https://awwwards.com'
-          - name: Dribbble
-            url: 'https://dribbble.com'
-          - name: Muz.li
-            url: 'https://medium.muz.li/'
       - group: Dev
         bookmarks:
           - name: Codepen
@@ -102,14 +90,6 @@ hajimari:
             url: 'https://devdocs.io'
           - name: Devhints
             url: 'https://devhints.io'
-      - group: Lifestyle
-        bookmarks:
-          - name: Design Milk
-            url: 'https://design-milk.com/category/interior-design/'
-          - name: Dwell
-            url: 'https://www.dwell.com/'
-          - name: Freshome
-            url: 'https://www.mymove.com/freshome/'
       - group: Media
         bookmarks:
           - name: Spotify
@@ -122,8 +102,6 @@ hajimari:
         bookmarks:
           - name: Instapaper
             url: 'https://www.instapaper.com/u'
-          - name: Medium
-            url: 'http://medium.com'
           - name: Reddit
             url: 'http://reddit.com'
       - group: Tech
