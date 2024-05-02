@@ -1337,9 +1337,9 @@ loki-distributed:
     # -- Kind of deployment [StatefulSet/Deployment]
     kind: StatefulSet
     # -- Number of replicas for the compactor
-    replicas: 1
+    replicas: 3
     # -- Specifies whether compactor should be enabled
-    enabled: false
+    enabled: true
     # -- hostAliases to add
     hostAliases: []
     #  - ip: 1.2.3.4
