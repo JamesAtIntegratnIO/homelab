@@ -36,5 +36,5 @@ jobs:
       - uses: jamesatintegratnio/kustomized-helm-action@main
         with:
           source_folder: ${{ matrix.source_folder }}
-          destination_branch: ${{ matrix.branch }}
+          destination_branch: ${{ matrix.destination_branch }}
           helm_version: v3.14.4
