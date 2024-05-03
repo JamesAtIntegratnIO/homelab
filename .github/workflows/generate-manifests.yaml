@@ -20,11 +20,11 @@ jobs:
       matrix:
         include:
           - source_folder: core
-            branch: infra
+            destination_branch: infra
           - source_folder: apps
-            branch: apps
+            destination_branch: apps
           - source_folder: monitoring
-            branch: monitoring
+            destination_branch: monitoring
 
     steps:
       - name: Checkout repository
