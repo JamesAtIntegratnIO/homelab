@@ -112,7 +112,7 @@ data:
       - name: Loki
         type: loki
         access: proxy
-        url: http://monitoring-loki-distributed-query-frontend
+        url: http://monitoring-loki-distributed-query-frontend:3100
 kind: ConfigMap
 metadata:
   labels:
