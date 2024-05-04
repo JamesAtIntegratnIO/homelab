@@ -1,5 +1,5 @@
 labels:
   - pairs:
-      'backstage.io/kubernetes-id': 'loki'
+      'backstage.io/kubernetes-id': 'prometheus'
 namespace: monitoring
 
