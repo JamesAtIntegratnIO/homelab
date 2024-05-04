@@ -918,7 +918,7 @@ grafana:
       # label that the configmaps with dashboards are marked with
       label: grafana_dashboard
       # value of label that the configmaps with dashboards are set to
-      labelValue: ""
+      labelValue: true
       # Log level. Can be one of: DEBUG, INFO, WARN, ERROR, CRITICAL.
       # logLevel: INFO
       # folder in the pod that should hold the collected dashboards (unless `defaultFolderName` is set)
