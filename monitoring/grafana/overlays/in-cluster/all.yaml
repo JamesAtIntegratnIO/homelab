@@ -107,12 +107,12 @@ data:
       - name: Prometheus
         type: prometheus
         access: proxy
-        url: http://monitoring-prometheus-server-headless
+        url: http://monitoring-prometheus-server
         isDefault: true
       - name: Loki
         type: loki
         access: proxy
-        url: http://monitoring-loki-distributed-querier-headless
+        url: http://monitoring-loki-distributed-querier
 kind: ConfigMap
 metadata:
   labels:
@@ -198,7 +198,7 @@ metadata:
 ---
 apiVersion: v1
 data:
-  admin-password: c1NHTHlDbVpmdjNzS0NtdDRkTzl0NlBTRXl1cEJ5cmFYTGpwMFRTUg==
+  admin-password: dE9ZTE11dEw2OXFnYjhFTFU5bTlXRkQxQXNNM3hvMXR0UjlKRHBONQ==
   admin-user: YWRtaW4=
   ldap-toml: ""
 kind: Secret
@@ -281,7 +281,7 @@ spec:
       annotations:
         checksum/config: d1cd1f30fa9a5f19b721cb5d19253735d9f5ef72eafdf67d9b446941bd294767
         checksum/sc-dashboard-provider-config: 593c0a8778b83f11fe80ccb21dfb20bc46705e2be3178df1dc4c89d164c8cd9c
-        checksum/secret: f6d1b7fbb6a2b0211caf0cd50dbde8e682fa8a09157a758fc7c3c8d50cd09286
+        checksum/secret: e02ba249e7eb81acc2d3d0c160bd65c5c73ca8e92f368e73a116a0997e4e288a
         kubectl.kubernetes.io/default-container: grafana
       labels:
         app.kubernetes.io/instance: monitoring
