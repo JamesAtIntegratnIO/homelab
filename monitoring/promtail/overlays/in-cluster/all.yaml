@@ -117,6 +117,8 @@ spec:
     metadata:
       annotations:
         checksum/config: 0ae334520050ecd8cb11bca0991b22ad889179ca642fecc776bdfbc66b7592b7
+        prometheus.io/port: http-metrics
+        prometheus.io/scrape: "true"
       labels:
         app.kubernetes.io/instance: monitoring
         app.kubernetes.io/name: promtail
