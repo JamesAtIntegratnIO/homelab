@@ -703,7 +703,7 @@ data:
       metrics_path: /metrics
       static_configs:
         - targets:
-          - http://monitoring-loki-distributed-query-frontend:3100
+          - monitoring-loki-distributed-query-frontend:3100
 
     alerting:
       alertmanagers:
