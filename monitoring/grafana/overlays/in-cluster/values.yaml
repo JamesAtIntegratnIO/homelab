@@ -981,7 +981,7 @@ grafana:
       # label that the configmaps with datasources are marked with
       label: grafana_datasource
       # value of label that the configmaps with datasources are set to
-      labelValue: ""
+      labelValue: true
       # Log level. Can be one of: DEBUG, INFO, WARN, ERROR, CRITICAL.
       # logLevel: INFO
       # If specified, the sidecar will search for datasource config-maps inside this namespace.
