@@ -427,7 +427,7 @@ grafana:
   # Use an existing secret for the admin user.
   admin:
     ## Name of the secret. Can be templated.
-    existingSecret: ""
+    existingSecret: grafana-credentials-secret
     userKey: admin-user
     passwordKey: admin-password
 
@@ -897,7 +897,7 @@ grafana:
       # watchClientTimeout: 60
       #
       # Endpoint to send request to reload alerts
-      reloadURL: "http://localhost:3000/api/admin/provisioning/alerting/reload"
+      reloadURL: "http://monitoring-grafana/api/admin/provisioning/alerting/reload"
       # Absolute path to shell script to execute after a alert got reloaded
       script: null
       skipReload: false
@@ -937,7 +937,7 @@ grafana:
       # You can use this parameter together with `provider.foldersFromFilesStructure`to annotate configmaps and create folder structure.
       folderAnnotation: null
       # Endpoint to send request to reload alerts
-      reloadURL: "http://localhost:3000/api/admin/provisioning/dashboards/reload"
+      reloadURL: "http://monitoring-grafana/api/admin/provisioning/dashboards/reload"
       # Absolute path to shell script to execute after a configmap got reloaded
       script: null
       skipReload: false
@@ -983,7 +983,7 @@ grafana:
       # value of label that the configmaps with datasources are set to
       labelValue: true
       # Log level. Can be one of: DEBUG, INFO, WARN, ERROR, CRITICAL.
-      # logLevel: INFO
+      logLevel: DEBUG
       # If specified, the sidecar will search for datasource config-maps inside this namespace.
       # Otherwise the namespace in which the sidecar is running will be used.
       # It's also possible to specify ALL to search in all namespaces
@@ -1003,7 +1003,7 @@ grafana:
       # watchClientTimeout: 60
       #
       # Endpoint to send request to reload datasources
-      reloadURL: "http://localhost:3000/api/admin/provisioning/datasources/reload"
+      reloadURL: "http://monitoring-grafana/api/admin/provisioning/datasources/reload"
       # Absolute path to shell script to execute after a datasource got reloaded
       script: null
       skipReload: false
@@ -1043,7 +1043,7 @@ grafana:
       # watchClientTimeout: 60
       #
       # Endpoint to send request to reload plugins
-      reloadURL: "http://localhost:3000/api/admin/provisioning/plugins/reload"
+      reloadURL: "http://monitoring-grafana/api/admin/provisioning/plugins/reload"
       # Absolute path to shell script to execute after a plugin got reloaded
       script: null
       skipReload: false
@@ -1083,7 +1083,7 @@ grafana:
       # watchClientTimeout: 60
       #
       # Endpoint to send request to reload notifiers
-      reloadURL: "http://localhost:3000/api/admin/provisioning/notifications/reload"
+      reloadURL: "http://monitoring-grafana/api/admin/provisioning/notifications/reload"
       # Absolute path to shell script to execute after a notifier got reloaded
       script: null
       skipReload: false

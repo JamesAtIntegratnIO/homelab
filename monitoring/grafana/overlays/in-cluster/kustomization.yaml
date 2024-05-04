@@ -6,3 +6,4 @@ resources:
 - ../../base
 - ./helm-all.yaml
 - datasources.yaml
+- cred-onePasswordItem.yaml
