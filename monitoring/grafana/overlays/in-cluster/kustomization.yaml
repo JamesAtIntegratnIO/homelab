@@ -7,4 +7,4 @@ resources:
 - ./helm-all.yaml
 - datasources.yaml
 - cred-onePasswordItem.yaml
-- loki-stack-monitoring-dashboard.yaml
+- loki-promtail-dashboard.yaml
