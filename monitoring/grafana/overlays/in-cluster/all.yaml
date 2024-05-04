@@ -198,7 +198,7 @@ metadata:
 ---
 apiVersion: v1
 data:
-  admin-password: dE9ZTE11dEw2OXFnYjhFTFU5bTlXRkQxQXNNM3hvMXR0UjlKRHBONQ==
+  admin-password: ZHhRZXZaelJqOGVySGVUc05LQ25HRE5NV1NDYm5Yd1FhU1VOTlRaZg==
   admin-user: YWRtaW4=
   ldap-toml: ""
 kind: Secret
@@ -281,7 +281,7 @@ spec:
       annotations:
         checksum/config: d1cd1f30fa9a5f19b721cb5d19253735d9f5ef72eafdf67d9b446941bd294767
         checksum/sc-dashboard-provider-config: 593c0a8778b83f11fe80ccb21dfb20bc46705e2be3178df1dc4c89d164c8cd9c
-        checksum/secret: e02ba249e7eb81acc2d3d0c160bd65c5c73ca8e92f368e73a116a0997e4e288a
+        checksum/secret: efbc5610bcbe49bac1515dad7629d9400855c923b76e2006bf2754eb3efa334a
         kubectl.kubernetes.io/default-container: grafana
       labels:
         app.kubernetes.io/instance: monitoring
@@ -309,7 +309,7 @@ spec:
               key: admin-password
               name: monitoring-grafana
         - name: REQ_URL
-          value: http://localhost:3000/api/admin/provisioning/alerting/reload
+          value: http://monitoring-grafana/api/admin/provisioning/alerting/reload
         - name: REQ_METHOD
           value: POST
         image: quay.io/kiwigrid/k8s-sidecar:1.26.1
@@ -352,7 +352,7 @@ spec:
               key: admin-password
               name: monitoring-grafana
         - name: REQ_URL
-          value: http://localhost:3000/api/admin/provisioning/dashboards/reload
+          value: http://monitoring-grafana/api/admin/provisioning/dashboards/reload
         - name: REQ_METHOD
           value: POST
         image: quay.io/kiwigrid/k8s-sidecar:1.26.1
@@ -397,7 +397,7 @@ spec:
               key: admin-password
               name: monitoring-grafana
         - name: REQ_URL
-          value: http://localhost:3000/api/admin/provisioning/datasources/reload
+          value: http://monitoring-grafana/api/admin/provisioning/datasources/reload
         - name: REQ_METHOD
           value: POST
         image: quay.io/kiwigrid/k8s-sidecar:1.26.1
@@ -440,7 +440,7 @@ spec:
               key: admin-password
               name: monitoring-grafana
         - name: REQ_URL
-          value: http://localhost:3000/api/admin/provisioning/notifications/reload
+          value: http://monitoring-grafana/api/admin/provisioning/notifications/reload
         - name: REQ_METHOD
           value: POST
         image: quay.io/kiwigrid/k8s-sidecar:1.26.1
@@ -483,7 +483,7 @@ spec:
               key: admin-password
               name: monitoring-grafana
         - name: REQ_URL
-          value: http://localhost:3000/api/admin/provisioning/plugins/reload
+          value: http://monitoring-grafana/api/admin/provisioning/plugins/reload
         - name: REQ_METHOD
           value: POST
         image: quay.io/kiwigrid/k8s-sidecar:1.26.1
