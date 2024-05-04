@@ -123,9 +123,9 @@ promtail:
   podLabels: {}
 
   # -- Pod annotations
-  podAnnotations: {}
-  #  prometheus.io/scrape: "true"
-  #  prometheus.io/port: "http-metrics"
+  podAnnotations: 
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "http-metrics"
 
   # -- The name of the PriorityClass
   priorityClassName: null
