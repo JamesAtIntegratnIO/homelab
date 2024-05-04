@@ -1183,6 +1183,10 @@ prometheus:
       static_configs:
         - targets:
           - monitoring-loki-distributed-query-frontend:3100
+          - monitoring-loki-distributed-querier:3100
+          - monitoring-loki-distributed-compactor:3100
+          - monitoring-loki-distributed-ingester:3100
+          - monitoring-loki-distributed-distributor:3100
 
   # - job_name: 'prometheus-blackbox-exporter'
   #   metrics_path: /probe
