@@ -101,6 +101,27 @@ subjects:
 ---
 apiVersion: v1
 data:
+  datasource.yaml: |-
+    apiVersion: 1
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        access: proxy
+        url: http://monitoring-prometheus-server-headless
+        isDefault: true
+      - name: Loki
+        type: loki
+        access: proxy
+        url: http://monitoring-loki-distributed-querier-headless
+kind: ConfigMap
+metadata:
+  labels:
+    grafana_datasource: "true"
+  name: grafana-datasource
+  namespace: monitoring
+---
+apiVersion: v1
+data:
   grafana.ini: |
     [analytics]
     check_for_updates = true
@@ -177,7 +198,7 @@ metadata:
 ---
 apiVersion: v1
 data:
-  admin-password: cnBGUnowOWxmQkxyOGJNRmtNSnhqOWtlOTVPTWNlcUd4WHVzZXlUUw==
+  admin-password: MktFR2dtMFRqWGRRTWdxYjhmbDliYmtyZ3hTaUtNMGtXbGxyMU1WdQ==
   admin-user: YWRtaW4=
   ldap-toml: ""
 kind: Secret
@@ -260,7 +281,7 @@ spec:
       annotations:
         checksum/config: d1cd1f30fa9a5f19b721cb5d19253735d9f5ef72eafdf67d9b446941bd294767
         checksum/sc-dashboard-provider-config: 593c0a8778b83f11fe80ccb21dfb20bc46705e2be3178df1dc4c89d164c8cd9c
-        checksum/secret: 8d762d8ce4c242fbfe389a81a3ca54ed1691447eee1b44c7262ae4fad09e07e9
+        checksum/secret: e31ed689bfe7df6d7157bc0dfab5038c3af4c5836eea647ec541ac1d4e8fef85
         kubectl.kubernetes.io/default-container: grafana
       labels:
         app.kubernetes.io/instance: monitoring
@@ -359,6 +380,8 @@ spec:
           value: WATCH
         - name: LABEL
           value: grafana_datasource
+        - name: LABEL_VALUE
+          value: "true"
         - name: FOLDER
           value: /etc/grafana/provisioning/datasources
         - name: RESOURCE
