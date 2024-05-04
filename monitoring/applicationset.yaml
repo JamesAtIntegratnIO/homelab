@@ -21,6 +21,9 @@ spec:
               - appName: prometheus
                 namespace: monitoring
                 project: monitoring
+              - appName: grafana
+                namespace: monitoring
+                project: monitoring
              
   template:
     metadata:
