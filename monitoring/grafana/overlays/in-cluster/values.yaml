@@ -135,9 +135,9 @@ grafana:
 
   securityContext:
     runAsNonRoot: true
-    runAsUser: 472
-    runAsGroup: 472
-    fsGroup: 472
+    runAsUser: 99
+    runAsGroup: 100
+    fsGroup: 100
 
   containerSecurityContext:
     allowPrivilegeEscalation: false
@@ -388,7 +388,7 @@ grafana:
     ## If false, data ownership will not be reset at startup
     ## This allows the grafana-server to be run with an arbitrary user
     ##
-    enabled: true
+    enabled: false
 
     ## initChownData container image
     ##
