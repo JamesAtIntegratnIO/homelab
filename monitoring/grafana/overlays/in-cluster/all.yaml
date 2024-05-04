@@ -1431,7 +1431,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "100 * max by(pod,container) (container_memory_working_set_bytes{container!=\"\",container!=\"POD\",pod=~\"loki.*\"})\n/\non (pod,container) group_left  kube_pod_container_resource_limits_memory_bytes{pod=~\"loki.*\"}",
+              "expr": "100 * max by(pod,container) (container_memory_working_set_bytes{container!=\"\",container!=\"POD\",pod=~\"monitoring-loki-*.*\"})\n/\non (pod,container) group_left  kube_pod_container_resource_limits_memory_bytes{pod=~\"monitoring-loki-*.*\"}",
               "hide": false,
               "interval": "",
               "legendFormat": "Usage (pod={{pod}}, container={{container}}, name={{name}})",
@@ -1565,7 +1565,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "container_memory_working_set_bytes{container!=\"\",container!=\"POD\",pod=~\"loki.*\"}",
+              "expr": "container_memory_working_set_bytes{container!=\"\",container!=\"POD\",pod=~\"monitoring-loki-*.*\"}",
               "interval": "10s",
               "intervalFactor": 1,
               "legendFormat": "Usage (pod={{pod}}, container={{container}})",
@@ -1574,13 +1574,13 @@ data:
               "step": 10
             },
             {
-              "expr": "min(kube_pod_container_resource_limits_memory_bytes{pod=~\"loki.*\"})",
+              "expr": "min(kube_pod_container_resource_limits_memory_bytes{pod=~\"monitoring-loki-*.*\"})",
               "interval": "",
               "legendFormat": "Limit",
               "refId": "B"
             },
             {
-              "expr": "min(kube_pod_container_resource_requests_memory_bytes{pod=~\"loki.*\"})",
+              "expr": "min(kube_pod_container_resource_requests_memory_bytes{pod=~\"monitoring-loki-*.*\"})",
               "interval": "",
               "legendFormat": "Request",
               "refId": "C"
@@ -2034,7 +2034,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "100* rate(container_cpu_usage_seconds_total{container!=\"POD\",container!=\"\",pod=~\"loki.*\"}[1m])\n/\non (pod,container) kube_pod_container_resource_limits_cpu_cores{container=\"loki\"}",
+              "expr": "100* rate(container_cpu_usage_seconds_total{container!=\"POD\",container!=\"\",pod=~\"monitoring-loki-*.*\"}[1m])\n/\non (pod,container) kube_pod_container_resource_limits_cpu_cores{container=\"loki\"}",
               "interval": "10s",
               "intervalFactor": 1,
               "legendFormat": "",
@@ -2171,7 +2171,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "rate(container_cpu_usage_seconds_total{container!=\"\",container!=\"POD\",pod=~\"loki.*\"}[1m])",
+              "expr": "rate(container_cpu_usage_seconds_total{container!=\"\",container!=\"POD\",pod=~\"monitoring-loki-*.*\"}[1m])",
               "interval": "10s",
               "intervalFactor": 1,
               "legendFormat": "CPU Usage (pod={{pod}}, container={{container}})",
@@ -2180,13 +2180,13 @@ data:
               "step": 10
             },
             {
-              "expr": "min(kube_pod_container_resource_limits_cpu_cores{pod=~\"loki.*\"})",
+              "expr": "min(kube_pod_container_resource_limits_cpu_cores{pod=~\"monitoring-loki-*.*\"})",
               "interval": "",
               "legendFormat": "CPU Limit",
               "refId": "B"
             },
             {
-              "expr": "min(kube_pod_container_resource_requests_cpu_cores{pod=~\"loki.*\"})",
+              "expr": "min(kube_pod_container_resource_requests_cpu_cores{pod=~\"monitoring-loki-*.*\"})",
               "hide": false,
               "interval": "",
               "legendFormat": "CPU Request",
