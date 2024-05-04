@@ -699,7 +699,7 @@ data:
         target_label: node
       scrape_interval: 5m
       scrape_timeout: 30s
-    - job_name: loki
+    - job_name: 'loki'
       metrics_path: /metrics
       static_configs:
         - targets:
