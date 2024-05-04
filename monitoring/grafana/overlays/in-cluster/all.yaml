@@ -353,7 +353,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(rate(log_messages_total{app=\"loki\",level=~\"error|warn\"}[1m])) by (level)\n",
+              "expr": "sum(rate(loki_log_messages_total{app=\"loki\",level=~\"error|warn\"}[1m])) by (level)\n",
               "format": "time_series",
               "hide": false,
               "interval": "",
@@ -362,7 +362,7 @@ data:
               "refId": "A"
             },
             {
-              "expr": "log_messages_total",
+              "expr": "loki_log_messages_total",
               "format": "time_series",
               "hide": true,
               "interval": "",
@@ -557,7 +557,7 @@ data:
           "steppedLine": false,
           "targets": [
             {
-              "expr": "sum(rate(log_messages_total{app_kubernetes_io_name=\"promtail\",level=~\"error|warn\"}[1m])) by (level)\n",
+              "expr": "sum(rate(loki_log_messages_total{app_kubernetes_io_name=\"promtail\",level=~\"error|warn\"}[1m])) by (level)\n",
               "format": "time_series",
               "hide": false,
               "interval": "",
