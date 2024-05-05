@@ -19,8 +19,9 @@ hajimari:
         - code-server
         - backstage
         - goldilocks
+        - 
     name: You
-    title: Hajimari
+    title: Management Cluster
     lightTheme: espresso
     darkTheme: espresso
     customThemes:
