@@ -102,3 +102,13 @@ spec:
         image: registry.k8s.io/external-dns/external-dns:v0.14.1
         name: external-dns
       serviceAccountName: external-dns
+---
+apiVersion: onepassword.com/v1
+kind: OnePasswordItem
+metadata:
+  labels:
+    backstage.io/kubernetes-id: external-dns
+  name: pihole-password
+  namespace: external-dns
+spec:
+  itemPath: vaults/homelab/items/external-dns-pihole-password
