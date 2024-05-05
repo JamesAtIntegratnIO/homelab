@@ -66,7 +66,7 @@ metadata:
   namespace: monitoring
 stringData:
   promtail.yaml: "server:\n  log_level: info\n  log_format: logfmt\n  http_listen_port:
-    3101\n  \n\nclients:\n  - tenant_id: management-cluster\n    url: http://monitoring-loki-distributed-distributor.monitoring.svc.cluster.local:3100/loki/api/v1/push\n\npositions:\n
+    3101\n  \n\nclients:\n  - tenant_id: management-cluster\n    url: http://monitoring-loki-distributed-distributor:3100/loki/api/v1/push\n\npositions:\n
     \ filename: /run/promtail/positions.yaml\n\nscrape_configs:\n  # See also https://github.com/grafana/loki/blob/master/production/ksonnet/promtail/scrape_config.libsonnet
     for reference\n  - job_name: kubernetes-pods\n    pipeline_stages:\n      - cri:
     {}\n    kubernetes_sd_configs:\n      - role: pod\n    relabel_configs:\n      -
@@ -95,7 +95,7 @@ stringData:
     /var/log/pods/*$1/*.log\n        separator: /\n        source_labels:\n        -
     __meta_kubernetes_pod_annotationpresent_kubernetes_io_config_hash\n        - __meta_kubernetes_pod_annotation_kubernetes_io_config_hash\n
     \       - __meta_kubernetes_pod_container_name\n        target_label: __path__\n
-    \ \n  \n\nlimits_config:\n  \n\ntracing:\n  enabled: false\n"
+    \ \n  \n\nlimits_config:\n  \n\ntracing:\n  enabled: true\n"
 ---
 apiVersion: apps/v1
 kind: DaemonSet
@@ -116,7 +116,6 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/config: 0ae334520050ecd8cb11bca0991b22ad889179ca642fecc776bdfbc66b7592b7
         prometheus.io/port: http-metrics
         prometheus.io/scrape: "true"
       labels:
@@ -126,6 +125,7 @@ spec:
       containers:
       - args:
         - -config.file=/etc/promtail/promtail.yaml
+        - -server.enable-runtime-reload
         env:
         - name: HOSTNAME
           valueFrom:
@@ -164,6 +164,34 @@ spec:
         - mountPath: /var/log/pods
           name: pods
           readOnly: true
+      - args:
+        - -web.listen-address=:9533
+        - -volume-dir=/etc/promtail/
+        - -webhook-method=GET
+        - -webhook-url=http://127.0.0.1:3101/reload
+        image: docker.io/jimmidyson/configmap-reload:v0.8.0
+        imagePullPolicy: IfNotPresent
+        name: config-reloader
+        ports:
+        - containerPort: 9533
+          name: reloader
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 200m
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: true
+        volumeMounts:
+        - mountPath: /etc/promtail
+          name: config
       enableServiceLinks: true
       securityContext:
         runAsGroup: 0
