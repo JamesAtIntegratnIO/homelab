@@ -24,6 +24,9 @@ spec:
               - appName: grafana
                 namespace: monitoring
                 project: monitoring
+              - appName: starboard
+                namespace: monitoring
+                project: monitoring
              
   template:
     metadata:
