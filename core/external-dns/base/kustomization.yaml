@@ -7,6 +7,7 @@ labels:
 resources:
 - https://github.com/kubernetes-sigs/external-dns.git//kustomize
 - namespace.yaml
+- pihole-password-onepasswordItem.yaml
 patches:
 - path: deployment_patch.yaml
   target: 
