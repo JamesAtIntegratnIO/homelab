@@ -25,7 +25,7 @@ data:
         ]
       },
       "description": "Loki and Promtail metrics.",
-      "editable": true,
+      "editable": false,
       "fiscalYearStartMonth": 0,
       "gnetId": 10880,
       "graphTooltip": 0,
@@ -425,7 +425,7 @@ data:
         ]
       },
       "timezone": "",
-      "title": "Loki & Promtail",
+      "title": "Loki/Loki & Promtail",
       "uid": "MQHVDmtWk",
       "version": 1,
       "weekStart": ""
