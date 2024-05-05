@@ -54,6 +54,7 @@ do
   if [ -s "$file" ]; then
     # Use yq to transpose YAML to JSON, then jq to extract 'metadata.name'
     NAME=$(yq -r '.' "$file" | jq -r '.metadata.name // empty')
+    KIND=$(yq -r '.' "$file" | jq -r '.kind // empty')
 
     # If 'metadata.name' is empty, use a default name
     if [ -z "$NAME" ]; then
@@ -62,7 +63,7 @@ do
     fi
 
     # Form the new file path
-    NEW_FILE_PATH="${DIRNAME}/${NAME}.yaml"
+    NEW_FILE_PATH="${DIRNAME}/${NAME}-${KIND}.yaml"
 
     # Rename the file using 'metadata.name'
     mv "$file" "$NEW_FILE_PATH"
@@ -81,10 +82,14 @@ add_resources_to_kustomization() {
     shift
     local resources=("$@")
 
-    for resource in "${resources[@]}"; do
-        # Directly append the resource if it's not already listed
-        grep -qF "- $(basename "$resource")" "$kustomization_file" || echo "- $(basename "$resource")" >> "$kustomization_file"
-    done
+    # Check if 'resources:' exists in the kustomization.yaml file
+    if yq eval '.resources' "$kustomization_file" >/dev/null 2>&1; then
+      # Append the new resources under 'resources:'
+      yq eval --inplace '.resources += [$(printf '%s\n' "${resources[@]}")] | .resources' "$kustomization_file"
+    else
+      # Add 'resources:' and append the new resources
+      yq eval --inplace '.resources = [$(printf '%s\n' "${resources[@]}")]' "$kustomization_file"
+    fi
 }
 
 # Check if kustomization.yaml exists and update it
