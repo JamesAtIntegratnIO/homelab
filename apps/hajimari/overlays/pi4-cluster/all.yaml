@@ -123,6 +123,7 @@ data:
       - code-server
       - backstage
       - goldilocks
+      - null
     searchProviders:
     - icon: simple-icons:google
       name: Google
@@ -161,7 +162,7 @@ data:
     showBookmarkGroups: true
     showGlobalBookmarks: true
     showGreeting: false
-    title: Hajimari
+    title: Management Cluster
 kind: ConfigMap
 metadata:
   labels:
