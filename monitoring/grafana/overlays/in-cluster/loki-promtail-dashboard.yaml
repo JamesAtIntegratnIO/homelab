@@ -29,7 +29,6 @@ data:
       "fiscalYearStartMonth": 0,
       "gnetId": 10880,
       "graphTooltip": 0,
-      "id": 5,
       "links": [],
       "panels": [
         {
@@ -363,7 +362,8 @@ data:
                 "type": "prometheus",
                 "uid": "PBFA97CFB590B2093"
               },
-              "expr": "sum (promtail_encoded_bytes_total{pod=~'.*'}) by (pod)",
+              "editorMode": "code",
+              "expr": "sum(rate(promtail_encoded_bytes_total{pod=~'.*'}[5m])) by (pod)",
               "format": "time_series",
               "instant": false,
               "legendFormat": "{{ pod }}",
