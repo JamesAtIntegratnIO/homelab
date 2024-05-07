@@ -438,20 +438,16 @@ spec:
     vendor: postgres
   hostname:
     hostname: keycloak.k8s.integratn.tech
+  http:
+    tlsSecret: keycloak-tls
   ingress:
-    enabled: false
+    annotations:
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    className: nginx
   instances: 3
   proxy:
     headers: xforwarded
-  unsupported:
-    podTemplate:
-      spec:
-        containers:
-        - args:
-          - -Djgroups.dns.query=keycloak-discovery.keycloak
-          - --verbose
-          - start-dev
-          name: keycloak
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
