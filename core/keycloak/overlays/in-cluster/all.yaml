@@ -430,12 +430,8 @@ spec:
       key: username
       name: keycloak-db-secret
     vendor: postgres
-  hostname:
-    hostname: keycloak.k8s.integratn.tech
-  http:
-    tlsSecret: keycloak-tls
   ingress:
-    className: nginx
+    enabled: false
   instances: 1
   proxy:
     headers: xforwarded
