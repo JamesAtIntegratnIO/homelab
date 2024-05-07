@@ -6,3 +6,4 @@ namespace: keycloak
 resources: 
 - ../../base
 - onePasswordItems.yaml
+- ingress.yaml
