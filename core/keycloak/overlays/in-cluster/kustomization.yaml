@@ -5,3 +5,4 @@ namespace: keycloak
 
 resources: 
 - ../../base
+- onePasswordItems.yaml
