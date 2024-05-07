@@ -410,6 +410,14 @@ spec:
           timeoutSeconds: 10
       serviceAccountName: keycloak-operator
 ---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: keycloak-tls
+  namespace: keycloak
+spec:
+  secretName: keycloak-tls
+---
 apiVersion: k8s.keycloak.org/v2alpha1
 kind: Keycloak
 metadata:
