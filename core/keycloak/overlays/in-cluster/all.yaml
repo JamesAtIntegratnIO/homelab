@@ -419,6 +419,8 @@ metadata:
   name: keycloak
   namespace: keycloak
 spec:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
   db:
     host: postgres-db
     passwordSecret:
@@ -434,9 +436,6 @@ spec:
     tlsSecret: keycloak-tls
   ingress:
     className: nginx
-    metadata:
-      annotations:
-        cert-manager.io/cluster-issuer: letsencrypt-prod
   instances: 1
   proxy:
     headers: xforwarded
