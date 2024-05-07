@@ -449,33 +449,6 @@ spec:
   proxy:
     headers: xforwarded
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-  labels:
-    app: keycloak
-  name: keycloak
-  namespace: keycloak
-spec:
-  ingressClassName: nginx
-  rules:
-  - host: keycloak.k8s.integratn.tech
-    http:
-      paths:
-      - backend:
-          service:
-            name: keycloak-service
-            port:
-              name: http
-        path: /
-        pathType: Prefix
-  tls:
-  - hosts:
-    - keycloak.k8s.integratn.tech
-    secretName: keycloak-tls
----
 apiVersion: onepassword.com/v1
 kind: OnePasswordItem
 metadata:
