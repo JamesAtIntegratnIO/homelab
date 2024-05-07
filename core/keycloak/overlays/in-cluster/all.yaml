@@ -462,11 +462,7 @@ spec:
     hostname: keycloak.k8s.integratn.tech
   http:
     tlsSecret: keycloak-tls
-  ingress:
-    annotations:
-      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-      nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-    className: nginx
+  ingress: null
   instances: 3
   proxy:
     headers: xforwarded
