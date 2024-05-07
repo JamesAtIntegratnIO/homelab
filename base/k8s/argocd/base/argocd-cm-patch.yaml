@@ -5,6 +5,12 @@ data:
   kustomize.buildOptions: --enable-helm
   accounts.backstage: apiKey
   accounts.image-updater: apiKey
+  oidc.config: |
+    name: Keycloak
+    issuer: https://keycloak.example.com/realms/master
+    clientID: argocd
+    clientSecret: $oidc.keycloak.clientSecret
+    requestedScopes: ["openid", "profile", "email", "groups"]
   
 metadata:
   labels:
