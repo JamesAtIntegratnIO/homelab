@@ -8,7 +8,7 @@ data:
   url: https://argocd.k8s.integratn.tech
   oidc.config: |
     name: Keycloak
-    issuer: https://keycloak.k8s.integratn.tech/realms/GoogleAuth
+    issuer: https://keycloak-service.keycloak.svc.cluster.local:8080/realms/GoogleAuth
     clientID: argocd
     clientSecret: $oidc.keycloak.clientSecret
     requestedScopes: ["openid", "profile", "email", "groups"]
