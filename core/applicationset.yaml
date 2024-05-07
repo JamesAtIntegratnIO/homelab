@@ -45,6 +45,9 @@ spec:
               - appName: ingress-nginx
                 namespace: ingress-nginx
                 syncWave: 3
+              - appName: keycloak-crds
+                namespace: keycloak
+                syncWave: 3
               
               - appName: registry
                 namespace: docker-registry
@@ -57,6 +60,9 @@ spec:
                 syncWave: 4
               - appName: minio
                 namespace: minio-tenant
+                syncWave: 4
+              - appName: keycloak
+                namespace: keycloak
                 syncWave: 4
               # - appName: kyverno
               #   namespace: kyverno
