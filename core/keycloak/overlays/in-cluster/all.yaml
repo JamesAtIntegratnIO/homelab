@@ -433,9 +433,10 @@ spec:
   http:
     tlsSecret: keycloak-tls
   ingress:
-    annotations:
-      letsencrypt.org/issuer: letsencrypt-prod
     className: nginx
+    metadata:
+      annotations:
+        letsencrypt.org/issuer: letsencrypt-prod
   instances: 1
   proxy:
     headers: xforwarded
