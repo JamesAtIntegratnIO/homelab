@@ -437,6 +437,15 @@ spec:
   instances: 1
   proxy:
     headers: xforwarded
+  unsupported:
+    podTemplate:
+      spec:
+        containers:
+        - args:
+          - -Djgroups.dns.query=keycloak-discovery.keycloak
+          - --verbose
+          - start-dev
+          name: keycloak
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
