@@ -14,10 +14,10 @@ spec:
       name: keycloak-db-secret
       key: credential
   ingress:
-    className: "nginx"
-    annotations:
-      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-      nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    # className: "nginx"
+    # annotations:
+    #   nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    #   nginx.ingress.kubernetes.io/ssl-passthrough: "true"
   http:
     tlsSecret: keycloak-tls
   hostname:
