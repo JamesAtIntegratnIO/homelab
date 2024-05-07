@@ -5,9 +5,10 @@ data:
   kustomize.buildOptions: --enable-helm
   accounts.backstage: apiKey
   accounts.image-updater: apiKey
+  url: https://argocd.k8s.integratn.tech
   oidc.config: |
     name: Keycloak
-    issuer: https://keycloak.example.com/realms/master
+    issuer: https://keycloak.k8s.integratn.tech/realms/GoogleAuth
     clientID: argocd
     clientSecret: $oidc.keycloak.clientSecret
     requestedScopes: ["openid", "profile", "email", "groups"]
