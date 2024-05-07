@@ -419,8 +419,6 @@ metadata:
   name: keycloak
   namespace: keycloak
 spec:
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
   db:
     host: 10.0.3.1
     passwordSecret:
