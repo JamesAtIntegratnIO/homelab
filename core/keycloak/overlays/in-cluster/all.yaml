@@ -409,3 +409,41 @@ spec:
           successThreshold: 1
           timeoutSeconds: 10
       serviceAccountName: keycloak-operator
+---
+apiVersion: k8s.keycloak.org/v2alpha1
+kind: Keycloak
+metadata:
+  labels:
+    app: keycloak
+    backstage.io/kubernetes-id: keycloak
+  name: keycloak
+  namespace: keycloak
+spec:
+  db:
+    host: postgres-db
+    passwordSecret:
+      key: credential
+      name: keycloak-db-secret
+    usernameSecret:
+      key: username
+      name: keycloak-db-secret
+    vendor: postgres
+  hostname:
+    hostname: keycloak.k8s.integratn.tech
+  http:
+    tlsSecret: keycloak-tls
+  ingress:
+    annotations:
+      letsencrypt.org/issuer: letsencrypt-prod
+    className: nginx
+  instances: 1
+  proxy:
+    headers: xforwarded
+---
+apiVersion: onepassword.com/v1
+kind: OnePasswordItem
+metadata:
+  name: keycloak-db-secret
+  namespace: keycloak
+spec:
+  itemPath: vaults/homelab/items/keycloak-db
