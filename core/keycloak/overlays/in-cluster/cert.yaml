@@ -6,3 +6,26 @@ metadata:
 spec:
   # Secret names are always required.
   secretName: keycloak-tls
+  duration:  17520h # 2 years
+  renewBefore: 720h # 30 days
+  usages:
+    - server auth
+    - client auth
+  subject:
+    organizations:
+      - Integratn
+    organizationalUnits:
+      - Tech
+    countries:
+      - US
+    provinces:
+      - TX
+    localities:
+      - El Paso
+  dnsNames:
+    - keycloak.k8s.integratn.tech
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+    group: cert-manager.io
+  
