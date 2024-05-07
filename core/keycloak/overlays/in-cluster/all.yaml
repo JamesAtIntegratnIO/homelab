@@ -432,7 +432,7 @@ spec:
     hostname: keycloak.k8s.integratn.tech
   ingress:
     enabled: false
-  instances: 1
+  instances: 3
   proxy:
     headers: xforwarded
   unsupported:
