@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   annotations:
-    app.quarkus.io/build-timestamp: 2024-04-16 - 17:25:22 +0000
+    app.quarkus.io/build-timestamp: 2024-05-07 - 12:29:12 +0000
     app.quarkus.io/quarkus-version: 3.8.3
     app.quarkus.io/vcs-uri: https://github.com/keycloak/keycloak.git
   labels:
@@ -311,7 +311,7 @@ apiVersion: v1
 kind: Service
 metadata:
   annotations:
-    app.quarkus.io/build-timestamp: 2024-04-16 - 17:25:22 +0000
+    app.quarkus.io/build-timestamp: 2024-05-07 - 12:29:12 +0000
     app.quarkus.io/quarkus-version: 3.8.3
     app.quarkus.io/vcs-uri: https://github.com/keycloak/keycloak.git
   labels:
@@ -336,7 +336,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    app.quarkus.io/build-timestamp: 2024-04-16 - 17:25:22 +0000
+    app.quarkus.io/build-timestamp: 2024-05-07 - 12:29:12 +0000
     app.quarkus.io/quarkus-version: 3.8.3
     app.quarkus.io/vcs-uri: https://github.com/keycloak/keycloak.git
   labels:
@@ -355,7 +355,7 @@ spec:
   template:
     metadata:
       annotations:
-        app.quarkus.io/build-timestamp: 2024-04-16 - 17:25:22 +0000
+        app.quarkus.io/build-timestamp: 2024-05-07 - 12:29:12 +0000
         app.quarkus.io/quarkus-version: 3.8.3
         app.quarkus.io/vcs-uri: https://github.com/keycloak/keycloak.git
       labels:
