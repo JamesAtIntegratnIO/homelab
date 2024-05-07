@@ -1,0 +1,56 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+
+  name: argo-stack
+  namespace: argocd
+spec:
+  goTemplate: true
+  generators:
+  - matrix:
+      generators:
+        - clusters: {}
+        - list:
+            elements:
+
+              - appName: argocd
+                namespace: argocd
+                syncWave: 1
+  template:
+    metadata:
+      name: "{{.name}}-{{.appName}}"
+      annotations:
+        argocd.argoproj.io/manifest-generate-paths: ".;.."
+        argocd.argoproj.io/sync-wave: "{{.syncWave}}"
+    spec:
+      project: infra
+      source:
+        repoURL: https://github.com/JamesAtIntegratnIO/homelab.git
+        targetRevision: argocd
+        path: "argocd/{{.appName}}/overlays/{{.name}}"
+      destination:
+        name: in-cluster
+        namespace: "{{.namespace}}"
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+  templatePatch: |
+    spec:
+      destination:
+        {{- if eq .childClusters true}}
+        name: "{{.name}}"
+        {{- else }}
+        name: "in-cluster"
+        {{- end }}
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+          {{- if eq .syncPolicy "replace" }}
+          - Replace=true
+          {{- end }}

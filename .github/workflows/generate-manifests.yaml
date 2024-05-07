@@ -8,6 +8,7 @@ on:
       - 'core/**'
       - 'apps/**'
       - 'monitoring/**'
+      - 'argocd/**'
       - .github/workflows/generate-manifests.yaml
 
 jobs:
@@ -19,6 +20,8 @@ jobs:
     strategy:
       matrix:
         include:
+          - source_folder: argocd
+            destination_branch: argocd
           - source_folder: core
             destination_branch: infra
           - source_folder: apps
