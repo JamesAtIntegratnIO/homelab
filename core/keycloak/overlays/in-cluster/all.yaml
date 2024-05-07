@@ -416,7 +416,29 @@ metadata:
   name: keycloak-tls
   namespace: keycloak
 spec:
+  dnsNames:
+  - keycloak.k8s.integratn.tech
+  duration: 17520h
+  issuerRef:
+    group: cert-manager.io
+    kind: ClusterIssuer
+    name: letsencrypt-prod
+  renewBefore: 720h
   secretName: keycloak-tls
+  subject:
+    countries:
+    - US
+    localities:
+    - El Paso
+    organizationalUnits:
+    - Tech
+    organizations:
+    - Integratn
+    provinces:
+    - TX
+  usages:
+  - server auth
+  - client auth
 ---
 apiVersion: k8s.keycloak.org/v2alpha1
 kind: Keycloak
