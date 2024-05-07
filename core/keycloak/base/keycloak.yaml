@@ -4,8 +4,6 @@ metadata:
   name: keycloak
 spec:
   instances: 1
-  annotations:
-      cert-manager.io/cluster-issuer: letsencrypt-prod
   db:
     vendor: postgres
     host: 10.0.3.1
