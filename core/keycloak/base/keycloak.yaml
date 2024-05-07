@@ -14,17 +14,22 @@ spec:
       name: keycloak-db-secret
       key: credential
   ingress:
-    enabled: false
+    className: "nginx"
+    annotations:
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+  http:
+    tlsSecret: keycloak-tls
   hostname:
     hostname: keycloak.k8s.integratn.tech
   proxy:
     headers: xforwarded # double check your reverse proxy sets and overwrites the X-Forwarded-* headers
-  unsupported:
-    podTemplate:
-      spec:
-        containers:
-          - name: keycloak
-            args: 
-              - '-Djgroups.dns.query=keycloak-discovery.keycloak'
-              - '--verbose'
-              - start-dev 
+  # unsupported:
+  #   podTemplate:
+  #     spec:
+  #       containers:
+  #         - name: keycloak
+  #           args: 
+  #             - '-Djgroups.dns.query=keycloak-discovery.keycloak'
+  #             - '--verbose'
+  #             - start-dev 
