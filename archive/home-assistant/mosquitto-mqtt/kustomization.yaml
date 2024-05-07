@@ -1,8 +1,0 @@
-namespace: home-assistant
-
-resources:
-  - deployment.yaml
-  - service.yaml
-  - pvc.yaml
-  - configMap.yaml
-  

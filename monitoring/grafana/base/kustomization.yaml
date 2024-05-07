@@ -1,4 +1,0 @@
-labels:
-  - pairs:
-      'backstage.io/kubernetes-id': 'grafana'
-namespace: monitoring

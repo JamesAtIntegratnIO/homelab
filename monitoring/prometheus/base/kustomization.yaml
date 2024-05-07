@@ -1,5 +1,0 @@
-labels:
-  - pairs:
-      'backstage.io/kubernetes-id': 'prometheus'
-namespace: monitoring
-

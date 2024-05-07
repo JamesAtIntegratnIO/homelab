@@ -1,7 +1,0 @@
-labels:
-  - pairs:
-      'backstage.io/kubernetes-id': 'loki'
-namespace: monitoring
-resources:
-  - namespace.yaml
-  - loki-config-secret-onePasswordItem.yaml

@@ -1,9 +1,0 @@
-{
-    "yaml.schemas": {
-        "https://json.schemastore.org/kustomization.json": "file:///home/boboysdadda/projects/homelab/apps/external-dns/deployment_patch.yaml",
-        "https://json.schemastore.org/yamllint.json": [
-            "file:///home/boboysdadda/projects/homelab/base/k8s/rook-ceph/cluster.yaml",
-            "file:///home/boboysdadda/projects/homelab/apps/data/postgres/cluster.yaml"
-        ]
-    }
-}
