@@ -422,7 +422,7 @@ spec:
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
   db:
-    host: postgres-db
+    host: 10.0.3.1
     passwordSecret:
       key: credential
       name: keycloak-db-secret
