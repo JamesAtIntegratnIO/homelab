@@ -5,3 +5,4 @@ namespace: argocd
 
 bases:
 - ../../base
+- core-appset.yaml
