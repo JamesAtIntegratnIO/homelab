@@ -6,14 +6,8 @@ resources:
 - namespace.yaml
 - github.com/argoproj/argo-cd/manifests/cluster-install/?ref=v2.10.3
 - github.com/argoproj/argo-workflows/manifests/cluster-install/?ref=v3.5.2
-- infra_project.yaml
-- homelab-repository.yaml
-- backstage-repository.yaml
-- backstage-test-repository.yaml
-- media-repository.yaml
 - ingress.yaml
-- project_media.yaml
-- project_monitoring.yaml
+- infra_project.yaml
 
 components:
   - kustomized-helm-plugin

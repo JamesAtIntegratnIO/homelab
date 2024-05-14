@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: argocd
+
+resources:
+  - project_media.yaml
+  - project_monitoring.yaml
+  - homelab-repository.yaml
+  - media-repository.yaml
+  - backstage-repository.yaml
+  - backstage-test-repository.yaml

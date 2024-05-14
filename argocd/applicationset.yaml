@@ -12,10 +12,12 @@ spec:
         - clusters: {}
         - list:
             elements:
-
               - appName: argocd
                 namespace: argocd
                 syncWave: 1
+              - appName: argocd-applications
+                namespace: argocd
+                syncWave: 2
   template:
     metadata:
       name: "{{.name}}-{{.appName}}"

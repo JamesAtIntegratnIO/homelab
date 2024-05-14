@@ -5,3 +5,5 @@ namespace: argocd
 
 resources:
 - ../../base
+- core-appset.yaml
+- monitoring-appset.yaml
