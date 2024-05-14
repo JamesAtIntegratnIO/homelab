@@ -1,0 +1,265 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: infra
+  namespace: argocd
+spec:
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  description: Where all the core services live
+  destinations:
+  - name: '*'
+    namespace: '*'
+    server: https://kubernetes.default.svc
+  namespaceResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  sourceRepos:
+  - '*'
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: media
+  namespace: argocd
+spec:
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  description: The Media Project
+  destinations:
+  - name: '*'
+    namespace: '*'
+    server: https://kubernetes.default.svc
+  namespaceResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  sourceNamespaces:
+  - media
+  sourceRepos:
+  - '*'
+status: {}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: monitoring
+  namespace: argocd
+spec:
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  description: The Monitoring Project
+  destinations:
+  - name: '*'
+    namespace: '*'
+    server: https://kubernetes.default.svc
+  namespaceResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  sourceNamespaces:
+  - '*'
+  sourceRepos:
+  - '*'
+status: {}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: infra-stack
+  namespace: argocd
+spec:
+  generators:
+  - matrix:
+      generators:
+      - clusters: {}
+      - list:
+          elements:
+          - appName: op-connect-helm
+            namespace: op-connect
+            syncWave: 1
+          - appName: external-secrets
+            namespace: external-secrets
+            syncWave: 1
+          - appName: sealed-secrets
+            namespace: kube-system
+            syncWave: 1
+          - appName: external-dns
+            namespace: external-dns
+            syncWave: 1
+          - appName: metallb
+            namespace: metallb-system
+            syncWave: 1
+          - appName: nfs-subdir-external-provisioner
+            namespace: nfs-provisioner
+            syncWave: 1
+          - appName: cert-manager
+            namespace: cert-manager
+            syncWave: 2
+          - appName: metrics
+            namespace: kube-system
+            syncWave: 2
+          - appName: vertical-pod-autoscaler
+            namespace: kube-system
+            syncWave: 2
+          - appName: ingress-nginx
+            namespace: ingress-nginx
+            syncWave: 3
+          - appName: keycloak-crds
+            namespace: keycloak
+            syncWave: 3
+          - appName: registry
+            namespace: docker-registry
+            syncWave: 4
+          - appName: falco
+            namespace: falco
+            syncWave: 4
+          - appName: goldilocks
+            namespace: goldilocks
+            syncWave: 4
+          - appName: minio
+            namespace: minio-tenant
+            syncWave: 4
+          - appName: keycloak
+            namespace: keycloak
+            syncWave: 4
+  goTemplate: true
+  template:
+    metadata:
+      annotations:
+        argocd.argoproj.io/manifest-generate-paths: .;..
+        argocd.argoproj.io/sync-wave: '{{.syncWave}}'
+      name: '{{.name}}-{{.appName}}'
+    spec:
+      destination:
+        name: in-cluster
+        namespace: '{{.namespace}}'
+      project: infra
+      source:
+        path: core/{{.appName}}/overlays/{{.name}}
+        repoURL: https://github.com/JamesAtIntegratnIO/homelab.git
+        targetRevision: infra
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+        - CreateNamespace=true
+  templatePatch: |-
+    spec:
+      destination:
+        {{- if eq .childClusters true}}
+        name: "{{.name}}"
+        {{- else }}
+        name: "in-cluster"
+        {{- end }}
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+          {{- if eq .syncPolicy "replace" }}
+          - Replace=true
+          {{- end }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: monitoring-stack
+  namespace: argocd
+spec:
+  generators:
+  - matrix:
+      generators:
+      - clusters: {}
+      - list:
+          elements:
+          - appName: loki
+            namespace: monitoring
+            project: monitoring
+          - appName: promtail
+            namespace: monitoring
+            project: monitoring
+          - appName: prometheus
+            namespace: monitoring
+            project: monitoring
+          - appName: grafana
+            namespace: monitoring
+            project: monitoring
+          - appName: starboard-operator
+            namespace: monitoring
+            project: monitoring
+  goTemplate: true
+  template:
+    metadata:
+      annotations:
+        argocd.argoproj.io/manifest-generate-paths: .;..
+      name: '{{.name}}-{{.appName}}'
+    spec:
+      destination:
+        name: in-cluster
+        namespace: '{{.namespace}}'
+      project: '{{.project}}'
+      source:
+        path: monitoring/{{.appName}}/overlays/{{.name}}
+        repoURL: https://github.com/JamesAtIntegratnIO/homelab.git
+        targetRevision: monitoring
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        managedNamespaceMetadata:
+          labels:
+            goldilocks.fairwinds.com/enabled: "true"
+        syncOptions:
+        - CreateNamespace=false
+  templatePatch: |
+    spec:
+      destination:
+        {{- if eq .childClusters true}}
+        name: "{{.name}}"
+        {{- else }}
+        name: "in-cluster"
+        {{- end }}
+---
+apiVersion: onepassword.com/v1
+kind: OnePasswordItem
+metadata:
+  labels:
+    argocd.argoproj.io/secret-type: repository
+  name: argocd-repo-creds
+  namespace: argocd
+spec:
+  itemPath: vaults/homelab/items/argocd-repo-creds
+---
+apiVersion: onepassword.com/v1
+kind: OnePasswordItem
+metadata:
+  labels:
+    argocd.argoproj.io/secret-type: repository
+  name: backstage-test-repository
+  namespace: argocd
+spec:
+  itemPath: vaults/homelab/items/backstage-repo-creds
+---
+apiVersion: onepassword.com/v1
+kind: OnePasswordItem
+metadata:
+  labels:
+    argocd.argoproj.io/secret-type: repository
+  name: github.com-jamesatintegratnio-backstage-test-repo
+  namespace: argocd
+spec:
+  itemPath: vaults/homelab/items/github.com-jamesatintegratnio-backstage-test-repo
+---
+apiVersion: onepassword.com/v1
+kind: OnePasswordItem
+metadata:
+  labels:
+    argocd.argoproj.io/secret-type: repository
+  name: media-repository
+  namespace: argocd
+spec:
+  itemPath: vaults/homelab/items/argocd-repo-creds-homelab-private
