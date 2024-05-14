@@ -1,26 +1,6 @@
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: infra
-  namespace: argocd
-spec:
-  clusterResourceWhitelist:
-  - group: '*'
-    kind: '*'
-  description: Where all the core services live
-  destinations:
-  - name: '*'
-    namespace: '*'
-    server: https://kubernetes.default.svc
-  namespaceResourceWhitelist:
-  - group: '*'
-    kind: '*'
-  sourceRepos:
-  - '*'
----
-apiVersion: argoproj.io/v1alpha1
-kind: AppProject
-metadata:
   name: media
   namespace: argocd
 spec:

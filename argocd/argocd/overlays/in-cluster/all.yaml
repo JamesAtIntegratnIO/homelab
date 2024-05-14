@@ -24328,6 +24328,28 @@ spec:
           optional: true
           secretName: argocd-repo-server-tls
 ---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  labels:
+    backstage.io/kubernetes-id: argocd
+  name: infra
+  namespace: argocd
+spec:
+  clusterResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  description: Where all the core services live
+  destinations:
+  - name: '*'
+    namespace: '*'
+    server: https://kubernetes.default.svc
+  namespaceResourceWhitelist:
+  - group: '*'
+    kind: '*'
+  sourceRepos:
+  - '*'
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
