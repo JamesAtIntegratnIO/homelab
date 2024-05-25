@@ -502,7 +502,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: auth.integratn.tech
+  - host: auth2.integratn.tech
     http:
       paths:
       - backend:
@@ -514,7 +514,7 @@ spec:
         pathType: Prefix
   tls:
   - hosts:
-    - auth.integratn.tech
+    - auth2.integratn.tech
     secretName: authentik-tls
 ---
 apiVersion: onepassword.com/v1
