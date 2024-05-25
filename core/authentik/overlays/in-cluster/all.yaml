@@ -219,11 +219,7 @@ spec:
     protocol: TCP
     targetPort: https
   selector:
-    app.kubernetes.io/instance: in-cluster-authentik
-    app.kubernetes.io/managed-by: goauthentik.io
-    app.kubernetes.io/name: authentik-proxy
-    app.kubernetes.io/version: 2024.4.2
-    backstage.io/kubernetes-id: authentik
+    app.kubernetes.io/instance: forward_auth_outpost
   type: ClusterIP
 ---
 apiVersion: v1
@@ -288,7 +284,6 @@ metadata:
   labels:
     app.kubernetes.io/instance: forward_auth_outpost
     app.kubernetes.io/managed-by: goauthentik.io
-    app.kubernetes.io/name: authentik-proxy
     app.kubernetes.io/version: 2024.4.2
     backstage.io/kubernetes-id: authentik
   name: authentik-outpost
