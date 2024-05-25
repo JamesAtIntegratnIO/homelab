@@ -71,3 +71,29 @@ spec:
   targets:
     - ./base/k8s/argocd/catalog-info.yaml
     - ./base/k8s/argocd-image-updater/catalog-info.yaml
+---
+# Move this later
+
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: redis
+  description: |
+    The Redis install
+  links:
+    - title: Landing Page
+      url: https://10.0.3.2
+    - title: Web Shell
+      url: https://10.0.3.2:12320/
+    - title: Webmin
+      url: https://10.0.3.1:12321/
+    - title: Redis Instance
+      url: redis://10.0.3.2:6379
+    - title: Redis Commander
+      url: https://10.0.3.2/redis-commander
+spec:
+  owner: group:engineering
+  type: database
+  lifecycle: homeprod
+  dependsOn:
+    - resource:default/postgres-server

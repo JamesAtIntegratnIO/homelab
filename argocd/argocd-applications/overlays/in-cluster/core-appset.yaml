@@ -61,9 +61,10 @@ spec:
               - appName: minio
                 namespace: minio-tenant
                 syncWave: 4
-              - appName: keycloak
-                namespace: keycloak
+              - appName: authentik
+                namespace: authentik
                 syncWave: 4
+               
               # - appName: kyverno
               #   namespace: kyverno
               #   syncWave: 4
