@@ -22403,13 +22403,21 @@ apiVersion: v1
 data:
   accounts.backstage: apiKey
   accounts.image-updater: apiKey
+  dex.config: |
+    connectors:
+    - config:
+        issuer: http://auth.k8s.integratn.tech/application/o/argocd/
+        clientID: AAaIsoeNhmaGgwinn48Qu8VQ210Z2sW3DOUA7b4t
+        clientSecret: $dex.authentik.clientSecret
+        insecureEnableGroups: true
+        scopes:
+          - openid
+          - profile
+          - email
+      name: authentik
+      type: oidc
+      id: authentik
   kustomize.buildOptions: --enable-helm
-  oidc.config: |
-    name: Keycloak
-    issuer: https://keycloak-service.keycloak.svc.cluster.local:8443/realms/GoogleAuth
-    clientID: argocd
-    clientSecret: $oidc.keycloak.clientSecret
-    requestedScopes: ["openid", "profile", "email", "groups"]
   url: https://argocd.k8s.integratn.tech
 kind: ConfigMap
 metadata:
@@ -22462,6 +22470,7 @@ data:
     p, role:image-updater, applications, update, */*, allow
     g, image-updater, role:image-updater
     g, ArgoCDAdmins, role:admin
+    g, ArgoCD Admins, role:admin
 kind: ConfigMap
 metadata:
   labels:
