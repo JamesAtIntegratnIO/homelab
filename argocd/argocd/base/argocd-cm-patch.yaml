@@ -6,12 +6,20 @@ data:
   accounts.backstage: apiKey
   accounts.image-updater: apiKey
   url: https://argocd.k8s.integratn.tech
-  oidc.config: |
-    name: Keycloak
-    issuer: https://keycloak-service.keycloak.svc.cluster.local:8443/realms/GoogleAuth
-    clientID: argocd
-    clientSecret: $oidc.keycloak.clientSecret
-    requestedScopes: ["openid", "profile", "email", "groups"]
+  dex.config: |
+    connectors:
+    - config:
+        issuer: https://auth.k8s.integratn.tech/application/o/argocd/
+        clientID: AAaIsoeNhmaGgwinn48Qu8VQ210Z2sW3DOUA7b4t
+        clientSecret: $dex.authentik.clientSecret
+        insecureEnableGroups: true
+        scopes:
+          - openid
+          - profile
+          - email
+      name: authentik
+      type: oidc
+      id: authentik
   
 metadata:
   labels:
