@@ -599,7 +599,7 @@ metadata:
   namespace: authentik
 spec:
   rules:
-  - host: outpost.auth.k8s.integratn.tech
+  - host: outpost.k8s.integratn.tech
     http:
       paths:
       - backend:
@@ -611,7 +611,7 @@ spec:
         pathType: Prefix
   tls:
   - hosts:
-    - outpost.auth.k8s.integratn.tech
+    - outpost.k8s.integratn.tech
     secretName: outpost-tls
 ---
 apiVersion: networking.k8s.io/v1
