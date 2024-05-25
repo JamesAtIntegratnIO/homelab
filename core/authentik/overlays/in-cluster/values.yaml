@@ -595,10 +595,20 @@ authentik:
       # -- List of ingress paths
       paths:
         - /
+        
       # -- Ingress path type. One of `Exact`, `Prefix` or `ImplementationSpecific`
       pathType: Prefix
       # -- additional ingress paths
-      extraPaths: []
+      extraPaths:
+        - path: /outpost.goauthentik.io
+          pathType: Prefix
+          backend:
+            # Or, to use an external Outpost, create an ExternalName service and reference that here.
+            # See https://kubernetes.io/docs/concepts/services-networking/service/#externalname
+            service:
+              name: authentik-server
+              port:
+                number: 9000
         # - path: /*
         #   pathType: Prefix
         #   backend:
