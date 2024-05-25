@@ -607,6 +607,10 @@ spec:
               name: http
         path: /
         pathType: Prefix
+  tls:
+  - hosts:
+    - outpost.auth.k8s.integratn.tech
+    secretName: outpost-tls
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
