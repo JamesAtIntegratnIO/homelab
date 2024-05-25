@@ -179,7 +179,7 @@ data:
   AUTHENTIK_POSTGRESQL__USER: ZmlsZTovLy9wb3N0Z3Jlcy1jcmVkcy91c2VybmFtZQ==
   AUTHENTIK_REDIS__HOST: ZmlsZTovLy9yZWRpcy1jcmVkcy9ob3N0bmFtZQ==
   AUTHENTIK_REDIS__PASSWORD: ZmlsZTovLy9yZWRpcy1jcmVkcy9wYXNzd29yZA==
-  AUTHENTIK_SECRET_KEY: ZmlsZTovLy9hdXRoZW50aWstc2VjcmV0L3NlY3JldF9rZXk=
+  AUTHENTIK_SECRET_KEY: ZmlsZTovLy9hdXRoZW50aWstc2VjcmV0L3NlY3JldC1rZXk=
 kind: Secret
 metadata:
   labels:
@@ -274,7 +274,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/secret: d79736e299cb762b06a10e57b357dcb81f9d61a806f83837e7ec835992625cf9
+        checksum/secret: 2d7cead5b1dd9f5e035a76d03351db64a06d760af250986b446746f7e36fbdb6
       labels:
         app.kubernetes.io/component: server
         app.kubernetes.io/instance: authentik
@@ -397,7 +397,7 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/secret: d79736e299cb762b06a10e57b357dcb81f9d61a806f83837e7ec835992625cf9
+        checksum/secret: 2d7cead5b1dd9f5e035a76d03351db64a06d760af250986b446746f7e36fbdb6
       labels:
         app.kubernetes.io/component: worker
         app.kubernetes.io/instance: authentik
