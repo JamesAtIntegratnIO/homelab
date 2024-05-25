@@ -6,3 +6,4 @@ ingress-nginx:
       annotations:
         metallb.universe.tf/loadBalancerIPs: 10.0.2.200
         metallb.universe.tf/address-pool: default
+    allowSnippetAnnotations: true

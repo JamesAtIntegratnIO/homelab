@@ -1066,16 +1066,14 @@ authentik:
             targetPort: https
         type: ClusterIP
         selector:
-          app.kubernetes.io/managed-by: goauthentik.io
-          app.kubernetes.io/name: authentik-outpost
           app.kubernetes.io/instance: forward_auth_outpost
+
     - apiVersion: apps/v1
       kind: Deployment
       metadata:
         labels:
           app.kubernetes.io/instance: forward_auth_outpost
           app.kubernetes.io/managed-by: goauthentik.io
-          app.kubernetes.io/name: authentik-proxy
           app.kubernetes.io/version: 2024.4.2
         name: authentik-outpost
       spec:
@@ -1126,7 +1124,7 @@ authentik:
           nginx.ingress.kubernetes.io/affinity: cookie
           nginx.ingress.kubernetes.io/proxy-buffer-size: 16k
           nginx.ingress.kubernetes.io/proxy-buffers-number: "4"
-          traefik.ingress.kubernetes.io/affinity: "true"
+          cert-manager.io/cluster-issuer: letsencrypt-prod
         labels:
           app.kubernetes.io/instance: forward_auth_outpost
           app.kubernetes.io/managed-by: goauthentik.io
@@ -1134,8 +1132,9 @@ authentik:
           app.kubernetes.io/version: 2024.4.2
         name: authentik-outpost
       spec:
+        ingressClassName: "nginx"
         rules:
-        - host: outpost.auth.k8s.integratn.tech
+        - host: outpost.k8s.integratn.tech
           http:
             paths:
             - backend:
@@ -1143,4 +1142,9 @@ authentik:
                   name: authentik-outpost
                   port:
                     name: http
-              path: /
+              path: /outpost.goauthentik.io
+              pathType: Prefix
+        tls:
+        - hosts:
+          - outpost.k8s.integratn.tech
+          secretName: outpost-tls
