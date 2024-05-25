@@ -483,35 +483,6 @@ spec:
         secret:
           secretName: authentik-secret-key
 ---
-apiVersion: monitoring.coreos.com/v1
-kind: ServiceMonitor
-metadata:
-  labels:
-    app.kubernetes.io/component: server-metrics
-    app.kubernetes.io/instance: authentik
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: authentik
-    app.kubernetes.io/part-of: authentik
-    app.kubernetes.io/version: 2024.4.2
-    backstage.io/kubernetes-id: authentik
-    helm.sh/chart: authentik-2024.4.2
-  name: authentik-server
-  namespace: authentik
-spec:
-  endpoints:
-  - interval: 30s
-    path: /metrics
-    port: metrics
-    scrapeTimeout: 3s
-  namespaceSelector:
-    matchNames:
-    - default
-  selector:
-    matchLabels:
-      app.kubernetes.io/component: server-metrics
-      app.kubernetes.io/instance: authentik
-      app.kubernetes.io/name: authentik
----
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
