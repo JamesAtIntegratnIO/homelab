@@ -22406,7 +22406,7 @@ data:
   dex.config: |
     connectors:
     - config:
-        issuer: http://auth.k8s.integratn.tech/application/o/argocd/
+        issuer: https://auth.k8s.integratn.tech/application/o/argocd/
         clientID: AAaIsoeNhmaGgwinn48Qu8VQ210Z2sW3DOUA7b4t
         clientSecret: $dex.authentik.clientSecret
         insecureEnableGroups: true
