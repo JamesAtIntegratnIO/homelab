@@ -593,6 +593,7 @@ metadata:
   name: authentik-outpost
   namespace: authentik
 spec:
+  ingressClassName: nginx
   rules:
   - host: outpost.k8s.integratn.tech
     http:
