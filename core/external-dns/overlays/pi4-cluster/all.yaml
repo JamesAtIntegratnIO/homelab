@@ -99,7 +99,7 @@ spec:
         envFrom:
         - secretRef:
             name: pihole-password
-        image: registry.k8s.io/external-dns/external-dns:v0.14.1
+        image: registry.k8s.io/external-dns/external-dns:v0.14.2
         name: external-dns
       serviceAccountName: external-dns
 ---

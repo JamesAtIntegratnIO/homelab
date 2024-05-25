@@ -1,0 +1,547 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    backstage.io/kubernetes-id: authentik
+    goldilocks.fairwinds.com/enabled: "true"
+  name: authentik
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app.kubernetes.io/instance: authentik
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: serviceAccount
+    app.kubernetes.io/part-of: authentik
+    app.kubernetes.io/version: 2.0.0
+    backstage.io/kubernetes-id: authentik
+    helm.sh/chart: serviceAccount-2.0.0
+  name: authentik
+  namespace: authentik
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  labels:
+    app.kubernetes.io/instance: authentik
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: serviceAccount
+    app.kubernetes.io/part-of: authentik
+    app.kubernetes.io/version: 2.0.0
+    backstage.io/kubernetes-id: authentik
+    helm.sh/chart: serviceAccount-2.0.0
+  name: authentik
+  namespace: authentik
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  - services
+  - configmaps
+  verbs:
+  - get
+  - create
+  - delete
+  - list
+  - patch
+- apiGroups:
+  - extensions
+  - apps
+  resources:
+  - deployments
+  verbs:
+  - get
+  - create
+  - delete
+  - list
+  - patch
+- apiGroups:
+  - extensions
+  - networking.k8s.io
+  resources:
+  - ingresses
+  verbs:
+  - get
+  - create
+  - delete
+  - list
+  - patch
+- apiGroups:
+  - traefik.containo.us
+  - traefik.io
+  resources:
+  - middlewares
+  verbs:
+  - get
+  - create
+  - delete
+  - list
+  - patch
+- apiGroups:
+  - monitoring.coreos.com
+  resources:
+  - servicemonitors
+  verbs:
+  - get
+  - create
+  - delete
+  - list
+  - patch
+- apiGroups:
+  - apiextensions.k8s.io
+  resources:
+  - customresourcedefinitions
+  verbs:
+  - list
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/instance: authentik
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: serviceAccount
+    app.kubernetes.io/part-of: authentik
+    app.kubernetes.io/version: 2.0.0
+    backstage.io/kubernetes-id: authentik
+    helm.sh/chart: serviceAccount-2.0.0
+  name: authentik-default
+rules:
+- apiGroups:
+  - apiextensions.k8s.io
+  resources:
+  - customresourcedefinitions
+  verbs:
+  - list
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/instance: authentik
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: serviceAccount
+    app.kubernetes.io/part-of: authentik
+    app.kubernetes.io/version: 2.0.0
+    backstage.io/kubernetes-id: authentik
+    helm.sh/chart: serviceAccount-2.0.0
+  name: authentik
+  namespace: authentik
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: authentik
+subjects:
+- kind: ServiceAccount
+  name: authentik
+  namespace: authentik
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/instance: authentik
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: serviceAccount
+    app.kubernetes.io/part-of: authentik
+    app.kubernetes.io/version: 2.0.0
+    backstage.io/kubernetes-id: authentik
+    helm.sh/chart: serviceAccount-2.0.0
+  name: authentik-default
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: authentik-default
+subjects:
+- kind: ServiceAccount
+  name: authentik
+  namespace: authentik
+---
+apiVersion: v1
+data:
+  AUTHENTIK_EMAIL__PORT: NTg3
+  AUTHENTIK_EMAIL__TIMEOUT: MzA=
+  AUTHENTIK_EMAIL__USE_SSL: ZmFsc2U=
+  AUTHENTIK_EMAIL__USE_TLS: ZmFsc2U=
+  AUTHENTIK_ERROR_REPORTING__ENABLED: ZmFsc2U=
+  AUTHENTIK_ERROR_REPORTING__ENVIRONMENT: azhz
+  AUTHENTIK_ERROR_REPORTING__SEND_PII: ZmFsc2U=
+  AUTHENTIK_EVENTS__CONTEXT_PROCESSORS__ASN: L2dlb2lwL0dlb0xpdGUyLUFTTi5tbWRi
+  AUTHENTIK_EVENTS__CONTEXT_PROCESSORS__GEOIP: L2dlb2lwL0dlb0xpdGUyLUNpdHkubW1kYg==
+  AUTHENTIK_LOG_LEVEL: aW5mbw==
+  AUTHENTIK_OUTPOSTS__CONTAINER_IMAGE_BASE: Z2hjci5pby9nb2F1dGhlbnRpay8lKHR5cGUpczolKHZlcnNpb24pcw==
+  AUTHENTIK_POSTGRESQL__HOST: ZmlsZTovLy9wb3N0Z3Jlcy1jcmVkcy9ob3N0bmFtZQ==
+  AUTHENTIK_POSTGRESQL__NAME: ZmlsZTovLy9wb3N0Z3Jlcy1jcmVkcy9kYXRhYmFzZQ==
+  AUTHENTIK_POSTGRESQL__PASSWORD: ZmlsZTovLy9wb3N0Z3Jlcy1jcmVkcy9wYXNzd29yZA==
+  AUTHENTIK_POSTGRESQL__PORT: NTQzMg==
+  AUTHENTIK_POSTGRESQL__USER: ZmlsZTovLy9wb3N0Z3Jlcy1jcmVkcy91c2VybmFtZQ==
+  AUTHENTIK_REDIS__HOST: ZmlsZTovLy9yZWRpcy1jcmVkcy9ob3N0bmFtZQ==
+  AUTHENTIK_REDIS__PASSWORD: ZmlsZTovLy9yZWRpcy1jcmVkcy9wYXNzd29yZA==
+  AUTHENTIK_SECRET_KEY: ZmlsZTovLy9hdXRoZW50aWsvc2VjcmV0X2tleQ==
+kind: Secret
+metadata:
+  labels:
+    app.kubernetes.io/instance: authentik
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: authentik
+    app.kubernetes.io/part-of: authentik
+    app.kubernetes.io/version: 2024.4.2
+    backstage.io/kubernetes-id: authentik
+    helm.sh/chart: authentik-2024.4.2
+  name: authentik
+  namespace: authentik
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/component: server
+    app.kubernetes.io/instance: authentik
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: authentik
+    app.kubernetes.io/part-of: authentik
+    app.kubernetes.io/version: 2024.4.2
+    backstage.io/kubernetes-id: authentik
+    helm.sh/chart: authentik-2024.4.2
+  name: authentik-server
+  namespace: authentik
+spec:
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 9000
+  - name: https
+    port: 443
+    protocol: TCP
+    targetPort: 9443
+  selector:
+    app.kubernetes.io/component: server
+    app.kubernetes.io/instance: authentik
+    app.kubernetes.io/name: authentik
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/component: server-metrics
+    app.kubernetes.io/instance: authentik
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: authentik
+    app.kubernetes.io/part-of: authentik
+    app.kubernetes.io/version: 2024.4.2
+    backstage.io/kubernetes-id: authentik
+    helm.sh/chart: authentik-2024.4.2
+  name: authentik-server-metrics
+  namespace: authentik
+spec:
+  ports:
+  - name: metrics
+    port: 9300
+    protocol: TCP
+    targetPort: metrics
+  selector:
+    app.kubernetes.io/component: server
+    app.kubernetes.io/instance: authentik
+    app.kubernetes.io/name: authentik
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/component: server
+    app.kubernetes.io/instance: authentik
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: authentik
+    app.kubernetes.io/part-of: authentik
+    app.kubernetes.io/version: 2024.4.2
+    backstage.io/kubernetes-id: authentik
+    helm.sh/chart: authentik-2024.4.2
+  name: authentik-server
+  namespace: authentik
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: server
+      app.kubernetes.io/instance: authentik
+      app.kubernetes.io/name: authentik
+  template:
+    metadata:
+      annotations:
+        checksum/secret: 6265206b15901933c36c65e5aaaec74f8b9024ea859c4e25720952d99403fe30
+      labels:
+        app.kubernetes.io/component: server
+        app.kubernetes.io/instance: authentik
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: authentik
+        app.kubernetes.io/part-of: authentik
+        app.kubernetes.io/version: 2024.4.2
+        helm.sh/chart: authentik-2024.4.2
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/component: server
+                  app.kubernetes.io/instance: authentik
+                  app.kubernetes.io/name: authentik
+              topologyKey: kubernetes.io/hostname
+            weight: 100
+      containers:
+      - args:
+        - server
+        env:
+        - name: AUTHENTIK_LISTEN__HTTP
+          value: 0.0.0.0:9000
+        - name: AUTHENTIK_LISTEN__HTTPS
+          value: 0.0.0.0:9443
+        - name: AUTHENTIK_LISTEN__METRICS
+          value: 0.0.0.0:9300
+        envFrom:
+        - secretRef:
+            name: authentik
+        image: ghcr.io/goauthentik/server:2024.4.2
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /-/health/live/
+            port: http
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: server
+        ports:
+        - containerPort: 9000
+          name: http
+          protocol: TCP
+        - containerPort: 9443
+          name: https
+          protocol: TCP
+        - containerPort: 9300
+          name: metrics
+          protocol: TCP
+        readinessProbe:
+          failureThreshold: 3
+          httpGet:
+            path: /-/health/ready/
+            port: http
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources: {}
+        startupProbe:
+          failureThreshold: 60
+          httpGet:
+            path: /-/health/live/
+            port: http
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        volumeMounts:
+        - mountPath: /postgres-creds
+          name: postgres-creds
+          readOnly: true
+        - mountPath: /redis-creds
+          name: redis-creds
+          readOnly: true
+        - mountPath: /authentik
+          name: secret-key
+          readOnly: true
+      enableServiceLinks: true
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: postgres-creds
+        secret:
+          secretName: authentik-postgres-credentials
+      - name: redis-creds
+        secret:
+          secretName: authentik-redis-credentials
+      - name: secret-key
+        secret:
+          secretName: authentik-secret-key
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/component: worker
+    app.kubernetes.io/instance: authentik
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: authentik
+    app.kubernetes.io/part-of: authentik
+    app.kubernetes.io/version: 2024.4.2
+    backstage.io/kubernetes-id: authentik
+    helm.sh/chart: authentik-2024.4.2
+  name: authentik-worker
+  namespace: authentik
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: worker
+      app.kubernetes.io/instance: authentik
+      app.kubernetes.io/name: authentik
+  template:
+    metadata:
+      annotations:
+        checksum/secret: 6265206b15901933c36c65e5aaaec74f8b9024ea859c4e25720952d99403fe30
+      labels:
+        app.kubernetes.io/component: worker
+        app.kubernetes.io/instance: authentik
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: authentik
+        app.kubernetes.io/part-of: authentik
+        app.kubernetes.io/version: 2024.4.2
+        helm.sh/chart: authentik-2024.4.2
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/component: worker
+                  app.kubernetes.io/instance: authentik
+                  app.kubernetes.io/name: authentik
+              topologyKey: kubernetes.io/hostname
+            weight: 100
+      containers:
+      - args:
+        - worker
+        env: null
+        envFrom:
+        - secretRef:
+            name: authentik
+        image: ghcr.io/goauthentik/server:2024.4.2
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          exec:
+            command:
+            - ak
+            - healthcheck
+          failureThreshold: 3
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        name: worker
+        readinessProbe:
+          exec:
+            command:
+            - ak
+            - healthcheck
+          failureThreshold: 3
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        resources: {}
+        startupProbe:
+          exec:
+            command:
+            - ak
+            - healthcheck
+          failureThreshold: 60
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        volumeMounts:
+        - mountPath: /postgres-creds
+          name: postgres-creds
+          readOnly: true
+        - mountPath: /redis-creds
+          name: redis-creds
+          readOnly: true
+        - mountPath: /authentik
+          name: secret-key
+          readOnly: true
+      enableServiceLinks: true
+      serviceAccountName: authentik
+      terminationGracePeriodSeconds: 30
+      volumes:
+      - name: postgres-creds
+        secret:
+          secretName: authentik-postgres-credentials
+      - name: redis-creds
+        secret:
+          secretName: authentik-redis-credentials
+      - name: secret-key
+        secret:
+          secretName: authentik-secret-key
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app.kubernetes.io/component: server-metrics
+    app.kubernetes.io/instance: authentik
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: authentik
+    app.kubernetes.io/part-of: authentik
+    app.kubernetes.io/version: 2024.4.2
+    backstage.io/kubernetes-id: authentik
+    helm.sh/chart: authentik-2024.4.2
+  name: authentik-server
+  namespace: authentik
+spec:
+  endpoints:
+  - interval: 30s
+    path: /metrics
+    port: metrics
+    scrapeTimeout: 3s
+  namespaceSelector:
+    matchNames:
+    - default
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: server-metrics
+      app.kubernetes.io/instance: authentik
+      app.kubernetes.io/name: authentik
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  labels:
+    app.kubernetes.io/component: server
+    app.kubernetes.io/instance: authentik
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: authentik
+    app.kubernetes.io/part-of: authentik
+    app.kubernetes.io/version: 2024.4.2
+    backstage.io/kubernetes-id: authentik
+    helm.sh/chart: authentik-2024.4.2
+  name: authentik-server
+  namespace: authentik
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: auth.integratn.tech
+    http:
+      paths:
+      - backend:
+          service:
+            name: authentik-server
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - auth.integratn.tech
+    secretName: authentik-tls
