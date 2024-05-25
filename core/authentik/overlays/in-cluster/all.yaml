@@ -219,9 +219,7 @@ spec:
     protocol: TCP
     targetPort: https
   selector:
-    app.kubernetes.io/instance: forward_auth_outpost
-    app.kubernetes.io/managed-by: goauthentik.io
-    app.kubernetes.io/name: authentik-outpost
+    name: authentik-outpost
   type: ClusterIP
 ---
 apiVersion: v1
