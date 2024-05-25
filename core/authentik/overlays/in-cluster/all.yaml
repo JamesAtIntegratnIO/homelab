@@ -516,3 +516,33 @@ spec:
   - hosts:
     - auth.integratn.tech
     secretName: authentik-tls
+---
+apiVersion: onepassword.com/v1
+kind: OnePasswordItem
+metadata:
+  labels:
+    backstage.io/kubernetes-id: authentik
+  name: authentik-postgres-credentials
+  namespace: authentik
+spec:
+  itemPath: vaults/homelab/items/authentik-postgres-credentials
+---
+apiVersion: onepassword.com/v1
+kind: OnePasswordItem
+metadata:
+  labels:
+    backstage.io/kubernetes-id: authentik
+  name: authentik-redis-credentials
+  namespace: authentik
+spec:
+  itemPath: vaults/homelab/items/authentik-redis-credentials
+---
+apiVersion: onepassword.com/v1
+kind: OnePasswordItem
+metadata:
+  labels:
+    backstage.io/kubernetes-id: authentik
+  name: authentik-secret-key
+  namespace: authentik
+spec:
+  itemPath: vaults/homelab/items/authentik-secret-key
