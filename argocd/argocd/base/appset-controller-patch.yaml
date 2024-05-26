@@ -1,0 +1,6 @@
+# This patch adds deletion protection to the application set controller deployment
+- op: replace
+  path: /spec/template/spec/containers/0/args
+  value:
+  - /usr/local/bin/argocd-applicationset-controller
+  - --policy=create-update
