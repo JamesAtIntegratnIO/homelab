@@ -7,5 +7,6 @@ labels:
 resources:
 - ../../base
 - onePasswordItems.yaml
+- ldap-outpost.yaml
 - ./helm-all.yaml
 
