@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app.kubernetes.io/instance: forward_auth_outpost
+    app.kubernetes.io/instance: ldap_outpost
     app.kubernetes.io/managed-by: goauthentik.io
     app.kubernetes.io/name: authentik-proxy
     app.kubernetes.io/version: 2024.4.2
@@ -19,27 +19,27 @@ spec:
       targetPort: ldap
   type: ClusterIP
   selector:
-    app.kubernetes.io/instance: forward_auth_outpost
+    app.kubernetes.io/instance: ldap_outpost
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app.kubernetes.io/instance: forward_auth_outpost
+    app.kubernetes.io/instance: ldap_outpost
     app.kubernetes.io/managed-by: goauthentik.io
     app.kubernetes.io/version: 2024.4.2
   name: ldap-authentik-outpost
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/instance: forward_auth_outpost
+      app.kubernetes.io/instance: ldap_outpost
       app.kubernetes.io/managed-by: goauthentik.io
       app.kubernetes.io/name: authentik-proxy
       app.kubernetes.io/version: 2024.4.2
   template:
     metadata:
       labels:
-        app.kubernetes.io/instance: forward_auth_outpost
+        app.kubernetes.io/instance: ldap_outpost
         app.kubernetes.io/managed-by: goauthentik.io
         app.kubernetes.io/name: authentik-proxy
         app.kubernetes.io/version: 2024.4.2
@@ -67,12 +67,12 @@ spec:
                   key: authentik_host_browser
                   name: ldap-authentik-outpost-api
           image: ghcr.io/goauthentik/ldap
-          name: ldap
+          name: ldap_outpost
           ports:
-            - containerPort: 636
+            - containerPort: 6636
               name: ldaps
               protocol: TCP
-            - containerPort: 389
+            - containerPort: 3389
               name: ldap
               protocol: TCP
 ---
@@ -85,7 +85,7 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-buffers-number: "4"
     cert-manager.io/cluster-issuer: letsencrypt-prod
   labels:
-    app.kubernetes.io/instance: forward_auth_outpost
+    app.kubernetes.io/instance: ldap_outpost
     app.kubernetes.io/managed-by: goauthentik.io
     app.kubernetes.io/name: authentik-proxy
     app.kubernetes.io/version: 2024.4.2
@@ -106,13 +106,13 @@ spec:
   tls:
     - hosts:
         - ldap-outpost.k8s.integratn.tech
-      secretName: outpost-tls
+      secretName: ldap-outpost-tls
 ---
 apiVersion: onepassword.com/v1
 kind: OnePasswordItem
 metadata:
   annotations:
-    app.kubernetes.io/instance: forward_auth_outpost
+    app.kubernetes.io/instance: ldap_outpost
     app.kubernetes.io/managed-by: goauthentik.io
     app.kubernetes.io/name: authentik-proxy
     app.kubernetes.io/version: 2024.4.2
