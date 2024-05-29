@@ -649,7 +649,7 @@ spec:
               key: authentik_host_browser
               name: ldap-authentik-outpost-api
         image: ghcr.io/goauthentik/ldap
-        name: ldap_outpost
+        name: ldap-outpost
         ports:
         - containerPort: 6636
           name: ldaps
