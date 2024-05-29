@@ -765,7 +765,7 @@ spec:
   tls:
   - hosts:
     - ldap-outpost.k8s.integratn.tech
-    secretName: outpost-tls
+    secretName: ldap-outpost-tls
 ---
 apiVersion: onepassword.com/v1
 kind: OnePasswordItem
