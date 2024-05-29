@@ -6,6 +6,7 @@ metadata:
     app.kubernetes.io/managed-by: goauthentik.io
     app.kubernetes.io/name: authentik-proxy
     app.kubernetes.io/version: 2024.4.2
+    metallb.universe.tf/address-pool: default
   name: ldap-authentik-outpost
 spec:
   ports:
@@ -17,7 +18,7 @@ spec:
       port: 389
       protocol: TCP
       targetPort: ldap
-  type: ClusterIP
+  type: LoadBalancer
   selector:
     app.kubernetes.io/instance: ldap_outpost
 ---
@@ -67,7 +68,7 @@ spec:
                   key: authentik_host_browser
                   name: ldap-authentik-outpost-api
           image: ghcr.io/goauthentik/ldap
-          name: ldap_outpost
+          name: ldap-outpost
           ports:
             - containerPort: 6636
               name: ldaps
