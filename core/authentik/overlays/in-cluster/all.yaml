@@ -287,6 +287,7 @@ metadata:
     app.kubernetes.io/name: authentik-proxy
     app.kubernetes.io/version: 2024.4.2
     backstage.io/kubernetes-id: authentik
+    metallb.universe.tf/address-pool: default
   name: ldap-authentik-outpost
   namespace: authentik
 spec:
@@ -301,7 +302,7 @@ spec:
     targetPort: ldap
   selector:
     app.kubernetes.io/instance: ldap_outpost
-  type: ClusterIP
+  type: LoadBalancer
 ---
 apiVersion: apps/v1
 kind: Deployment
