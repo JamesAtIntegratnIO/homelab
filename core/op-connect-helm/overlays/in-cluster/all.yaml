@@ -411,6 +411,36 @@ spec:
       serviceAccountName: onepassword-connect-operator
       tolerations: []
 ---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  labels:
+    app.kubernetes.io/instance: op-connect
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: connect
+    helm.sh/chart: connect-1.15.0
+  name: connect
+  namespace: op-connect
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: op-connect.k8s.integratn.tech
+    http:
+      paths:
+      - backend:
+          service:
+            name: onepassword-connect
+            port:
+              number: 8080
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - op-connect.k8s.integratn.tech
+    secretName: op-connect-tls
+---
 apiVersion: v1
 kind: Pod
 metadata:
