@@ -4,7 +4,12 @@ labels:
       'backstage.io/kubernetes-id': 'argocd'
 resources:
 - namespace.yaml
+<<<<<<< HEAD
 - github.com/argoproj/argo-cd/manifests/cluster-install/?ref=v2.10.3
+=======
+- github.com/argoproj/argo-cd/manifests/cluster-install/?ref=v2.11.2
+- github.com/argoproj/argo-workflows/manifests/cluster-install/?ref=v3.5.2
+>>>>>>> 688c82b (upgrade argocd)
 - ingress.yaml
 - infra_project.yaml
 
