@@ -1,3 +1,13 @@
+annotations:
+  argocd.argoproj.io/sync-wave: "-1"
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    app: python-sample-app
+    backstage.io/kubernetes-id: python-sample-app
+  name: python-sample-app
+---
 apiVersion: v1
 kind: Service
 metadata:

@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: Namespace
-metadata:
-  labels:
-    app: monitoring
-    backstage.io/kubernetes-id: monitoring
-  name: monitoring
