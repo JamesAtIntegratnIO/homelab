@@ -1,8 +1,8 @@
-annotations:
-  argocd.argoproj.io/sync-wave: "-1"
 apiVersion: v1
 kind: Namespace
 metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "-1"
   labels:
     app: code-server
     backstage.io/kubernetes-id: code-server
