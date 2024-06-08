@@ -4,6 +4,7 @@ labels:
       'backstage.io/kubernetes-id': 'python-sample-app'
       app: python-sample-app
 resources:
+- namespace.yaml
 - deployment.yaml
 - service.yaml
 - ingress.yaml
