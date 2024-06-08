@@ -14,8 +14,6 @@ spec:
         - git: 
             repoURL: https://github.com/JamesAtIntegratnIO/homelab.git
             revision: main
-            directories:
-              - path: apps/*
             files:
               - path: "apps/**/config.json"
   template:
@@ -30,26 +28,18 @@ spec:
         targetRevision: apps
         path: "apps/{{.path.basename}}/overlays/{{.name}}"
       destination:
-        name: in-cluster
+        name: "{{.name}}"
         namespace: "{{.cluster.namespace}}"
       syncPolicy:
         automated:
           prune: true
           selfHeal: true
-        # retry:
-        #   limit: 3
-        #   backoff:
-        #     duration: 10s
-        #     factor: 2
-        #     maxDuration: 10m
+        retry:
+          limit: 3
+          backoff:
+            duration: 10s
+            factor: 2
+            maxDuration: 10m
         managedNamespaceMetadata:
           labels:
             goldilocks.fairwinds.com/enabled: "true"  
-  templatePatch: |
-    spec:
-      destination:
-        {{- if eq .childClusters true}}
-        name: "{{.name}}"
-        {{- else }}
-        name: "in-cluster"
-        {{- end }}
