@@ -1,4 +1,7 @@
 {
   "project": "infra",
-  "namespace": "code-server"
+  "cluster": {
+
+   "namespace": "code-server"
+  }
 }

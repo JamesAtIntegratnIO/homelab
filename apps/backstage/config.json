@@ -1,4 +1,7 @@
 {
   "project": "infra",
-  "namespace": "backstage"
+  "cluster": {
+
+   "namespace": "backstage"
+  }
 }

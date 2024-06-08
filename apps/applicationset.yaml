@@ -6,28 +6,21 @@ metadata:
   namespace: argocd
 spec:
   goTemplate: true
+  goTemplateOptions: [ "missingkey=error" ]
   generators:
   - matrix:
       generators:
         - clusters: {}
-        - list:
-            elements:
-              - appName: backstage
-                namespace: backstage
-                project: infra
-              - appName: hajimari
-                namespace: hajimari
-                project: infra
-              - appName: plex-metadata-manager
-                namespace: pmm
-                project: media
-              - appName: python-sample-app
-                namespace: python-sample-app
-                project: infra
-             
+        - git: 
+            repoURL: https://github.com/JamesAtIntegratnIO/homelab.git
+            revision: main
+            directories:
+              - path: apps/*
+            files:
+              - path: "apps/**/config.json"
   template:
     metadata:
-      name: "{{.name}}-{{.appName}}"
+      name: "{{.name}}-{{.path.basename}}"
       annotations:
         argocd.argoproj.io/manifest-generate-paths: ".;.."
     spec:
@@ -35,16 +28,20 @@ spec:
       source:
         repoURL: https://github.com/JamesAtIntegratnIO/homelab.git
         targetRevision: apps
-        path: "apps/{{.appName}}/overlays/{{.name}}"
+        path: "apps/{{.path.basename}}/overlays/{{.name}}"
       destination:
         name: in-cluster
-        namespace: "{{.namespace}}"
+        namespace: "{{.cluster.namespace}}"
       syncPolicy:
         automated:
           prune: true
           selfHeal: true
-        syncOptions:
-          - CreateNamespace=true
+        # retry:
+        #   limit: 3
+        #   backoff:
+        #     duration: 10s
+        #     factor: 2
+        #     maxDuration: 10m
         managedNamespaceMetadata:
           labels:
             goldilocks.fairwinds.com/enabled: "true"  

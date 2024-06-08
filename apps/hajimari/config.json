@@ -1,4 +1,7 @@
 {
   "project": "infra",
-  "namespace": "hajimari"
+  "cluster": {
+
+   "namespace": "hajimari"
+  }
 }
