@@ -1,4 +1,4 @@
 {
   "namespace": "kube-system",
-  "sync-wave": "2"
+  "syncwave": "2"
 }

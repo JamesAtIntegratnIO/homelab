@@ -21,7 +21,7 @@ spec:
       name: "{{.name}}-{{.path.basename}}"
       annotations:
         argocd.argoproj.io/manifest-generate-paths: ".;.."
-        argocd.argoproj.io/sync-wave: "{{.sync-wave}}"
+        argocd.argoproj.io/sync-wave: "{{.syncwave}}"
     spec:
       project: infra
       source:
