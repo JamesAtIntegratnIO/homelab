@@ -1,7 +1,6 @@
 {
   "project": "infra",
   "cluster": {
-
    "namespace": "python-sample-app"
   }
 }
