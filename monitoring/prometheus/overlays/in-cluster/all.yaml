@@ -1178,6 +1178,17 @@ spec:
     spec:
       containers:
       - args:
+        - --volume-dir=/etc/config
+        - --webhook-url=http://127.0.0.1:9090/-/reload
+        image: quay.io/prometheus-operator/prometheus-config-reloader:v0.72.0
+        imagePullPolicy: IfNotPresent
+        name: prometheus-server-configmap-reload
+        resources: {}
+        volumeMounts:
+        - mountPath: /etc/config
+          name: config-volume
+          readOnly: true
+      - args:
         - --storage.tsdb.retention.time=15d
         - --config.file=/etc/config/prometheus.yml
         - --storage.tsdb.path=/data
