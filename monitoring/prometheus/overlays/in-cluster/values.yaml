@@ -1196,6 +1196,11 @@ prometheus:
           - media-exportarr-radarr.media.svc.cluster.local:9707
           - media-exportarr-readarr.media.svc.cluster.local:9707
           - media-exportarr-sabnzbd.media.svc.cluster.local:9707
+    - job_name: 'ingress-nginx'
+      metrics_path: /metrics
+      static_configs:
+        - targets:
+          - ingress-nginx-controller-metrics.ingress-nginx.svc.cluster.local:10254
 
   # - job_name: 'prometheus-blackbox-exporter'
   #   metrics_path: /probe
