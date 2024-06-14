@@ -8,5 +8,5 @@ resources:
 - datasources.yaml
 - cred-onePasswordItem.yaml
 - loki-promtail-dashboard.yaml
-- ingress-nginx.yaml
+- ingress-nginx-dashboard.yaml
 - media-dashboard.yaml
