@@ -61,27 +61,6 @@ spec:
       status: {}
     volumesPerServer: 2
   priorityClassName: ""
-  prometheus:
-    affinity:
-      nodeAffinity: {}
-      podAffinity: {}
-      podAntiAffinity: {}
-    annotations: {}
-    diskCapacityGB: 1
-    env: []
-    image: quay.io/prometheus/prometheus:latest
-    initimage: busybox:1.33.1
-    labels: {}
-    nodeSelector: {}
-    resources: {}
-    securityContext:
-      fsGroup: 1000
-      runAsGroup: 1000
-      runAsNonRoot: true
-      runAsUser: 1000
-    serviceAccountName: ""
-    sidecarimage: alpine
-    storageClassName: standard
   requestAutoCert: false
   serviceAccountName: ""
   serviceMetadata:
