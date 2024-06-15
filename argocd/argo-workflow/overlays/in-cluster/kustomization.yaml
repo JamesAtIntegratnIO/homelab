@@ -8,4 +8,7 @@ resources:
 - ../../base
 - ./helm-all.yaml
 - onePasswordItems.yaml
+- admin-sa.yaml
+- readonly-sa.yaml
+- sa-tokens.yaml
 

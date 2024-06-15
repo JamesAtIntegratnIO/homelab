@@ -735,6 +735,7 @@ argo-workflows:
         - profile
         - email
         - offline_access
+        - groups
 
 
         # - groups
