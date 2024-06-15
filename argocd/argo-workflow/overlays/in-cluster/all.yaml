@@ -1722,6 +1722,52 @@ spec:
         kubernetes.io/os: linux
       serviceAccountName: argo-workflow-argo-workflows-workflow-controller
 ---
+apiVersion: argoproj.io/v1alpha1
+kind: Workflow
+metadata:
+  generateName: workflow-template-hello-world-
+  labels:
+    backstage.io/kubernetes-id: argo-workflow
+  name: workflow-template-hello-world
+  namespace: argo-workflow
+spec:
+  entrypoint: whalesay
+  templates:
+  - arguments:
+      parameters:
+      - name: message
+        value: hello world
+    name: whalesay
+    template: null
+    templateRef:
+      name: workflow-template-submittable
+      template: whalesay-template
+---
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  labels:
+    backstage.io/kubernetes-id: argo-workflow
+  name: workflow-template-submittable
+  namespace: argo-workflow
+spec:
+  arguments:
+    parameters:
+    - name: message
+      value: hello world
+  entrypoint: whalesay-template
+  templates:
+  - container:
+      args:
+      - '{{inputs.parameters.message}}'
+      command:
+      - cowsay
+      image: docker/whalesay
+    inputs:
+      parameters:
+      - name: message
+    name: whalesay-template
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
