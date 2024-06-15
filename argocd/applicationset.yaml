@@ -15,6 +15,9 @@ spec:
               - appName: argocd
                 namespace: argocd
                 syncWave: 1
+              - appName: argo-workflow
+                namespace: argo-workflow
+                syncWave: 1
               - appName: argocd-applications
                 namespace: argocd
                 syncWave: 2
