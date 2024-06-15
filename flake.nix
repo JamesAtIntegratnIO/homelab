@@ -33,6 +33,7 @@
             krew
             k0sctl
             k9s
+            minio-client
           
             yq
             jq

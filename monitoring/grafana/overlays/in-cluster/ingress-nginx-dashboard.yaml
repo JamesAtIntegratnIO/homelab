@@ -6,7 +6,7 @@ metadata:
   labels:
     grafana_dashboard: "true"
 data:
-  ingress-nginx.json:    
+  ingress-nginx.json: |
     {
       "__inputs": [
         {
