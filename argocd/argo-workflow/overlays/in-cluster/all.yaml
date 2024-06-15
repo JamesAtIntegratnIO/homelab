@@ -1708,3 +1708,13 @@ spec:
   - hosts:
     - argo-workflows.k8s.integratn.tech
     secretName: argo-workflows-tls
+---
+apiVersion: onepassword.com/v1
+kind: OnePasswordItem
+metadata:
+  labels:
+    backstage.io/kubernetes-id: argo-workflow
+  name: argo-workflow-authentik-provider-credentials
+  namespace: argo-workflow
+spec:
+  itemPath: vaults/homelab/items/argo-workflow-authentik-provider-credentials
