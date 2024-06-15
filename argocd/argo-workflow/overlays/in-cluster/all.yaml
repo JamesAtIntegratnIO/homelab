@@ -1728,20 +1728,16 @@ metadata:
   generateName: workflow-template-hello-world-
   labels:
     backstage.io/kubernetes-id: argo-workflow
-  name: workflow-template-hello-world
+  name: workflow-hello-world
   namespace: argo-workflow
 spec:
-  entrypoint: whalesay
-  templates:
-  - arguments:
-      parameters:
-      - name: message
-        value: hello world
-    name: whalesay
-    template: null
-    templateRef:
-      name: workflow-template-submittable
-      template: whalesay-template
+  arguments:
+    parameters:
+    - name: message
+      value: from workflow
+  entrypoint: whalesay-template
+  workflowTemplateRef:
+    name: workflow-template-submittable
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: WorkflowTemplate
