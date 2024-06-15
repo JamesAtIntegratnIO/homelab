@@ -1,6 +1,5 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-namespace: argo-workflow
 labels:
   - pairs:
       'backstage.io/kubernetes-id': 'argo-workflow'
@@ -15,4 +14,19 @@ resources:
 - argoWorkflow.yaml
 - admin-sa-cluster-role-binding.yaml
 - readonly-sa-cluster-role-binding.yaml
+- executer-sa.yaml
+
+# transformers:
+#   - |-
+#     apiVersion: builtin
+#     kind: NamespaceTransformer
+#     metadata:
+#       name: argo-workflow-namespace-transformer
+#       namespace: argo-workflow
+#     setRoleBindingSubjects: none
+#     unsetOnly: false
+#     fieldSpecs:
+#     - path: metadata/name
+#       kind: Namespace
+#       create: false
 

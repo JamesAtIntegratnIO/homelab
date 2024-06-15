@@ -1,4 +1,5 @@
 argo-workflows:
+  namespace: argo-workflow
   images:
     # -- Common tag for Argo Workflows images. Defaults to `.Chart.AppVersion`.
     tag: ""
@@ -22,7 +23,7 @@ argo-workflows:
   createAggregateRoles: true
 
   # -- String to partially override "argo-workflows.fullname" template
-  nameOverride:
+  nameOverride: argo-workflow
 
   # -- String to fully override "argo-workflows.fullname" template
   fullnameOverride:
@@ -57,7 +58,7 @@ argo-workflows:
     namespace:
     serviceAccount:
       # -- Specifies whether a service account should be created
-      create: false
+      create: true
       # -- Labels applied to created service account
       labels: {}
       # -- Annotations applied to created service account
@@ -69,9 +70,11 @@ argo-workflows:
     rbac:
       # -- Adds Role and RoleBinding for the above specified service account to be able to run workflows.
       # A Role and Rolebinding pair is also created for each namespace in controller.workflowNamespaces (see below)
-      create: false
+      create: true
       # -- Extra service accounts to be added to the RoleBinding
-      serviceAccounts: []
+      serviceAccounts:
+        - name: executor
+          namespace: argo-workflow
         # - name: my-service-account
         #   namespace: my-namespace
 
