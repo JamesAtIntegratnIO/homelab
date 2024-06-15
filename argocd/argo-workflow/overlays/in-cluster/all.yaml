@@ -929,6 +929,17 @@ spec:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
+  annotations:
+    workflows.argoproj.io/rbac-rule: '''argocd-admins'' in groups'
+    workflows.argoproj.io/rbac-rule-precedence: "1"
+  labels:
+    backstage.io/kubernetes-id: argo-workflow
+  name: admin-user
+  namespace: argo-workflow
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
   labels:
     app.kubernetes.io/component: server
     app.kubernetes.io/instance: argo-workflow
