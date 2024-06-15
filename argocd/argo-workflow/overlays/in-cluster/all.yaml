@@ -929,36 +929,6 @@ spec:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  annotations:
-    workflows.argoproj.io/rbac-rule: '''argocd-admins'' in groups'
-    workflows.argoproj.io/rbac-rule-precedence: "1"
-  labels:
-    backstage.io/kubernetes-id: argo-workflow
-  name: admin-user
-  namespace: argo-workflow
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  labels:
-    backstage.io/kubernetes-id: argo-workflow
-  name: executer
-  namespace: argo-workflow
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  annotations:
-    workflows.argoproj.io/rbac-rule: "true"
-    workflows.argoproj.io/rbac-rule-precedence: "0"
-  labels:
-    backstage.io/kubernetes-id: argo-workflow
-  name: read-only
-  namespace: argo-workflow
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
   labels:
     app.kubernetes.io/component: workflow-controller
     app.kubernetes.io/instance: default
@@ -1026,21 +996,32 @@ metadata:
   name: argo-workflow
   namespace: media
 ---
-apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:
+    workflows.argoproj.io/rbac-rule: '''argocd-admins'' in groups'
+    workflows.argoproj.io/rbac-rule-precedence: "1"
+  labels:
+    backstage.io/kubernetes-id: argo-workflow
+  name: admin-user
+---
+apiVersion: v1
+kind: ServiceAccount
 metadata:
   labels:
     backstage.io/kubernetes-id: argo-workflow
-  name: executor-role
-  namespace: argo-workflow
-rules:
-- apiGroups:
-  - argoproj.io
-  resources:
-  - workflowtaskresults
-  verbs:
-  - create
-  - patch
+  name: executer
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:
+    workflows.argoproj.io/rbac-rule: "true"
+    workflows.argoproj.io/rbac-rule-precedence: "0"
+  labels:
+    backstage.io/kubernetes-id: argo-workflow
+  name: read-only
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -1214,6 +1195,21 @@ rules:
   - workflowtasksets/status
   - workflowartifactgctasks/status
   verbs:
+  - patch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  labels:
+    backstage.io/kubernetes-id: argo-workflow
+  name: executor-role
+rules:
+- apiGroups:
+  - argoproj.io
+  resources:
+  - workflowtaskresults
+  verbs:
+  - create
   - patch
 ---
 apiVersion: rbac.authorization.k8s.io/v1
@@ -1630,9 +1626,83 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   labels:
+    app.kubernetes.io/component: workflow-controller
+    app.kubernetes.io/instance: default
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: argo-workflow-workflow-controller
+    app.kubernetes.io/part-of: argo-workflows
+    backstage.io/kubernetes-id: argo-workflow
+    helm.sh/chart: argo-workflows-0.41.8
+  name: default-argo-workflow-workflow
+  namespace: argocd
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: default-argo-workflow-workflow
+subjects:
+- kind: ServiceAccount
+  name: argo-workflow
+  namespace: argocd
+- kind: ServiceAccount
+  name: executor
+  namespace: argo-workflow
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/component: workflow-controller
+    app.kubernetes.io/instance: default
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: argo-workflow-workflow-controller
+    app.kubernetes.io/part-of: argo-workflows
+    backstage.io/kubernetes-id: argo-workflow
+    helm.sh/chart: argo-workflows-0.41.8
+  name: default-argo-workflow-workflow
+  namespace: default
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: default-argo-workflow-workflow
+subjects:
+- kind: ServiceAccount
+  name: argo-workflow
+  namespace: default
+- kind: ServiceAccount
+  name: executor
+  namespace: argo-workflow
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/component: workflow-controller
+    app.kubernetes.io/instance: default
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: argo-workflow-workflow-controller
+    app.kubernetes.io/part-of: argo-workflows
+    backstage.io/kubernetes-id: argo-workflow
+    helm.sh/chart: argo-workflows-0.41.8
+  name: default-argo-workflow-workflow
+  namespace: media
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: default-argo-workflow-workflow
+subjects:
+- kind: ServiceAccount
+  name: argo-workflow
+  namespace: media
+- kind: ServiceAccount
+  name: executor
+  namespace: argo-workflow
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
     backstage.io/kubernetes-id: argo-workflow
   name: executor-role-binding
-  namespace: argo-workflow
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -1640,81 +1710,6 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: executor
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  labels:
-    app.kubernetes.io/component: workflow-controller
-    app.kubernetes.io/instance: default
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: argo-workflow-workflow-controller
-    app.kubernetes.io/part-of: argo-workflows
-    backstage.io/kubernetes-id: argo-workflow
-    helm.sh/chart: argo-workflows-0.41.8
-  name: default-argo-workflow-workflow
-  namespace: argocd
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: default-argo-workflow-workflow
-subjects:
-- kind: ServiceAccount
-  name: argo-workflow
-  namespace: argocd
-- kind: ServiceAccount
-  name: executor
-  namespace: argo-workflow
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  labels:
-    app.kubernetes.io/component: workflow-controller
-    app.kubernetes.io/instance: default
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: argo-workflow-workflow-controller
-    app.kubernetes.io/part-of: argo-workflows
-    backstage.io/kubernetes-id: argo-workflow
-    helm.sh/chart: argo-workflows-0.41.8
-  name: default-argo-workflow-workflow
-  namespace: default
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: default-argo-workflow-workflow
-subjects:
-- kind: ServiceAccount
-  name: argo-workflow
-  namespace: default
-- kind: ServiceAccount
-  name: executor
-  namespace: argo-workflow
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  labels:
-    app.kubernetes.io/component: workflow-controller
-    app.kubernetes.io/instance: default
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: argo-workflow-workflow-controller
-    app.kubernetes.io/part-of: argo-workflows
-    backstage.io/kubernetes-id: argo-workflow
-    helm.sh/chart: argo-workflows-0.41.8
-  name: default-argo-workflow-workflow
-  namespace: media
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: Role
-  name: default-argo-workflow-workflow
-subjects:
-- kind: ServiceAccount
-  name: argo-workflow
-  namespace: media
-- kind: ServiceAccount
-  name: executor
-  namespace: argo-workflow
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -1873,7 +1868,6 @@ metadata:
   labels:
     backstage.io/kubernetes-id: argo-workflow
   name: admin-user.service-account-token
-  namespace: argo-workflow
 type: kubernetes.io/service-account-token
 ---
 apiVersion: v1
@@ -1884,7 +1878,6 @@ metadata:
   labels:
     backstage.io/kubernetes-id: argo-workflow
   name: read-only.service-account-token
-  namespace: argo-workflow
 type: kubernetes.io/service-account-token
 ---
 apiVersion: v1
@@ -2089,7 +2082,6 @@ metadata:
   labels:
     backstage.io/kubernetes-id: argo-workflow
   name: workflow-hello-world
-  namespace: argo-workflow
 spec:
   arguments:
     parameters:
@@ -2105,7 +2097,6 @@ metadata:
   labels:
     backstage.io/kubernetes-id: argo-workflow
   name: workflow-template-submittable
-  namespace: argo-workflow
 spec:
   arguments:
     parameters:
@@ -2164,6 +2155,5 @@ metadata:
   labels:
     backstage.io/kubernetes-id: argo-workflow
   name: argo-workflow-authentik-provider-credentials
-  namespace: argo-workflow
 spec:
   itemPath: vaults/homelab/items/argo-workflow-authentik-provider-credentials
