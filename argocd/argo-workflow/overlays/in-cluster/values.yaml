@@ -1,5 +1,4 @@
 argo-workflows:
-  namespace: argo-workflow
   images:
     # -- Common tag for Argo Workflows images. Defaults to `.Chart.AppVersion`.
     tag: ""
@@ -30,7 +29,7 @@ argo-workflows:
 
   # -- Override the namespace
   # @default -- `.Release.Namespace`
-  namespaceOverride: ""
+  namespaceOverride: "argo-workflow"
 
   # -- Labels to set on all resources
   commonLabels: {}
