@@ -1390,6 +1390,21 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   labels:
+    backstage.io/kubernetes-id: argo-workflow
+  name: admin-user-cluster-role-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: argo-workflow-argo-workflows-admin
+subjects:
+- kind: ServiceAccount
+  name: admin-user
+  namespace: argo-workflow
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
     app.kubernetes.io/component: server
     app.kubernetes.io/instance: argo-workflow
     app.kubernetes.io/managed-by: Helm
@@ -1468,6 +1483,21 @@ roleRef:
 subjects:
 - kind: ServiceAccount
   name: argo-workflow-argo-workflows-workflow-controller
+  namespace: argo-workflow
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    backstage.io/kubernetes-id: argo-workflow
+  name: read-only-user-cluster-role-binding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: argo-workflow-argo-workflows-server
+subjects:
+- kind: ServiceAccount
+  name: argo-workflow-argo-workflows-view
   namespace: argo-workflow
 ---
 apiVersion: v1
