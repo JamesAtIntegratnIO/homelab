@@ -965,6 +965,17 @@ metadata:
   name: argo-workflow-argo-workflows-workflow-controller
   namespace: argo-workflow
 ---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:
+    workflows.argoproj.io/rbac-rule: "true"
+    workflows.argoproj.io/rbac-rule-precedence: "0"
+  labels:
+    backstage.io/kubernetes-id: argo-workflow
+  name: read-only
+  namespace: argo-workflow
+---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -1493,6 +1504,28 @@ metadata:
     helm.sh/chart: argo-workflows-0.41.8
   name: argo-workflow-argo-workflows-workflow-controller-configmap
   namespace: argo-workflow
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  annotations:
+    kubernetes.io/service-account.name: admin-user
+  labels:
+    backstage.io/kubernetes-id: argo-workflow
+  name: admin-user-token
+  namespace: argo-workflow
+type: kubernetes.io/service-account-token
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  annotations:
+    kubernetes.io/service-account.name: read-only
+  labels:
+    backstage.io/kubernetes-id: argo-workflow
+  name: readonly-user-token
+  namespace: argo-workflow
+type: kubernetes.io/service-account-token
 ---
 apiVersion: v1
 kind: Service
