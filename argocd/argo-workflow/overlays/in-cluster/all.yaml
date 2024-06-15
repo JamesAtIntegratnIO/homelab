@@ -1080,6 +1080,28 @@ rules:
   - list
 - apiGroups:
   - ""
+  resourceNames:
+  - sso
+  resources:
+  - secrets
+  verbs:
+  - get
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  verbs:
+  - create
+- apiGroups:
+  - ""
+  resources:
+  - serviceaccounts
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
   resources:
   - secrets
   verbs:
@@ -1429,6 +1451,22 @@ subjects:
 apiVersion: v1
 data:
   config: |
+    sso:
+      issuer: https://auth.k8s.integratn.tech/application/o/argo-workflow/
+      clientId:
+        name: argo-workflow-authentik-provider-credentials
+        key: client-id
+      clientSecret:
+        name: argo-workflow-authentik-provider-credentials
+        key: client-secret
+      redirectUrl: "https://argo-workflow.k8s.integratn.tech/oauth2/callback"
+      rbac:
+        enabled: true
+      scopes:
+        - openid
+        - profile
+        - email
+        - offline_access
     nodeEvents:
       enabled: true
 kind: ConfigMap
