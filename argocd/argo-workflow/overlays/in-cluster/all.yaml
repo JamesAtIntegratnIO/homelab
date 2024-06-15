@@ -2157,3 +2157,17 @@ metadata:
   name: argo-workflow-authentik-provider-credentials
 spec:
   itemPath: vaults/homelab/items/argo-workflow-authentik-provider-credentials
+---
+apiVersion: builtIn
+fieldSpecs:
+- create: false
+  kind: Namespace
+  path: metadata/name
+kind: NamespaceTransformer
+metadata:
+  labels:
+    backstage.io/kubernetes-id: argo-workflow
+  name: argo-workflow-namespace-transformer
+  namespace: argo-workflow
+setRoleBindingSubjects: defaultOnly
+unsetOnly: true
