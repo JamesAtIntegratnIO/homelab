@@ -1512,7 +1512,7 @@ metadata:
     kubernetes.io/service-account.name: admin-user
   labels:
     backstage.io/kubernetes-id: argo-workflow
-  name: admin-user-token
+  name: admin-user.service-account-token
   namespace: argo-workflow
 type: kubernetes.io/service-account-token
 ---
@@ -1523,7 +1523,7 @@ metadata:
     kubernetes.io/service-account.name: read-only
   labels:
     backstage.io/kubernetes-id: argo-workflow
-  name: readonly-user-token
+  name: read-only.service-account-token
   namespace: argo-workflow
 type: kubernetes.io/service-account-token
 ---
