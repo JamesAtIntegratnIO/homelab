@@ -1817,7 +1817,7 @@ metadata:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: argo-workflow-argo-workflows-admin
+  name: default-argo-workflows-admin
 subjects:
 - kind: ServiceAccount
   name: admin-user
@@ -1916,7 +1916,7 @@ metadata:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: argo-workflow-argo-workflows-server
+  name: default-argo-workflows-server
 subjects:
 - kind: ServiceAccount
   name: argo-workflow-argo-workflows-view
