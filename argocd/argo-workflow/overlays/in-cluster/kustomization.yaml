@@ -13,4 +13,6 @@ resources:
 - sa-tokens.yaml
 - argoWorkflowTemplate.yaml
 - argoWorkflow.yaml
+- admin-sa-cluster-role-binding.yaml
+- readonly-sa-cluster-role-binding.yaml
 
