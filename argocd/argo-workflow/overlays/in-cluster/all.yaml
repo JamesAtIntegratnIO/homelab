@@ -968,6 +968,14 @@ metadata:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
+  labels:
+    backstage.io/kubernetes-id: argo-workflow
+  name: executer
+  namespace: argo-workflow
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
   annotations:
     workflows.argoproj.io/rbac-rule: "true"
     workflows.argoproj.io/rbac-rule-precedence: "0"
@@ -975,6 +983,22 @@ metadata:
     backstage.io/kubernetes-id: argo-workflow
   name: read-only
   namespace: argo-workflow
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  labels:
+    backstage.io/kubernetes-id: argo-workflow
+  name: executor-role
+  namespace: argo-workflow
+rules:
+- apiGroups:
+  - argoproj.io
+  resources:
+  - workflowtaskresults
+  verbs:
+  - create
+  - patch
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
@@ -1387,6 +1411,18 @@ rules:
   - watch
 ---
 apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    backstage.io/kubernetes-id: argo-workflow
+  name: executor-role-binding
+  namespace: argo-workflow
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: executor
+---
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   labels:
@@ -1782,6 +1818,7 @@ spec:
     - name: message
       value: hello world
   entrypoint: whalesay-template
+  serviceAccountName: executor
   templates:
   - container:
       args:
