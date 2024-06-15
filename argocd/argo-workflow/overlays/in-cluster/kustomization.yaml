@@ -11,4 +11,6 @@ resources:
 - admin-sa.yaml
 - readonly-sa.yaml
 - sa-tokens.yaml
+- argoWorkflowTemplate.yaml
+- argoWorkflow.yaml
 
