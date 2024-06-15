@@ -588,7 +588,8 @@ argo-workflows:
 
     # -- A list of supported authentication modes. Available values are `server`, `client`, or `sso`. If you provide sso, please configure `.Values.server.sso` as well.
     ## Ref: https://argo-workflows.readthedocs.io/en/stable/argo-server-auth-mode/
-    authModes: []
+    authModes:
+      - sso
 
     # -- Extra arguments to provide to the Argo server binary.
     ## Ref: https://argo-workflows.readthedocs.io/en/stable/argo-server/#options
@@ -703,21 +704,21 @@ argo-workflows:
     # SSO configuration when SSO is specified as a server auth mode.
     sso:
       # -- Create SSO configuration. If you set `true` , please also set `.Values.server.authMode` as `sso`.
-      enabled: false
+      enabled: true
       # -- The root URL of the OIDC identity provider
-      issuer: https://accounts.google.com
+      issuer: https://auth.k8s.integratn.tech/application/o/argo-workflow/
       clientId:
         # -- Name of secret to retrieve the app OIDC client ID
-        name: argo-server-sso
+        name: argo-workflow-authentik-provider-credentials
         # -- Key of secret to retrieve the app OIDC client ID
         key: client-id
       clientSecret:
         # -- Name of a secret to retrieve the app OIDC client secret
-        name: argo-server-sso
+        name: argo-workflow-authentik-provider-credentials
         # -- Key of a secret to retrieve the app OIDC client secret
         key: client-secret
       # -- The OIDC redirect URL. Should be in the form <argo-root-url>/oauth2/callback.
-      redirectUrl: ""
+      redirectUrl: https://argo-workflows.k8s.integratn.tech/oauth2/callback
       rbac:
         # -- Adds ServiceAccount Policy to server (Cluster)Role.
         enabled: true
@@ -729,7 +730,13 @@ argo-workflows:
         secretWhitelist: []
       # -- Scopes requested from the SSO ID provider
       ## The 'groups' scope requests group membership information, which is usually used for authorization decisions.
-      scopes: []
+      scopes: 
+        - openid
+        - profile
+        - email
+        - offline_access
+
+
         # - groups
       # -- Define how long your login is valid for (in hours)
       ## If omitted, defaults to 10h.

@@ -7,4 +7,5 @@ labels:
 resources:
 - ../../base
 - ./helm-all.yaml
+- onePasswordItems.yaml
 
