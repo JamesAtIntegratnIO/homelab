@@ -1421,6 +1421,9 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
   name: executor-role
+subjects:
+- kind: ServiceAccount
+  name: executor
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
