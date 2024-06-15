@@ -1542,6 +1542,7 @@ spec:
       - args:
         - server
         - --configmap=argo-workflow-argo-workflows-workflow-controller-configmap
+        - --auth-mode=sso
         - --secure=false
         - --loglevel
         - info
