@@ -2200,7 +2200,7 @@ spec:
     - name: message
       value: hello world
   entrypoint: whalesay-template
-  serviceAccountName: executor
+  serviceAccountName: argo-workflow
   templates:
   - container:
       args:
