@@ -930,7 +930,7 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   annotations:
-    workflows.argoproj.io/rbac-rule: '''argocd-admins'' in groups'
+    workflows.argoproj.io/rbac-rule: '''argocd-admins'' in openid'
     workflows.argoproj.io/rbac-rule-precedence: "1"
   labels:
     backstage.io/kubernetes-id: argo-workflow
