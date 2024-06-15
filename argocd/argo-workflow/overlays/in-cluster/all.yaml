@@ -929,41 +929,82 @@ spec:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  annotations:
-    workflows.argoproj.io/rbac-rule: '''argocd-admins'' in groups'
-    workflows.argoproj.io/rbac-rule-precedence: "1"
   labels:
-    backstage.io/kubernetes-id: argo-workflow
-  name: admin-user
-  namespace: argo-workflow
----
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  labels:
-    app.kubernetes.io/component: server
-    app.kubernetes.io/instance: argo-workflow
+    app.kubernetes.io/component: workflow-controller
+    app.kubernetes.io/instance: default
     app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: argo-workflows-server
+    app.kubernetes.io/name: argo-workflows-workflow-controller
     app.kubernetes.io/part-of: argo-workflows
     backstage.io/kubernetes-id: argo-workflow
     helm.sh/chart: argo-workflows-0.41.8
-  name: argo-workflow-argo-workflows-server
-  namespace: argo-workflow
+  name: argo-workflow
+  namespace: argocd
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
     app.kubernetes.io/component: workflow-controller
-    app.kubernetes.io/instance: argo-workflow
+    app.kubernetes.io/instance: default
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: argo-workflows-workflow-controller
     app.kubernetes.io/part-of: argo-workflows
     backstage.io/kubernetes-id: argo-workflow
     helm.sh/chart: argo-workflows-0.41.8
-  name: argo-workflow-argo-workflows-workflow-controller
-  namespace: argo-workflow
+  name: argo-workflow
+  namespace: default
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app.kubernetes.io/component: server
+    app.kubernetes.io/instance: default
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: argo-workflows-server
+    app.kubernetes.io/part-of: argo-workflows
+    backstage.io/kubernetes-id: argo-workflow
+    helm.sh/chart: argo-workflows-0.41.8
+  name: default-argo-workflows-server
+  namespace: default
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app.kubernetes.io/component: workflow-controller
+    app.kubernetes.io/instance: default
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: argo-workflows-workflow-controller
+    app.kubernetes.io/part-of: argo-workflows
+    backstage.io/kubernetes-id: argo-workflow
+    helm.sh/chart: argo-workflows-0.41.8
+  name: default-argo-workflows-workflow-controller
+  namespace: default
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app.kubernetes.io/component: workflow-controller
+    app.kubernetes.io/instance: default
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: argo-workflows-workflow-controller
+    app.kubernetes.io/part-of: argo-workflows
+    backstage.io/kubernetes-id: argo-workflow
+    helm.sh/chart: argo-workflows-0.41.8
+  name: argo-workflow
+  namespace: media
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:
+    workflows.argoproj.io/rbac-rule: '''argocd-admins'' in groups'
+    workflows.argoproj.io/rbac-rule-precedence: "1"
+  labels:
+    backstage.io/kubernetes-id: argo-workflow
+  name: admin-user
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -971,7 +1012,6 @@ metadata:
   labels:
     backstage.io/kubernetes-id: argo-workflow
   name: executer
-  namespace: argo-workflow
 ---
 apiVersion: v1
 kind: ServiceAccount
@@ -982,7 +1022,180 @@ metadata:
   labels:
     backstage.io/kubernetes-id: argo-workflow
   name: read-only
-  namespace: argo-workflow
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  labels:
+    app.kubernetes.io/component: workflow-controller
+    app.kubernetes.io/instance: default
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: argo-workflows-workflow-controller
+    app.kubernetes.io/part-of: argo-workflows
+    backstage.io/kubernetes-id: argo-workflow
+    helm.sh/chart: argo-workflows-0.41.8
+  name: default-argo-workflows-workflow
+  namespace: argocd
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  verbs:
+  - get
+  - watch
+  - patch
+- apiGroups:
+  - ""
+  resources:
+  - pods/log
+  verbs:
+  - get
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - pods/exec
+  verbs:
+  - create
+- apiGroups:
+  - argoproj.io
+  resources:
+  - workflowtaskresults
+  verbs:
+  - create
+  - patch
+- apiGroups:
+  - argoproj.io
+  resources:
+  - workflowtasksets
+  - workflowartifactgctasks
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - argoproj.io
+  resources:
+  - workflowtasksets/status
+  - workflowartifactgctasks/status
+  verbs:
+  - patch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  labels:
+    app.kubernetes.io/component: workflow-controller
+    app.kubernetes.io/instance: default
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: argo-workflows-workflow-controller
+    app.kubernetes.io/part-of: argo-workflows
+    backstage.io/kubernetes-id: argo-workflow
+    helm.sh/chart: argo-workflows-0.41.8
+  name: default-argo-workflows-workflow
+  namespace: default
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  verbs:
+  - get
+  - watch
+  - patch
+- apiGroups:
+  - ""
+  resources:
+  - pods/log
+  verbs:
+  - get
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - pods/exec
+  verbs:
+  - create
+- apiGroups:
+  - argoproj.io
+  resources:
+  - workflowtaskresults
+  verbs:
+  - create
+  - patch
+- apiGroups:
+  - argoproj.io
+  resources:
+  - workflowtasksets
+  - workflowartifactgctasks
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - argoproj.io
+  resources:
+  - workflowtasksets/status
+  - workflowartifactgctasks/status
+  verbs:
+  - patch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  labels:
+    app.kubernetes.io/component: workflow-controller
+    app.kubernetes.io/instance: default
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: argo-workflows-workflow-controller
+    app.kubernetes.io/part-of: argo-workflows
+    backstage.io/kubernetes-id: argo-workflow
+    helm.sh/chart: argo-workflows-0.41.8
+  name: default-argo-workflows-workflow
+  namespace: media
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  verbs:
+  - get
+  - watch
+  - patch
+- apiGroups:
+  - ""
+  resources:
+  - pods/log
+  verbs:
+  - get
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - pods/exec
+  verbs:
+  - create
+- apiGroups:
+  - argoproj.io
+  resources:
+  - workflowtaskresults
+  verbs:
+  - create
+  - patch
+- apiGroups:
+  - argoproj.io
+  resources:
+  - workflowtasksets
+  - workflowartifactgctasks
+  verbs:
+  - list
+  - watch
+- apiGroups:
+  - argoproj.io
+  resources:
+  - workflowtasksets/status
+  - workflowartifactgctasks/status
+  verbs:
+  - patch
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -990,7 +1203,6 @@ metadata:
   labels:
     backstage.io/kubernetes-id: argo-workflow
   name: executor-role
-  namespace: argo-workflow
 rules:
 - apiGroups:
   - argoproj.io
@@ -1005,14 +1217,14 @@ kind: ClusterRole
 metadata:
   labels:
     app.kubernetes.io/component: server
-    app.kubernetes.io/instance: argo-workflow
+    app.kubernetes.io/instance: default
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: argo-workflows-server
     app.kubernetes.io/part-of: argo-workflows
     backstage.io/kubernetes-id: argo-workflow
     helm.sh/chart: argo-workflows-0.41.8
     rbac.authorization.k8s.io/aggregate-to-admin: "true"
-  name: argo-workflow-argo-workflows-admin
+  name: default-argo-workflows-admin
 rules:
 - apiGroups:
   - argoproj.io
@@ -1048,14 +1260,14 @@ kind: ClusterRole
 metadata:
   labels:
     app.kubernetes.io/component: server
-    app.kubernetes.io/instance: argo-workflow
+    app.kubernetes.io/instance: default
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: argo-workflows-server
     app.kubernetes.io/part-of: argo-workflows
     backstage.io/kubernetes-id: argo-workflow
     helm.sh/chart: argo-workflows-0.41.8
     rbac.authorization.k8s.io/aggregate-to-edit: "true"
-  name: argo-workflow-argo-workflows-edit
+  name: default-argo-workflows-edit
 rules:
 - apiGroups:
   - argoproj.io
@@ -1091,13 +1303,13 @@ kind: ClusterRole
 metadata:
   labels:
     app.kubernetes.io/component: server
-    app.kubernetes.io/instance: argo-workflow
+    app.kubernetes.io/instance: default
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: argo-workflows-server
     app.kubernetes.io/part-of: argo-workflows
     backstage.io/kubernetes-id: argo-workflow
     helm.sh/chart: argo-workflows-0.41.8
-  name: argo-workflow-argo-workflows-server
+  name: default-argo-workflows-server
 rules:
 - apiGroups:
   - ""
@@ -1183,13 +1395,13 @@ kind: ClusterRole
 metadata:
   labels:
     app.kubernetes.io/component: server
-    app.kubernetes.io/instance: argo-workflow
+    app.kubernetes.io/instance: default
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: argo-workflows-server
     app.kubernetes.io/part-of: argo-workflows
     backstage.io/kubernetes-id: argo-workflow
     helm.sh/chart: argo-workflows-0.41.8
-  name: argo-workflow-argo-workflows-server-cluster-template
+  name: default-argo-workflows-server-cluster-template
 rules:
 - apiGroups:
   - argoproj.io
@@ -1209,14 +1421,14 @@ kind: ClusterRole
 metadata:
   labels:
     app.kubernetes.io/component: workflow-controller
-    app.kubernetes.io/instance: argo-workflow
+    app.kubernetes.io/instance: default
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: argo-workflows-workflow-controller
     app.kubernetes.io/part-of: argo-workflows
     backstage.io/kubernetes-id: argo-workflow
     helm.sh/chart: argo-workflows-0.41.8
     rbac.authorization.k8s.io/aggregate-to-view: "true"
-  name: argo-workflow-argo-workflows-view
+  name: default-argo-workflows-view
 rules:
 - apiGroups:
   - argoproj.io
@@ -1247,13 +1459,13 @@ kind: ClusterRole
 metadata:
   labels:
     app.kubernetes.io/component: workflow-controller
-    app.kubernetes.io/instance: argo-workflow
+    app.kubernetes.io/instance: default
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: argo-workflows-workflow-controller
     app.kubernetes.io/part-of: argo-workflows
     backstage.io/kubernetes-id: argo-workflow
     helm.sh/chart: argo-workflows-0.41.8
-  name: argo-workflow-argo-workflows-workflow-controller
+  name: default-argo-workflows-workflow-controller
 rules:
 - apiGroups:
   - ""
@@ -1392,13 +1604,13 @@ kind: ClusterRole
 metadata:
   labels:
     app.kubernetes.io/component: workflow-controller
-    app.kubernetes.io/instance: argo-workflow
+    app.kubernetes.io/instance: default
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: argo-workflows-workflow-controller
     app.kubernetes.io/part-of: argo-workflows
     backstage.io/kubernetes-id: argo-workflow
     helm.sh/chart: argo-workflows-0.41.8
-  name: argo-workflow-argo-workflows-workflow-controller-cluster-template
+  name: default-argo-workflows-workflow-controller-cluster-template
 rules:
 - apiGroups:
   - argoproj.io
@@ -1414,9 +1626,83 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   labels:
+    app.kubernetes.io/component: workflow-controller
+    app.kubernetes.io/instance: default
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: argo-workflows-workflow-controller
+    app.kubernetes.io/part-of: argo-workflows
+    backstage.io/kubernetes-id: argo-workflow
+    helm.sh/chart: argo-workflows-0.41.8
+  name: default-argo-workflows-workflow
+  namespace: argocd
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: default-argo-workflows-workflow
+subjects:
+- kind: ServiceAccount
+  name: argo-workflow
+  namespace: argocd
+- kind: ServiceAccount
+  name: executor
+  namespace: argo-workflow
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/component: workflow-controller
+    app.kubernetes.io/instance: default
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: argo-workflows-workflow-controller
+    app.kubernetes.io/part-of: argo-workflows
+    backstage.io/kubernetes-id: argo-workflow
+    helm.sh/chart: argo-workflows-0.41.8
+  name: default-argo-workflows-workflow
+  namespace: default
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: default-argo-workflows-workflow
+subjects:
+- kind: ServiceAccount
+  name: argo-workflow
+  namespace: default
+- kind: ServiceAccount
+  name: executor
+  namespace: argo-workflow
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/component: workflow-controller
+    app.kubernetes.io/instance: default
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: argo-workflows-workflow-controller
+    app.kubernetes.io/part-of: argo-workflows
+    backstage.io/kubernetes-id: argo-workflow
+    helm.sh/chart: argo-workflows-0.41.8
+  name: default-argo-workflows-workflow
+  namespace: media
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: default-argo-workflows-workflow
+subjects:
+- kind: ServiceAccount
+  name: argo-workflow
+  namespace: media
+- kind: ServiceAccount
+  name: executor
+  namespace: argo-workflow
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  labels:
     backstage.io/kubernetes-id: argo-workflow
   name: executor-role-binding
-  namespace: argo-workflow
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -1445,84 +1731,84 @@ kind: ClusterRoleBinding
 metadata:
   labels:
     app.kubernetes.io/component: server
-    app.kubernetes.io/instance: argo-workflow
+    app.kubernetes.io/instance: default
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: argo-workflows-server
     app.kubernetes.io/part-of: argo-workflows
     backstage.io/kubernetes-id: argo-workflow
     helm.sh/chart: argo-workflows-0.41.8
-  name: argo-workflow-argo-workflows-server
+  name: default-argo-workflows-server
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: argo-workflow-argo-workflows-server
+  name: default-argo-workflows-server
 subjects:
 - kind: ServiceAccount
-  name: argo-workflow-argo-workflows-server
-  namespace: argo-workflow
+  name: default-argo-workflows-server
+  namespace: default
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   labels:
     app.kubernetes.io/component: server
-    app.kubernetes.io/instance: argo-workflow
+    app.kubernetes.io/instance: default
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: argo-workflows-server
     app.kubernetes.io/part-of: argo-workflows
     backstage.io/kubernetes-id: argo-workflow
     helm.sh/chart: argo-workflows-0.41.8
-  name: argo-workflow-argo-workflows-server-cluster-template
+  name: default-argo-workflows-server-cluster-template
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: argo-workflow-argo-workflows-server-cluster-template
+  name: default-argo-workflows-server-cluster-template
 subjects:
 - kind: ServiceAccount
-  name: argo-workflow-argo-workflows-server
-  namespace: argo-workflow
+  name: default-argo-workflows-server
+  namespace: default
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   labels:
     app.kubernetes.io/component: workflow-controller
-    app.kubernetes.io/instance: argo-workflow
+    app.kubernetes.io/instance: default
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: argo-workflows-workflow-controller
     app.kubernetes.io/part-of: argo-workflows
     backstage.io/kubernetes-id: argo-workflow
     helm.sh/chart: argo-workflows-0.41.8
-  name: argo-workflow-argo-workflows-workflow-controller
+  name: default-argo-workflows-workflow-controller
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: argo-workflow-argo-workflows-workflow-controller
+  name: default-argo-workflows-workflow-controller
 subjects:
 - kind: ServiceAccount
-  name: argo-workflow-argo-workflows-workflow-controller
-  namespace: argo-workflow
+  name: default-argo-workflows-workflow-controller
+  namespace: default
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   labels:
     app.kubernetes.io/component: workflow-controller
-    app.kubernetes.io/instance: argo-workflow
+    app.kubernetes.io/instance: default
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: argo-workflows-workflow-controller
     app.kubernetes.io/part-of: argo-workflows
     backstage.io/kubernetes-id: argo-workflow
     helm.sh/chart: argo-workflows-0.41.8
-  name: argo-workflow-argo-workflows-workflow-controller-cluster-template
+  name: default-argo-workflows-workflow-controller-cluster-template
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: argo-workflow-argo-workflows-workflow-controller-cluster-template
+  name: default-argo-workflows-workflow-controller-cluster-template
 subjects:
 - kind: ServiceAccount
-  name: argo-workflow-argo-workflows-workflow-controller
-  namespace: argo-workflow
+  name: default-argo-workflows-workflow-controller
+  namespace: default
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -1565,14 +1851,14 @@ kind: ConfigMap
 metadata:
   labels:
     app.kubernetes.io/component: workflow-controller
-    app.kubernetes.io/instance: argo-workflow
+    app.kubernetes.io/instance: default
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: argo-workflows-cm
     app.kubernetes.io/part-of: argo-workflows
     backstage.io/kubernetes-id: argo-workflow
     helm.sh/chart: argo-workflows-0.41.8
-  name: argo-workflow-argo-workflows-workflow-controller-configmap
-  namespace: argo-workflow
+  name: default-argo-workflows-workflow-controller-configmap
+  namespace: default
 ---
 apiVersion: v1
 kind: Secret
@@ -1582,7 +1868,6 @@ metadata:
   labels:
     backstage.io/kubernetes-id: argo-workflow
   name: admin-user.service-account-token
-  namespace: argo-workflow
 type: kubernetes.io/service-account-token
 ---
 apiVersion: v1
@@ -1593,7 +1878,6 @@ metadata:
   labels:
     backstage.io/kubernetes-id: argo-workflow
   name: read-only.service-account-token
-  namespace: argo-workflow
 type: kubernetes.io/service-account-token
 ---
 apiVersion: v1
@@ -1601,21 +1885,21 @@ kind: Service
 metadata:
   labels:
     app.kubernetes.io/component: server
-    app.kubernetes.io/instance: argo-workflow
+    app.kubernetes.io/instance: default
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: argo-workflows-server
     app.kubernetes.io/part-of: argo-workflows
     app.kubernetes.io/version: v3.5.7
     backstage.io/kubernetes-id: argo-workflow
     helm.sh/chart: argo-workflows-0.41.8
-  name: argo-workflow-argo-workflows-server
-  namespace: argo-workflow
+  name: default-argo-workflows-server
+  namespace: default
 spec:
   ports:
   - port: 2746
     targetPort: 2746
   selector:
-    app.kubernetes.io/instance: argo-workflow
+    app.kubernetes.io/instance: default
     app.kubernetes.io/name: argo-workflows-server
   sessionAffinity: None
   type: ClusterIP
@@ -1625,27 +1909,27 @@ kind: Deployment
 metadata:
   labels:
     app.kubernetes.io/component: server
-    app.kubernetes.io/instance: argo-workflow
+    app.kubernetes.io/instance: default
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: argo-workflows-server
     app.kubernetes.io/part-of: argo-workflows
     app.kubernetes.io/version: v3.5.7
     backstage.io/kubernetes-id: argo-workflow
     helm.sh/chart: argo-workflows-0.41.8
-  name: argo-workflow-argo-workflows-server
-  namespace: argo-workflow
+  name: default-argo-workflows-server
+  namespace: default
 spec:
   replicas: 1
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app.kubernetes.io/instance: argo-workflow
+      app.kubernetes.io/instance: default
       app.kubernetes.io/name: argo-workflows-server
   template:
     metadata:
       labels:
         app.kubernetes.io/component: server
-        app.kubernetes.io/instance: argo-workflow
+        app.kubernetes.io/instance: default
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: argo-workflows-server
         app.kubernetes.io/part-of: argo-workflows
@@ -1655,7 +1939,7 @@ spec:
       containers:
       - args:
         - server
-        - --configmap=argo-workflow-argo-workflows-workflow-controller-configmap
+        - --configmap=default-argo-workflows-workflow-controller-configmap
         - --auth-mode=sso
         - --secure=false
         - --loglevel
@@ -1700,7 +1984,7 @@ spec:
           name: tmp
       nodeSelector:
         kubernetes.io/os: linux
-      serviceAccountName: argo-workflow-argo-workflows-server
+      serviceAccountName: default-argo-workflows-server
       volumes:
       - emptyDir: {}
         name: tmp
@@ -1710,27 +1994,27 @@ kind: Deployment
 metadata:
   labels:
     app.kubernetes.io/component: workflow-controller
-    app.kubernetes.io/instance: argo-workflow
+    app.kubernetes.io/instance: default
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: argo-workflows-workflow-controller
     app.kubernetes.io/part-of: argo-workflows
     app.kubernetes.io/version: v3.5.7
     backstage.io/kubernetes-id: argo-workflow
     helm.sh/chart: argo-workflows-0.41.8
-  name: argo-workflow-argo-workflows-workflow-controller
-  namespace: argo-workflow
+  name: default-argo-workflows-workflow-controller
+  namespace: default
 spec:
   replicas: 1
   revisionHistoryLimit: 10
   selector:
     matchLabels:
-      app.kubernetes.io/instance: argo-workflow
+      app.kubernetes.io/instance: default
       app.kubernetes.io/name: argo-workflows-workflow-controller
   template:
     metadata:
       labels:
         app.kubernetes.io/component: workflow-controller
-        app.kubernetes.io/instance: argo-workflow
+        app.kubernetes.io/instance: default
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: argo-workflows-workflow-controller
         app.kubernetes.io/part-of: argo-workflows
@@ -1740,7 +2024,7 @@ spec:
       containers:
       - args:
         - --configmap
-        - argo-workflow-argo-workflows-workflow-controller-configmap
+        - default-argo-workflows-workflow-controller-configmap
         - --executor-image
         - quay.io/argoproj/argoexec:v3.5.7
         - --loglevel
@@ -1789,7 +2073,7 @@ spec:
           runAsNonRoot: true
       nodeSelector:
         kubernetes.io/os: linux
-      serviceAccountName: argo-workflow-argo-workflows-workflow-controller
+      serviceAccountName: default-argo-workflows-workflow-controller
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
@@ -1798,7 +2082,6 @@ metadata:
   labels:
     backstage.io/kubernetes-id: argo-workflow
   name: workflow-hello-world
-  namespace: argo-workflow
 spec:
   arguments:
     parameters:
@@ -1814,7 +2097,6 @@ metadata:
   labels:
     backstage.io/kubernetes-id: argo-workflow
   name: workflow-template-submittable
-  namespace: argo-workflow
 spec:
   arguments:
     parameters:
@@ -1841,14 +2123,14 @@ metadata:
     cert-manager.io/cluster-issuer: letsencrypt-prod
   labels:
     app.kubernetes.io/component: server
-    app.kubernetes.io/instance: argo-workflow
+    app.kubernetes.io/instance: default
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: argo-workflows-server
     app.kubernetes.io/part-of: argo-workflows
     backstage.io/kubernetes-id: argo-workflow
     helm.sh/chart: argo-workflows-0.41.8
-  name: argo-workflow-argo-workflows-server
-  namespace: argo-workflow
+  name: default-argo-workflows-server
+  namespace: default
 spec:
   ingressClassName: nginx
   rules:
@@ -1857,7 +2139,7 @@ spec:
       paths:
       - backend:
           service:
-            name: argo-workflow-argo-workflows-server
+            name: default-argo-workflows-server
             port:
               number: 2746
         path: /
@@ -1873,6 +2155,5 @@ metadata:
   labels:
     backstage.io/kubernetes-id: argo-workflow
   name: argo-workflow-authentik-provider-credentials
-  namespace: argo-workflow
 spec:
   itemPath: vaults/homelab/items/argo-workflow-authentik-provider-credentials
