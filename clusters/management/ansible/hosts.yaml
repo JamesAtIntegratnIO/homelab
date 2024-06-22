@@ -5,21 +5,16 @@ all:
   # use `ansible-playbook -i hosts.yaml playbook.yaml --limit pi-cluster-1` to target a specific machine
   # as its the only way to make this work
 
-    pi-cluster-1:
-      ansiblehost: 10.0.3.101
-      static_ip: 10.0.3.101
-    pi-cluster-2:
-      ansible_host: 10.0.3.102
-      static_ip: 10.0.3.102
-    pi-cluster-3:
-      ansible_host: 10.0.3.103
-      static_ip: 10.0.3.103
-    pi-cluster-4:
-      ansible_host: 10.0.3.104
-      static_ip: 10.0.3.104
-    pi-cluster-5:
-      ansible_host: 10.0.3.105
-      static_ip: 10.0.3.105
+    k8s-master:
+      ansible_host: 10.0.2.101
+      static_ip: 10.0.2.101
+    k8s-worker1:
+      ansible_host: 10.0.2.102
+      static_ip: 10.0.2.102
+    k8s-worker2:
+      ansible_host: 10.0.2.103
+      static_ip: 10.0.2.103
+
   vars:
     ansible_user: boboysdadda
     ansible_ssh_private_key_file: /home/boboysdadda/.ssh/id_ed25519

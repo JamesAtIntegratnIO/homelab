@@ -10,30 +10,11 @@
         upgrade: yes
         update_cache: yes
         cache_valid_time: 86400 #One day
-    
-    - name: Add public key to root SSH
-      authorized_key:
-        user: root
-        key: "{{ lookup('file', '/home/boboysdadda/.ssh/id_ed25519.pub') }}"
+    - name: install nfs-common
+      apt:
+        name: nfs-common
         state: present
-    
-    - name: Enable root SSH
-      lineinfile:
-        path: /etc/ssh/sshd_config
-        regexp: '^#?PermitRootLogin'
-        line: 'PermitRootLogin yes'
-        state: present
-      notify: Restart SSH Service
 
-    - name: Replace /etc/resolv.conf with a symlink to /run/systemd/resolve/resolv.conf
-      file:
-        src: /run/systemd/resolve/resolv.conf
-        dest: /etc/resolv.conf
-        state: link
-        force: true
-      notify:
-      - Restart resolvctl
-    
     - name: Set static IP with netplan
       copy:
         content: |
@@ -60,26 +41,37 @@
         state: absent
       notify:
       - Apply netplan configuration
-    - name: Enable passwordless sudo
-      hosts: your_target_host
-      become: yes
-      become_method: sudo
-      tasks:
-        - name: Add NOPASSWD entry to sudoers file
-          lineinfile:
-            path: /etc/sudoers
-            line: 'boboysdadda ALL=(ALL) NOPASSWD:ALL'
-            validate: 'visudo -cf %s'
-          become: yes
+
+    - name: Add NOPASSWD entry to sudoers file
+      lineinfile:
+        path: /etc/sudoers
+        line: 'boboysdadda ALL=(ALL) NOPASSWD:ALL'
+        validate: 'visudo -cf %s'
+    
+    ## This is a workaround for the issue where the machine-id is the same for all the nodes when using clones in proxmox
+    ## Could probably put some logic here to only run once, but I'm lazy
+    # - name: Remove existing machine ID file
+    #   file:
+    #     path: /etc/machine-id
+    #     state: absent
+    #   notify: machine-id handler
+
+    # - name: Remove other existing machine ID file
+    #   file:
+    #     path: /var/lib/dbus/machine-id
+    #     state: absent
+    #   notify: machine-id handler
 
   handlers:
   - name: Apply netplan configuration
     command: netplan apply
-  - name: Restart SSH Service
-    service:
-      name: ssh
-      state: restarted
   - name: Restart resolvctl
     service:
       name: systemd-resolved
       state: restarted
+  - name: Restart SSH Service
+    service:
+      name: ssh
+      state: restarted
+  - name: machine-id handler
+    command: dbus-uuidgen --ensure
