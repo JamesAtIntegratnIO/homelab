@@ -3,6 +3,7 @@ labels:
   - pairs:
       'backstage.io/kubernetes-id': 'minio-tenant'
 resources: 
+- github.com/minio/operator?ref=v5.0.15
 - storage-user-onePasswordItem.yaml
 - ingress.yaml
 - tenant.yaml

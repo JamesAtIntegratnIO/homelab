@@ -4,3 +4,4 @@ labels:
       'backstage.io/kubernetes-id': 'vertical-pod-autoscaler'
 resources:
   - vpa.yaml
+# You need to run this script for this to run https://github.com/kubernetes/autoscaler/blob/master/vertical-pod-autoscaler/pkg/admission-controller/gencerts.sh
