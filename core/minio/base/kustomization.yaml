@@ -9,3 +9,10 @@ resources:
 - tenant.yaml
 
 
+patches:
+  # patch console service to load balance
+  - path: console-service-patch.yaml
+    target:
+      version: v1
+      kind: Service
+      name: console

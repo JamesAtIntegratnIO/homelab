@@ -4,7 +4,7 @@ metadata:
   name: tenant-ingress
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-prod"
-    nginx.ingress.kubernetes.io/proxy-body-size: 0
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
 spec:
   ingressClassName: nginx
   tls:
@@ -30,6 +30,6 @@ spec:
             path: "/"
             backend:
               service:
-                name: myminio-console
+                name: console
                 port:
                   number: 9090
