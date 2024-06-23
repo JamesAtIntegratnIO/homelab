@@ -6114,6 +6114,7 @@ spec:
     port: 9443
   selector:
     app: console
+  type: LoadBalancer
 ---
 apiVersion: v1
 kind: Service
