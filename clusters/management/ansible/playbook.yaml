@@ -62,6 +62,21 @@
     #     state: absent
     #   notify: machine-id handler
 
+    - name: format /dev/sdb to xfs
+      filesystem:
+        fstype: xfs
+        dev: /dev/sdb
+        opts: "-L MINIODRIVE1"
+    - name: mount /dev/sdb to /mnt/minio
+      mount:
+        path: /mnt/minio
+        src: LABEL=MINIODRIVE1
+        fstype: xfs
+        dump: 0
+        passno: 2
+        state: mounted
+        opts: defaults,noatime
+
   handlers:
   - name: Apply netplan configuration
     command: netplan apply
