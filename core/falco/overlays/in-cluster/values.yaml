@@ -5,7 +5,14 @@ falco:
         condition: >
           ((k8s.ns.name = "argocd" and k8s.pod.name startswith "argocd") or
           (k8s.ns.name = "falco" and k8s.pod.name startswith "falco-k8s-metacollector-") or
-          (k8s.ns.name = "minio-tenant" and k8s.pod.name startswith "minio-operator-"))
+          (k8s.ns.name = "minio-tenant" and k8s.pod.name startswith "minio-operator-") or
+          (k8s.ns.name = "directpv" and k8s.pod.name startswith "node-server-") or
+          (k8s.ns.name = "nfs-provisioner" and k8s.pod.name startswith "config-nfs-client-") or
+          (k8s.ns.name = "nfs-provisioner" and k8s.pod.name startswith "nfs-client-provisioner-") or
+          (k8s.ns.name = "nfs-provisioner" and k8s.pod.name startswith "data-nfs-client-provisioner") or
+          (k8s.ns.name = "nfs-provisioner" and k8s.pod.name startswith "data-nfs-client-") or
+          (k8s.ns.name = "kube-system" and k8s.pod.name startswith "vpa-recommender-") or
+          (k8s.ns.name = "cert-manager" and k8s.pod.name startswith "cert-manager-webhook-"))
   collectors:
     containerd:
       socket: /run/k0s/containerd.sock

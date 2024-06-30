@@ -76,6 +76,12 @@
         passno: 2
         state: mounted
         opts: defaults,noatime
+    - name: increase inotify max_user_instances
+      ansible.builtin.sysctl:
+        name: fs.inotify.max_user_instances
+        value: 256
+        state: present
+        reload: yes
 
   handlers:
   - name: Apply netplan configuration
