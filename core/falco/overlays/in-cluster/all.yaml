@@ -422,7 +422,10 @@ data:
       condition: >
         ((k8s.ns.name = "argocd" and k8s.pod.name startswith "argocd") or
         (k8s.ns.name = "falco" and k8s.pod.name startswith "falco-k8s-metacollector-") or
-        (k8s.ns.name = "minio-tenant" and k8s.pod.name startswith "minio-operator-"))
+        (k8s.ns.name = "minio-tenant" and k8s.pod.name startswith "minio-operator-") or
+        (k8s.ns.name = "directpv" and k8s.pod.name startswith "node-server-") or
+        (k8s.ns.name = "nfs-provisioner" and k8s.pod.name startswith "config-nfs-client-") or
+        (k8s.ns.name = "nfs-provisioner" and k8s.pod.name startswith "data-nfs-client-"))
 kind: ConfigMap
 metadata:
   labels:
@@ -1239,7 +1242,7 @@ spec:
       annotations:
         checksum/certs: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
         checksum/config: fede23d7afa9f12ffbabc97f964650f9a92f30d446be7fc7d52e048d8a3bb218
-        checksum/rules: 1c5e9306dfb7cf66865c4d499a782880a9cc3f949f791687955bf418f57fed27
+        checksum/rules: 4607bf1194ac038b5722760ac9021f0a21f419313e95e81eeea32fa1fa8b37ba
       labels:
         app.kubernetes.io/instance: falco
         app.kubernetes.io/name: falco
