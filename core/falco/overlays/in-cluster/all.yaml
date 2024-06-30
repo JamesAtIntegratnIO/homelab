@@ -420,7 +420,7 @@ data:
   rules-custom.yaml: |-
     - macro: k8s_containers
       condition: >
-        (k8s.ns.name = "argocd" AND k8s.pod.name startswith "argocd")
+        (k8s.ns.name = "argocd" and k8s.pod.name startswith "argocd")
 kind: ConfigMap
 metadata:
   labels:
@@ -1237,7 +1237,7 @@ spec:
       annotations:
         checksum/certs: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
         checksum/config: 3e18a7e3fd6ddab4526f1bf05a394786bd939c4138d3f9ab995ff2ebd03a9761
-        checksum/rules: 966588a012f005d1380091d82894952bbd299a908d36930fd3b6aed675970b93
+        checksum/rules: 9a39a01433d87205581ce3b9fdaca7c3d6eafe300ae2a9d8d9cebba5ac8704e5
       labels:
         app.kubernetes.io/instance: falco
         app.kubernetes.io/name: falco
