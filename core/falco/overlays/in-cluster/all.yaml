@@ -443,6 +443,26 @@ spec:
     app.kubernetes.io/name: falcosidekick
   type: ClusterIP
 ---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  annotations:
+    pv.kubernetes.io/provisioned-by: k8s-sigs.io/data-nfs-subdir-external-provisioner
+  labels:
+    app: bazarr
+  name: falcosidekick-redis-pv
+spec:
+  accessModes:
+  - ReadWriteOnce
+  capacity:
+    storage: 1Gi
+  nfs:
+    path: /mnt/user/data
+    server: 10.0.0.12
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: data-nfs-client
+  volumeMode: Filesystem
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -658,6 +678,7 @@ spec:
       resources:
         requests:
           storage: 1Gi
+      storageClassName: data-nfs-client
 ---
 apiVersion: apps/v1
 kind: DaemonSet
