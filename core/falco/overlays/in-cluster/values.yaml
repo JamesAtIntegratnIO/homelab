@@ -1,4 +1,12 @@
 falco:
+  customRules:
+    rules-custom.yaml: |-
+      - macro: k8s_containers
+        condition: >
+          (k8s.ns.name = "argocd" and k8s.pod.name startswith "argocd")
+  collectors:
+    kubernetes:
+      enabled: true
   falcosidekick:
     enabled: true
     config:
