@@ -425,7 +425,8 @@ data:
         (k8s.ns.name = "minio-tenant" and k8s.pod.name startswith "minio-operator-") or
         (k8s.ns.name = "directpv" and k8s.pod.name startswith "node-server-") or
         (k8s.ns.name = "nfs-provisioner" and k8s.pod.name startswith "config-nfs-client-") or
-        (k8s.ns.name = "nfs-provisioner" and k8s.pod.name startswith "data-nfs-client-"))
+        (k8s.ns.name = "nfs-provisioner" and k8s.pod.name startswith "data-nfs-client-") or
+        (k8s.ns.name = "kube-system" and k8s.pod.name startswith "vpa-recommender-"))
 kind: ConfigMap
 metadata:
   labels:
@@ -1242,7 +1243,7 @@ spec:
       annotations:
         checksum/certs: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
         checksum/config: fede23d7afa9f12ffbabc97f964650f9a92f30d446be7fc7d52e048d8a3bb218
-        checksum/rules: 4607bf1194ac038b5722760ac9021f0a21f419313e95e81eeea32fa1fa8b37ba
+        checksum/rules: ddbc5c17884842500d4f4222950e9bc845dcf5114513aff979382c208515c7d6
       labels:
         app.kubernetes.io/instance: falco
         app.kubernetes.io/name: falco
