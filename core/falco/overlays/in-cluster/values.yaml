@@ -2,12 +2,12 @@ falco:
   falcosidekick:
     enabled: true
     config:
-      extraEnv:
-        - name: DISCORD_WEBHOOKURL
-          valueFrom:
-            secretKeyRef:
-              name: falcosidekick
-              key: discord_webhookurl
+      # extraEnv:
+      #   - name: DISCORD_WEBHOOKURL
+      #     valueFrom:
+      #       secretKeyRef:
+      #         name: falcosidekick
+      #         key: discord_webhookurl
     webui:
       enabled: true
       ingress:
