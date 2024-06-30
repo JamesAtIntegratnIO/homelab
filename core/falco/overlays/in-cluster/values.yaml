@@ -9,6 +9,7 @@ falco:
       socket: /run/k0s/containerd.sock
     kubernetes:
       enabled: true
+      collectorHostname: falco-k8s-metacollector.falco.svc
   falcosidekick:
     enabled: true
     config:
