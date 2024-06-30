@@ -16,3 +16,5 @@ patches:
       version: v1
       kind: Service
       name: console
+
+# Setup DirectPV https://github.com/minio/directpv/blob/master/docs/installation.md

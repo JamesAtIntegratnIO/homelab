@@ -23,5 +23,5 @@ appVersion: "1.0.1"
 
 dependencies:
 - name: falco
-  version: 4.3.0
+  version: 4.5.1
   repository: https://falcosecurity.github.io/charts

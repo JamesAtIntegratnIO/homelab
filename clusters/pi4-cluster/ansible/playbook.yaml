@@ -60,17 +60,7 @@
         state: absent
       notify:
       - Apply netplan configuration
-    - name: Enable passwordless sudo
-      hosts: your_target_host
-      become: yes
-      become_method: sudo
-      tasks:
-        - name: Add NOPASSWD entry to sudoers file
-          lineinfile:
-            path: /etc/sudoers
-            line: 'boboysdadda ALL=(ALL) NOPASSWD:ALL'
-            validate: 'visudo -cf %s'
-          become: yes
+    
 
   handlers:
   - name: Apply netplan configuration

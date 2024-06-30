@@ -14,10 +14,15 @@ Cluster should have nfs-common installed
     ```     
 2. Prepare 1password credentials and tokens secret.
     1. 1password-credentials.json must be base64 encoded
-    ```bash
+    
     2. After installing the core apps, create the secrets
+    ```bash
     kubectl create secret generic op-credentials
-    --from-literal=1password-credentials=$(cat 1password-credentials.json |   base64 -w 0)`
+    --from-literal=1password-credentials.json=$(cat 1password-credentials.json |   base64 -w 0) -n op-connect
+    ```
+    3. Create onepassword-token secret
+    ```bash
+    kubectl create secret generic onpassword-token --from-litera=token=YOUR_TOKEN -n op-connect
     ```
 3. Install the core apps using ArgoCD
     ```bash
