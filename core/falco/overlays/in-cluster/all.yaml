@@ -46,6 +46,19 @@ metadata:
   name: falco-falcosidekick-ui
   namespace: falco
 ---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    app.kubernetes.io/component: metadata-collector
+    app.kubernetes.io/instance: falco
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: k8s-metacollector
+    app.kubernetes.io/version: 0.1.1
+    helm.sh/chart: k8s-metacollector-0.1.8
+  name: falco-k8s-metacollector
+  namespace: falco
+---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
@@ -104,6 +117,49 @@ metadata:
 rules: []
 ---
 apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/component: metadata-collector
+    app.kubernetes.io/instance: falco
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: k8s-metacollector
+    app.kubernetes.io/version: 0.1.1
+    helm.sh/chart: k8s-metacollector-0.1.8
+  name: falco-k8s-metacollector
+rules:
+- apiGroups:
+  - apps
+  resources:
+  - daemonsets
+  - deployments
+  - replicasets
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - endpoints
+  - namespaces
+  - pods
+  - replicationcontrollers
+  - services
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - discovery.k8s.io
+  resources:
+  - endpointslices
+  verbs:
+  - get
+  - list
+  - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   labels:
@@ -167,6 +223,26 @@ subjects:
   name: falco-falcosidekick-ui
   namespace: falco
 ---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    app.kubernetes.io/component: metadata-collector
+    app.kubernetes.io/instance: falco
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: k8s-metacollector
+    app.kubernetes.io/version: 0.1.1
+    helm.sh/chart: k8s-metacollector-0.1.8
+  name: falco-k8s-metacollector
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: falco-k8s-metacollector
+subjects:
+- kind: ServiceAccount
+  name: falco-k8s-metacollector
+  namespace: falco
+---
 apiVersion: v1
 data:
   falco.yaml: |-
@@ -221,7 +297,8 @@ data:
     libs_logger:
       enabled: false
       severity: debug
-    load_plugins: []
+    load_plugins:
+    - k8smeta
     log_level: info
     log_stderr: true
     log_syslog: true
@@ -252,6 +329,12 @@ data:
     - init_config: ""
       library_path: libjson.so
       name: json
+    - init_config:
+        collectorHostname: falco-k8s-metacollector.default.svc
+        collectorPort: 45000
+        nodeName: ${FALCO_K8S_NODE_NAME}
+      library_path: libk8smeta.so
+      name: k8smeta
     priority: debug
     program_output:
       enabled: false
@@ -315,6 +398,7 @@ data:
         pluginsDir: /plugins
         refs:
         - falco-rules:3
+        - ghcr.io/falcosecurity/plugins/plugin/k8smeta:0.1.0
         resolveDeps: true
         rulesfilesDir: /rulesfiles
     indexes:
@@ -329,6 +413,23 @@ metadata:
     app.kubernetes.io/version: 0.38.1
     helm.sh/chart: falco-4.5.1
   name: falco-falcoctl
+  namespace: falco
+---
+apiVersion: v1
+data:
+  rules-custom.yaml: |-
+    - macro: k8s_containers
+      condition: >
+        ((k8s.ns.name = "argocd" AND k8s.pod.name startswith "argocd"))
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/instance: falco
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: falco
+    app.kubernetes.io/version: 0.38.1
+    helm.sh/chart: falco-4.5.1
+  name: falco-rules
   namespace: falco
 ---
 apiVersion: v1
@@ -780,6 +881,37 @@ spec:
   type: ClusterIP
 ---
 apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/component: metadata-collector
+    app.kubernetes.io/instance: falco
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: k8s-metacollector
+    app.kubernetes.io/version: 0.1.1
+    helm.sh/chart: k8s-metacollector-0.1.8
+  name: falco-k8s-metacollector
+  namespace: falco
+spec:
+  ports:
+  - name: broker-grpc
+    port: 45000
+    protocol: TCP
+    targetPort: broker-grpc
+  - name: health-probe
+    port: 8081
+    protocol: TCP
+    targetPort: health-probe
+  - name: metrics
+    port: 8080
+    protocol: TCP
+    targetPort: metrics
+  selector:
+    app.kubernetes.io/instance: falco
+    app.kubernetes.io/name: k8s-metacollector
+  type: ClusterIP
+---
+apiVersion: v1
 kind: PersistentVolume
 metadata:
   annotations:
@@ -944,6 +1076,74 @@ spec:
       serviceAccountName: falco-falcosidekick-ui
 ---
 apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/component: metadata-collector
+    app.kubernetes.io/instance: falco
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: k8s-metacollector
+    app.kubernetes.io/version: 0.1.1
+    helm.sh/chart: k8s-metacollector-0.1.8
+  name: falco-k8s-metacollector
+  namespace: falco
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: falco
+      app.kubernetes.io/name: k8s-metacollector
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: falco
+        app.kubernetes.io/name: k8s-metacollector
+    spec:
+      containers:
+      - args:
+        - run
+        command:
+        - /meta-collector
+        image: docker.io/falcosecurity/k8s-metacollector:0.1.1
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8081
+          initialDelaySeconds: 45
+          periodSeconds: 15
+          timeoutSeconds: 5
+        name: k8s-metacollector
+        ports:
+        - containerPort: 45000
+          name: broker-grpc
+          protocol: TCP
+        - containerPort: 8081
+          name: health-probe
+          protocol: TCP
+        - containerPort: 8080
+          name: metrics
+          protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: 8081
+          initialDelaySeconds: 30
+          periodSeconds: 15
+          timeoutSeconds: 5
+        resources: {}
+        securityContext:
+          capabilities:
+            drop:
+            - ALL
+      securityContext:
+        fsGroup: 1000
+        runAsGroup: 1000
+        runAsNonRoot: true
+        runAsUser: 1000
+      serviceAccountName: falco-k8s-metacollector
+---
+apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   labels:
@@ -1036,8 +1236,8 @@ spec:
     metadata:
       annotations:
         checksum/certs: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-        checksum/config: c17811aec4dcecd888e7a93a09c99bf5b92d94abe7ca31d4c6d635fbe5924809
-        checksum/rules: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+        checksum/config: 3e18a7e3fd6ddab4526f1bf05a394786bd939c4138d3f9ab995ff2ebd03a9761
+        checksum/rules: eb5a9100aa4a34ac9785284487f87a4dbe18ca77a804ac2c12ae6f16c58c5780
       labels:
         app.kubernetes.io/instance: falco
         app.kubernetes.io/name: falco
@@ -1112,6 +1312,8 @@ spec:
         - mountPath: /etc/falco/falco.yaml
           name: falco-yaml
           subPath: falco.yaml
+        - mountPath: /etc/falco/rules.d
+          name: rules-volume
       - args:
         - artifact
         - follow
@@ -1225,6 +1427,9 @@ spec:
             path: falco.yaml
           name: falco
         name: falco-yaml
+      - configMap:
+          name: falco-rules
+        name: rules-volume
   updateStrategy:
     type: RollingUpdate
 ---
