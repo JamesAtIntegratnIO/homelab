@@ -1407,7 +1407,7 @@ spec:
           path: /var/run
         name: docker-socket
       - hostPath:
-          path: /run/containerd
+          path: /run/k0s
         name: containerd-socket
       - hostPath:
           path: /run/crio
