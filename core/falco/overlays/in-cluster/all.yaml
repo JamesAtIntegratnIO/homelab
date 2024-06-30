@@ -850,6 +850,11 @@ spec:
           value: ""
         - name: MUTUALTLSCLIENT_CACERTFILE
           value: ""
+        - name: DISCORD_WEBHOOKURL
+          valueFrom:
+            secretKeyRef:
+              key: discord_webhookurl
+              name: falcosidekick
         envFrom:
         - secretRef:
             name: falco-falcosidekick
