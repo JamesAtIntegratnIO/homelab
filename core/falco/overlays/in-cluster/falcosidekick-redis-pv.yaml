@@ -5,7 +5,7 @@ metadata:
     pv.kubernetes.io/provisioned-by: k8s-sigs.io/data-nfs-subdir-external-provisioner
   name: falcosidekick-redis-pv
   labels:
-    app: bazarr
+    app: falcosidekick
 spec:
   accessModes:
   - ReadWriteOnce

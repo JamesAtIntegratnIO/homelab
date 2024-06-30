@@ -2,7 +2,7 @@ falco:
   falcosidekick:
     enabled: true
     config:
-      existingSecret: falcosidekick
+      # existingSecret: falcosidekick
     webui:
       enabled: true
       ingress:
