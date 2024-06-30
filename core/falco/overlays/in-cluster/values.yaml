@@ -5,6 +5,8 @@ falco:
         condition: >
           (k8s.ns.name = "argocd" and k8s.pod.name startswith "argocd")
   collectors:
+    containerd:
+      socket: /run/k0s/containerd.sock
     kubernetes:
       enabled: true
   falcosidekick:
