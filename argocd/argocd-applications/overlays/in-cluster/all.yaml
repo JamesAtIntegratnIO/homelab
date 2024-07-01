@@ -86,7 +86,7 @@ spec:
   templatePatch: |
     {{- if .ignoreDifferences }}
       spec:
-        ignoreDifferences: .ignoreDifferences
+        ignoreDifferences: {.ignoreDifferences}
     {{- end}}
 ---
 apiVersion: onepassword.com/v1
