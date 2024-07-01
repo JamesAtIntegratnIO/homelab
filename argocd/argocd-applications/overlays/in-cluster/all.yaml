@@ -72,6 +72,8 @@ spec:
       destination:
         name: '{{.name}}'
         namespace: '{{.namespace}}'
+      ignoreDifferences:
+        .ignoreDifferences: ""
       project: infra
       source:
         path: core/{{.path.basename}}/overlays/{{.name}}
