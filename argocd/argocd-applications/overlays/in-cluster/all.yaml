@@ -81,11 +81,8 @@ spec:
           selfHeal: true
         syncOptions:
         - CreateNamespace=true
-  templatePatch: |
-    spec:
-      {{- if ne nil $.ignoreDifferences }}
-        ignoreDifferences: {{.ignoreDifferences}}
-      {{- end }}
+  templatePatch: "spec:\n  {{- if ne nil $.ignoreDifferences }}\n    ignoreDifferences:
+    \n      {{.ignoreDifferences}}\n  {{- end }}\n"
 ---
 apiVersion: onepassword.com/v1
 kind: OnePasswordItem
