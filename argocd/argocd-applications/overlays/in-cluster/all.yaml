@@ -85,8 +85,8 @@ spec:
         - CreateNamespace=true
   templatePatch: |
     spec:
-      {{- if .ignoreDifferences true }}
-      ignoreDifferences: {{.ignoreDifferences}}
+      {{- if !eq nil $.ignoreDifferences true }}
+        {{.ignoreDifferences}}
       {{- end }}
 ---
 apiVersion: onepassword.com/v1
