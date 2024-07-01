@@ -85,7 +85,7 @@ spec:
         - CreateNamespace=true
   templatePatch: |
     spec:
-      {{- if !eq nil $.ignoreDifferences true }}
+      {{- if ne nil $.ignoreDifferences }}
         {{.ignoreDifferences}}
       {{- end }}
 ---
