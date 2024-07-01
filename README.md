@@ -33,3 +33,4 @@ Cluster should have nfs-common installed
     kubectl apply -k base/k8s/argocd/overlay/in-cluster
     ```
 
+Current issues: cert-manager crds need to exist before helm can apply even though it has the crds
