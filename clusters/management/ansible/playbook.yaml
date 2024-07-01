@@ -82,6 +82,20 @@
         value: 256
         state: present
         reload: yes
+    - name: ensure /var/lib/k0s dir exists
+      file:
+        path: /var/lib/k0s
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+    - name: copy audit-policy.yaml
+      copy:
+        src: audit-policy.yaml
+        dest: /var/lib/k0s/audit-policy.yaml
+        owner: root
+        group: root
+        mode: '0644'
 
   handlers:
   - name: Apply netplan configuration

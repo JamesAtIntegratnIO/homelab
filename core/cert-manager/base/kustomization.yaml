@@ -7,5 +7,4 @@ labels:
       'test-label': 'test-label-value'
 resources:
 - namespace.yaml
-- issuer.yaml
 - onepassword-item.yaml

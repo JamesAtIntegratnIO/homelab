@@ -13,6 +13,10 @@ spec:
     noTaints: true
     environment:
       DISABLE_TELEMETRY: true
+    hooks:
+      apply:
+        before:
+        - sudo mkdir -p /var/log/k0s/audit && sudo chmod -R 770 /var/log/k0s/audit
   - ssh:
       address: 10.0.2.102
       user: boboysdadda
@@ -21,6 +25,10 @@ spec:
     role: worker
     environment:
       DISABLE_TELEMETRY: true
+    hooks:
+      apply:
+        before:
+        - sudo mkdir -p /var/log/k0s/audit && sudo chmod -R 770 /var/log/k0s/audit
   - ssh:
       address: 10.0.2.103
       user: boboysdadda
@@ -29,6 +37,10 @@ spec:
     role: worker
     environment:
       DISABLE_TELEMETRY: true
+    hooks:
+      apply:
+        before:
+        - sudo mkdir -p /var/log/k0s/audit && sudo chmod -R 770 /var/log/k0s/audit
   k0s:
     version: null
     # versionChannel: stable

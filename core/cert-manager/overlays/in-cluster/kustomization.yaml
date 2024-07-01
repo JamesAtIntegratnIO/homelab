@@ -5,6 +5,7 @@ namespace: cert-manager
 resources: 
 - ../../base
 - ./helm-all.yaml
+- ./issuer.yaml
 
 patches:
 - path: dnszones-patch.yaml
