@@ -84,10 +84,10 @@ spec:
         syncOptions:
         - CreateNamespace=true
   templatePatch: |
-    {{- if .ignoreDifferences }}
-      spec:
-        ignoreDifferences: {.ignoreDifferences}
-    {{- end}}
+    spec:
+      {{- if .ignoreDifferences true }}
+      ignoreDifferences: [{{.ignoreDifferences}}]
+      {{- end }}
 ---
 apiVersion: onepassword.com/v1
 kind: OnePasswordItem
