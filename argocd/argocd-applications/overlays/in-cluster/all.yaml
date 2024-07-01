@@ -60,8 +60,6 @@ spec:
           repoURL: https://github.com/JamesAtIntegratnIO/homelab.git
           revision: main
   goTemplate: true
-  goTemplateOptions:
-  - missingkey=error
   template:
     metadata:
       annotations:
