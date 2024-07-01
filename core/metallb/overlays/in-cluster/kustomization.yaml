@@ -12,3 +12,10 @@ patches:
     kind: IPAddressPool
     name: default
     namespace: metallb-system
+- path: ignore-differences-patch.yaml
+  target:
+    group: argoproj.io
+    version: v1alpha1
+    kind: Application
+    name: in-cluster-metallb
+    namespace: argocd

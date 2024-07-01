@@ -1,5 +1,4 @@
 {
   "namespace": "metallb-system",
-  "syncwave": "1",
-  "ignoreDifferences":"-group: apiextensions.k8s.io\nkind: CustomResourceDefinition\nnamespace: metallb-system\njsonPointers:\n  -/spec/conversion/webhook/clientConfig/caBundle"
+  "syncwave": "1"
 }

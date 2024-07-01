@@ -37,10 +37,3 @@ spec:
           selfHeal: true
         syncOptions:
           - CreateNamespace=true
-  templatePatch: |
-    spec:
-      {{- if ne nil $.ignoreDifferences }}
-        ignoreDifferences: 
-          {{.ignoreDifferences}}
-      {{- end }}
-
