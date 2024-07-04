@@ -1,0 +1,12 @@
+# create namespace manifest for hajimari
+#
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: hajimari
+  labels:
+    name: hajimari
+    app: hajimari
+    goldilocks.fairwinds.com/enabled: "true"
+  annotations:
+    backstage.io/kubernetes-namespace: hajimari

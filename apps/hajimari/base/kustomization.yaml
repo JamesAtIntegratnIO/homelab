@@ -5,3 +5,4 @@ labels:
       app: hajimari
 resources:
 - pv.yaml
+- namespace.yaml
