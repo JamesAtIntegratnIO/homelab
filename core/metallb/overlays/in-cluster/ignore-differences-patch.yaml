@@ -1,8 +1,0 @@
-- op: add
-  path: "/spec/ignoreDifferences"
-  value:
-    - group: apiextensions.k8s.io
-      kind: CustomResourceDefinition
-      namespace: metallb-system
-      jsonPointers:
-      - "/spec/conversion/webhook/clientConfig/caBundle"
