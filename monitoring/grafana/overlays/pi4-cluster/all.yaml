@@ -142,7 +142,7 @@ metadata:
 ---
 apiVersion: v1
 data:
-  admin-password: dnB2MjlHQWFESUFWZHhqeTN0Z2VGVW15NzgwV3hxTGQwcVY0VHowVA==
+  admin-password: T3BUVmNhUFJSeEJYY3A0ZUJhdTZhbGdUUkU0WWJ0QmR0eGZ2eFRrcQ==
   admin-user: YWRtaW4=
   ldap-toml: ""
 kind: Secret
@@ -204,7 +204,7 @@ spec:
       annotations:
         checksum/config: 0e9cbd0ea8e24e32f7dfca5bab17a2ba05652642f0a09a4882833ae88e4cc4a3
         checksum/sc-dashboard-provider-config: e70bf6a851099d385178a76de9757bb0bef8299da6d8443602590e44f05fdf24
-        checksum/secret: 3b214c9ac922e2a28da52d210019b21d88647f2f6e1e52c2d166dfc6d89afbda
+        checksum/secret: c75dc6fdd529837c5603215578a8b2f3583d9812ad170c9ca346228833606303
         kubectl.kubernetes.io/default-container: grafana
       labels:
         app.kubernetes.io/instance: monitoring
