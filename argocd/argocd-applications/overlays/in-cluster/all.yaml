@@ -93,6 +93,70 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
+  name: argo-stack
+  namespace: argocd
+spec:
+  generators:
+  - matrix:
+      generators:
+      - clusters: {}
+      - list:
+          elements:
+          - appName: argocd
+            namespace: argocd
+            syncWave: 1
+          - appName: argo-workflow
+            namespace: argo-workflow
+            syncWave: 1
+          - appName: argocd-applications
+            namespace: argocd
+            syncWave: 2
+          - appName: argocd-image-updater
+            namespace: argocd
+            syncWave: 2
+  goTemplate: true
+  template:
+    metadata:
+      annotations:
+        argocd.argoproj.io/manifest-generate-paths: .;..
+        argocd.argoproj.io/sync-wave: '{{.syncWave}}'
+      name: '{{.name}}-{{.appName}}'
+    spec:
+      destination:
+        name: in-cluster
+        namespace: '{{.namespace}}'
+      project: infra
+      source:
+        path: argocd/{{.appName}}/overlays/{{.name}}
+        repoURL: https://github.com/JamesAtIntegratnIO/homelab.git
+        targetRevision: argocd
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+        - CreateNamespace=true
+  templatePatch: |-
+    spec:
+      destination:
+        {{- if eq .childClusters true}}
+        name: "{{.name}}"
+        {{- else }}
+        name: "in-cluster"
+        {{- end }}
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+          {{- if eq .syncPolicy "replace" }}
+          - Replace=true
+          {{- end }}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
   name: infra-stack
   namespace: argocd
 spec:
