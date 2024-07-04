@@ -1531,6 +1531,9 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
+  labels:
+    backstage.io/kubernetes-id: cert-manager
+    test-label: test-label-value
   name: letsencrypt-prod
   namespace: cert-manager
 spec:
