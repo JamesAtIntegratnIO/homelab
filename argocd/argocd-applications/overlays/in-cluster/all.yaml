@@ -47,6 +47,52 @@ status: {}
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
+  name: apps-stack
+  namespace: argocd
+spec:
+  generators:
+  - matrix:
+      generators:
+      - clusters: {}
+      - git:
+          files:
+          - path: apps/**/config.json
+          repoURL: https://github.com/JamesAtIntegratnIO/homelab.git
+          revision: main
+  goTemplate: true
+  goTemplateOptions:
+  - missingkey=error
+  template:
+    metadata:
+      annotations:
+        argocd.argoproj.io/manifest-generate-paths: .;..
+      name: '{{.name}}-{{.path.basename}}'
+    spec:
+      destination:
+        name: '{{.name}}'
+        namespace: '{{.cluster.namespace}}'
+      project: '{{.project}}'
+      source:
+        path: apps/{{.path.basename}}/overlays/{{.name}}
+        repoURL: https://github.com/JamesAtIntegratnIO/homelab.git
+        targetRevision: apps
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        managedNamespaceMetadata:
+          labels:
+            goldilocks.fairwinds.com/enabled: "true"
+        retry:
+          backoff:
+            duration: 10s
+            factor: 2
+            maxDuration: 10m
+          limit: 3
+---
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
   name: infra-stack
   namespace: argocd
 spec:
