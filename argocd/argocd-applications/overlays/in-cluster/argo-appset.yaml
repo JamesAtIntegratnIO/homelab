@@ -21,6 +21,9 @@ spec:
               - appName: argocd-applications
                 namespace: argocd
                 syncWave: 2
+              - appName: argocd-image-updater
+                namespace: argocd
+                syncWave: 2
   template:
     metadata:
       name: "{{.name}}-{{.appName}}"

@@ -5,6 +5,7 @@ namespace: argocd
 
 resources:
 - ../../base
+- argo-appset.yaml
 - core-appset.yaml
 - apps-appset.yaml
 # - monitoring-appset.yaml
