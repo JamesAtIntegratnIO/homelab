@@ -1,4 +1,16 @@
 apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    backstage.io/kubernetes-namespace: hajimari
+  labels:
+    app: hajimari
+    backstage.io/kubernetes-id: hajimari
+    goldilocks.fairwinds.com/enabled: "true"
+    name: hajimari
+  name: hajimari
+---
+apiVersion: v1
 kind: ServiceAccount
 metadata:
   labels:
