@@ -14,7 +14,7 @@ spec:
     solvers:
     - selector:
         dnsZones:
-        - 'k8s.integratn.tech'
+        - 'example.com'
       dns01:
         cloudflare:
           email: james@integratn.io

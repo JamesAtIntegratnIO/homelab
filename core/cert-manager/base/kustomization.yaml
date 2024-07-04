@@ -8,3 +8,4 @@ labels:
 resources:
 - namespace.yaml
 - onepassword-item.yaml
+- issuer.yaml
