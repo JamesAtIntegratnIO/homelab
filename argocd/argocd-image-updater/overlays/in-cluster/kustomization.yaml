@@ -1,0 +1,6 @@
+namespace: argocd
+labels:
+  - pairs:
+      'backstage.io/kubernetes-id': 'argocd-image-updater'
+resources:
+  - ../../base
