@@ -11,3 +11,4 @@ resources:
 - tv-config.yaml
 - pmm-pv.yaml
 - pmm-pvc.yaml
+- namespace.yaml

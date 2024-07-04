@@ -3,6 +3,7 @@ labels:
   - pairs:
       'backstage.io/kubernetes-id': 'docker-registry'
 resources:
+- namespace.yaml
 - config-onePasswordItem.yaml
 - deployment.yaml
 - ingress.yaml
