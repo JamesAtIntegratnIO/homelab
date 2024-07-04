@@ -1,3 +1,13 @@
+annotations:
+  argocd.argoproj.io/sync-wave: "-1"
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    app: pmm
+    backstage.io/kubernetes-id: pmm
+  name: pmm
+---
 apiVersion: v1
 data:
   movies.yaml: "templates:\n  IMDb Genre:\n    default:\n      title: feature\n      limit:
