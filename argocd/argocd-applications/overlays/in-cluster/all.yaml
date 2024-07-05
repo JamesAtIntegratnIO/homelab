@@ -62,6 +62,9 @@ spec:
   goTemplate: true
   goTemplateOptions:
   - missingkey=error
+  ignoreApplicationDifferences:
+  - jsonPointers:
+    - /spec/syncPolicy/automated
   template:
     metadata:
       annotations:
@@ -115,6 +118,9 @@ spec:
             namespace: argocd
             syncWave: 2
   goTemplate: true
+  ignoreApplicationDifferences:
+  - jsonPointers:
+    - /spec/syncPolicy/automated
   template:
     metadata:
       annotations:
@@ -170,6 +176,9 @@ spec:
           repoURL: https://github.com/JamesAtIntegratnIO/homelab.git
           revision: main
   goTemplate: true
+  ignoreApplicationDifferences:
+  - jsonPointers:
+    - /spec/syncPolicy/automated
   template:
     metadata:
       annotations:
