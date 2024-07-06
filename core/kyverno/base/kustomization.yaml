@@ -2,3 +2,5 @@ labels:
   - pairs:
       'backstage.io/kubernetes-id': 'kyverno'
 namespace: kyverno
+resources:
+  - namespace.yaml
