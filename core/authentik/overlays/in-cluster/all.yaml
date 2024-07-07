@@ -191,9 +191,9 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: authentik
     app.kubernetes.io/part-of: authentik
-    app.kubernetes.io/version: 2024.4.2
+    app.kubernetes.io/version: 2024.6.0
     backstage.io/kubernetes-id: authentik
-    helm.sh/chart: authentik-2024.4.2
+    helm.sh/chart: authentik-2024.6.0
   name: authentik
   namespace: authentik
 ---
@@ -231,9 +231,9 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: authentik
     app.kubernetes.io/part-of: authentik
-    app.kubernetes.io/version: 2024.4.2
+    app.kubernetes.io/version: 2024.6.0
     backstage.io/kubernetes-id: authentik
-    helm.sh/chart: authentik-2024.4.2
+    helm.sh/chart: authentik-2024.6.0
   name: authentik-server
   namespace: authentik
 spec:
@@ -261,9 +261,9 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: authentik
     app.kubernetes.io/part-of: authentik
-    app.kubernetes.io/version: 2024.4.2
+    app.kubernetes.io/version: 2024.6.0
     backstage.io/kubernetes-id: authentik
-    helm.sh/chart: authentik-2024.4.2
+    helm.sh/chart: authentik-2024.6.0
   name: authentik-server-metrics
   namespace: authentik
 spec:
@@ -365,9 +365,9 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: authentik
     app.kubernetes.io/part-of: authentik
-    app.kubernetes.io/version: 2024.4.2
+    app.kubernetes.io/version: 2024.6.0
     backstage.io/kubernetes-id: authentik
-    helm.sh/chart: authentik-2024.4.2
+    helm.sh/chart: authentik-2024.6.0
   name: authentik-server
   namespace: authentik
 spec:
@@ -381,15 +381,15 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/secret: 8777b193801656af513ddc3e47f7f72f731d6073a41010d80928d47bbe14a3ef
+        checksum/secret: 9e24125a227b06bb767c200e62d31493c8414a1d9c550cf58c5a56ab357918c1
       labels:
         app.kubernetes.io/component: server
         app.kubernetes.io/instance: authentik
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: authentik
         app.kubernetes.io/part-of: authentik
-        app.kubernetes.io/version: 2024.4.2
-        helm.sh/chart: authentik-2024.4.2
+        app.kubernetes.io/version: 2024.6.0
+        helm.sh/chart: authentik-2024.6.0
     spec:
       affinity:
         podAntiAffinity:
@@ -415,7 +415,7 @@ spec:
         envFrom:
         - secretRef:
             name: authentik
-        image: ghcr.io/goauthentik/server:2024.4.2
+        image: ghcr.io/goauthentik/server:2024.6.0
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 3
@@ -494,9 +494,9 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: authentik
     app.kubernetes.io/part-of: authentik
-    app.kubernetes.io/version: 2024.4.2
+    app.kubernetes.io/version: 2024.6.0
     backstage.io/kubernetes-id: authentik
-    helm.sh/chart: authentik-2024.4.2
+    helm.sh/chart: authentik-2024.6.0
   name: authentik-worker
   namespace: authentik
 spec:
@@ -510,15 +510,15 @@ spec:
   template:
     metadata:
       annotations:
-        checksum/secret: 8777b193801656af513ddc3e47f7f72f731d6073a41010d80928d47bbe14a3ef
+        checksum/secret: 9e24125a227b06bb767c200e62d31493c8414a1d9c550cf58c5a56ab357918c1
       labels:
         app.kubernetes.io/component: worker
         app.kubernetes.io/instance: authentik
         app.kubernetes.io/managed-by: Helm
         app.kubernetes.io/name: authentik
         app.kubernetes.io/part-of: authentik
-        app.kubernetes.io/version: 2024.4.2
-        helm.sh/chart: authentik-2024.4.2
+        app.kubernetes.io/version: 2024.6.0
+        helm.sh/chart: authentik-2024.6.0
     spec:
       affinity:
         podAntiAffinity:
@@ -538,7 +538,7 @@ spec:
         envFrom:
         - secretRef:
             name: authentik
-        image: ghcr.io/goauthentik/server:2024.4.2
+        image: ghcr.io/goauthentik/server:2024.6.0
         imagePullPolicy: IfNotPresent
         livenessProbe:
           exec:
@@ -704,9 +704,9 @@ metadata:
     app.kubernetes.io/managed-by: Helm
     app.kubernetes.io/name: authentik
     app.kubernetes.io/part-of: authentik
-    app.kubernetes.io/version: 2024.4.2
+    app.kubernetes.io/version: 2024.6.0
     backstage.io/kubernetes-id: authentik
-    helm.sh/chart: authentik-2024.4.2
+    helm.sh/chart: authentik-2024.6.0
   name: authentik-server
   namespace: authentik
 spec:
