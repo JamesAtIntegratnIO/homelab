@@ -34,6 +34,7 @@
             k0sctl
             k9s
             minio-client
+            talosctl
           
             yq
             jq

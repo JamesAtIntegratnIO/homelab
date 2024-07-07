@@ -8,8 +8,8 @@ resources:
 - ingress.yaml
 - infra_project.yaml
 
-components:
-  - kustomized-helm-plugin
+# components:
+#   - kustomized-helm-plugin
 
 patches:
   - path: argocd-cm-patch.yaml
