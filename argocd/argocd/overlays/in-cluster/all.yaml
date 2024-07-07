@@ -21461,82 +21461,6 @@ metadata:
   namespace: argocd
 ---
 apiVersion: v1
-data:
-  generate.sh: |
-    #!/bin/sh
-
-    # Initialize helm command with basic options
-    helm_cmd="helm template --release-name $ARGOCD_ENV_HELM_RELEASE_NAME --include-crds ../../base"
-
-    # Temporary file to hold the find results
-    temp_file=$(mktemp)
-
-    # Search for files and output to temp file
-    find . -maxdepth 1 -type f \( -iname '*values.yaml' \) > "$temp_file"
-
-    # Read from temp file to construct the helm command
-    while IFS= read -r file; do
-      helm_cmd="$helm_cmd -f \"$file\""
-    done < "$temp_file"
-
-    # Remove the temporary file
-    rm "$temp_file"
-
-    # Execute the helm command and pipe its output to all.yaml
-    eval "$helm_cmd > ../../base/all.yaml"
-
-    # Followed by kustomize build
-    kustomize build
-
-    echo "Command executed: $helm_cmd > ../../base/all.yaml && kustomize build"
-  init.sh: |
-    #!/bin/sh
-
-    # Create a temporary directory and check directly
-    BOBOYSDADDA_TEMP=$(mktemp -d)
-    if [ -z "$BOBOYSDADDA_TEMP" ]; then
-        echo "Failed to create a temporary directory."
-        exit 1
-    fi
-
-    # Set environment variables
-    export XDG_CACHE_HOME="$BOBOYSDADDA_TEMP/cache"
-    export XDG_CONFIG_HOME="$BOBOYSDADDA_TEMP/config"
-    export XDG_DATA_HOME="$BOBOYSDADDA_TEMP/data"
-    export HELM_HOME="$BOBOYSDADDA_TEMP/helm"
-
-    # Add helm repository
-
-    if ! helm repo add "$ARGOCD_ENV_HELM_REPO_NAME" "$ARGOCD_ENV_HELM_REPO_URL"; then
-        echo "Failed to add helm repository."
-        rm -r "$BOBOYSDADDA_TEMP"
-        exit 1
-    fi
-
-    # Build helm dependency
-    if ! helm dependency build ../../base; then
-        echo "Failed to build helm dependency."
-        rm -r "$BOBOYSDADDA_TEMP"
-        exit 1
-    fi
-
-    # Cleanup temporary directory
-    if ! rm -r "$BOBOYSDADDA_TEMP"; then
-        echo "Failed to remove the temporary directory."
-        exit 1
-    fi
-  plugin.yaml: "apiVersion: argoproj.io/v1alpha1\nkind: ConfigManagementPlugin\nmetadata:\n
-    \ name: kustomized-helm\nspec:\n  init:\n    command: [sh, /var/run/argocd/helm-kustomize-plugin/init.sh]\n
-    \ \n  generate:\n    command: [sh, /var/run/argocd/helm-kustomize-plugin/generate.sh]\n
-    \   "
-kind: ConfigMap
-metadata:
-  labels:
-    backstage.io/kubernetes-id: argocd
-  name: helm-kustomize-plugin-config-hhm2b8798k
-  namespace: argocd
----
-apiVersion: v1
 kind: Secret
 metadata:
   labels:
@@ -22251,36 +22175,6 @@ spec:
             weight: 5
       automountServiceAccountToken: false
       containers:
-      - command:
-        - /var/run/argocd/argocd-cmp-server
-        image: quay.io/argoproj/argocd:v2.10.3
-        name: kustomized-helm
-        resources:
-          limits:
-            cpu: "1"
-            memory: 1Gi
-          requests:
-            cpu: 100m
-            memory: 256Mi
-        securityContext:
-          runAsNonRoot: true
-          runAsUser: 999
-        volumeMounts:
-        - mountPath: /var/run/argocd
-          name: var-files
-        - mountPath: /home/argocd/cmp-server/plugins
-          name: plugins
-        - mountPath: /home/argocd/cmp-server/config/plugin.yaml
-          name: helm-kustomize-plugin-config
-          subPath: plugin.yaml
-        - mountPath: /var/run/argocd/helm-kustomize-plugin/generate.sh
-          name: helm-kustomize-plugin-config
-          subPath: generate.sh
-        - mountPath: /var/run/argocd/helm-kustomize-plugin/init.sh
-          name: helm-kustomize-plugin-config
-          subPath: init.sh
-        - mountPath: /tmp
-          name: cmp-tmp
       - args:
         - /usr/local/bin/argocd-repo-server
         env:
@@ -22537,11 +22431,6 @@ spec:
           name: var-files
       serviceAccountName: argocd-repo-server
       volumes:
-      - configMap:
-          name: helm-kustomize-plugin-config-hhm2b8798k
-        name: helm-kustomize-plugin-config
-      - emptyDir: {}
-        name: cmp-tmp
       - configMap:
           name: argocd-ssh-known-hosts-cm
         name: ssh-known-hosts
